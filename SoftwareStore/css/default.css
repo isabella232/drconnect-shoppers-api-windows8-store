@@ -64,6 +64,108 @@ progress {
         width: 100%;
     }
 
+
+/* Item template styles */
+
+.item-image {
+    max-width: 50px;
+    max-height: 65px;
+    color: #ccc;
+    font-size: 9pt;
+}
+
+.item-container {
+    clear: both;
+	border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0px 0 1px;
+    font-size: 11pt;
+    background: rgba(255, 255, 255, .4);
+    cursor: pointer;
+    display: inline-block;
+    -ms-grid-column-align: stretch;
+    -ms-grid-row-align: stretch;
+    width: 320px;
+}
+
+.item-container .image-wrapper {
+    width: 58px; 
+    float: left;
+    min-height: 70px;
+    background: white;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+.item-container .text-wrapper {
+    margin-left: 70px;
+    vertical-align: middle;
+}
+
+.item-container h1 {
+    color: #2e436d;
+    white-space: normal;
+    margin: 0 0 0 0;        
+    font-size: 11pt;
+    font-weight: bolder;
+}
+
+.item-container p {
+    margin: 0 0px 5px 0;
+    padding-right: 10px;
+}
+
+.item-container .item-title {
+	color: #081736;
+	line-height: 1.1;
+}
+
+.win-listview > .win-horizontal .win-container {
+	margin-bottom: 5px;
+	margin-top: 0px !important;
+}
+
+.page-header-bar {
+	position: absolute;
+	right: 40px;
+	top: 14px;
+}
+
+.page-header-bar .win-commandicon {
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.add-to-cart { 
+	position: absolute;
+	border-radius: 50%;
+	background-color: #70F508;
+	z-index: 100;
+	transition: all 1s;
+}
+
+    .add-to-cart span {
+        font-size: inherit;
+        font-weight: bold;
+        width: inherit;
+        text-align: center;
+    }
+
+.add-to-cart.start{
+    width: 50px;
+	height: 50px;
+	font-size: 22pt;
+	display: none;
+}
+
+.add-to-cart.end{
+	font-size: 11pt;
+	font-weight: normal;
+	width: 20px;
+	height: 20px;
+}
+
 @media screen and (-ms-view-state: snapped) {
     .fragment header[role=banner] {
         -ms-grid-columns: auto 1fr;
@@ -85,6 +187,19 @@ progress {
             margin-left: 0;
             margin-top: 68px;
         }
+
+    .item-container {
+        width: calc(100% - 24px);
+    }
+
+    .win-listview > .win-vertical .win-container {
+        margin-left: 20px;
+    }
+
+    .page-header-bar {
+        top: 0px;
+        right: 10px;
+    }
 }
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
