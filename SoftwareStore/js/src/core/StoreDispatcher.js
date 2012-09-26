@@ -17,6 +17,7 @@
                 var c = DR.Store.Controller;
                 this.addUrlMapping(DR.Store.URL.HOME_PAGE, new c.HomeController());
                 this.addUrlMapping(DR.Store.URL.PRODUCT_PAGE, new c.ProductController());
+                this.addUrlMapping(DR.Store.URL.CATEGORY_PAGE, new c.CategoryController());
             },
             declareMappings: function () {
 

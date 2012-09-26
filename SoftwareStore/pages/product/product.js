@@ -21,6 +21,13 @@
             this.element.querySelector("article .short-description").innerHTML = "";
         },
 
+        /**
+         * Sets the product name
+         */
+        setProductName: function(name) {
+            this.element.querySelector(".titlearea .pagetitle").textContent = name;
+        },
+
         /** 
          * Sets the product model
          */

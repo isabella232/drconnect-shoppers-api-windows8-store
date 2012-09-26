@@ -10,21 +10,30 @@
         {
             page: null,
             /**
-             *  Handles the request by showing the appropriate page
+             *  Handles the request by showing the appropriate page.
              */
             handle: function (detail) {
+                var self = this;
                 this.showPage(detail)
                     .then(function(control) {
-                        this.page = control;
-                        if (this.page) {
+                        self.page = control;
+                        if (self.page) {
                             console.log("Page loaded, initializing...");
-                            this.initPage(this.page, detail.state);
+                            var p = self.initPage(self.page, detail.state);
+                            if (p) {
+                                WinJS.Promise.join(p).then(function (results) {
+                                    if (self.page.dataLoaded) {
+                                        self.page.dataLoaded(results);
+                                    }
+                                });
+                            }
                         }
-                    }.bind(this));
+                    });
             },
 
             /**
              * Template method that should be overriden to init the recently loaded page
+             * If an array of promises is returned, the page's dataLoaded() method will be called when all the promises are resolved
              */
             initPage: function (page, state) { }
         }

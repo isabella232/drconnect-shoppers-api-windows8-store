@@ -27,7 +27,7 @@
                 DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
                    var promises = categories.map(function (category, index) {
-                       return DR.Store.Services.categoryService.getCategoriesById(category.id).then(loadCategoryData);
+                       return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
                    });
 
                    fillItemsList(promises, list);

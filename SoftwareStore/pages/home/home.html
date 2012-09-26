@@ -16,8 +16,8 @@
 <body>
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
-        <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: id"
-            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+        <button class="group-header win-type-x-large win-type-interactive root-category" data-win-bind="groupKey: id; groupName: displayName"
+            onclick="WinJS.Navigation.navigate(DR.Store.URL.CATEGORY_PAGE, {item: {id: event.srcElement.groupKey, displayName: event.srcElement.groupName}});" role="link" tabindex="-1" type="button">
             <span class="group-title win-type-ellipsis" data-win-bind="textContent: displayName"></span>
             <span class="group-chevron"></span>
         </button>

@@ -9,10 +9,7 @@
         },
         {
             initPage: function (page, state) {
-                //page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
-                //page.setHomeItems(getGroupedList(list));
-                //this.loadItems(list);
-                
+                page.setProductName(state.item.displayName);
                 loadFullProduct(state.item.id).then(function (product) {
                     page.setProduct(product);
                 });
