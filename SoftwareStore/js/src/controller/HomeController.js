@@ -1,9 +1,11 @@
-﻿(function () {
+﻿/**
+ * Super Class for Controllers
+ * most of Controller objects will inherit from this 
+ */
+(function () {
     "use strict";
-    /**
-     * Super Class for Controllers
-     * most of Controller objects will inherit from this 
-     */
+    
+    // TODO MUST BE PART OF THE CONFIG!
     var PAGE_SIZE = 5;
 
     var Class = DR.MVC.SinglePageController.extend(
@@ -15,10 +17,13 @@
                 var list = new WinJS.Binding.List();
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
                 page.setHomeItems(getGroupedList(list));
-                this.loadItems(list);
+                this._loadItems(list);
             },
 
-            loadItems: function (list) {
+            /**
+             * Load the items in the list
+             */
+            _loadItems: function (list) {
                 DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
                    var promises = categories.map(function (category, index) {
@@ -28,6 +33,10 @@
                    fillItemsList(promises, list);
                });
             },
+
+            /**
+             * Handler executed when an item in the Home screen is selected
+             */
             _onItemSelected: function (e) {
                 var item = e.detail.item;
                 console.log("[Home] " + item.displayName + " (" + item.type + ") selected");

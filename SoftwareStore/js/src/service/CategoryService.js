@@ -20,13 +20,14 @@
                 var self = this;
                 return this._client.categories.list({ "expand": "category" })
                     .then(function (data) {
-                        data.category.forEach(function(e, i) {
-                            self._rootCategories.push(e);
-                        });
+                        self._rootCategories = data.category;
                         return self._rootCategories;
                     });
             },
 
+            /**
+             * Get Category by ID
+             */
             getCategoriesById: function (id) {
                 var self = this;
                 return this._client.categories.get(id, { expand: 'categories.category.id' })
