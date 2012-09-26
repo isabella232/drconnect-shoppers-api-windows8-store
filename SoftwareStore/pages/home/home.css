@@ -1,0 +1,168 @@
+﻿.homepage section[role=main] {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 2;
+}
+
+.homepage .itemslist {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    margin-bottom: 88px;
+}
+
+    /* This selector is used to prevent ui-dark/light.css from overwriting changes
+       to .win-surface. */
+    .homepage .itemslist .win-horizontal.win-viewport .win-surface {
+    	margin-left: 45px;
+    	padding-right: 45px;
+    }
+
+    .homepage .itemslist .win-groupheader {
+        padding: 0;
+    }
+
+    /* Use grid and top level layout for truncation */
+    .homepage .itemslist .group-header {
+        -ms-grid-columns: minmax(0, max-content) 7px max-content;
+        -ms-grid-rows: max-content;
+        display: -ms-inline-grid;
+        line-height: 1.5;
+    }
+
+    /* Override default button styles */
+    .homepage .itemslist .group-header, .group-header:hover, .group-header:hover:active {
+        background: transparent;
+        border: 0;
+        margin-bottom: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 1px;
+        min-height: 0;
+        padding: 0;
+    }
+
+        .homepage .itemslist .group-header .group-title {
+            display: inline-block;
+        }
+
+        .homepage .itemslist .group-header .group-chevron {
+            -ms-grid-column: 3;
+            display: inline-block;
+        }
+
+            .homepage .itemslist .group-header .group-chevron::before {
+                content: "\E26B";
+                font-family: 'Segoe UI Symbol';
+            }
+
+    .homepage .itemslist .item {
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: 1fr 90px;
+        display: -ms-grid;
+        height: 250px;
+        width: 250px;
+    }
+
+        .homepage .itemslist .item .item-image {
+            -ms-grid-row-span: 2;
+        }
+
+        .homepage .itemslist .item .item-overlay {
+            -ms-grid-row: 2;
+            -ms-grid-rows: 1fr 21px;
+            display: -ms-grid;
+            padding: 6px 15px 2px 15px;
+        }
+
+            .homepage .itemslist .item .item-overlay .item-title {
+                -ms-grid-row: 1;
+                overflow: hidden;
+                width: 220px;
+            }
+
+            .homepage .itemslist .item .item-overlay .item-subtitle {
+                -ms-grid-row: 2;
+                width: 220px;
+            }
+
+@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
+    .homepage .itemslist .item .item-overlay {
+        background: rgba(0,0,0,0.65);
+    }
+
+        .homepage .itemslist .item .item-overlay .item-title {
+            color: rgba(255,255,255,0.87);
+        }
+
+        .homepage .itemslist .item .item-overlay .item-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+}
+
+@media screen and (-ms-view-state: fullscreen-landscape) and (-ms-high-contrast), screen and (-ms-view-state: fullscreen-portrait) and (-ms-high-contrast), screen and (-ms-view-state: filled) and (-ms-high-contrast) {
+    .homepage .itemslist .item .item-overlay {
+        color: WindowText;
+    }
+}
+
+@media screen and (-ms-view-state: snapped) {
+
+    .homepage section[role=main] {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+    }
+
+    .homepage .itemslist .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+
+    .homepage .itemslist .item {
+        -ms-grid-columns: 60px 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 60px;
+        width: 272px;
+    }
+
+        .homepage .itemslist .item .item-image {
+            -ms-grid-column: 1;
+            -ms-grid-row-span: 1;
+            height: 60px;
+            width: 60px;
+        }
+
+        .homepage .itemslist .item .item-overlay {
+            -ms-grid-column: 2;
+            -ms-grid-row: 1;
+            -ms-grid-row-align: stretch;
+            background: transparent;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0;
+        }
+
+            .homepage .itemslist .item .item-overlay .item-title {
+                margin-top: 4px;
+                max-height: 40px;
+                width: 202px;
+            }
+
+            .homepage .itemslist .item .item-overlay .item-subtitle {
+                opacity: 0.6;
+                width: 202px;
+            }
+}
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    .homepage .itemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 25px;
+    }
+}
+
+
+#appbar {
+	background-color: rgba(0, 0, 0, 0.6);
+}

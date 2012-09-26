@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DR_Poc</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <!-- DR_Poc references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/navigator.js"></script>
+    
+    <script src="/js/lib/drapi.js"></script>
+
+    <script src="/js/src/framework/Util.js"></script>
+    <script src="/js/src/framework/UrlNavigationManager.js"></script>
+    <script src="/js/src/framework/BaseServiceManager.js"></script>
+    <script src="/js/src/framework/BaseDispatcher.js"></script>
+    <script src="/js/src/framework/BaseController.js"></script>
+    <script src="/js/src/framework/SinglePageController.js"></script>
+    <script src="/js/src/framework/BaseApp.js"></script>
+
+    <script src="/js/src/URL.js"></script>
+    <script src="/js/src/Notifications.js"></script>
+    <script src="/js/src/util/ExtendedSplash.js"></script>
+    <script src="/js/src/service/CategoryService.js"></script>
+    <script src="/js/src/service/ProductService.js"></script>
+    <script src="/js/src/service/ServiceManager.js"></script>
+    <script src="/js/src/core/StoreDispatcher.js"></script>
+    <script src="/js/src/controller/HomeController.js"></script>
+    <script src="/js/src/controller/ProductController.js"></script>
+    <script src="/js/src/App.js"></script>
+    <script src="/js/default.js"></script>
+
+</head>
+<body class="loading">
+    <div id="extendedSplashScreen" class="extendedSplashScreen hidden">
+        <img id="extendedSplashImage"/>
+        
+        <progress id="extendedSplashProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
+    </div>
+
+    <div id="contenthost" data-win-control="DR.Store.Core.PageControlNavigator" data-win-options="{home: '/pages/home/home.html'}"></div>
+
+    <!-- <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmd', label:'Command', icon:'placeholder'}" type="button"></button>
+    </div> -->
+</body>
+</html>

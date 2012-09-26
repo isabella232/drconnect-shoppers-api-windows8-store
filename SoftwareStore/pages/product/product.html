@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>productpage</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/product/product.css" rel="stylesheet" />
+
+    <script src="/pages/product/product.js"></script>
+</head>
+<body>
+    <div class="page-header-bar">
+        <button class="win-command win-global win-hidefocus" id="upper-cart" role="menuitem" aria-label="Command" type="button">
+            <span tabindex="-1" class="win-commandicon win-commandring" aria-hidden="true">
+                <span tabindex="-1" class="win-commandimage" aria-hidden="true"></span>
+            </span>
+            <span tabindex="-1" class="win-label" aria-hidden="true">Cart</span>
+        </button>
+    </div>
+    <!-- The content that will be loaded and displayed. -->
+    <div class="productpage fragment" id="productpage" style="-ms-grid-row-align: stretch;">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle"></span>
+            </h1>
+        </header>
+        
+        <div class="add-to-cart start">
+            <span class="add-to-cart-count" style="display: inline-block;">3</span>
+        </div>
+
+        <div class="content" aria-label="Main content" role="main" id="content">
+            <div class="display-pane" style="position: relative;">
+            	<div id="imageFlipView" data-win-control="WinJS.UI.FlipView" data-win-design-hidden="false"></div>
+
+                <div id="imageFlipViewTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+                    <div class="overlaidItemTemplate">
+                        <img class="product-image" data-win-bind="src: productImage; alt: displayName"/>
+                    </div>
+                </div>
+                <div>
+					<h2 class="product-pricing">Price: <span id="product-price"> </span></h2>
+					<button class="buyNow">Buy Now</button>
+				</div>
+				<progress id="productDetailProgress" style="color: white; max-width:40px; z-index: 50; top: 0px;" class="win-medium win-ring" data-win-design-hidden="false"></progress>
+
+            </div>
+
+            <article style="column-count: 1; overflow-y: hidden; overflow-x: hidden;">
+                <div class="description-pane" style="height:calc(100% - 100px); padding-right: 20px; overflow-y: auto;">
+                    <h2>Product Description</h2> 
+					<div class="short-description"></div>
+                    <div class="item-content" style="overflow-y: auto;"></div>
+                </div>
+            </article> 
+        </div>
+    </div>
+</body>
+
+</html>
