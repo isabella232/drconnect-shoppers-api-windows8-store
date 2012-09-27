@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <title>cartPage</title>
+
+        <!-- WinJS references -->
+        <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+        <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+        <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+        <link href="/css/default.css" rel="stylesheet" />
+        <link href="/pages/cart/cart.css" rel="stylesheet" />
+        <script src="/pages/home/cart.js"></script>
+    </head>
+    <body>
+    <!-- The content that will be loaded and displayed. -->
+    
+    <div class="cart-item-template" data-win-control="WinJS.Binding.Template">
+        <div class="item-container">
+            <div class="image-wrapper col-1">
+                <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
+            </div>
+            <p class="item-title col-2" data-win-bind="textContent: displayName"></p>
+            <p class="item-quantity col-3">
+                <span>Quantity: </span><span data-win-bind="textContent: quantity"></span>
+            </p>
+            <p class="item-pricing col-4" data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
+            <p class="item-total col-5"></p>
+        </div>
+    </div>
+
+    <div class="fragment cartpage">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Shopping Cart</span>
+            </h1>
+        </header>
+
+        <section aria-label="Cart content" role="main">
+            <div class="cart-list-container" style="height: 100%;">
+                <div class="cart-list-header item-container">
+					<p class="col-2">Item</p>
+					<p class="col-3">Qauntity</p>
+					<p class="col-4">Unit Price</p>
+					<p class="col-5">Total</p>
+                </div>
+                <div class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}}"></div>
+				<div class="cart-total">
+					<p>Sutotal: <span id="cart-subtotal"></span></p>
+					<p>Tax: <span id="cart-tax"></span></p>
+					<p> Total: <span id="cart-total"></span></p>
+				</div>
+			</div>
+        </section>
+    </div>
+    </body>
+</html>
