@@ -1,8 +1,9 @@
 ﻿.cart-list-container {
 	display: -ms-grid;
 	-ms-grid-columns: 1fr 400px;
-	-ms-grid-rows: 40px 1fr 250px;
+	-ms-grid-rows: 40px 1fr 200px;
 	color: white;
+	height: 100%;
 }
 
 .itemslist {
@@ -50,6 +51,9 @@
 
 .cart-list-header {
 	font-weight: bold;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-left-width: 0px;
 }
 
 .cart-total p {

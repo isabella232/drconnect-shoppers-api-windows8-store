@@ -16,7 +16,7 @@
     <body>
     <!-- The content that will be loaded and displayed. -->
     
-    <div class="cart-item-template" data-win-control="WinJS.Binding.Template">
+    <div class="cart-item-template" data-win-control="WinJS.Binding.Template" style="display: none;">
         <div class="item-container">
             <div class="image-wrapper col-1">
                 <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
@@ -39,14 +39,15 @@
         </header>
 
         <section aria-label="Cart content" role="main">
-            <div class="cart-list-container" style="height: 100%;">
+            <div class="cart-list-container" style="margin-left: 120px;">
                 <div class="cart-list-header item-container">
 					<p class="col-2">Item</p>
 					<p class="col-3">Quantity</p>
 					<p class="col-4">Unit Price</p>
 					<p class="col-5">Total</p>
                 </div>
-                <div class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}}"></div>
+                <div class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist"
+                    data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}, itemTemplate: select('.cart-item-template')}"></div>
 				<div class="cart-total" style="-ms-grid-row: 3;">
 					<p>Sutotal: <span id="cart-subtotal"></span></p>
 					<p>Tax: <span id="cart-tax"></span></p>
