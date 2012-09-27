@@ -23,7 +23,9 @@
                 // Retrieve splash screen object
                 storeApp.splash = new DR.Store.Util.ExtendedSplash(args.detail.splashScreen, "/images/SoftwareStoreSplashScreen.png", "/pages/home/home.html");
                 // Create and display the extended splash screen using the splash screen object and the same image specified for the system splash screen.
-                storeApp.splash.show();
+                if (!Windows.ApplicationModel.DesignMode) {
+                    storeApp.splash.show();
+                }
 
             } else {
                 // TODO: This application has been reactivated from suspension.
