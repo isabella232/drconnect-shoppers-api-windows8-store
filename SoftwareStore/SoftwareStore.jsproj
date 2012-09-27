@@ -81,6 +81,9 @@
     <Content Include="js\src\service\ServiceManager.js" />
     <Content Include="js\src\URL.js" />
     <Content Include="js\src\util\ExtendedSplash.js" />
+    <Content Include="pages\cart\cart.css" />
+    <Content Include="pages\cart\cart.html" />
+    <Content Include="pages\cart\cart.js" />
     <Content Include="pages\category\category.css" />
     <Content Include="pages\category\category.html" />
     <Content Include="pages\category\category.js" />
