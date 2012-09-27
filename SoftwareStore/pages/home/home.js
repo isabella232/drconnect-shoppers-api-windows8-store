@@ -21,6 +21,7 @@
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 5 });
+            WinJS.Utilities.removeClass(document.querySelector('body'), "loading");
         },
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
