@@ -43,11 +43,13 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <span class="group-title win-type-ellipsis">SubCategories</span>
+            <span id="emptyMessage" />
+            <span id="subCategoriesTitle" class="group-title win-type-ellipsis">SubCategories</span>
             <div id="listSubcategories" class="itemslist win-selectionstylefilled" aria-label="List of subcategories" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
-
-            <span class="group-title win-type-ellipsis">Products</span>
+            <progress id="subcategoriesProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
+            <span id="productsTitle" class="group-title win-type-ellipsis">Products</span>
             <div id="listProducts" class="itemslist win-selectionstylefilled" aria-label="List of products" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
+            <progress id="productsProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
         </section>
     </div>
 </body>
