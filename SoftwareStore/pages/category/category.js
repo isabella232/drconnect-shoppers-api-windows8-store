@@ -32,6 +32,8 @@
         },
 
         setProducts: function (products) {
+            var productsProgress = this.element.querySelector("#productsProgress");
+            WinJS.Utilities.addClass(productsProgress, "hidden");
             if (products.length != 0) {
                 var l = new WinJS.Binding.List();
                 products.forEach(function (p) {
@@ -50,6 +52,8 @@
 
         },
         setSubcategories: function (subcategories) {
+            var subCategoriesProgress = this.element.querySelector("#subcategoriesProgress");
+            WinJS.Utilities.addClass(subCategoriesProgress, "hidden");
             if (subcategories.length != 0) {
                 var l = new WinJS.Binding.List();
                 subcategories.forEach(function (p) {
