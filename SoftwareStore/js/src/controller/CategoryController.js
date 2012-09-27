@@ -62,11 +62,16 @@
     function loadProducts(page, catId, list) {
         return DR.Store.Services.productService.listProductsByCategory(catId, 1, PAGE_SIZE)
             .then(function (products) {
-                page.setProducts(products);
-               /* products.forEach(function (p, i) {
-                    list.push(p);
-                });
-                */
+                if (products != null && products.length != 0) {
+                    page.setProducts(products);
+                    /* products.forEach(function (p, i) {
+                         list.push(p);
+                     });
+                     */
+                } else {
+                    // No Products
+                    page.setProducts([]);
+                }
             });
     }
 

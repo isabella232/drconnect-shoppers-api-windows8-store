@@ -64,6 +64,10 @@ progress {
         width: 100%;
     }
 
+.hidden {
+        display: none;
+    }
+
 @media screen and (-ms-view-state: snapped) {
     .fragment header[role=banner] {
         -ms-grid-columns: auto 1fr;
@@ -96,3 +100,4 @@ progress {
             margin-left: 29px;
         }
 }
+

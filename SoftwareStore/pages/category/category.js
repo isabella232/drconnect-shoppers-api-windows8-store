@@ -32,21 +32,46 @@
         },
 
         setProducts: function (products) {
-            var l = new WinJS.Binding.List();
-            products.forEach(function (p) {
-                l.push(p);
-            });
-            this.productsList.itemDataSource = l.dataSource;
+            if (products.length != 0) {
+                var l = new WinJS.Binding.List();
+                products.forEach(function (p) {
+                    l.push(p);
+                });
+                this.productsList.itemDataSource = l.dataSource;
+                this.productsList.length = l.length;
+            } else {
+                var productsTitle = this.element.querySelector("#productsTitle");
+                WinJS.Utilities.addClass(productsTitle, "hidden");
+                var productsList = this.element.querySelector("#listProducts");
+                WinJS.Utilities.addClass(productsList, "hidden");
+                this.productsList.length = 0;
+
+            }
+
         },
         setSubcategories: function (subcategories) {
-            var l = new WinJS.Binding.List();
-            subcategories.forEach(function (p) {
-                l.push(p);
-            });
-            this.subcategoriesList.itemDataSource = l.dataSource;
+            if (subcategories.length != 0) {
+                var l = new WinJS.Binding.List();
+                subcategories.forEach(function (p) {
+                    l.push(p);
+                });
+                this.subcategoriesList.itemDataSource = l.dataSource;
+                this.subcategoriesList.length = l.length;
+            } else {
+                var subCategoriesTitle = this.element.querySelector("#subCategoriesTitle");
+                WinJS.Utilities.addClass(subCategoriesTitle, "hidden");
+                var subCategoriesList = this.element.querySelector("#listSubcategories");
+                WinJS.Utilities.addClass(subCategoriesList, "hidden");
+                this.subcategoriesList.length = 0;
+            }
         },
 
         dataLoaded: function () {
+
+            if (this.productsList.length == 0 && this.subcategoriesList.length == 0) {
+                this.element.querySelector("#emptyMessage").textContent = "The Category has no Subcategories or Products";
+            }
+
         },
 
         _onProductInvoked: function (e) {
