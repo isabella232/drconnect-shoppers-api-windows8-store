@@ -44,17 +44,15 @@
     }
 
     document.addEventListener("DOMContentLoaded", function (element, option) {
-        WinJS.UI.processAll().then(function () {
-            this.cartlist = element.querySelector("#carlist").winControl;
-            this.cartlist.itemTemplate = element.querySelector(".cart-item-template");
-            this.cartlist.datasource = CartData.datasource;
-        });
+        WinJS.UI.processAll();
     });
     
 
     WinJS.UI.Pages.define("/pages/category/category.html", {
         ready: function () {
-            this.listView = 
+            this.cartlist = element.querySelector("#carlist").winControl;
+            this.cartlist.itemTemplate = element.querySelector(".cart-item-template");
+            this.cartlist.datasource = CartData.datasource;
         }
     });
 }());
