@@ -107,4 +107,8 @@
             this.itemsList.datasource = cartlist.datasource;
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        WinJS.UI.processAll();
+    });
 }());
