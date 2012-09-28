@@ -1,4 +1,7 @@
-﻿/* 
+﻿.category-container {
+	width: 298px;
+	height: 150px;
+}/* 
     Category Template: Main Page
     Defines a 310 x 150 pixel tile with a category image and title bar    
 */
