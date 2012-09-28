@@ -104,8 +104,9 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
-            this.itemsList = this.element.querySelector("#itemsList").winControl;
-            this.itemsList.itemTemplate = element.querySelector(".cart-item-template");
+            this.itemsList = this.element.querySelector("#cartlist").winControl;
+            this.itemsList.itemTemplate = element.querySelector('#cartTemplate');
+            this.itemsList.layout = new WinJS.UI.ListLayout();
 
             this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
             

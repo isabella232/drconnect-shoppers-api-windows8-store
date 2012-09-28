@@ -1,35 +1,50 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta charset="utf-8" />
     <title>cartPage</title>
 
-        <!-- WinJS references -->
-        <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
-        <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
-        <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
 
-        <link href="/css/default.css" rel="stylesheet" />
-        <link href="/pages/cart/cart.css" rel="stylesheet" />
-        <script src="/pages/cart/cart.js"></script>
-    </head>
-    <body>
-    <!-- The content that will be loaded and displayed. -->
-    
-    <div class="cart-item-template" data-win-control="WinJS.Binding.Template">
-        <div class="item-container">
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/cart/cart.css" rel="stylesheet" />
+    <script src="/pages/cart/cart.js"></script>
+</head>
+<body>
+    <!-- line item template -->
+    <div class="cart-item-template" id="cartTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item-container cart-line-item">
             <div class="image-wrapper col-1">
-                <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
+                <img src="#" class="item-image" data-win-bind="src:product.thumbnailImage; alt: product.displayName" />
             </div>
-            <p class="item-title col-2" data-win-bind="textContent: product.displayName"></p>
-            <p class="item-quantity col-3">
-                <span>Quantity: </span><span data-win-bind="textContent: quantity"></span>
-            </p>
-            <p class="item-pricing col-4" data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
-            <p class="item-total col-5"></p>
+            <div class="col-2">
+                <p class="item-title" data-win-bind="textContent: product.displayName"></p>
+            </div>
+            <div class="col-3" style="-ms-grid-row-align: stretch;">
+                <p class="item-quantity">
+                    <!-- TODO this binding is not working...  Quantity should be a list from 1-99 -->
+                    <select data-win-bind="value: quantity">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </p>
+            </div>
+            <div class="col-4">
+                <p class="item-pricing" data-win-bind="textContent: pricing.formattedListPrice"></p>
+            </div>
+            <div class="col-5">
+                <p class="item-total" data-win-bind="textContent: pricing.formattedListPriceWithQuantity"></p>
+            </div>
         </div>
     </div>
 
+    <!-- The content that will be loaded and displayed. -->
     <div class="fragment cartpage">
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" type="button"></button>
@@ -39,25 +54,36 @@
         </header>
 
         <section aria-label="Cart content" role="main">
-            <div class="cart-empty" style="height: 100%;">
-                <span>The cart is empty</span>
-            </div>
-            
-            <div class="cart-list-container" style="height: 100%;">
+            <div class="cart-empty"><span>The cart is empty</span></div>
+            <div class="cart-list-container">
+
                 <div class="cart-list-header item-container">
-					<p class="col-2">Item</p>
-					<p class="col-3">Qauntity</p>
-					<p class="col-4">Unit Price</p>
-					<p class="col-5">Total</p>
+                    <div class="col-2">
+                        <p>Item</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Quantity</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="item-pricing">Unit Price</p>
+                    </div>
+                    <div class="col-5">
+                        <p class="item-total">Total</p>
+                    </div>
                 </div>
-                <div id="itemsList" class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}}"></div>
-				<div class="cart-total">
-					<p>Sutotal: <span id="cart-subtotal"></span></p>
-					<p>Tax: <span id="cart-tax"></span></p>
-					<p> Total: <span id="cart-total"></span></p>
-				</div>
-			</div>
+
+                <div class="cartlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist">
+                </div>
+
+                <div class="cart-summary">
+                    <p class="cart-subtotal">Sutotal: <span id="cart-subtotal"></span></p>
+                    <p class="cart-tax">Tax: <span id="cart-tax"></span></p>
+                    <p class="cart-total">Total: <span id="cart-total"></span></p>
+                </div>
+
+                <!-- TODO Add a Proceed to Checkout button -->
+            </div>
         </section>
     </div>
-    </body>
+</body>
 </html>

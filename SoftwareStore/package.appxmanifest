@@ -16,8 +16,12 @@
   <Applications>
     <Application Id="App" StartPage="default.html">
       <VisualElements DisplayName="SoftwareStore" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="SoftwareStore" ForegroundText="light" BackgroundColor="#2e436d">
-        <DefaultTile ShowName="allLogos" />
+        <DefaultTile ShowName="logoOnly" WideLogo="images\SoftwareStoreWideLogo.png" />
         <SplashScreen Image="images\SoftwareStoreSplashScreen.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
       </VisualElements>
     </Application>
   </Applications>
