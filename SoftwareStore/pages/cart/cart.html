@@ -14,8 +14,7 @@
     <script src="/pages/cart/cart.js"></script>
 </head>
 <body>
-    <!-- The content that will be loaded and displayed. -->
-
+    <!-- line item template -->
     <div class="cart-item-template" id="cartTemplate" data-win-control="WinJS.Binding.Template">
         <div class="item-container cart-line-item">
             <div class="image-wrapper col-1">
@@ -26,6 +25,7 @@
             </div>
             <div class="col-3" style="-ms-grid-row-align: stretch;">
                 <p class="item-quantity">
+                    <!-- TODO this binding is not working...  Quantity should be a list from 1-99 -->
                     <select data-win-bind="value: quantity">
                         <option>1</option>
                         <option>2</option>
@@ -44,6 +44,7 @@
         </div>
     </div>
 
+    <!-- The content that will be loaded and displayed. -->
     <div class="fragment cartpage">
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" type="button"></button>
@@ -81,6 +82,8 @@
                     <p class="cart-tax">Tax: <span id="cart-tax"></span></p>
                     <p class="cart-total">Total: <span id="cart-total"></span></p>
                 </div>
+
+                <!-- TODO Add a Proceed to Checkout button -->
             </div>
         </section>
     </div>
