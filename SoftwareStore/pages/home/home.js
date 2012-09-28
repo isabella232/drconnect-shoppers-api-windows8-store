@@ -14,6 +14,10 @@
             this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
         },
 
+        dataLoaded: function () {
+            WinJS.Utilities.removeClass(document.querySelector('body'), "loading");
+        },
+
         setHomeItems: function (groupedItems) {
             this.itemsList.groupHeaderTemplate = this.element.querySelector(".headertemplate");
             this.itemsList.itemTemplate = this.element.querySelector(".itemtemplate");
@@ -21,7 +25,6 @@
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 5 });
-            WinJS.Utilities.removeClass(document.querySelector('body'), "loading");
         },
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;

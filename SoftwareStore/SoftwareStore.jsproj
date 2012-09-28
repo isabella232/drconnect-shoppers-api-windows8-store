@@ -53,14 +53,11 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="css\categoryTemplate.css" />
     <Content Include="css\default.css" />
-    <Content Include="css\productTemplate.css" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\SoftwareStoreBigBackgroundImage.png" />
     <Content Include="images\SoftwareStoreSplashScreen.png" />
-    <Content Include="images\SoftwareStoreWideLogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
     <Content Include="js\default.js" />
@@ -68,6 +65,7 @@
     <Content Include="js\navigator.js" />
     <Content Include="js\src\App.js" />
     <Content Include="js\src\controller\CategoryController.js" />
+    <Content Include="js\src\controller\CartController.js" />
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
@@ -79,6 +77,7 @@
     <Content Include="js\src\framework\UrlNavigationManager.js" />
     <Content Include="js\src\framework\Util.js" />
     <Content Include="js\src\Notifications.js" />
+    <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
     <Content Include="js\src\service\CategoryService.js" />
     <Content Include="js\src\service\ServiceManager.js" />

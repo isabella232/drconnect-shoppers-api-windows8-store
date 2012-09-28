@@ -12,16 +12,32 @@
             /**
              * Mapping of all the URIs 
              */
-            declareUrlMappings: function () {
-                //var nsu = dr.acme.runtime.URI;
-                var c = DR.Store.Controller;
-                this.addUrlMapping(DR.Store.URL.HOME_PAGE, new c.HomeController());
-                this.addUrlMapping(DR.Store.URL.PRODUCT_PAGE, new c.ProductController());
-                this.addUrlMapping(DR.Store.URL.CATEGORY_PAGE, new c.CategoryController());
+            declareUrlMappings: function (c) {
+                this.addUrlMapping(DR.Store.URL.HOME_PAGE, c.homeController);
+                this.addUrlMapping(DR.Store.URL.PRODUCT_PAGE, c.productController);
+                this.addUrlMapping(DR.Store.URL.CATEGORY_PAGE, c.categoryController);
+                this.addUrlMapping(DR.Store.URL.CART_PAGE, c.cartController);
             },
-            declareMappings: function () {
 
+            /**
+             * Notification Mapping
+             */
+            declareMappings: function (c) {
+                this.addMapping(DR.Store.Notifications.ADD_TO_CART, c.cartController, "addToCart");
             },
+
+            /**
+             * Controller instances
+             */
+            initControllers: function() {
+                var c = DR.Store.Controller;
+                return {
+                    homeController: new c.HomeController(),
+                    productController: new c.ProductController(),
+                    cartController: new c.CartController(),
+                    categoryController: new c.CategoryController()
+                }
+            }
         }
         );
 

@@ -7,6 +7,7 @@
     WinJS.Namespace.define("DR.Store.URL", {
         HOME_PAGE: "/pages/home/home.html",
         PRODUCT_PAGE: "/pages/product/product.html",
-        CATEGORY_PAGE: "/pages/category/category.html"
+        CATEGORY_PAGE: "/pages/category/category.html",
+        CART_PAGE: "/pages/cart/cart.html"
     });
 })();

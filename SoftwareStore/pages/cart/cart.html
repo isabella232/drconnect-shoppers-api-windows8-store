@@ -54,6 +54,7 @@
         </header>
 
         <section aria-label="Cart content" role="main">
+            <div class="cart-empty"><span>The cart is empty</span></div>
             <div class="cart-list-container">
 
                 <div class="cart-list-header item-container">
@@ -71,10 +72,7 @@
                     </div>
                 </div>
 
-                <div class="cartlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist"
-                    data-win-options="{itemDataSource: CartData.listData.dataSource,
-                                        itemTemplate: select('#cartTemplate'),
-                                        layout: {type: WinJS.UI.ListLayout}}">
+                <div class="cartlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist">
                 </div>
 
                 <div class="cart-summary">
