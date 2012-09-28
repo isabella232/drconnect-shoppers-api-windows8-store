@@ -21,6 +21,9 @@
                             console.log("Page loaded, initializing...");
                             var p = self.initPage(self.page, detail.state);
                             if (p) {
+                                if (!Array.isArray(p)) {
+                                    p = [p];
+                                }
                                 WinJS.Promise.join(p).then(function (results) {
                                     if (self.page.dataLoaded) {
                                         self.page.dataLoaded(results);

@@ -11,7 +11,7 @@
 
         <link href="/css/default.css" rel="stylesheet" />
         <link href="/pages/cart/cart.css" rel="stylesheet" />
-        <script src="/pages/home/cart.js"></script>
+        <script src="/pages/cart/cart.js"></script>
     </head>
     <body>
     <!-- The content that will be loaded and displayed. -->
@@ -21,7 +21,7 @@
             <div class="image-wrapper col-1">
                 <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
             </div>
-            <p class="item-title col-2" data-win-bind="textContent: displayName"></p>
+            <p class="item-title col-2" data-win-bind="textContent: product.displayName"></p>
             <p class="item-quantity col-3">
                 <span>Quantity: </span><span data-win-bind="textContent: quantity"></span>
             </p>
@@ -39,6 +39,10 @@
         </header>
 
         <section aria-label="Cart content" role="main">
+            <div class="cart-empty" style="height: 100%;">
+                <span>The cart is empty</span>
+            </div>
+            
             <div class="cart-list-container" style="height: 100%;">
                 <div class="cart-list-header item-container">
 					<p class="col-2">Item</p>
@@ -46,7 +50,7 @@
 					<p class="col-4">Unit Price</p>
 					<p class="col-5">Total</p>
                 </div>
-                <div class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}}"></div>
+                <div id="itemsList" class="itemslist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'multi', layout: {type: WinJS.UI.ListLayout}}"></div>
 				<div class="cart-total">
 					<p>Sutotal: <span id="cart-subtotal"></span></p>
 					<p>Tax: <span id="cart-tax"></span></p>

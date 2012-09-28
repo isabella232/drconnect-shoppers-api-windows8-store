@@ -1,4 +1,5 @@
 ﻿(function () {
+    /*
     if (Windows.ApplicationModel.DesignMode) {
         var cartitems = {
             "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/CartsResource",
@@ -86,25 +87,74 @@
             }
         };
     
-        var cartlist = new WinJS.BindingList();
+        var cartlist = WinJS.Binding.List();
         cart.lineItem.lineItem.forEach(function (item) {
             cartlist.push(item);
         });
     }
-
+    */
     WinJS.UI.Pages.define("/pages/cart/cart.html", {
         events: {
             ITEM_SELECTED: "itemSelected"
         },
         itemsList: null,
+        cartContent: null,
+        emptyMessage: null,
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
-            this.itemsList = this.element.querySelector(".cartlist").winControl;
+            this.itemsList = this.element.querySelector("#itemsList").winControl;
             this.itemsList.itemTemplate = element.querySelector(".cart-item-template");
 
-            this.itemsList.datasource = cartlist.datasource;
+            this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
+            
+            this.cartContent = this.element.querySelector(".cart-list-container");
+            this.emptyMessage = this.element.querySelector(".cart-empty");
+
+            WinJS.Utilities.addClass(this.cartContent, "hidden");
+            WinJS.Utilities.addClass(this.emptyMessage, "hidden");
+        },
+        clear: function () {
+            this.element.querySelector("#cart-subtotal").textContent = "";
+            this.element.querySelector("#cart-tax").textContent = "";
+            this.element.querySelector("#cart-total").textContent = "";
+        },
+        /**
+         * Sets the cart and renders it
+         */
+        setCart: function (cart) {
+            var items = cart.lineItems.lineItem;
+
+            if (!items) {
+                WinJS.Utilities.removeClass(this.emptyMessage, "hidden");
+                return;
+            }
+            
+            this.element.querySelector("#cart-subtotal").textContent = cart.pricing.formattedSubtotal;
+            this.element.querySelector("#cart-tax").textContent = cart.pricing.formattedTax;
+            this.element.querySelector("#cart-total").textContent = cart.pricing.formattedOrderTotal;
+            this._setCartItems(items);
+
+            WinJS.Utilities.removeClass(this.cartContent, "hidden");
+        },
+        _setCartItems: function (items) {
+            var cartlist = new WinJS.Binding.List();
+            this.itemsList.itemDataSource = cartlist.dataSource;
+            items.forEach(function (item) {
+                cartlist.push(item);
+            });
+        },
+
+        _onCartItemClicked: function (e) {
+            var self = this;
+            e.detail.itemPromise.then(function (item) {
+                if (item.data.product) {
+                    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data.product });
+                }
+            });
+
         }
+
     });
 }());

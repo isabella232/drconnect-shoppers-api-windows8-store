@@ -26,6 +26,7 @@
             mappings: {},
             urlMappings: {},
             pageNavigator: null,
+            controllers: null,
 
             navigated: function (e) {
                 this.handle(URL_CHANGE_NOTIFICATION, e.detail);
@@ -33,11 +34,21 @@
 
             initialize: function () {
                 console.log("Initializing dispatcher");
+                this.controllers = this.initControllers();
+
                 nav.onnavigated = this.navigated.bind(this);
-                this.declareUrlMappings();
+                this.declareUrlMappings(this.controllers);
                 this.urlManager = new DR.MVC.UrlNavigationManager(this);
-                this.declareMappings();
+                this.declareMappings(this.controllers);
                 this.addMapping(URL_CHANGE_NOTIFICATION, this.urlManager);
+            },
+
+            /**
+             * Must create all the controllers and return them in 1 object
+             * By default, no controllers are created
+             */
+            initControllers: function () {
+                return {};
             },
 
             /**
@@ -82,14 +93,6 @@
                 console.log("Adding " + ((secured) ? "(Secured) " : "") + "URL mapping for '" + url + "'")
 
                 this.urlMappings[url] = { "controller": controller, "method": method, "secured": secured };
-            },
-
-            /**
-             * Maps a notification to a URL, so when the notification is received, the app navigates to that URL.
-             * Then a URL mapping will be used. This is useful to track the nav history, while keeping the URL info inside the dispatcher
-             */
-            mapNotificationToUrl: function(notificationName, url) {
-
             },
 
             /**

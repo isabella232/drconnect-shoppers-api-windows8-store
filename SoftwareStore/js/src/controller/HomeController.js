@@ -17,20 +17,21 @@
                 var list = new WinJS.Binding.List();
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
                 page.setHomeItems(getGroupedList(list));
-                this._loadItems(list);
+                var p = this._loadItems(list);
+                return [p];
             },
 
             /**
              * Load the items in the list
              */
             _loadItems: function (list) {
-                DR.Store.Services.categoryService.getRootCategories()
+                return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
                    var promises = categories.map(function (category, index) {
                        return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
                    });
 
-                   fillItemsList(promises, list);
+                   return fillItemsList(promises, list);
                });
             },
 
@@ -70,7 +71,7 @@
     }
 
     function fillItemsList(promises, list) {
-        WinJS.Promise.join(promises).then(function (categories) {
+        return WinJS.Promise.join(promises).then(function (categories) {
             categories.forEach(function (category, index) {
                 category.children.forEach(function (item, index) {
                     item.category = { id: category.id, displayName: category.displayName };

@@ -9,6 +9,7 @@
 
             this.categoryService = new DR.Store.Service.CategoryService(this._client);
             this.productService = new DR.Store.Service.ProductService(this._client);
+            this.cartService = new DR.Store.Service.CartService(this._client);
         },
         {
             _client: null,
