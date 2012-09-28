@@ -4,24 +4,51 @@
 	-ms-grid-rows: 40px 1fr 200px;
 	color: white;
 	height: 100%;
+	margin-left: 120px;
 }
 
-.itemslist {
+.cartlist {
 	-ms-grid-column: 1;
 	-ms-grid-row: 2;
 	height: 100%;
 	width: 100%;
+	margin-top: 10px;
+}
+
+.cart-list-header {
+	border-bottom: 2px solid white;
+	margin-bottom: 0px;
+	padding-bottom: 5px;
+}
+
+.cart-list-header p {
+	font-weight: 500;
+	font-size: 12pt;
+}
+
+.cart-list-header div {
+	padding: 0px 5px;
+}
+
+
+
+.win-listview .win-container:not(.win-footprint) {
+	background-color: transparent;
+}
+
+.cartpage .win-listview .win-container {
+	margin: 0px 0px 10px 0px;
 }
 
 .item-container {
-	width: calc(100% - 10px);
-	background-color: transparent;
-	-ms-grid-columns: 80px 1fr 1fr 1fr 100px;
+	-ms-grid-columns: 80px 3fr 2fr 1fr 1fr;
 	display: -ms-grid;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
+/* Over rides default.css */
 .item-container .item-title {
-
 	color: white;
 }
 
@@ -49,19 +76,6 @@
 	-ms-grid-column: 6;
 }
 
-.cart-list-header {
-	font-weight: bold;
-	border-top-width: 0px;
-	border-right-width: 0px;
-	border-left-width: 0px;
-}
-
-.cart-total p {
-	-ms-grid-column: 1;
-	-ms-grid-row: 3;
-	text-align: right;
-}
-
 .item-pricing {
 	text-align: right;
 }
@@ -69,3 +83,40 @@
 .item-total {
 	text-align: right;
 }
+
+/* Over-rides ui-dark.css */
+
+.cart-line-item {
+	background-color: rgba(23, 38, 66, 0.498);
+}
+
+.cart-line-item div {
+	padding: 5px;
+}
+
+.image-wrapper img {
+	max-width: 70px;
+}
+
+.image-wrapper {
+	max-height: 70px;
+	overflow-y: hidden;
+}
+
+.cart-summary {
+	-ms-grid-row: 3;
+	margin-right: 10px;
+}
+
+.cart-summary p {
+	text-align: right;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+.cart-summary .cart-total {
+	font-size: 20pt;
+}
+
+
+

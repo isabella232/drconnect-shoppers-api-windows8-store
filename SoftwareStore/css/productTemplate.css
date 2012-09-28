@@ -1,0 +1,66 @@
+﻿
+/* 
+    Product Template
+    Defines a 310 x 75 pixel template to display products. 
+    Use whenever a product is displayed in a list view control 
+*/
+
+
+.item-image {
+    max-width: 50px;
+    max-height: 65px;
+    color: #ccc;
+    font-size: 9pt;
+}
+
+.item-container {
+    clear: both;
+	border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0px 0 1px;
+    font-size: 11pt;
+    background: rgba(255, 255, 255, .4);
+    cursor: pointer;
+    display: inline-block;
+    -ms-grid-column-align: stretch;
+    -ms-grid-row-align: stretch;
+    width: 310px;
+}
+
+.item-container .image-wrapper {
+    width: 58px; 
+    float: left;
+    min-height: 70px;
+    background: white;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+.item-container .text-wrapper {
+    margin-left: 70px;
+    vertical-align: middle;
+}
+
+.item-container h1 {
+    color: #2e436d;
+    white-space: normal;
+    margin: 0 0 0 0;        
+    font-size: 11pt;
+    font-weight: bolder;
+}
+
+.item-container p {
+    margin: 0 0px 5px 0;
+    padding-right: 10px;
+}
+
+.item-container .item-title {
+	color: #081736;
+	line-height: 1.1;
+}
+
+.win-listview > .win-horizontal .win-container {
+	margin-bottom: 5px;
+	margin-top: 0px !important;
+}
