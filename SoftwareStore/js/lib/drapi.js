@@ -2306,8 +2306,10 @@
          * Request open and send
          */
         result.sendRequest = function (url, method, urlParams, headerParams, req, body) {
+            // Add timestamp so the request is not cached
+            urlParams = urlParams || {};
+            urlParams["drapits"] = new Date().getTime();
 
-            // Get possible params and encode the query
             var queryString = this.utf8Encode(this.getQueryString(urlParams));
             var uri = url;
             if (queryString != "") {
