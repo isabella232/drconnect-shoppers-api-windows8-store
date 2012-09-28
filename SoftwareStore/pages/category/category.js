@@ -31,12 +31,12 @@
             this.element.querySelector(".pagetitle").textContent = name;
         },
 
-        setProducts: function (products) {
+       setProducts: function (products) {
             var productsProgress = this.element.querySelector("#productsProgress");
             WinJS.Utilities.addClass(productsProgress, "hidden");
-            if (products.length != 0) {
+            if (products.product.length != 0) {
                 var l = new WinJS.Binding.List();
-                products.forEach(function (p) {
+                products.product.forEach(function (p) {
                     l.push(p);
                 });
                 this.productsList.itemDataSource = l.dataSource;
@@ -51,6 +51,11 @@
             }
 
         },
+
+        setProductDataSource: function(productsDataSource){
+            this.productsList.itemDataSource = productsDataSource;
+        },
+
         setSubcategories: function (subcategories) {
             var subCategoriesProgress = this.element.querySelector("#subcategoriesProgress");
             WinJS.Utilities.addClass(subCategoriesProgress, "hidden");
@@ -72,9 +77,9 @@
 
         dataLoaded: function () {
 
-            if (this.productsList.length == 0 && this.subcategoriesList.length == 0) {
-                this.element.querySelector("#emptyMessage").textContent = "The Category has no Subcategories or Products";
-            }
+            //if (this.productsList.length == 0 && this.subcategoriesList.length == 0) {
+            //    this.element.querySelector("#emptyMessage").textContent = "The Category has no Subcategories or Products";
+            //}
 
         },
 

@@ -20,11 +20,15 @@
                 var subcategories = new WinJS.Binding.List();
                 
                 var cp = loadSubCategories(page, state.item.id, subcategories);
-                var pp = loadProducts(page, state.item.id, products);
+
+                var productDataSource = new DR.Store.Core.DataSource.ProductByCategoryPaginatedDataSource(state.item.id);
+                page.setProductDataSource(productDataSource);
+
+                //var pp = loadProducts(page, state.item.id, products);
 
                 page.setCategoryName(state.item.displayName);
 
-                return [cp, pp];
+                return [cp];
             },
 
             _onProductSelected: function (e) {
