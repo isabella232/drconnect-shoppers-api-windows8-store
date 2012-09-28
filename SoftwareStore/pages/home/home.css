@@ -8,7 +8,6 @@
     position: relative;
     width: 100%;
     z-index: 0;
-    margin-bottom: 88px;
 }
 
     /* This selector is used to prevent ui-dark/light.css from overwriting changes
@@ -56,15 +55,15 @@
                 font-family: 'Segoe UI Symbol';
             }
 
-    .homepage .itemslist .item {
+    /*.homepage .itemslist .item {
         -ms-grid-columns: 1fr;
         -ms-grid-rows: 1fr 90px;
         display: -ms-grid;
         height: 250px;
         width: 250px;
-    }
+    }*/
 
-        .homepage .itemslist .item .item-image {
+        /*.homepage .itemslist .item .item-image {
             -ms-grid-row-span: 2;
         }
 
@@ -85,9 +84,10 @@
                 -ms-grid-row: 2;
                 width: 220px;
             }
+      */
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
-    .homepage .itemslist .item .item-overlay {
+    /*.homepage .itemslist .item .item-overlay {
         background: rgba(0,0,0,0.65);
     }
 
@@ -98,6 +98,7 @@
         .homepage .itemslist .item .item-overlay .item-subtitle {
             color: rgba(255,255,255,0.6);
         }
+   */
 }
 
 @media screen and (-ms-view-state: fullscreen-landscape) and (-ms-high-contrast), screen and (-ms-view-state: fullscreen-portrait) and (-ms-high-contrast), screen and (-ms-view-state: filled) and (-ms-high-contrast) {
