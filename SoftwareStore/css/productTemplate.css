@@ -9,7 +9,9 @@
 	padding-top: 5px;
 	height: 68px;
 	-ms-grid-column-align: stretch;
-	-ms-grid-row-align: start;
+	-ms-grid-row-align: stretch;
+	-ms-grid-columns: 70px 1fr;
+	-ms-grid-rows: 40px 30px;
 }
 /* 
     Product Template
@@ -27,6 +29,8 @@
     margin: 0px 0px 0px 5px;
     padding: 2px;
     overflow: hidden;
+    -ms-grid-column: 1;
+    -ms-grid-row-span: 1;
 }
 
 .item-image {
@@ -36,8 +40,8 @@
 }
 
 .item-container .text-wrapper {
-    margin-left: 70px;
     vertical-align: middle;
+    -ms-grid-column: 2;
 }
 
 .item-container p {
@@ -51,6 +55,13 @@
 	max-height: 40px;
 	overflow-y: hidden;
 	overflow-x: hidden;
+	-ms-grid-row: 1;
+	-ms-grid-column: 2;
+}
+
+.item-container .item-pricing {
+	-ms-grid-row: 2;
+	-ms-grid-column: 2;
 }
 
 .win-listview > .win-horizontal .win-container {

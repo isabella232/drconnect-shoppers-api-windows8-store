@@ -20,11 +20,11 @@
 
         setHomeItems: function (groupedItems) {
             this.itemsList.groupHeaderTemplate = this.element.querySelector(".headertemplate");
-            this.itemsList.itemTemplate = this.element.querySelector(".itemtemplate");
+            this.itemsList.itemTemplate = homeItemTemplate;
 
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
-            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 5 });
+            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
@@ -49,4 +49,24 @@
         });
     }
 
+    function homeItemTemplate(itemPromise) {
+        var oSelf = this;
+        return itemPromise.then(function (currentItem) {
+            var template;
+            switch (currentItem.data.type) {
+                case 'product':
+                    template = document.body.querySelector(".itemtemplate").winControl;
+                    break;
+                case 'category':
+                    template = document.body.querySelector(".categorytemplate").winControl;
+                    break;
+
+                default:
+                    template = document.body.querySelector(".itemtemplate").winControl;
+                    break;
+            }
+
+            return template.render(currentItem.data);
+        });
+    }
 })();
