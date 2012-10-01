@@ -158,4 +158,14 @@
         }
 
     });
+
+    /**
+     * Functions to expose externally.
+     * (e.g. Binding converters)
+     */
+    WinJS.Namespace.define("DR.Store.Pages.Cart", {
+        quantityToIndex: WinJS.Binding.converter(function (qty) {
+            return parseInt(qty) - 1;
+        })
+    });
 }());
