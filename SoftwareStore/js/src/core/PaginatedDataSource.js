@@ -1,5 +1,15 @@
 ﻿(function () {
     
+    //Called on an error from the XHR Object
+    function processErrorResponse(error) {
+        if (error.status == 401) {
+            WinJS.log && WinJS.log(error.code, "sample", "error");
+        } else {
+            WinJS.log && WinJS.log("Error fetching data from the service. " + error.description, "sample", "error");
+        }
+        return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.noResponse));
+    }
+
     // Definition of the data adapter
     var PaginatedDataSource = DR.Class.extend(
         function () {
@@ -30,30 +40,17 @@
             // The value of the count can be updated later in the response to itemsFromIndex
             getCount: function () {
 
-
-                /*var client = SdkSample.client;
-
-                return client.products.listProductsByCategory(25587100, { expand: "all", pageNumber: 1, pageSize: 1 }).then(function (products) {
-                    that._count = products.totalResults;
-                    return products.totalResults;
-                });*/
-
-             
-                that = this;
-                return this.retrievePage(1, this._pageSize).then(function (response) {
-                    that._count = response.count;
-                });
-                /*if (!this._count) {
+            
+                var that = this;
+                if (!this._count) {
                     return this.retrievePage(1, this._pageSize).then(function (response) {
                         that._count = response.count;
+                        return that._count;
                     });
                 } else {
-                    //var p = new WinJS.Promise();
                     return WinJS.Promise.wrap(this._count);
-                }*/
-                // TODO: Response when this._count setted?
+                }
 
-                
             },
 
             // Called by the virtualized datasource to fetch items
@@ -72,66 +69,61 @@
                     return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.doesNotExist));
                 }
 
-                var fetchIndex;
-
                 //************************ Paging And Caching Logic ************************************
-                var pageNumber, pageSize;
 
+                var paginationInfo = this._calculatePaginationInfo(requestIndex, countBefore, countAfter);
+
+                var promises = [];
+                for (var i = paginationInfo.firstPageNumber; i <= paginationInfo.lastPageNumber; i++) {
+                    console.log(i + "[" + paginationInfo.pageSize + "]");
+                    promises.push(this.retrievePage(i, paginationInfo.pageSize));
+                }
+
+                return WinJS.Promise.join(promises).then(function (responses) { return that._processResults(responses, paginationInfo); }, processErrorResponse);
+            },
+
+            /**
+             * Cal...
+             */
+            _calculatePaginationInfo: function (requestIndex, countBefore, countAfter) {
                 var firstIndex = (requestIndex - countBefore);
                 var lastIndex = (requestIndex + countAfter);
                 if (this._count) {
                     lastIndex = Math.min(this._count - 1, lastIndex);
                 }
 
-                var pageSize = this._pageSize;
+                var pi = {pageSize: this._pageSize}
+                pi.firstPageNumber = Math.floor(firstIndex / pi.pageSize) + 1;
+                pi.lastPageNumber = Math.floor(lastIndex / pi.pageSize) + 1;
+                pi.offset = (requestIndex % pi.pageSize);
+                pi.fetchIndex = (pi.firstPageNumber - 1) * pi.pageSize;
 
-                var firstPageNumber = Math.floor(firstIndex / pageSize) + 1;
-                var lastPageNumber = Math.floor(lastIndex / pageSize) + 1;
+                return pi;
+            },
 
-                var offset = (requestIndex % pageSize);
-                var fetchIndex = (firstPageNumber - 1) * pageSize;
+            _processResults: function(responses, paginationInfo) {
+                var that = this;
+                var results = [];
+                var i = 0;
+                responses.forEach(function (response) {
+                    if (!that._count) {
+                        that._count = response.count;
+                    }
 
-                var promises = [];
-
-                for (var i = firstPageNumber; i <= lastPageNumber; i++) {
-                    console.log(i + "[" + pageSize + "]");
-                    //promises.push(client.products.listProductsByCategory(25587100, { expand: "all", pageNumber: i, pageSize: pageSize }));
-                    promises.push(this.retrievePage(i, pageSize));
-                }
-
-                //return WinJS.Promise.join(promises).then(this.processPageResponse(responses));
-
-                return WinJS.Promise.join(promises).then(function (responses) {
-                    var results = [];
-                    var i = 0;
-                    responses.forEach(function (response) {
-                        if (!that._count) {
-                            that._count = response.count;
-                        }
-
-                        response.items.forEach(function (dataItem) {
-                            results.push({
-                                key: (fetchIndex + i).toString(),
-                                data: dataItem
-                            });
-                            i++;
+                    response.items.forEach(function (dataItem) {
+                        results.push({
+                            key: (paginationInfo.fetchIndex + i).toString(),
+                            data: dataItem
                         });
+                        i++;
                     });
-                    console.log(offset);
-                    return {
-                        items: results, // The array of items
-                        offset: offset, // The offset into the array for the requested item
-                    };
-                },
-                //Called on an error from the XHR Object
-                    function (error) {
-                        if (error.status == 401) {
-                            WinJS.log && WinJS.log(error.code, "sample", "error");
-                        } else {
-                            WinJS.log && WinJS.log("Error fetching data from the service. " + error.description, "sample", "error");
-                        }
-                        return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.noResponse));
-                    });
+                });
+                console.log(paginationInfo.offset);
+                return {
+                    items: results, // The array of items
+                    offset: paginationInfo.offset, // The offset into the array for the requested item
+                    totalCount: this._count
+                };
             }
         });
 

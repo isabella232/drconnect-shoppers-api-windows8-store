@@ -61,6 +61,7 @@
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
     <Content Include="js\default.js" />
+    <Content Include="js\lib\drapi - Copy.js" />
     <Content Include="js\lib\drapi.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\src\App.js" />
@@ -68,6 +69,7 @@
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\core\PaginatedDataSource.js" />
+    <Content Include="js\src\core\PaginatedDataSource_old.js" />
     <Content Include="js\src\core\ProductByCategoryPaginatedDataSource.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
     <Content Include="js\src\framework\BaseApp.js" />
