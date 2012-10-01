@@ -25,8 +25,8 @@
             </div>
             <div class="col-3" style="-ms-grid-row-align: stretch;">
                 <p class="item-quantity">
-                    <!-- TODO this binding is not working...  Quantity should be a list from 1-99 -->
-                    <select data-win-bind="value: quantity">
+                    <!-- TODO Quantity should be a list from 1-99 -->
+                    <select data-win-bind="selectedIndex: quantity DR.Store.Pages.Cart.quantityToIndex">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
