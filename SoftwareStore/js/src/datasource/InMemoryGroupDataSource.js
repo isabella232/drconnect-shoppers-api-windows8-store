@@ -105,7 +105,7 @@
         });
 
     // Create a DataSource by deriving and wrapping the data adapter with a VirtualizedDataSource
-    WinJS.Namespace.define("DR.Store.Core.DataSource", {
+    WinJS.Namespace.define("DR.Store.DataSource", {
         InMemoryGroupDataSource: WinJS.Class.derive(WinJS.UI.VirtualizedDataSource, function (data) {
             this.groups = data;
             this._baseDataSourceConstructor(new InMemoryGroupDataAdapter(data));
