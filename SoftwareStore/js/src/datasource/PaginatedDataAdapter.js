@@ -1,13 +1,18 @@
 ﻿(function () {
     
-    //Process an error when a service call fails
+    /** 
+     * Process an error when a service call fails
+     */
+
     function processErrorResponse(error) {
        console.error("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
        return WinJS.Promise.wrapError("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
      
     }
 
-    // Definition of the data adapter
+    /**
+     * Definition of the data adapter
+     */
     var PaginatedDataAdapter = DR.Class.extend(
         function () {
 
@@ -16,9 +21,11 @@
             this._count = null;
         },
 
-        // Data Adapter interface methods
-        // These define the contract between the virtualized datasource and the data adapter.
-        // These methods will be called by virtualized datasource to fetch items, count etc.    
+        /** 
+         * Data Adapter interface methods
+         * These define the contract between the virtualized datasource and the data adapter.
+         * These methods will be called by virtualized datasource to fetch items, count etc.    
+         */
         {
 
             // Abstract Functions that should be define on child classes
@@ -32,8 +39,10 @@
             },
 
 
-            // Called to get a count of the items
-            // The value of the count can be updated later in the response to itemsFromIndex
+            /**
+             * Called to get a count of the items
+             * The value of the count can be updated later in the response to itemsFromIndex
+             */
             getCount: function () {
 
             
@@ -51,14 +60,15 @@
 
             },
 
-            // Called by the virtualized datasource to fetch items
-            // Handles the parameters to determines the page or pages it should ask to the service. The minimum fetch size is pageSize, so if the function is
-            // called to retrive 1 item, it will return the whole page for the item asked
-            //
-            // Must return back an object containing fields:
-            //   items: The array of items of the form items=[{ key: key1, data : { field1: value, field2: value, ... }}, { key: key2, data : {...}}, ...];
-            //   offset: The offset into the array for the requested item
-            //   totalCount: (optional) update the value of the count
+            /** Called by the virtualized datasource to fetch items
+             *  Handles the parameters to determines the page or pages it should ask to the service. The minimum fetch size is pageSize, so if the function is
+             *  called to retrive 1 item, it will return the whole page for the item asked
+             *
+             *  Must return back an object containing fields:
+             *    items: The array of items of the form items=[{ key: key1, data : { field1: value, field2: value, ... }}, { key: key2, data : {...}}, ...];
+             *    offset: The offset into the array for the requested item
+             *    totalCount: (optional) update the value of the count
+             */
             itemsFromIndex: function (requestIndex, countBefore, countAfter) {
                 console.log("RI: " + requestIndex + "[" + countBefore + "," + countAfter + "]");
                 var self = this;
@@ -128,7 +138,7 @@
             }
         });
 
-    WinJS.Namespace.define("DR.Store.Core.DataSource", {
+    WinJS.Namespace.define("DR.Store.DataSource", {
         PaginatedDataAdapter: PaginatedDataAdapter
     });
 })();

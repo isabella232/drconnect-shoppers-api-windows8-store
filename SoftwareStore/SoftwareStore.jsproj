@@ -68,10 +68,10 @@
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
-    <Content Include="js\src\datasource\MultiplePaginatedDataSource.js" />
+    <Content Include="js\src\datasource\MultiplePaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\PaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\ProductByCategoryPaginatedDataAdapter.js" />
-    <Content Include="js\src\datasource\SubCategoriesPaginatedDataSource.js" />
+    <Content Include="js\src\datasource\SubCategoriesPaginatedDataAdapter.js" />
     <Content Include="js\src\framework\BaseApp.js" />
     <Content Include="js\src\framework\BaseController.js" />
     <Content Include="js\src\framework\BaseDispatcher.js" />

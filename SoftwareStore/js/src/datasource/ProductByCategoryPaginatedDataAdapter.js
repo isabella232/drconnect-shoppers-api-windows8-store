@@ -1,10 +1,10 @@
 ﻿(function () {
     "use strict";
     /**
-     * Super Class for Controllers
-     * most of Controller objects will inherit from this 
+     * Inherits PaginatedDataAdapter to overriding the retrievePage in order to call the corresponding service
+     * 
      */
-    var ProductByCategoryPaginatedDataAdapter = DR.Store.Core.DataSource.PaginatedDataAdapter.extend(
+    var ProductByCategoryPaginatedDataAdapter = DR.Store.DataSource.PaginatedDataAdapter.extend(
         function (categoryId) {
             this._super();
             this._categoryId = categoryId;
@@ -26,7 +26,7 @@
         }
         );
 
-    WinJS.Namespace.define("DR.Store.Core.DataSource", {
+    WinJS.Namespace.define("DR.Store.DataSource", {
         ProductByCategoryPaginatedDataAdapter: ProductByCategoryPaginatedDataAdapter,
         ProductByCategoryPaginatedDataSource: WinJS.Class.derive(WinJS.UI.VirtualizedDataSource, function (categoryId) {
             this._baseDataSourceConstructor(new ProductByCategoryPaginatedDataAdapter(categoryId));

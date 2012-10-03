@@ -21,12 +21,12 @@
                 
                 var cp = loadSubCategories(page, state.item.id, subcategories);
 
-                var productDataSource = new DR.Store.Core.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
-                var productDataSource2 = new DR.Store.Core.DataSource.ProductByCategoryPaginatedDataAdapter(state.item.id);
+                var productDataSource = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
+                var productDataSource2 = new DR.Store.DataSource.ProductByCategoryPaginatedDataAdapter(state.item.id);
                 var dataSources = [];
                 dataSources.push({ name: "SubCategories", da: productDataSource });
                 dataSources.push({ name: "Products", da: productDataSource2 });
-                var multipleDS = new DR.Store.Core.DataSource.MultiplePaginatedDataSource(dataSources);
+                var multipleDS = new DR.Store.DataSource.MultiplePaginatedDataSource(dataSources);
 
                 var s = new desertsDataSource(desertTypes);
                 page.setProductDataSource(multipleDS, s);
