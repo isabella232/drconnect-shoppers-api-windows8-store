@@ -21,6 +21,7 @@
             this.subcategoriesList = element.querySelector("#listSubcategories").winControl;
             
             this.productsList.itemTemplate = element.querySelector(".productTemplate");
+            this.productsList.groupHeaderTemplate = document.getElementById("groupTemplate");
             this.productsList.oniteminvoked = this._onProductInvoked.bind(this);
 
             this.subcategoriesList.itemTemplate = element.querySelector(".subcategoryTemplate");
@@ -52,8 +53,10 @@
 
         },
 
-        setProductDataSource: function(productsDataSource){
+        setProductDataSource: function(productsDataSource, groupDs){
+            this.productsList.groupDataSource = groupDs;
             this.productsList.itemDataSource = productsDataSource;
+            
         },
 
         setSubcategories: function (subcategories) {

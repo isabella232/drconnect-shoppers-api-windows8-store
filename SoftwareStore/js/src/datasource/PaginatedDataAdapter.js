@@ -1,22 +1,18 @@
 ﻿(function () {
     
-    //Called on an error from the XHR Object
+    //Process an error when a service call fails
     function processErrorResponse(error) {
-        if (error.status == 401) {
-            WinJS.log && WinJS.log(error.code, "sample", "error");
-        } else {
-            WinJS.log && WinJS.log("Error fetching data from the service. " + error.description, "sample", "error");
-        }
-        return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.noResponse));
+       console.error("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
+       return WinJS.Promise.wrapError("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
+     
     }
 
     // Definition of the data adapter
-    var PaginatedDataSource = DR.Class.extend(
+    var PaginatedDataAdapter = DR.Class.extend(
         function () {
 
             // Constructor
             this._pageSize = 20;
-            this._cachedProducts = {};
             this._count = null;
         },
 
@@ -41,12 +37,14 @@
             getCount: function () {
 
             
-                var that = this;
+                var self = this;
                 if (!this._count) {
                     return this.retrievePage(1, this._pageSize).then(function (response) {
-                        that._count = response.count;
-                        return that._count;
-                    });
+                        if (response.count) {
+                            self._count = parseInt(response.count);
+                        }
+                        return self._count;
+                    }, processErrorResponse);
                 } else {
                     return WinJS.Promise.wrap(this._count);
                 }
@@ -54,9 +52,8 @@
             },
 
             // Called by the virtualized datasource to fetch items
-            // It will request a specific item and optionally ask for a number of items on either side of the requested item. 
-            // The implementation should return the specific item and, in addition, can choose to return a range of items on either 
-            // side of the requested index. The number of extra items returned by the implementation can be more or less than the number requested.
+            // Handles the parameters to determines the page or pages it should ask to the service. The minimum fetch size is pageSize, so if the function is
+            // called to retrive 1 item, it will return the whole page for the item asked
             //
             // Must return back an object containing fields:
             //   items: The array of items of the form items=[{ key: key1, data : { field1: value, field2: value, ... }}, { key: key2, data : {...}}, ...];
@@ -64,8 +61,8 @@
             //   totalCount: (optional) update the value of the count
             itemsFromIndex: function (requestIndex, countBefore, countAfter) {
                 console.log("RI: " + requestIndex + "[" + countBefore + "," + countAfter + "]");
-                var that = this;
-                if (that._count && requestIndex >= that._count) {
+                var self = this;
+                if (self._count && requestIndex >= self._count) {
                     return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.doesNotExist));
                 }
 
@@ -79,11 +76,11 @@
                     promises.push(this.retrievePage(i, paginationInfo.pageSize));
                 }
 
-                return WinJS.Promise.join(promises).then(function (responses) { return that._processResults(responses, paginationInfo); }, processErrorResponse);
+                return WinJS.Promise.join(promises).then(function (responses) { return self._processResults(responses, paginationInfo); }, processErrorResponse);
             },
 
             /**
-             * Cal...
+             * Calculates the pagination Info considering the parameters and determining how many pages should be asked to the service
              */
             _calculatePaginationInfo: function (requestIndex, countBefore, countAfter) {
                 var firstIndex = (requestIndex - countBefore);
@@ -101,13 +98,17 @@
                 return pi;
             },
 
+            /**
+            * Process the responses of each service called (the pages asked)
+            * and returns all items on an ordered list
+            */
             _processResults: function(responses, paginationInfo) {
-                var that = this;
+                var self = this;
                 var results = [];
                 var i = 0;
                 responses.forEach(function (response) {
-                    if (!that._count) {
-                        that._count = response.count;
+                    if (!self._count) {
+                        self._count = response.count;
                     }
 
                     response.items.forEach(function (dataItem) {
@@ -128,6 +129,6 @@
         });
 
     WinJS.Namespace.define("DR.Store.Core.DataSource", {
-        PaginatedDataSource: PaginatedDataSource
+        PaginatedDataAdapter: PaginatedDataAdapter
     });
 })();

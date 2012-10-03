@@ -4,15 +4,16 @@
      * Super Class for Controllers
      * most of Controller objects will inherit from this 
      */
-    var ProductByCategoryPaginatedDataSource = DR.Store.Core.DataSource.PaginatedDataSource.extend(
+    var ProductByCategoryPaginatedDataAdapter = DR.Store.Core.DataSource.PaginatedDataAdapter.extend(
         function (categoryId) {
             this._super();
-            this._categoryId = categoryId
+            this._categoryId = categoryId;
         },
         {
             /**
             * Retrieves a promise the page specified on parameters
             * return: It should return a json{count: <total number of items>, items: <list of items from page>}
+            * @Override
             */
             retrievePage: function (pageNumber, pageSize) {
                 return DR.Store.Services.productService.listProductsByCategory(this._categoryId, pageNumber, pageSize).then(function (data) {
@@ -21,14 +22,17 @@
                         items: data.product
                     }
                 });
-            },
+            }
         }
         );
 
     WinJS.Namespace.define("DR.Store.Core.DataSource", {
+        ProductByCategoryPaginatedDataAdapter: ProductByCategoryPaginatedDataAdapter,
         ProductByCategoryPaginatedDataSource: WinJS.Class.derive(WinJS.UI.VirtualizedDataSource, function (categoryId) {
-            this._baseDataSourceConstructor(new ProductByCategoryPaginatedDataSource(categoryId));
+            this._baseDataSourceConstructor(new ProductByCategoryPaginatedDataAdapter(categoryId));
         })
     });
+
+
 
 })();
