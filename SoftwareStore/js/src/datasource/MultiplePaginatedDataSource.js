@@ -16,6 +16,7 @@
             this._totalCount = null;
             // List of Datasources
             var self = this;
+            this._groupDataSource;
             this._dataSources = [];
             dataAdapters.forEach(function (ds) {
                 self._dataSources.push({
@@ -32,7 +33,6 @@
         // These define the contract between the virtualized datasource and the data adapter.
         // These methods will be called by virtualized datasource to fetch items, count etc.    
         {
-
             /* Called to get a count of the items
              * Calls a getCount for each datasource in the datasources list and summarizes it 
              * The value of the count can be updated later in the response to itemsFromIndex
@@ -58,6 +58,9 @@
                                 offset += response;
                             }
                             that._totalCount = offset;
+                            
+                            that._updateGroupDataSource();
+                            
                             return that._totalCount;
                         }, processErrorResponse);
                     } else {
@@ -180,7 +183,7 @@
                     var datasource = that._dataSources[i];
                     response.items.forEach(function (dataItem) {
                         dataItem.key = (parseInt(dataItem.key) + datasource.firstIndex).toString();
-                        dataItem.groupKey = datasource.name;
+                        dataItem.groupKey = "key" + i;
                         results.push(dataItem);
                     });
                     i++;
@@ -191,13 +194,65 @@
                     offset: offset + countBefore, // The offset into the array for the requested item
                     totalCount: this._totalCount
                 };
+            },
+
+            /** 
+             * Returns the data adapters
+             */
+            getDataAdapters: function () {
+                return this._dataSources;
+            },
+
+            /**
+             * Creates a new datasource containing the child's datasources names, with the following format:
+             * {key: <group key>, label: <group label>}
+             * It should be used to group the elements by datasource
+             */
+            getGroupDataSource: function () {
+                if (!this._groupDataSource) {
+                    var self = this;
+                    var groups = [];
+                    var adapters = this.getDataAdapters();
+                    adapters.forEach(function (da, i) {
+                        groups.push({ key: "key" + i, label: da.name, firstItemIndex: da.firstIndex });
+                    });
+                    this._groupDataSource = new DR.Store.Core.DataSource.InMemoryGroupDataSource(groups);
+                }
+
+                return this._groupDataSource;
+            },
+
+            /**
+             * Updates the start indexes of the groups
+             */
+            _updateGroupDataSource: function () {
+                var self = this;
+                var groups = this.getGroupDataSource().groups;
+                var indexes = [];
+                groups.forEach(function (g, i) {
+                    if (self._dataSources[i].count == 0) {
+                        indexes.push(i);
+                    }
+                    g.firstItemIndex = self._dataSources[i].firstIndex;
+                });
+
+                for (var i = indexes.length - 1; i >= 0; i--) {
+                    var j = indexes[i];
+                    groups.splice(j, 1);
+                }
             }
+            
         });
 
     WinJS.Namespace.define("DR.Store.Core.DataSource", {
         MultiplePaginatedDataAdapter: MultiplePaginatedDataAdapter,
         MultiplePaginatedDataSource: WinJS.Class.derive(WinJS.UI.VirtualizedDataSource, function (dataAdapters) {
-            this._baseDataSourceConstructor(new MultiplePaginatedDataAdapter(dataAdapters));
+            this._dataAdapter = new MultiplePaginatedDataAdapter(dataAdapters);
+            this._baseDataSourceConstructor(this._dataAdapter);
+        }, {
+            getGroupDataSource: function () {
+                return this._dataAdapter.getGroupDataSource();
+            }
         })
     });
 })();

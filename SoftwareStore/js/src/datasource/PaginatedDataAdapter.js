@@ -42,6 +42,8 @@
                     return this.retrievePage(1, this._pageSize).then(function (response) {
                         if (response.count) {
                             self._count = parseInt(response.count);
+                        } else {
+                            self._count = 0;
                         }
                         return self._count;
                     }, processErrorResponse);

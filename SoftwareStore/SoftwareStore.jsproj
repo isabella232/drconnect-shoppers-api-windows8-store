@@ -68,6 +68,7 @@
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
+    <Content Include="js\src\datasource\InMemoryGroupDataSource.js" />
     <Content Include="js\src\datasource\MultiplePaginatedDataSource.js" />
     <Content Include="js\src\datasource\PaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\ProductByCategoryPaginatedDataAdapter.js" />

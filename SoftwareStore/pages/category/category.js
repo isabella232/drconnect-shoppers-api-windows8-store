@@ -53,10 +53,9 @@
 
         },
 
-        setProductDataSource: function(productsDataSource, groupDs){
-            this.productsList.groupDataSource = groupDs;
-            this.productsList.itemDataSource = productsDataSource;
-            
+       setProductDataSource: function (productsDataSource) {
+           this.productsList.itemDataSource = productsDataSource;
+           this.productsList.groupDataSource = productsDataSource.getGroupDataSource();
         },
 
         setSubcategories: function (subcategories) {
