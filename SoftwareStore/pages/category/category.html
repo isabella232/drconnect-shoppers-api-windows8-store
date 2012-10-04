@@ -12,6 +12,8 @@
     <link href="category.css" rel="stylesheet" />
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/css/productTemplate.css" rel="stylesheet" />
+
+    <script src="/widgets/productTemplate/productTemplate.js"></script>
     <script src="category.js"></script>
 </head>
 <body>
@@ -20,7 +22,9 @@
                 <h2 data-win-bind="innerText: label"></h2>
             </div>
         </div>
-    <!-- These templates are used to display each item in the ListView declared below. -->
+
+    <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
+    <!-- These templates are used to display each item in the ListView declared below. 
     <div class="productTemplate" data-win-control="WinJS.Binding.Template">
         <div class="item-container">
             <div class="image-wrapper">
@@ -32,6 +36,7 @@
             </div>
         </div>
     </div>
+    -->
     <div class="subcategoryTemplate" data-win-control="WinJS.Binding.Template">
         <div class="item-container">
             <div class="image-wrapper">

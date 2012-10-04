@@ -104,6 +104,9 @@
     <Content Include="pages\product\product.css" />
     <Content Include="pages\product\product.html" />
     <Content Include="pages\product\product.js" />
+    <Content Include="widgets\productTemplate\productTemplate.css" />
+    <Content Include="widgets\productTemplate\productTemplate.html" />
+    <Content Include="widgets\productTemplate\productTemplate.js" />
     <None Include="SoftwareStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
