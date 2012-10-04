@@ -27,8 +27,7 @@
             this.images.splice(0, this.images.length);
             this.element.querySelector(".titlearea .pagetitle").textContent = "";
             this.element.querySelector("#product-price").textContent = "";
-            this.element.querySelector("article .item-content").innerHTML = "";
-            this.element.querySelector("article .short-description").innerHTML = "";
+            this.element.querySelector(".short-description").innerHTML = "";
         },
 
         _onCartButtonClick: function () {
@@ -58,8 +57,7 @@
 
             this.element.querySelector(".titlearea .pagetitle").textContent = product.displayName;
             this.element.querySelector("#product-price").textContent = window.toStaticHTML(product.pricing.formattedListPrice);
-            this.element.querySelector("article .item-content").innerHTML = window.toStaticHTML(product.longDescription);
-            this.element.querySelector("article .short-description").innerHTML = window.toStaticHTML(product.shortDescription);
+            this.element.querySelector(".content .short-description").innerHTML = window.toStaticHTML(product.shortDescription);
 
             this.showLoader(false);
         },

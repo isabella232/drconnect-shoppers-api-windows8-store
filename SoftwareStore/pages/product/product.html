@@ -31,37 +31,51 @@
                 <span class="pagetitle"></span>
             </h1>
         </header>
-        
+
         <div class="add-to-cart start">
             <span class="add-to-cart-count" style="display: inline-block;">3</span>
         </div>
 
-        <div class="content" aria-label="Main content" role="main" id="content">
+
+        <div class="content" aria-label="Main content" role="main" id="content" style="-ms-grid-columns: 470px auto 1fr; margin-left: 120px; margin-right: 80px; -ms-grid-rows: 60px 1fr;">
+            <div class="display-pane-header">
+                <button class="header-button win-type-x-large win-type-interactive selected"><span>Overview</span></button>
+                <button  class="header-button win-type-x-large win-type-interactive"><span>Details</span></button>
+            </div>
             <div class="display-pane" style="position: relative;">
-            	<div id="imageFlipView" data-win-control="WinJS.UI.FlipView" data-win-design-hidden="false"></div>
+
+                <div id="imageFlipView" data-win-control="WinJS.UI.FlipView" data-win-design-hidden="false"></div>
 
                 <div id="imageFlipViewTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
                     <div class="overlaidItemTemplate">
-                        <img class="product-image" data-win-bind="src: productImage; alt: displayName"/>
+                        <img src="#" class="product-image" data-win-bind="src: productImage; alt: displayName" />
                     </div>
                 </div>
-                <div>
-					<h2 class="product-pricing">Price: <span id="product-price"> </span></h2>
-					<button id="btnBuyNow" class="buyNow">Buy Now</button>
-                    <button id="btnAddToCart" class="buyNow">Add To Cart</button>
-				</div>
-				<progress id="productDetailProgress" style="color: white; max-width:40px; z-index: 50; top: 0px;" class="win-medium win-ring" data-win-design-hidden="false"></progress>
-
+                <div class="short-description"></div>
+                <div class="long-description"></div>
             </div>
 
-            <article style="column-count: 1; overflow-y: hidden; overflow-x: hidden;">
-                <div class="description-pane" style="height:calc(100% - 100px); padding-right: 20px; overflow-y: auto;">
-                    <h2>Product Description</h2> 
-					<div class="short-description"></div>
-                    <div class="item-content" style="overflow-y: auto;"></div>
+            <div class="pricing">
+                <div class="pricing-wrapper">
+                    <h2 class="product-pricing"><span id="product-price"></span></h2>
+                    <button id="btnAddToCart" class="buyNow">Add To Cart</button>
                 </div>
-            </article> 
+            </div>
+            <div class="offers-header" style="margin-left: 80px;">
+                <h2>People Also Bought</h2>
+            </div>
+            <div class="offers-container" style="margin-left: 80px;">
+                <!-- list of offers goes here -->
+            </div>
         </div>
+        <footer>
+            <p>Digital River, Inc. is the authorized reseller and merchant of record for these products.</p>
+            <p>
+                <span>Privacy Policy</span>
+                <span>Terms of Sale</span>
+                <span>Your California Privacy Rights</span>
+            </p>
+        </footer>
     </div>
 </body>
 
