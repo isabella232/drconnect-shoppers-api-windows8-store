@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>productTemplate</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="productTemplate.css" rel="stylesheet" />
+    <script src="productTemplate.js"></script>
+    <link href="/css/productTemplate.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="productTemplate fragment itemtemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item-container">
+            <div class="image-wrapper">
+                <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
+            </div>
+            <div class="item-title" >
+                <p data-win-bind="textContent: displayName"></p>
+            </div>
+            <div class="item-pricing" >
+                <p data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,6 +19,8 @@
             // Constructor
             this._pageSize = 20;
             this._count = null;
+            // This value is to assign for each of the items returned. SubClasess should override this property
+            this._itemType = null;
         },
 
         /** 
@@ -126,7 +128,8 @@
                     response.items.forEach(function (dataItem) {
                         results.push({
                             key: (paginationInfo.fetchIndex + i).toString(),
-                            data: dataItem
+                            data: dataItem,
+                            itemType: self._itemType
                         });
                         i++;
                     });

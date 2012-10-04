@@ -6,12 +6,19 @@
             ITEM_SELECTED: "itemSelected"
         },
         itemsList: null,
+        _itemTemplate: null,
+        _categoryTemplate: null,
+
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
             this.itemsList = this.element.querySelector(".itemslist").winControl;
             this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
+
+            // Set the template variables
+            this._itemTemplate = element.querySelector(".itemtemplate").winControl;
+            this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
         },
 
         dataLoaded: function () {
@@ -20,7 +27,8 @@
 
         setHomeItems: function (groupedItems) {
             this.itemsList.groupHeaderTemplate = this.element.querySelector(".headertemplate");
-            this.itemsList.itemTemplate = homeItemTemplate;
+
+            this.itemsList.itemTemplate = homeItemTemplate.bind(this);
 
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
@@ -55,14 +63,14 @@
             var template;
             switch (currentItem.data.type) {
                 case 'product':
-                    template = document.body.querySelector(".itemtemplate").winControl;
+                    template = oSelf._itemTemplate;
                     break;
                 case 'category':
-                    template = document.body.querySelector(".categorytemplate").winControl;
+                    template = oSelf._categoryTemplate;
                     break;
 
                 default:
-                    template = document.body.querySelector(".itemtemplate").winControl;
+                    template = oSelf._itemTemplate;
                     break;
             }
 

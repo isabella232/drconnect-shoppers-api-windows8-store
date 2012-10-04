@@ -5,11 +5,12 @@
 
     WinJS.UI.Pages.define("/pages/category/category.html", {
         list: null,
-        
+        _productTemplate: null,
+        _categoryTemplate: null,
+
         // EVENTS
         events: {
-            PRODUCT_SELECTED: "productSelected",
-            SUBCATEGORY_SELECTED: "subcategorySelected"
+            ITEM_SELECTED: "itemSelected"
         },
 
         // This function is called whenever a user navigates to this page. It
@@ -18,9 +19,14 @@
             // TODO: Initialize the page here.
             this.list = element.querySelector("#list").winControl;
             
-            this.list.itemTemplate = element.querySelector(".productTemplate");
+            //this.list.itemTemplate = element.querySelector(".productTemplate");
+            this.list.itemTemplate = categoryItemTemplate.bind(this);
             this.list.groupHeaderTemplate = document.getElementById("groupTemplate");
-            this.list.oniteminvoked = this._onProductInvoked.bind(this);
+            //this.list.oniteminvoked = this._onProductInvoked.bind(this);
+            this.list.oniteminvoked = this._onItemInvoked.bind(this);
+
+            this._productTemplate = element.querySelector(".productTemplate").winControl;
+            this._categoryTemplate = element.querySelector(".subcategoryTemplate").winControl;
         },
 
         /**
@@ -55,19 +61,12 @@
            });
        },
 
-       _onProductInvoked: function (e) {
-            var self = this;
-            e.detail.itemPromise.then(function (item) {
-                self.dispatchEvent(self.events.PRODUCT_SELECTED, { item: item.data });
-            });
-        },
-
-        _onSubcategoryInvoked: function (e) {
-            var self = this;
-            e.detail.itemPromise.then(function (item) {
-                self.dispatchEvent(self.events.SUBCATEGORY_SELECTED, { item: item.data });
-            });
-        },
+       _onItemInvoked: function (args) {
+           var self = this;
+           args.detail.itemPromise.then(function (item) {
+               self.dispatchEvent(self.events.ITEM_SELECTED, { item: item});
+           });
+       },
 
         unload: function () {
             // TODO: Respond to navigations away from this page.
@@ -79,4 +78,26 @@
             // TODO: Respond to changes in viewState.
         }
     });
+
+    function categoryItemTemplate(itemPromise) {
+        // TODO: Add Handling to the error when the view is disposed, it tries to render the items and fails.
+        var oSelf = this;
+        return itemPromise.then(function (currentItem) {
+            var template;
+            switch (currentItem.itemType) {
+                case DR.Store.Datasource.ItemType.PRODUCT:
+                    template = oSelf._productTemplate;
+                    break;
+                case DR.Store.Datasource.ItemType.CATEGORY:
+                    template = oSelf._categoryTemplate;
+                    break;
+
+                default:
+                    template = oSelf._productTemplate;
+                    break;
+            }
+
+            return template.render(currentItem.data);
+        });
+    }
 })();

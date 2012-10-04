@@ -8,6 +8,7 @@
         function (categoryId) {
             this._super();
             this._categoryId = categoryId;
+            this._itemType = DR.Store.Datasource.ItemType.PRODUCT;
         },
         {
             /**
