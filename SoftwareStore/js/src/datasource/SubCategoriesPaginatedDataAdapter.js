@@ -1,0 +1,46 @@
+﻿(function () {
+    "use strict";
+
+    /**
+     * Inherits PaginatedDataAdapter to overriding the retrievePage in order to call the corresponding service
+     * 
+     */
+    var SubCategoriesPaginatedDataAdapter = DR.Store.DataSource.PaginatedDataAdapter.extend(
+        function (categoryId) {
+            this._super();
+            this._categoryId = categoryId;
+        },
+        {
+            /**
+            * Retrieves a promise the page specified on parameters
+            * return: It should return a json{count: <total number of items>, items: <list of items from page>}
+            */
+            retrievePage: function (pageNumber, pageSize) {
+                return DR.Store.Services.categoryService.getCategoryById(this._categoryId)
+                .then(function (cat) {
+                    if (cat.categories != null) {
+                        return {
+                            count: cat.categories.category.length,
+                            items: cat.categories.category
+                        }
+                    } else {
+                        return {
+                            count: 0,
+                            items: []
+                        }
+                    }
+                });
+            }
+        }
+        );
+
+    WinJS.Namespace.define("DR.Store.DataSource", {
+        SubCategoriesPaginatedDataAdapter: SubCategoriesPaginatedDataAdapter,
+        SubCategoriesPaginatedDataSource: WinJS.Class.derive(WinJS.UI.VirtualizedDataSource, function (categoryId) {
+            this._baseDataSourceConstructor(new SubCategoriesPaginatedDataAdapter(categoryId));
+        })
+    });
+
+
+
+})();

@@ -59,11 +59,17 @@
             }
         } else {
             return DR.Store.Services.productService.listSampleProductsForCategory(cat.id, PAGE_SIZE)
-                .then(function (products) {
+                .then(function (data) {
+                    var product;
+                    if (data.product) {
+                        product = data.product;
+                    } else {
+                        product = [];
+                    }
                     return {
                         id: cat.id,
                         displayName: cat.displayName,
-                        children: products,
+                        children: product,
                         childType: "product"
                     }
                 });

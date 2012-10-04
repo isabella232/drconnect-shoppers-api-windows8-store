@@ -15,6 +15,11 @@
     <script src="category.js"></script>
 </head>
 <body>
+    <div id="groupTemplate" data-win-control="WinJS.Binding.Template">
+            <div class="groupHeader">
+                <h2 data-win-bind="innerText: label"></h2>
+            </div>
+        </div>
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="productTemplate" data-win-control="WinJS.Binding.Template">
         <div class="item-container">
@@ -24,7 +29,7 @@
             <div class="text-wrapper">
                 <p class="item-title" data-win-bind="textContent: displayName"></p>
                 <p class="item-pricing" data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
-            </div> 
+            </div>
         </div>
     </div>
     <div class="subcategoryTemplate" data-win-control="WinJS.Binding.Template">
@@ -45,13 +50,8 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <span id="emptyMessage" />
-            <span id="subCategoriesTitle" class="group-title win-type-ellipsis">SubCategories</span>
-            <div id="listSubcategories" class="itemslist win-selectionstylefilled" aria-label="List of subcategories" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
-            <progress id="subcategoriesProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
-            <span id="productsTitle" class="group-title win-type-ellipsis">Products</span>
-            <div id="listProducts" class="itemslist win-selectionstylefilled" aria-label="List of products" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
-            <progress id="productsProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
+            <span id="emptyMessage" class="hidden">The category has no subcategories nor products</span>
+            <div id="list" class="itemslist win-selectionstylefilled" aria-label="List of products" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
         </section>
     </div>
 </body>

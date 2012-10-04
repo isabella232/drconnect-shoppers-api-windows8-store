@@ -12,19 +12,30 @@
             this._super();
         },
         {
+            /**
+             * Loads the data and passes it to the page on initialization
+             */
             initPage: function (page, state) {
                 page.addEventListener(page.events.PRODUCT_SELECTED, this._onProductSelected.bind(this), false);
                 page.addEventListener(page.events.SUBCATEGORY_SELECTED, this._onSubcategorySelected.bind(this), false);
 
-                var products = new WinJS.Binding.List();
-                var subcategories = new WinJS.Binding.List();
-                
-                var cp = loadSubCategories(page, state.item.id, subcategories);
-                var pp = loadProducts(page, state.item.id, products);
+                // Create the subcategory data adapter
+                var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
 
+                // Create the paginated products data adapter
+                var productDA = new DR.Store.DataSource.ProductByCategoryPaginatedDataAdapter(state.item.id);
+                var dataAdapters = [];
+                dataAdapters.push({ name: "SubCategories", da: subcategoryDA });
+                dataAdapters.push({ name: "Products", da: productDA });
+
+                // Creates the multi datasource using both data adapters
+                var listDS = new DR.Store.DataSource.MultiplePaginatedDataSource(dataAdapters);
+
+                // Send the datasource to the view
+                page.setListDataSource(listDS);
+
+                // Set the category name in the view
                 page.setCategoryName(state.item.displayName);
-
-                return [cp, pp];
             },
 
             _onProductSelected: function (e) {
@@ -42,41 +53,9 @@
     );
 
     // PRIVATE METHODS
-    function loadSubCategories(page, parentId, list) {
-        return DR.Store.Services.categoryService.getCategoryById(parentId, 1, PAGE_SIZE)
-            .then(function (cat) {
-                if (cat.categories != null) {
-                    /*
-                    cat.categories.category.forEach(function (c, i) {
-                        list.push(c);
-                    });
-                    */
-                    page.setSubcategories(cat.categories.category);
-                } else {
-                    // No Subcategories
-                    page.setSubcategories([]);
-                }
-            });
-    }
 
-    function loadProducts(page, catId, list) {
-        return DR.Store.Services.productService.listProductsByCategory(catId, 1, PAGE_SIZE)
-            .then(function (products) {
-                if (products != null && products.length != 0) {
-                    page.setProducts(products);
-                    /* products.forEach(function (p, i) {
-                         list.push(p);
-                     });
-                     */
-                } else {
-                    // No Products
-                    page.setProducts([]);
-                }
-            });
-    }
 
     // EXPOSING THE CLASS
-
     WinJS.Namespace.define("DR.Store.Controller", {
         CategoryController: Class
     });

@@ -65,11 +65,12 @@
             _retrieveProductsByCategory: function (catId, params) {
                 return this._client.products.listProductsByCategory(catId, params)
                     .then(function (data) {
-                        if (data.product) {
+                        return data;
+                        /*if (data.product) {
                             return data.product;
                         } else {
                             return [];
-                        }
+                        }*/
                     });
             }
         }

@@ -4,8 +4,7 @@
     "use strict";
 
     WinJS.UI.Pages.define("/pages/category/category.html", {
-        productsList: null,
-        subcategoriesList: null,
+        list: null,
         
         // EVENTS
         events: {
@@ -17,68 +16,46 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
-            this.productsList = element.querySelector("#listProducts").winControl;
-            this.subcategoriesList = element.querySelector("#listSubcategories").winControl;
+            this.list = element.querySelector("#list").winControl;
             
-            this.productsList.itemTemplate = element.querySelector(".productTemplate");
-            this.productsList.oniteminvoked = this._onProductInvoked.bind(this);
-
-            this.subcategoriesList.itemTemplate = element.querySelector(".subcategoryTemplate");
-            this.subcategoriesList.oniteminvoked = this._onSubcategoryInvoked.bind(this);
+            this.list.itemTemplate = element.querySelector(".productTemplate");
+            this.list.groupHeaderTemplate = document.getElementById("groupTemplate");
+            this.list.oniteminvoked = this._onProductInvoked.bind(this);
         },
 
+        /**
+         * Sets the name of the category in the view's title
+         */
         setCategoryName: function (name) {
             this.element.querySelector(".pagetitle").textContent = name;
         },
 
-        setProducts: function (products) {
-            var productsProgress = this.element.querySelector("#productsProgress");
-            WinJS.Utilities.addClass(productsProgress, "hidden");
-            if (products.length != 0) {
-                var l = new WinJS.Binding.List();
-                products.forEach(function (p) {
-                    l.push(p);
-                });
-                this.productsList.itemDataSource = l.dataSource;
-                this.productsList.length = l.length;
-            } else {
-                var productsTitle = this.element.querySelector("#productsTitle");
-                WinJS.Utilities.addClass(productsTitle, "hidden");
-                var productsList = this.element.querySelector("#listProducts");
-                WinJS.Utilities.addClass(productsList, "hidden");
-                this.productsList.length = 0;
+        /**
+         * Sets the datasource for the list (including subcategories and products)
+         */
+       setListDataSource: function (productsDataSource) {
+           // Set the item datasource
+           this.list.itemDataSource = productsDataSource;
 
-            }
+           // Set the group datasource (will include subcategories and products)
+           this.list.groupDataSource = productsDataSource.getGroupDataSource();
 
-        },
-        setSubcategories: function (subcategories) {
-            var subCategoriesProgress = this.element.querySelector("#subcategoriesProgress");
-            WinJS.Utilities.addClass(subCategoriesProgress, "hidden");
-            if (subcategories.length != 0) {
-                var l = new WinJS.Binding.List();
-                subcategories.forEach(function (p) {
-                    l.push(p);
-                });
-                this.subcategoriesList.itemDataSource = l.dataSource;
-                this.subcategoriesList.length = l.length;
-            } else {
-                var subCategoriesTitle = this.element.querySelector("#subCategoriesTitle");
-                WinJS.Utilities.addClass(subCategoriesTitle, "hidden");
-                var subCategoriesList = this.element.querySelector("#listSubcategories");
-                WinJS.Utilities.addClass(subCategoriesList, "hidden");
-                this.subcategoriesList.length = 0;
-            }
-        },
+           this._showMessageIfEmpty();
+       },
 
-        dataLoaded: function () {
+        /**
+         * Shows a message when there are no items to show
+         */
+       _showMessageIfEmpty: function () {
+           var self = this;
+           this.list.itemDataSource.getCount().then(function (count) {
+               if (count == 0) {
+                   WinJS.Utilities.removeClass(self.element.querySelector("#emptyMessage"), "hidden");
+               }
+           });
+       },
 
-            if (this.productsList.length == 0 && this.subcategoriesList.length == 0) {
-                this.element.querySelector("#emptyMessage").textContent = "The Category has no Subcategories or Products";
-            }
-
-        },
-
-        _onProductInvoked: function (e) {
+       _onProductInvoked: function (e) {
             var self = this;
             e.detail.itemPromise.then(function (item) {
                 self.dispatchEvent(self.events.PRODUCT_SELECTED, { item: item.data });
