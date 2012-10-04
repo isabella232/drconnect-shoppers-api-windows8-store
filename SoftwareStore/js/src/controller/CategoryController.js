@@ -16,8 +16,7 @@
              * Loads the data and passes it to the page on initialization
              */
             initPage: function (page, state) {
-                page.addEventListener(page.events.PRODUCT_SELECTED, this._onProductSelected.bind(this), false);
-                page.addEventListener(page.events.SUBCATEGORY_SELECTED, this._onSubcategorySelected.bind(this), false);
+                page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
 
                 // Create the subcategory data adapter
                 var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
@@ -38,16 +37,14 @@
                 page.setCategoryName(state.item.displayName);
             },
 
-            _onProductSelected: function (e) {
+            /**
+            * Handler executed when an item in the Categories screen is selected
+            */
+            _onItemSelected: function (e) {
                 var item = e.detail.item;
-                console.log("[Category Page] " + item.displayName + " (Product) selected");
-                this.goToPage(DR.Store.URL.PRODUCT_PAGE, { item: item });
-            },
-
-            _onSubcategorySelected: function (e) {
-                var item = e.detail.item;
-                console.log("[Category Page] " + item.displayName + " (Category) selected");
-                this.goToPage(DR.Store.URL.CATEGORY_PAGE, { item: item });
+                console.log("[Category Page:] " + item.data.displayName + " selected");
+                var url = (item.itemType == DR.Store.Datasource.ItemType.PRODUCT) ? DR.Store.URL.PRODUCT_PAGE : DR.Store.URL.CATEGORY_PAGE;
+                this.goToPage(url, { item: item.data });
             }
         }
     );
