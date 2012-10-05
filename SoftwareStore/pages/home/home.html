@@ -14,7 +14,7 @@
     <link href="/css/categoryTemplate.css" rel="stylesheet" />
     <link href="/css/productTemplate.css" rel="stylesheet" />
 
-    <script src="/widgets/productTemplate/productTemplate.js"></script>
+    <script src="/widgets/templates/templates.js"></script>
     <script src="/pages/home/home.js"></script>
 </head>
 <body>
@@ -27,9 +27,10 @@
         </button>
     </div>
 
-    <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
-    <!--
-    <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
+   <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
+   <div data-win-control="DR.Store.Widget.CategoryTemplate"></div>
+    
+    <!--<div class="itemtemplate" data-win-control="WinJS.Binding.Template">
         <div class="item-container">
             <div class="image-wrapper">
                 <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
@@ -42,7 +43,7 @@
             </div>
         </div>
     </div>
-    -->
+    
     <div class="categorytemplate" data-win-control="WinJS.Binding.Template">
         <div class="category-container">
             <div class="image-wrapper">
@@ -52,7 +53,7 @@
                 <p data-win-bind="textContent: displayName"></p>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- The content that will be loaded and displayed. -->
     <div class="fragment homepage">

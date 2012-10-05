@@ -1,0 +1,71 @@
+﻿.item-container {
+	border: 1px solid #425E97;
+	margin: 0;
+	cursor: pointer;
+	width: 298px;
+	background-color: rgba(34, 49, 78, 0.498);
+	display: -ms-grid;
+	overflow: hidden;
+	padding-top: 5px;
+	height: 68px;
+	-ms-grid-column-align: stretch;
+	-ms-grid-row-align: stretch;
+	-ms-grid-columns: 70px 1fr;
+	-ms-grid-rows: 40px 30px;
+}
+/* 
+    Product Template
+    Defines a 310 x 75 pixel template to display products. 
+    Use whenever a product is displayed in a list view control 
+*/
+
+.item-container .image-wrapper {
+    width: 56px;
+	height: 58px;
+    float: left;
+    background: white;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+    padding: 2px;
+    overflow: hidden;
+    -ms-grid-column: 1;
+    -ms-grid-row-span: 1;
+}
+
+.item-image {
+	max-width: 54px;
+	max-height: 58px;
+	color: #ccc;
+}
+
+.item-container .text-wrapper {
+    vertical-align: middle;
+    -ms-grid-column: 2;
+}
+
+.item-container p {
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+.item-container .item-title {
+	font-weight: 600;
+	line-height: 16px;
+	max-height: 40px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	-ms-grid-row: 1;
+	-ms-grid-column: 2;
+}
+
+.item-container .item-pricing {
+	-ms-grid-row: 2;
+	-ms-grid-column: 2;
+}
+
+.win-listview > .win-horizontal .win-container {
+	margin-bottom: 5px;
+	background-color: transparent;
+	display: -ms-grid;
+}

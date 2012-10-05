@@ -104,9 +104,11 @@
     <Content Include="pages\product\product.css" />
     <Content Include="pages\product\product.html" />
     <Content Include="pages\product\product.js" />
-    <Content Include="widgets\productTemplate\productTemplate.css" />
-    <Content Include="widgets\productTemplate\productTemplate.html" />
-    <Content Include="widgets\productTemplate\productTemplate.js" />
+    <Content Include="widgets\templates\categoryTemplate.css" />
+    <Content Include="widgets\templates\categoryTemplate.html" />
+    <Content Include="widgets\templates\productTemplate.css" />
+    <Content Include="widgets\templates\productTemplate.html" />
+    <Content Include="widgets\templates\templates.js" />
     <None Include="SoftwareStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

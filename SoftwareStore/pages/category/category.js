@@ -26,7 +26,7 @@
             this.list.oniteminvoked = this._onItemInvoked.bind(this);
 
             this._productTemplate = element.querySelector(".productTemplate").winControl;
-            this._categoryTemplate = element.querySelector(".subcategoryTemplate").winControl;
+            this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
         },
 
         /**
