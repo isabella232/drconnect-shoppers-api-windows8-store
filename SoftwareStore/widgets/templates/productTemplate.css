@@ -1,4 +1,9 @@
-﻿.item-container {
+﻿/* 
+    Product Template
+    Defines a 310 x 75 pixel template to display products. 
+    Use whenever a product is displayed in a list view control 
+*/
+.productTemplate.item-container {
 	border: 1px solid #425E97;
 	margin: 0;
 	cursor: pointer;
@@ -13,13 +18,8 @@
 	-ms-grid-columns: 70px 1fr;
 	-ms-grid-rows: 40px 30px;
 }
-/* 
-    Product Template
-    Defines a 310 x 75 pixel template to display products. 
-    Use whenever a product is displayed in a list view control 
-*/
 
-.item-container .image-wrapper {
+.productTemplate.item-container .image-wrapper {
     width: 56px;
 	height: 58px;
     float: left;
@@ -33,23 +33,23 @@
     -ms-grid-row-span: 1;
 }
 
-.item-image {
+.productTemplate .item-image {
 	max-width: 54px;
 	max-height: 58px;
 	color: #ccc;
 }
 
-.item-container .text-wrapper {
+.productTemplate .text-wrapper {
     vertical-align: middle;
     -ms-grid-column: 2;
 }
 
-.item-container p {
+.productTemplate.item-container p {
 	margin-top: 0px;
 	margin-bottom: 5px;
 }
 
-.item-container .item-title {
+.productTemplate .item-title {
 	font-weight: 600;
 	line-height: 16px;
 	max-height: 40px;
@@ -59,13 +59,7 @@
 	-ms-grid-column: 2;
 }
 
-.item-container .item-pricing {
+.productTemplate .item-pricing {
 	-ms-grid-row: 2;
 	-ms-grid-column: 2;
-}
-
-.win-listview > .win-horizontal .win-container {
-	margin-bottom: 5px;
-	background-color: transparent;
-	display: -ms-grid;
-}
+} 

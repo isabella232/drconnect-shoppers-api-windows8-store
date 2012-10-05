@@ -105,8 +105,20 @@ progress {
 }
 
 .hidden {
-        display: none;
-    }
+	margin-bottom: 5px;
+	background-color: transparent;
+	display: -ms-grid;
+}
+
+.win-listview > .win-horizontal .win-container{
+	margin-bottom: 5px;
+	background-color: transparent;
+	display: -ms-grid;
+}
+
+.cart-empty {
+	margin-left: 120px;
+}
 
 @media screen and (-ms-view-state: snapped) {
     .fragment header[role=banner] {
@@ -152,9 +164,5 @@ progress {
         .fragment header[role=banner] .win-backbutton {
             margin-left: 29px;
         }
-}
-
-.cart-empty {
-	margin-left: 120px;
 }
 
