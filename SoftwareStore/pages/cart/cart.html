@@ -11,38 +11,13 @@
 
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/cart/cart.css" rel="stylesheet" />
+    <script src="/widgets/templates/templates.js"></script>
     <script src="/pages/cart/cart.js"></script>
 </head>
 <body>
-    <!-- line item template -->
-    <div class="cart-item-template" id="cartTemplate" data-win-control="WinJS.Binding.Template">
-        <div class="item-container cart-line-item">
-            <div class="image-wrapper col-1">
-                <img src="#" class="item-image" data-win-bind="src:product.thumbnailImage; alt: product.displayName" />
-            </div>
-            <div class="col-2">
-                <p class="item-title" data-win-bind="textContent: product.displayName"></p>
-            </div>
-            <div class="col-3" style="-ms-grid-row-align: stretch;">
-                <p class="item-quantity">
-                    <!-- TODO Quantity should be a list from 1-99 -->
-                    <select data-win-bind="selectedIndex: quantity DR.Store.Pages.Cart.quantityToIndex">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </p>
-            </div>
-            <div class="col-4">
-                <p class="item-pricing" data-win-bind="textContent: pricing.formattedListPrice"></p>
-            </div>
-            <div class="col-5">
-                <p class="item-total" data-win-bind="textContent: pricing.formattedListPriceWithQuantity"></p>
-            </div>
-        </div>
-    </div>
+
+    <!-- Cart Line Item Template -->
+    <div data-win-control="DR.Store.Widget.CartLineItemTemplate"></div>
 
     <!-- The content that will be loaded and displayed. -->
     <div class="fragment cartpage">

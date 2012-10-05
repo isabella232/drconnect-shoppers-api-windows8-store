@@ -74,7 +74,6 @@
              *    totalCount: (optional) update the value of the count
              */
             itemsFromIndex: function (requestIndex, countBefore, countAfter) {
-                console.log("RI: " + requestIndex + "[" + countBefore + "," + countAfter + "]");
                 var self = this;
                 if (self._count && requestIndex >= self._count) {
                     return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.doesNotExist));
@@ -134,7 +133,6 @@
                         i++;
                     });
                 });
-                console.log(paginationInfo.offset);
                 return {
                     items: results, // The array of items
                     offset: paginationInfo.offset, // The offset into the array for the requested item
