@@ -25,6 +25,7 @@
 	-ms-grid-row-align: center;
 	background-color: rgba(21, 31, 50, 0.498);
 	height: 30px;
+	overflow: hidden;
 }
 
 .categoryTemplate .category-title p{

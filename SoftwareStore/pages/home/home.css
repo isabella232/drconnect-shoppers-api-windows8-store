@@ -1,6 +1,5 @@
 ﻿.homepage section[role=main] {
     -ms-grid-row: 2;
-    -ms-grid-row-span: 2;
 }
 
 .homepage .itemslist {
@@ -26,7 +25,7 @@
         -ms-grid-columns: minmax(0, max-content) 7px max-content;
         -ms-grid-rows: max-content;
         display: -ms-inline-grid;
-        line-height: 1.5;
+        line-height: 1;
     }
 
     /* Override default button styles */
@@ -54,37 +53,6 @@
                 content: "\E26B";
                 font-family: 'Segoe UI Symbol';
             }
-
-    /*.homepage .itemslist .item {
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: 1fr 90px;
-        display: -ms-grid;
-        height: 250px;
-        width: 250px;
-    }*/
-
-        /*.homepage .itemslist .item .item-image {
-            -ms-grid-row-span: 2;
-        }
-
-        .homepage .itemslist .item .item-overlay {
-            -ms-grid-row: 2;
-            -ms-grid-rows: 1fr 21px;
-            display: -ms-grid;
-            padding: 6px 15px 2px 15px;
-        }
-
-            .homepage .itemslist .item .item-overlay .item-title {
-                -ms-grid-row: 1;
-                overflow: hidden;
-                width: 220px;
-            }
-
-            .homepage .itemslist .item .item-overlay .item-subtitle {
-                -ms-grid-row: 2;
-                width: 220px;
-            }
-      */
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
     /*.homepage .itemslist .item .item-overlay {

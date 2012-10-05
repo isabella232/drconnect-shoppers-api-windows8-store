@@ -1,4 +1,9 @@
-﻿.category-container {
+﻿/*
+    Sub-Category Template: Category Page
+    Defines a 150 x 150 pixel tile with an category image and a title bar
+*/
+
+.category-container {
 	width: 148px;
 	height: 150px;
 	display: -ms-grid;
@@ -29,14 +34,3 @@
 	line-height: 30px;
 	padding-left: 10px;
 }
-
-/* 
-    Category Template: Main Page
-    Defines a 310 x 150 pixel tile with a category image and title bar    
-*/
-
-
-/*
-    Sub-Category Template: Category Page
-    Defines a 150 x 150 pixel tile with an category image and a title bar
-*/

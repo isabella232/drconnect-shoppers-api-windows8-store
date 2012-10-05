@@ -22,6 +22,7 @@
             //this.list.itemTemplate = element.querySelector(".productTemplate");
             this.list.itemTemplate = categoryItemTemplate.bind(this);
             this.list.groupHeaderTemplate = document.getElementById("groupTemplate");
+            this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
             //this.list.oniteminvoked = this._onProductInvoked.bind(this);
             this.list.oniteminvoked = this._onItemInvoked.bind(this);
 

@@ -24,7 +24,7 @@
         </button>
     </div>
     <!-- The content that will be loaded and displayed. -->
-    <div class="productpage fragment" id="productpage" style="-ms-grid-row-align: stretch;">
+    <div class="productpage fragment" id="productpage">
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" disabled></button>
             <h1 class="titlearea win-type-ellipsis">
@@ -36,15 +36,14 @@
             <span class="add-to-cart-count" style="display: inline-block;">3</span>
         </div>
 
-
-        <div class="content" aria-label="Main content" role="main" id="content" style="-ms-grid-columns: 470px auto 1fr; margin-left: 120px; margin-right: 80px; -ms-grid-rows: 60px 1fr;">
+        <div class="content" aria-label="Main content" role="main" id="content">
             <div class="display-pane-header">
                 <button class="header-button win-type-x-large win-type-interactive selected"><span>Overview</span></button>
                 <button  class="header-button win-type-x-large win-type-interactive"><span>Details</span></button>
             </div>
-            <div class="display-pane" style="position: relative;">
 
-                <div id="imageFlipView" data-win-control="WinJS.UI.FlipView" data-win-design-hidden="false"></div>
+            <div class="display-pane" style="position: relative;">
+                <div id="imageFlipView" data-win-control="WinJS.UI.FlipView"></div>
 
                 <div id="imageFlipViewTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
                     <div class="overlaidItemTemplate">
@@ -61,9 +60,11 @@
                     <button id="btnAddToCart" class="buyNow">Add To Cart</button>
                 </div>
             </div>
+
             <div class="offers-header" style="margin-left: 80px;">
                 <h2>People Also Bought</h2>
             </div>
+
             <div class="offers-container" style="margin-left: 80px;">
                 <!-- list of offers goes here -->
             </div>

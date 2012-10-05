@@ -1,4 +1,54 @@
-﻿.categorypage p {
-    margin-left: 120px;
+﻿.categorypage section[role=main] {
+    -ms-grid-row: 2;
 }
 
+.categorypage .itemslist {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    height: 100%;
+}
+
+    /* This selector is used to prevent ui-dark/light.css from overwriting changes
+       to .win-surface. */
+    .categorypage .itemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 45px;
+    }
+
+    .categorypage .itemslist .win-groupheader {
+        padding: 0;
+    }
+
+    /* Use grid and top level layout for truncation */
+    .categorypage .itemslist .group-header {
+        -ms-grid-columns: minmax(0, max-content) 7px max-content;
+        -ms-grid-rows: max-content;
+        display: -ms-inline-grid;
+        line-height: 1;
+    }
+
+    /* Override default button styles */
+    .categorypage .itemslist .group-header, .group-header:hover, .group-header:hover:active {
+        background: transparent;
+        border: 0;
+        margin-bottom: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 1px;
+        min-height: 0;
+        padding: 0;
+    }
+
+        .categorypage .itemslist .group-header .group-title {
+            display: inline-block;
+        }
+
+        .categorypage .itemslist .group-header .group-chevron {
+            -ms-grid-column: 3;
+            display: inline-block;
+        }
+
+            .categorypage .itemslist .group-header .group-chevron::before {
+                content: "\E26B";
+                font-family: 'Segoe UI Symbol';
+            }

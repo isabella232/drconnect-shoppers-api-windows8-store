@@ -4,6 +4,10 @@
     overflow-x: auto;
     z-index: 0;
     -ms-grid-column: 1;
+    -ms-grid-columns: 470px auto 1fr;
+    margin-left: 120px;
+    margin-right: 80px;
+    -ms-grid-rows: 50px 1fr;
 }
 
 .productpage .display-pane-header {
@@ -24,6 +28,7 @@
 .productpage .display-pane {
     -ms-grid-column: 1;
     -ms-grid-row: 2;
+    height: calc(100% - 40px);
 }
 
 .productpage .product-image {
@@ -43,12 +48,12 @@
         background-color: rgba(73, 187, 4, .4);
     }
 
-.hidden {
-    display: none;
-}
-
 .productpage .short-description {
 	margin-top: 10px;
+	overflow-y: auto;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	height: calc(100% - 300px);
     
 }
 
@@ -65,7 +70,7 @@
 
 .productpage .win-flipview {
     height: 270px;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     padding: 10px;
     background-color: white;
 }
@@ -80,10 +85,10 @@
 
 .productpage .pricing-wrapper {
 	padding: 10px 20px 20px;
-	margin-left: 10px;
 	background-color: rgba(33, 47, 76, 0.498);
-	border: 1px solid #425E97;
+	border: 2px solid #5F84CF;
 	width: 130px;
+	margin-left: 0px;
 }
 
 .productpage .offers-container {
@@ -96,18 +101,6 @@
 	-ms-grid-row: 1;
 	-ms-grid-column: 3;
 }
-
-.productpage footer {
-	-ms-grid-row: 3;
-	text-align: center;
-	padding-top: 10px;
-}
-
-.productpage footer p {
-	margin-bottom: 5px;
-	margin-top: 0px;
-}
-
 
 @media screen and (-ms-view-state: snapped) {
     .productpage .content {

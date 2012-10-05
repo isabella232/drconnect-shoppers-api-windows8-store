@@ -17,10 +17,10 @@
 </head>
 <body>
     <div id="groupTemplate" data-win-control="WinJS.Binding.Template">
-            <div class="groupHeader">
-                <h2 data-win-bind="innerText: label"></h2>
-            </div>
-        </div>
+        <h2 class="group-header win-type-x-large win-type-interactive root-category" tabindex="-1">
+            <span class="group-title win-type-ellipsis" data-win-bind="innerText: label"></span>
+        </h2>
+    </div>
 
     <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
     <!-- These templates are used to display each item in the ListView declared below. -->
@@ -57,8 +57,17 @@
         </header>
         <section aria-label="Main content" role="main">
             <span id="emptyMessage" class="hidden">The category has no subcategories nor products</span>
-            <div id="list" class="itemslist win-selectionstylefilled" aria-label="List of products" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
+            <div id="list" class="itemslist win-selectionstylefilled" aria-label="List of products" data-win-control="WinJS.UI.ListView" 
+                data-win-options="{ selectionMode: 'multi' }"></div>
         </section>
+        <footer>
+            <p>Digital River is the authorized reseller and merchant of record of the product and service offered within this store.</p>
+            <p>
+                <span>Privacy Policy</span>
+                <span>Terms of Use</span>
+                <span>Your California Privacy Policy</span>
+            </p>
+        </footer>
     </div>
 </body>
 </html>

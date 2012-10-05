@@ -107,7 +107,7 @@ progress {
 .hidden {
 	margin-bottom: 5px;
 	background-color: transparent;
-	display: -ms-grid;
+	display: none;
 }
 
 .win-listview > .win-horizontal .win-container{
@@ -118,6 +118,20 @@ progress {
 
 .cart-empty {
 	margin-left: 120px;
+}
+
+/*
+	Defines the standard footer on each page
+*/
+footer {
+	-ms-grid-row: 3;
+	text-align: center;
+	padding-top: 10px;
+}
+
+footer p {
+	margin-bottom: 5px;
+	margin-top: 0px;
 }
 
 @media screen and (-ms-view-state: snapped) {
