@@ -18,41 +18,17 @@
 <body>
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
-        <button class="group-header win-type-x-large win-type-interactive root-category" data-win-bind="groupKey: id; groupName: displayName"
+        <button id="categoryButton" class="group-header win-type-x-large win-type-interactive root-category" data-win-bind="groupKey: id; groupName: displayName"
             onclick="WinJS.Navigation.navigate(DR.Store.URL.CATEGORY_PAGE, {item: {id: event.srcElement.groupKey, displayName: event.srcElement.groupName}});" role="link" tabindex="-1" type="button">
             <span class="group-title win-type-ellipsis" data-win-bind="textContent: displayName"></span>
             <span class="group-chevron"></span>
         </button>
     </div>
 
-   <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
-   <div data-win-control="DR.Store.Widget.CategoryTemplate"></div>
+    <!-- Products and Categories Template -->
+    <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
+    <div data-win-control="DR.Store.Widget.CategoryTemplate"></div>
     
-    <!--<div class="itemtemplate" data-win-control="WinJS.Binding.Template">
-        <div class="item-container">
-            <div class="image-wrapper">
-                <img src="#" class="item-image" data-win-bind="src:thumbnailImage; alt:displayName" />
-            </div>
-            <div class="item-title" >
-                <p data-win-bind="textContent: displayName"></p>
-            </div>
-            <div class="item-pricing" >
-                <p data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="categorytemplate" data-win-control="WinJS.Binding.Template">
-        <div class="category-container">
-            <div class="image-wrapper">
-                <img src="#" class="category-image" data-win-bind="src:thumbnailImage; alt:displayName" />
-            </div>
-            <div class="category-title">
-                <p data-win-bind="textContent: displayName"></p>
-            </div>
-        </div>
-    </div>-->
-
     <!-- The content that will be loaded and displayed. -->
     <div class="fragment homepage">
         <header aria-label="Header content" role="banner">

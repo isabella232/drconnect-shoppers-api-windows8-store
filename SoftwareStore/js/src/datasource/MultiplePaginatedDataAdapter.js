@@ -87,7 +87,6 @@
              * totalCount: (optional) update the value of the count
              */
             itemsFromIndex: function (requestIndex, countBefore, countAfter) {
-                console.log("RI: " + requestIndex + "[" + countBefore + "," + countAfter + "]");
                 var self = this;
                 if (self._totalCount && requestIndex >= self._totalCount) {
                     return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.doesNotExist));
