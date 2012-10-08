@@ -25,7 +25,7 @@
         -ms-grid-columns: minmax(0, max-content) 7px max-content;
         -ms-grid-rows: max-content;
         display: -ms-inline-grid;
-        line-height: 1;
+        line-height: 1.36;
     }
 
     /* Override default button styles */
