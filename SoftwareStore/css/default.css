@@ -66,13 +66,25 @@ progress {
 
 .page-header-bar {
 	position: absolute;
-	right: 40px;
-	top: 14px;
+	right: 67px;
+	top: 58px;
 }
 
 .page-header-bar .win-commandicon {
-	margin-left: 12px;
+	margin-left: 14px;
 	margin-right: 12px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.page-header-bar button.win-command
+{
+	padding-top: 0px;
+	padding-bottom: 0px; 
+
+}
+
+.page-header-bar span.win-label {
+	display: none;
 }
 
 .add-to-cart { 
@@ -178,5 +190,8 @@ footer p {
         .fragment header[role=banner] .win-backbutton {
             margin-left: 29px;
         }
+}
+
+.details-pane {
 }
 
