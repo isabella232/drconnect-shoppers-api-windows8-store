@@ -24,7 +24,7 @@
                 // Create the paginated products data adapter
                 var productDA = new DR.Store.DataSource.ProductByCategoryPaginatedDataAdapter(state.item.id);
                 var dataAdapters = [];
-                dataAdapters.push({ name: "SubCategories", da: subcategoryDA });
+                dataAdapters.push({ name: "Subcategories", da: subcategoryDA });
                 dataAdapters.push({ name: "Products", da: productDA });
 
                 // Creates the multi datasource using both data adapters
