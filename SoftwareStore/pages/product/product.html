@@ -15,8 +15,8 @@
     <script src="/pages/product/product.js"></script>
 </head>
 <body>
-    <div class="page-header-bar">
-        <button class="win-command win-global win-hidefocus" id="upper-cart" role="menuitem" aria-label="Command" type="button">
+    <div class="page-header-bar" style="height: 40px;">
+        <button class="win-command win-global win-hidefocus" id="upper-cart" role="menuitem" aria-label="Command" type="button" style="display: inline-block;">
             <span tabindex="-1" class="win-commandicon win-commandring" aria-hidden="true">
                 <span tabindex="-1" class="win-commandimage" aria-hidden="true"></span>
             </span>
@@ -38,20 +38,23 @@
 
         <div class="content" aria-label="Main content" role="main" id="content">
             <div class="display-pane-header">
-                <button class="header-button win-type-x-large win-type-interactive selected"><span>Overview</span></button>
-                <button  class="header-button win-type-x-large win-type-interactive"><span>Details</span></button>
+                <button id="overviewTab" class="header-button win-type-x-large win-type-interactive selected"><span>Overview</span></button>
+                <button id="detailsTab" class="header-button win-type-x-large win-type-interactive"><span>Details</span></button>
             </div>
 
-            <div class="display-pane" style="position: relative;">
+            <div id="overview_pane" class="display-pane">
                 <div id="imageFlipView" data-win-control="WinJS.UI.FlipView"></div>
 
-                <div id="imageFlipViewTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+                <div id="imageFlipViewTemplate" data-win-control="WinJS.Binding.Template">
                     <div class="overlaidItemTemplate">
                         <img src="#" class="product-image" data-win-bind="src: productImage; alt: displayName" />
                     </div>
                 </div>
                 <div class="short-description"></div>
-                <div class="long-description"></div>
+            </div>
+
+            <div id="details_pane" class="details-pane">
+                <div class="long-description" style="padding-right: 20px; padding-bottom: 20px;"></div>
             </div>
 
             <div class="pricing">
