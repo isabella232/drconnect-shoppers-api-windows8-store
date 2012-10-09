@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homeAppBar</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="homeAppBar.css" rel="stylesheet" />
+    <script src="homeAppBar.js"></script>
+</head>
+<body>
+      <div id="appBar" data-win-control="WinJS.UI.AppBar" data-win-options="">
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdAdd',label:'Add',icon:'add',section:'selection',tooltip:'Add item'}"></button>
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'gotoCart',label:'Cart', icon: '',section:'global',tooltip:'Go To Cart'}"></button>
+        </div>
+</body>
+</html>

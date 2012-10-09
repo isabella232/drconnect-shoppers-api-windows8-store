@@ -3,7 +3,8 @@
 
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            CART_BUTTON_CLICKED: "cartButtonClicked"
         },
         itemsList: null,
         _itemTemplate: null,
@@ -14,16 +15,23 @@
         ready: function (element, options) {
             // TODO: Initialize the page here.
             this.itemsList = this.element.querySelector(".itemslist").winControl;
-            this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
+          //  this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
 
             // Set the template variables
             this._itemTemplate = element.querySelector(".itemtemplate").winControl;
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
+            element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
+
         },
 
         dataLoaded: function () {
             WinJS.Utilities.removeClass(document.querySelector('body'), "loading");
         },
+
+        _onCartButtonClick: function () {
+            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
+        },
+
 
         setHomeItems: function (groupedItems) {
             this.itemsList.groupHeaderTemplate = this.element.querySelector(".headertemplate");
@@ -49,9 +57,9 @@
     function renderHeader(itemPromise) {
         var self = this;
         return itemPromise.then(function (currentItem) {
-            var Template = document.body.querySelector(".headertemplate").winControl;
-            return Template.render(currentItem.data).then(function () {
-                var a = document.body.querySelector(".root-category");
+            var Template = self.element.querySelector(".headertemplate").winControl;
+            return Template.render(currentItem.data).then(function (element) {
+                var a = element.querySelector(".root-category");
                     a.onclick = self._onHeaderClicked.bind(this);
             });
         });
@@ -64,6 +72,9 @@
             switch (currentItem.data.type) {
                 case 'product':
                     template = oSelf._itemTemplate;
+                    currentItem.oncontextmenu = function () {
+                        console.log("Hola");
+                    };
                     break;
                 case 'category':
                     template = oSelf._categoryTemplate;

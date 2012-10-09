@@ -38,9 +38,10 @@
         </header>
         <section aria-label="Main content" role="main">
             <div class="itemslist win-selectionstylefilled" aria-label="List of groups" data-win-control="WinJS.UI.ListView" 
-                data-win-options="{ selectionMode: 'multi', enableCellSpanning: true, cellWidth: 150, cellHeight: 70 }"></div>
+                data-win-options="{ selectionMode: 'multi',  tapBehavior: 'toggleSelect', swipeBehavior: 'select', enableCellSpanning: true, cellWidth: 150, cellHeight: 70 }"></div>
         </section>
-
+        <div id="topAppBar" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: '/widgets/appbars/topHomeAppBar.html'}"></div>
+        <div id="bottomAppBar" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: '/widgets/appbars/homeAppBar.html'}"></div>
         <footer>
             <p>Digital River is the authorized reseller and merchant of record of the product and service offered within this store.</p>
             <p>
