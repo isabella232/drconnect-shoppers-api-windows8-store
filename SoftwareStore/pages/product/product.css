@@ -11,19 +11,25 @@
 }
 
 .productpage .display-pane-header {
-	-ms-grid-column: 1;
-	-ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
 }
+
+    /* Override default button styles */
+    .productpage .display-pane-header .header-button:hover, .productpage .display-pane-header .header-button:hover:active {
+        background: transparent;
+        border: 0;
+    }
 
 .productpage .header-button {
-	border-width: 0px;
-	border-style: none;
-	margin-right: 80px;
+    border-width: 0px;
+    border-style: none;
+    margin-right: 30px;
 }
 
-.productpage .header-button.selected{
-	font-weight: 500;
-}
+    .productpage .header-button.selected {
+        font-weight: 500;
+    }
 
 .productpage .display-pane {
     -ms-grid-column: 1;
@@ -44,21 +50,27 @@
     margin-top: 10px;
 }
 
-.productpage button.buyNow:hover {
+    .productpage button.buyNow:hover {
         background-color: rgba(73, 187, 4, .4);
     }
 
 .productpage .short-description {
-	margin-top: 10px;
+    margin-top: 10px;
+    overflow-y: auto;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    height: calc(100% - 300px);
+}
+
+.productpage .details-pane {
+	-ms-grid-row: 2;
+	-ms-grid-column: 1;
+	display: none;
 	overflow-y: auto;
-	padding-right: 20px;
-	padding-bottom: 20px;
-	height: calc(100% - 300px);
-    
+	height: calc(100% - 20px);
 }
 
 .productpage .long-description {
-	display: none;
 }
 
 .productpage progress {
@@ -76,30 +88,30 @@
 }
 
 .productpage .pricing {
-	-ms-grid-column: 2;
-	-ms-grid-row: 2;
-}
-.productpage .pricing h2 {
-	margin-top: 0px;
+    -ms-grid-column: 2;
+    -ms-grid-row: 2;
 }
 
+    .productpage .pricing h2 {
+        margin-top: 0px;
+    }
+
 .productpage .pricing-wrapper {
-	padding: 10px 20px 20px;
-	background-color: rgba(33, 47, 76, 0.498);
-	border: 2px solid #5F84CF;
-	width: 130px;
-	margin-left: 0px;
+    padding: 10px 20px 20px;
+    background-color: rgba(33, 47, 76, 0.498);
+    border: 2px solid #5F84CF;
+    width: 130px;
+    margin-left: 0px;
 }
 
 .productpage .offers-container {
-	-ms-grid-row: 2;
-	-ms-grid-row-span: 2;
-	-ms-grid-column: 3;
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
 }
 
 .productpage .offers-header {
-	-ms-grid-row: 1;
-	-ms-grid-column: 3;
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
 }
 
 @media screen and (-ms-view-state: snapped) {
@@ -118,7 +130,7 @@
 
     .product-pricing {
         font-weight: 600;
-        -ms-grid-column: 2
+        -ms-grid-column: 2;
     }
 
     .product-image {
@@ -133,4 +145,15 @@
 }
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
+}
+
+@media screen and (-ms-view-state: filled) {
+	.productpage .content {
+		-ms-grid-columns: 470px 1fr;
+		
+	}
+	.productpage .offers-container {
+	
+	}
+	
 }
