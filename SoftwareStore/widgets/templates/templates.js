@@ -24,15 +24,15 @@
         return Class;
     }
 
-    var _onProductClick = function () {
+    /*var _onProductClick = function (event) {
         console.log("Hola");
-    };
+    };*/
 
 
     WinJS.Namespace.define("DR.Store.Widget", {
         ProductTemplate: _buildWidget("/widgets/templates/productTemplate.html"),
         CategoryTemplate: _buildWidget("/widgets/templates/categoryTemplate.html"),
-        CartLineItemTemplate: _buildWidget("/widgets/templates/cartLineItemTemplate.html"),
-        onProductClick: _onProductClick
+        CartLineItemTemplate: _buildWidget("/widgets/templates/cartLineItemTemplate.html")/*,
+        onProductClick: _onProductClick*/
     });
 })();

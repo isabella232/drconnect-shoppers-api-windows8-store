@@ -15,12 +15,15 @@
         ready: function (element, options) {
             // TODO: Initialize the page here.
             this.itemsList = this.element.querySelector(".itemslist").winControl;
-          //  this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
+            this.itemsList.addEventListener("selectionchanged", _itemSelected.bind(this));
+            this.itemsList.addEventListener("selectionchanging", _onSelectionChanging.bind(this));
+            
+            this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
 
             // Set the template variables
             this._itemTemplate = element.querySelector(".itemtemplate").winControl;
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
-            element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
+            //element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
 
         },
 
@@ -52,7 +55,27 @@
                 self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data });
             });
         }
+
     });
+
+    function _itemSelected() {
+        var topAppBar = this.element.querySelector('#topAppBar').winControl;
+        var bottomAppBar = this.element.querySelector('#bottomAppBar').winControl;
+        var count = this.itemsList.selection.count();
+        if (count > 0) {
+            topAppBar.show();
+            bottomAppBar.show();
+        } else {
+            topAppBar.hide();
+            bottomAppBar.hide();
+        }
+    }
+
+    function _onSelectionChanging(event) {
+        //event.preventDefault();
+        //event.stopPropagation();
+       
+    }
 
     function renderHeader(itemPromise) {
         var self = this;

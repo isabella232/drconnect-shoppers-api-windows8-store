@@ -105,12 +105,11 @@
     <Content Include="pages\product\product.css" />
     <Content Include="pages\product\product.html" />
     <Content Include="pages\product\product.js" />
-    <Content Include="widgets\appbars\homeAppBar.css" />
-    <Content Include="widgets\appbars\homeAppBar.html" />
-    <Content Include="widgets\appbars\homeAppBar.js" />
+    <Content Include="widgets\appbars\bottomHomeAppBar.css" />
+    <Content Include="widgets\appbars\bottomHomeAppBar.html" />
+    <Content Include="widgets\appbars\appBar.js" />
     <Content Include="widgets\appbars\topHomeAppBar.css" />
     <Content Include="widgets\appbars\topHomeAppBar.html" />
-    <Content Include="widgets\appbars\topHomeAppBar.js" />
     <Content Include="widgets\templates\cartLineItemTemplate.css" />
     <Content Include="widgets\templates\cartLineItemTemplate.html" />
     <Content Include="widgets\templates\categoryTemplate.css" />
