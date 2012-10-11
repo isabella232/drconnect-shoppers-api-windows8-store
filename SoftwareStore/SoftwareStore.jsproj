@@ -88,7 +88,7 @@
     <Content Include="js\src\framework\BaseUrlMapper.js" />
     <Content Include="js\src\framework\UrlNavigationManager.js" />
     <Content Include="js\src\framework\SharingManager.js" />
-    <Content Include="js\src\framework\Util.js" />
+    <Content Include="js\src\framework\Class.js" />
     <Content Include="js\src\i18n\en_us.js" />
     <Content Include="js\src\Notifications.js" />
     <Content Include="js\src\service\CartService.js" />
