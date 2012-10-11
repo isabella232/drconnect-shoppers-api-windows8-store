@@ -7,6 +7,8 @@
             CART_BUTTON_CLICKED: "cartButtonClicked"
         },
         itemsList: null,
+        bottomAppBar: null,
+        topAppBar: null,
         _itemTemplate: null,
         _categoryTemplate: null,
 
@@ -15,7 +17,7 @@
         ready: function (element, options) {
             // TODO: Initialize the page here.
             this.itemsList = this.element.querySelector(".itemslist").winControl;
-            this.itemsList.addEventListener("selectionchanged", _itemSelected.bind(this));
+            this.itemsList.addEventListener("selectionchanged", this._itemSelected.bind(this));
             this.itemsList.addEventListener("selectionchanging", _onSelectionChanging.bind(this));
             
             this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
@@ -23,18 +25,14 @@
             // Set the template variables
             this._itemTemplate = element.querySelector(".itemtemplate").winControl;
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
-            //element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
+           // element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
+            this._initializeAppBars();
 
         },
 
         dataLoaded: function () {
             WinJS.Utilities.removeClass(document.querySelector('body'), "loading");
         },
-
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
-        },
-
 
         setHomeItems: function (groupedItems) {
             this.itemsList.groupHeaderTemplate = this.element.querySelector(".headertemplate");
@@ -54,26 +52,46 @@
             args.detail.itemPromise.then(function (item) {
                 self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data });
             });
-        }
+        },
 
+        _onCartButtonClick: function () {
+            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
+        },
+        
+        _initializeAppBars: function () {
+            var self = this;
+            // Initialize the Bottom AppBar
+            this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
+            this.bottomAppBar.addCommands(
+                [{ options: { id: 'cmdAdd', label: 'Add', icon: 'add', section: 'selection', tooltip: 'Add item' }},
+                 { options: { id: 'gotoCart', label: 'View Cart', icon: '', section: 'global', tooltip: 'Go To Cart' }, clickHandler: this._onCartButtonClick }]);
+
+            this.bottomAppBar.hideCommands(["cmdAdd"]);
+
+            this.topAppBar = this.element.querySelector("#topAppBar").winControl;
+            this.topAppBar.addCommand({ id: 'profile', label: 'Profile', icon: '', section: 'global', tooltip: 'View Profile' });
+        },
+
+        _itemSelected: function (item) {
+            var count = this.itemsList.selection.count();
+            if (count > 0) {
+                this.bottomAppBar.showCommands(["cmdAdd"]);
+                this.topAppBar.show();
+                this.bottomAppBar.show();
+            } else {
+                this.topAppBar.hide();
+                this.bottomAppBar.hide();
+                this.bottomAppBar.hideCommands(["cmdAdd"]);
+            }
+        }
     });
 
-    function _itemSelected() {
-        var topAppBar = this.element.querySelector('#topAppBar').winControl;
-        var bottomAppBar = this.element.querySelector('#bottomAppBar').winControl;
-        var count = this.itemsList.selection.count();
-        if (count > 0) {
-            topAppBar.show();
-            bottomAppBar.show();
-        } else {
-            topAppBar.hide();
-            bottomAppBar.hide();
-        }
-    }
-
-    function _onSelectionChanging(event) {
-        //event.preventDefault();
-        //event.stopPropagation();
+   
+    function _onSelectionChanging(args) {
+        //var self = this;
+        //args.detail.itemPromise.then(function (item) {
+        //    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data });
+        //});
        
     }
 
