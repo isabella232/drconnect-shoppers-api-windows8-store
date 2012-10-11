@@ -87,13 +87,20 @@
         }
     });
 
-   
-    function _onSelectionChanging(args) {
-        //var self = this;
-        //args.detail.itemPromise.then(function (item) {
-        //    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data });
-        //});
-       
+    /**
+     * Function called when the selection on the list is changing
+     */ 
+    function _onSelectionChanging(event) {
+        // Checks if the item type is a category. In that case blocks the event to avoid the selection of a subcategory
+        event.detail.newSelection.getItems().then(function (items) {
+            items.forEach(function (e, i) {
+                if (e.data.type == "category") {
+                    event.preventDefault();
+                    return;
+                }
+            });
+        });
+    
     }
 
     function renderHeader(itemPromise) {
