@@ -25,7 +25,8 @@
             // Set the template variables
             this._itemTemplate = element.querySelector(".itemtemplate").winControl;
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
-           // element.querySelector("#gotoCart").onclick = this._onCartButtonClick.bind(this);
+
+            // Initialize the Application Bars
             this._initializeAppBars();
 
         },
@@ -64,7 +65,7 @@
             this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
             this.bottomAppBar.addCommands(
                 [{ options: { id: 'cmdAdd', label: 'Add', icon: 'add', section: 'selection', tooltip: 'Add item' }},
-                 { options: { id: 'gotoCart', label: 'View Cart', icon: '', section: 'global', tooltip: 'Go To Cart' }, clickHandler: this._onCartButtonClick }]);
+                 { options: { id: 'gotoCart', label: 'View Cart', icon: '', section: 'global', tooltip: 'Go To Cart' }, clickHandler: this._onCartButtonClick.bind(this) }]);
 
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
