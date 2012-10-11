@@ -50,8 +50,8 @@
         var self = this;
         return itemPromise.then(function (currentItem) {
             var Template = document.body.querySelector(".headertemplate").winControl;
-            return Template.render(currentItem.data).then(function () {
-                var a = document.body.querySelector(".root-category");
+            return Template.render(currentItem.data).then(function (element) {
+                var a = element.querySelector(".root-category");
                     a.onclick = self._onHeaderClicked.bind(this);
             });
         });

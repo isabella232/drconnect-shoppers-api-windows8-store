@@ -1,15 +1,19 @@
 ﻿(function () {
     "use strict";
 
+    var dataTransferManager = Windows.ApplicationModel.DataTransfer.DataTransferManager.getForCurrentView();
     var nav = WinJS.Navigation;
     var URL_CHANGE_NOTIFICATION = "urlChanged";
+    var SHARE_NOTIFICATION = "elementShared";
 
     /**
      * Default methods to be called in the controllers if no methods are specified in the mappings
      */
     var DEFAULT_CONTROLLER_METHOD = "handle";
     var DEFAULT_CONTROLLER_URL_METHOD = "handle";
+    var DEFAULT_CONTROLLER_SHARE_METHOD = "share";
 
+    
     /**
      * Base Class for dispatcher
      * Provides generic dispatcher funcionality (handling and dispatching notifications and listening to URL changes)
@@ -25,11 +29,18 @@
              */
             mappings: {},
             urlMappings: {},
+            sharingMappings: {},
             pageNavigator: null,
             controllers: null,
+            urlManager: null,
+            sharingManager: null,
 
             navigated: function (e) {
                 this.handle(URL_CHANGE_NOTIFICATION, e.detail);
+            },
+
+            onShareRequest: function(e) {
+                this.handle(SHARE_NOTIFICATION, { location: this.getCurrentUrl(), sharingEvent: e });
             },
 
             initialize: function () {
@@ -37,10 +48,23 @@
                 this.controllers = this.initControllers();
 
                 nav.onnavigated = this.navigated.bind(this);
-                this.declareUrlMappings(this.controllers);
+                
+                dataTransferManager.ondatarequested = this.onShareRequest.bind(this);
+
+                this.declareUrlMappings(DR.Store.URL, this.controllers);
                 this.urlManager = new DR.MVC.UrlNavigationManager(this);
-                this.declareMappings(this.controllers);
+
+                this.declareSharingMappings(DR.Store.URL, this.controllers);
+                this.sharingManager = new DR.MVC.Sharing.SharingManager(this);
+
+                this.declareMappings(DR.Store.Notifications, this.controllers);
+
+                this.addMapping(SHARE_NOTIFICATION, this.sharingManager);
                 this.addMapping(URL_CHANGE_NOTIFICATION, this.urlManager);
+            },
+
+            getCurrentUrl: function() {
+                return this.urlManager.getCurrentUrl();
             },
 
             /**
@@ -62,6 +86,12 @@
              * By default no mapping is created
              */
             declareUrlMappings: function () { },
+
+            /**
+             * Method that should be overriden to declare all the sharing mappings (URL to controller) using addSharingMapping().
+             * By default no mapping is created
+             */
+            declareSharingMappings: function () { },
 
             /**
              * Creates a new mapping (notification -> controller.method)
@@ -93,6 +123,21 @@
                 console.log("Adding " + ((secured) ? "(Secured) " : "") + "URL mapping for '" + url + "'")
 
                 this.urlMappings[url] = { "controller": controller, "method": method, "secured": secured };
+            },
+
+            /**
+             * Creates a new Sharing mapping (URL -> controller.method)
+             * If the 'method' parameter is not set, DEFAULT_CONTROLLER_SHARE_METHOD is used
+             */
+            addSharingMapping: function (url, controller, async, method) {
+                if (!method) method = DEFAULT_CONTROLLER_SHARE_METHOD;
+                if (!async) async = false;
+                if (!controller) throw Error("The controller to be mapped to URI " + url + " is undefined");
+                if (typeof controller[method] !== 'function') throw Error("The method does not exist on the controller");
+
+                console.log("Adding Sharing mapping for '" + url + "'")
+
+                this.sharingMappings[url] = { "controller": controller, "method": method, "async": async };
             },
 
             /**

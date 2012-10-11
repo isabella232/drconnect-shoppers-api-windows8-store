@@ -134,7 +134,7 @@
 
         showLoader: function (show) {
             var progress = this.element.querySelector("progress");
-            
+            if (!progress) return;
             if (show) {
                 WinJS.Utilities.removeClass(progress, "hidden");
             } else {

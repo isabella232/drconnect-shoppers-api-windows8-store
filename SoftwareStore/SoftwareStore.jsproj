@@ -82,9 +82,14 @@
     <Content Include="js\src\framework\BaseController.js" />
     <Content Include="js\src\framework\BaseDispatcher.js" />
     <Content Include="js\src\framework\BaseServiceManager.js" />
+    <Content Include="js\src\framework\LocalizationManager.js" />
+    <Content Include="js\src\framework\SharingAdapter.js" />
     <Content Include="js\src\framework\SinglePageController.js" />
+    <Content Include="js\src\framework\BaseUrlMapper.js" />
     <Content Include="js\src\framework\UrlNavigationManager.js" />
+    <Content Include="js\src\framework\SharingManager.js" />
     <Content Include="js\src\framework\Util.js" />
+    <Content Include="js\src\i18n\en_us.js" />
     <Content Include="js\src\Notifications.js" />
     <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
@@ -92,6 +97,7 @@
     <Content Include="js\src\service\ServiceManager.js" />
     <Content Include="js\src\URL.js" />
     <Content Include="js\src\util\ExtendedSplash.js" />
+    <Content Include="js\src\util\File.js" />
     <Content Include="pages\cart\cart.css" />
     <Content Include="pages\cart\cart.html" />
     <Content Include="pages\cart\cart.js" />
@@ -116,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="js\src\NewFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment

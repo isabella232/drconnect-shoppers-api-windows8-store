@@ -1,38 +1,6 @@
-﻿/*
-(function () {
-    "use strict";
-    var _extend = function (baseClass, constructor, instanceMembers, staticMembers) {
-        var clazz = WinJS.Class.derive(baseClass, constructor, instanceMembers, staticMembers);
-
-        clazz.extend = function (constructor, instanceMembers, staticMembers) {
-            return _extend(clazz, constructor, instanceMembers, staticMembers);
-        };
-
-        return clazz;
-    }
-
-    var _define =  function (constructor, instanceMembers, staticMembers) {
-        var clazz = WinJS.Class.define(constructor, instanceMembers, staticMembers);
-
-        clazz.extend = function (constructor, instanceMembers, staticMembers) {
-            return _extend(clazz, constructor, instanceMembers, staticMembers);
-        };
-
-        return clazz;
-    }
-    
-    WinJS.Namespace.define("DR", {
-        Class2: 
-            {
-                define: _define
-            }
-    });
-
-})();
-
-*/
-
-
+﻿/**
+ * Base Class for all classes. Provides the "extend" functionality
+ */
 (function () {
     var initializing = false, fnTest = /xyz/.test(function () { xyz; }) ? /\b_super\b/ : /.*/;
     // The base Class implementation (does nothing)

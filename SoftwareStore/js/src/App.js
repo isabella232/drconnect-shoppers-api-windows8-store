@@ -6,7 +6,7 @@
      */
     var Class = DR.MVC.Application.extend(
         function (config) {
-            this._super(config, DR.Store, DR.Store.Core.StoreDispatcher, DR.Store.Service.ServiceManager);
+            this._super(config, DR.Store, DR.Store.Core.StoreDispatcher, DR.Store.Service.ServiceManager, DR.Store.i18n);
         },
         {
             /**
