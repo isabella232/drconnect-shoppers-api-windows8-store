@@ -111,6 +111,11 @@
     <Content Include="pages\product\product.css" />
     <Content Include="pages\product\product.html" />
     <Content Include="pages\product\product.js" />
+    <Content Include="widgets\appbars\AppBar.js" />
+    <Content Include="widgets\appbars\AppBar.css" />
+    <Content Include="widgets\appbars\AppBar.html" />
+    <Content Include="widgets\appbars\TopAppBar.css" />
+    <Content Include="widgets\appbars\TopAppBar.html" />
     <Content Include="widgets\templates\cartLineItemTemplate.css" />
     <Content Include="widgets\templates\cartLineItemTemplate.html" />
     <Content Include="widgets\templates\categoryTemplate.css" />

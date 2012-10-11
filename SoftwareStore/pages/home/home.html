@@ -13,6 +13,7 @@
     <link href="/pages/home/home.css" rel="stylesheet" />
 
     <script src="/widgets/templates/templates.js"></script>
+    <script src="/widgets/appbars/AppBar.js"></script>
     <script src="/pages/home/home.js"></script>
 </head>
 <body>
@@ -37,11 +38,15 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <div class="itemslist win-selectionstylefilled" aria-label="List of groups" data-win-control="WinJS.UI.ListView" 
-                data-win-options="{ selectionMode: 'multi', enableCellSpanning: true, cellWidth: 150, cellHeight: 70 }"></div>
+            <div id="listItems" class="itemslist win-selectionstylefilled" aria-label="List of groups" data-win-control="WinJS.UI.ListView" 
+                data-win-options="{ selectionMode: 'multi',  tapBehavior: 'invoke', swipeBehavior: 'select', enableCellSpanning: true, cellWidth: 150, cellHeight: 70 }"></div>
         </section>
 
-        <footer>
+        <!-- Top and Bottom App Bars -->
+        <div id="topAppBar" data-win-control="DR.Store.Widget.AppBar.TopAppBar"></div>
+        <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.AppBar"></div>
+       
+         <footer>
             <p>Digital River is the authorized reseller and merchant of record of the product and service offered within this store.</p>
             <p>
                 <span>Privacy Policy</span>

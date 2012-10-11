@@ -4,7 +4,7 @@
     Use whenever a product is displayed in a list view control 
 */
 .productTemplate.item-container {
-	border: 1px solid #425E97;
+	border: 2px solid #5F84CF;
 	margin: 0;
 	cursor: pointer;
 	width: 298px;
@@ -12,7 +12,7 @@
 	display: -ms-grid;
 	overflow: hidden;
 	padding-top: 5px;
-	height: 68px;
+	height: 66px;
 	-ms-grid-column-align: stretch;
 	-ms-grid-row-align: stretch;
 	-ms-grid-columns: 70px 1fr;
@@ -21,7 +21,7 @@
 
 .productTemplate.item-container .image-wrapper {
     width: 56px;
-	height: 58px;
+	height: 56px;
     float: left;
     background: white;
     text-align: center;
@@ -35,7 +35,7 @@
 
 .productTemplate .item-image {
 	max-width: 54px;
-	max-height: 58px;
+	max-height: 56px;
 	color: #ccc;
 }
 
@@ -47,6 +47,7 @@
 .productTemplate.item-container p {
 	margin-top: 0px;
 	margin-bottom: 5px;
+	padding-right: 5px;
 }
 
 .productTemplate .item-title {
@@ -63,3 +64,22 @@
 	-ms-grid-row: 2;
 	-ms-grid-column: 2;
 } 
+
+.win-container.win-selected .win-selectionborder {
+    border-width: 0;
+    border-style: none;
+}
+.win-container.win-selected:hover .win-selectionborder {
+    border-width: 0;
+    border-style: none;
+}
+
+@media screen and (-ms-view-state: snapped) {
+	.productTemplate.item-container {
+		width: calc(100% - 4px);
+	}
+	
+	footer{
+		display: none;
+	}
+}
