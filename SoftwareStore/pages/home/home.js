@@ -15,11 +15,13 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
-            // TODO: Initialize the page here.
+            
+            // Gets the List Control
             this.itemsList = this.element.querySelector(".itemslist").winControl;
+
+            // Defines the selection behaviour
             this.itemsList.addEventListener("selectionchanged", this._itemSelected.bind(this));
             this.itemsList.addEventListener("selectionchanging", _onSelectionChanging.bind(this));
-            
             this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
 
             // Set the template variables
@@ -44,6 +46,7 @@
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
+
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
             var name = args.srcElement.groupName;
@@ -100,7 +103,6 @@
                 }
             });
         });
-    
     }
 
     function renderHeader(itemPromise) {
