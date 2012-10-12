@@ -1,12 +1,14 @@
-﻿(function () {
+﻿/**
+ * Url Navigation Manager
+ * Handles URL changes.
+ * 
+ */
+(function () {
     "use strict";
 
-    /**
-     * Url Navigation Manager
-     * Handles URL changes.
-     * 
-     */
-    //TODO Handler security
+    var nav = WinJS.Navigation;
+
+    //TODO Handle security
     var Class = DR.MVC.UrlMapper.extend(
         function (dispatcher) {
             this._super(dispatcher.urlMappings);
@@ -20,8 +22,18 @@
                 this._super(uri, params);
             },
 
+            /** 
+             * Gets the current URL
+             */
             getCurrentUrl: function () {
                 return this.getLastMappedUrl();
+            },
+
+            /**
+             * Navigates to the specified URL using the arguments
+             */
+            goToPage: function (url, data) {
+                nav.navigate(url, data);
             }
         }
         );

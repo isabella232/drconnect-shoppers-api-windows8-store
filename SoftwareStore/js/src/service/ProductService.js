@@ -72,6 +72,53 @@
                             return [];
                         }*/
                     });
+            },
+
+            /**
+             * Searches for a product by keyword
+             */
+            searchProduct: function (keyword, pageNumber, pageSize) {
+
+                // Set params
+                var params = { expand: 'product.id', keyword: keyword };
+
+                var self = this;
+                console.log("Calling DR productSearch service");
+
+                return this._client.products.search(params)
+                    .then(function (data) {
+                        var total = data.totalResults;
+
+                        if (typeof data.product != 'undefined' || total > 0) {
+                            // If pageSize and pageNumber are set
+                            if (pageSize) params.pageSize = pageSize;
+                            if (pageNumber) params.pageNumber = pageNumber;
+                            var ids = self._concatIdsFromProducts(data.product);
+                            return self._client.products.getProductsByIds({ 'productIds': ids, expand: 'product', pageSize: pageSize, pageNumber: pageNumber })
+                                .then(function (products) {
+                                    return {
+                                        product: products.product,
+                                        totalResults: total
+                                    };
+                                });
+                        } else {
+                            return {
+                                totalResults: data.totalResults,
+                                product: []
+                            };
+                        }
+                    });
+            },
+
+            /**
+	        * Returns a string with all productIds existent in the products collection separated with commas
+	        */
+            _concatIdsFromProducts: function (products) {
+                var result = '';
+                products.forEach(function (p) {
+                    result += p.id + ',';
+                });
+                return result;
             }
         }
     );

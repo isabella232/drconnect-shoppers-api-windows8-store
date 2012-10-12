@@ -17,6 +17,7 @@
                 this.addUrlMapping(u.PRODUCT_PAGE, c.productController);
                 this.addUrlMapping(u.CATEGORY_PAGE, c.categoryController);
                 this.addUrlMapping(u.CART_PAGE, c.cartController);
+                this.addUrlMapping(u.SEARCH_PAGE, c.searchController);
             },
 
             /**
@@ -31,6 +32,7 @@
              */
             declareMappings: function (n, c) {
                 this.addMapping(n.ADD_TO_CART, c.cartController, "addToCart");
+                this.addSearchMapping(c.searchController, "searchRequested");
             },
 
             /**
@@ -42,7 +44,8 @@
                     homeController: new c.HomeController(),
                     productController: new c.ProductController(),
                     cartController: new c.CartController(),
-                    categoryController: new c.CategoryController()
+                    categoryController: new c.CategoryController(),
+                    searchController: new c.SearchController()
                 }
             }
         }

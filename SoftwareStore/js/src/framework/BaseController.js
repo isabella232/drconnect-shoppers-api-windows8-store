@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
 
-    var nav = WinJS.Navigation;
-
     /**
      * Super Class for Controllers
      * most of Controller objects will inherit from this 
@@ -42,7 +40,7 @@
              * Navigates to the provided URL
              */
             goToPage: function (url, data) {
-                nav.navigate(url, data);
+                DR.Store.App.navigateTo(url, data);
             }
         }
         );

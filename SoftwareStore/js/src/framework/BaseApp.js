@@ -50,6 +50,9 @@
             },
             getDispatcher: function () {
                 return this.dispatcher;
+            },
+            navigateTo: function (url, data) {
+                this.dispatcher.navigateTo(url, data);
             }
         }
         );
