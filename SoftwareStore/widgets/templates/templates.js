@@ -1,32 +1,24 @@
 ﻿// For an introduction to the Page Control template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232511
-(function (URI) {
+(function () {
     "use strict";
 
-    function _buildWidget(URI) {
-        var Class = WinJS.UI.Pages.define(URI, {
+    /**
+     * Builds the widget corresponding to the html
+     * @tamplateName: File name (without extension) inside /widgets/templates/ that contains the template
+     */
+    function _buildWidget(templateName) {
+        var uri = "/widgets/templates/" + templateName + ".html";
+        var Class = WinJS.UI.Pages.define(uri, {
             // This function is called whenever a user navigates to this page. It
             // populates the page elements with the app's data.
-            ready: function (element, options) {
-                // TODO: Initialize the page here.
-            },
-
-            unload: function () {
-                // TODO: Respond to navigations away from this page.
-            },
-
-            updateLayout: function (element, viewState, lastViewState) {
-                /// <param name="element" domElement="true" />
-
-                // TODO: Respond to changes in viewState.
-            }
         });
         return Class;
     }
 
     WinJS.Namespace.define("DR.Store.Widget", {
-        ProductTemplate: _buildWidget("/widgets/templates/productTemplate.html"),
-        CategoryTemplate: _buildWidget("/widgets/templates/categoryTemplate.html"),
-        CartLineItemTemplate: _buildWidget("/widgets/templates/cartLineItemTemplate.html")
+        ProductTemplate: _buildWidget("productTemplate"),
+        CategoryTemplate: _buildWidget("categoryTemplate"),
+        CartLineItemTemplate: _buildWidget("cartLineItemTemplate")
     });
 })();
