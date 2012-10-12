@@ -17,16 +17,6 @@
         },
         {
             /**
-             * Logic executed before calling the controller
-             */
-            beforeControllerCall: function (mapping, sharingEvent) {
-                if (mapping.async) {
-                    console.log("The sharing is async");
-                    var deferral = params.request.getDeferral();
-                }
-            },
-
-            /**
              * Handle URI change notifications by calling the sharing handler.
              * Async sharing is handled here using WinJS's deferral.
              * Also, errors are handled by addind an error message
