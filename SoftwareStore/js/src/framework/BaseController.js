@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
 
-    var nav = WinJS.Navigation;
-
     /**
      * Super Class for Controllers
      * most of Controller objects will inherit from this 
@@ -10,6 +8,7 @@
     var Class = DR.Class.extend(
         function () {
             this.pageNavigator = DR.Store.App.pageNavigator;
+            this.app = DR.Store.App;
         },
         {
             pageNavigator: null,
@@ -34,7 +33,7 @@
              * @param data				JSON object with possible params to be forwarded
              */
             notify: function (notificationName, data) {
-                var dispatcher = DR.Store.App.getDispatcher();
+                var dispatcher = this.app.getDispatcher();
                 dispatcher.handle(notificationName, data);
             },
 
@@ -42,7 +41,7 @@
              * Navigates to the provided URL
              */
             goToPage: function (url, data) {
-                nav.navigate(url, data);
+                this.app.navigateTo(url, data);
             }
         }
         );

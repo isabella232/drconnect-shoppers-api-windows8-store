@@ -1,10 +1,10 @@
 ﻿(function () {
     "use strict";
 
-    var dataTransferManager = Windows.ApplicationModel.DataTransfer.DataTransferManager.getForCurrentView();
-    var nav = WinJS.Navigation;
-    var URL_CHANGE_NOTIFICATION = "urlChanged";
-    var SHARE_NOTIFICATION = "elementShared";
+    /**
+     * Notification used internally
+     */
+    var SEARCH_NOTIFICATION = "userSearched";
 
     /**
      * Default methods to be called in the controllers if no methods are specified in the mappings
@@ -12,7 +12,6 @@
     var DEFAULT_CONTROLLER_METHOD = "handle";
     var DEFAULT_CONTROLLER_URL_METHOD = "handle";
     var DEFAULT_CONTROLLER_SHARE_METHOD = "share";
-
     
     /**
      * Base Class for dispatcher
@@ -23,48 +22,21 @@
         function () {
         },
         {
-
             /**
              * Properties
              */
             mappings: {},
             urlMappings: {},
             sharingMappings: {},
-            pageNavigator: null,
             controllers: null,
-            urlManager: null,
-            sharingManager: null,
-
-            navigated: function (e) {
-                this.handle(URL_CHANGE_NOTIFICATION, e.detail);
-            },
-
-            onShareRequest: function(e) {
-                this.handle(SHARE_NOTIFICATION, { location: this.getCurrentUrl(), sharingEvent: e });
-            },
 
             initialize: function () {
                 console.log("Initializing dispatcher");
                 this.controllers = this.initControllers();
 
-                nav.onnavigated = this.navigated.bind(this);
-                
-                dataTransferManager.ondatarequested = this.onShareRequest.bind(this);
-
                 this.declareUrlMappings(DR.Store.URL, this.controllers);
-                this.urlManager = new DR.MVC.UrlNavigationManager(this);
-
                 this.declareSharingMappings(DR.Store.URL, this.controllers);
-                this.sharingManager = new DR.MVC.Sharing.SharingManager(this);
-
                 this.declareMappings(DR.Store.Notifications, this.controllers);
-
-                this.addMapping(SHARE_NOTIFICATION, this.sharingManager);
-                this.addMapping(URL_CHANGE_NOTIFICATION, this.urlManager);
-            },
-
-            getCurrentUrl: function() {
-                return this.urlManager.getCurrentUrl();
             },
 
             /**
@@ -141,6 +113,13 @@
             },
 
             /**
+             * Adds a mapping to the search notification (which is handled by the framework)
+             */
+            addSearchMapping: function(controller, method, params) {
+                this.addMapping(SEARCH_NOTIFICATION, controller, method, params);
+            },
+
+            /**
              * Handler for all the notifications
              */
             handle: function (notificationName, data) {
@@ -165,7 +144,11 @@
         });
 
     WinJS.Namespace.define("DR.MVC", {
-        BaseDispatcher: BaseDispatcher
+        BaseDispatcher: BaseDispatcher,
+
+        Notifications: {
+            SEARCH_REQUESTED: SEARCH_NOTIFICATION
+        }
     });
 
 })();

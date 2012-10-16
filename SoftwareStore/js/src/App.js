@@ -6,19 +6,17 @@
      */
     var Class = DR.MVC.Application.extend(
         function (config) {
-            this._super(config, DR.Store, DR.Store.Core.StoreDispatcher, DR.Store.Service.ServiceManager, DR.Store.i18n);
+            this._super(config, this.getImplementation());
         },
         {
-            /**
-             * Overrides start function to hide splash screen when ready
-             */
-            start: function () {
-                return this._super().then(function () {
-                    this.splash.remove();
-                    //ExtendedSplash.remove();
-                }.bind(this));
+            getImplementation: function () {
+                return { 
+                    namespace: DR.Store, 
+                    dispatcherClass: DR.Store.Core.StoreDispatcher, 
+                    serviceManagerClass: DR.Store.Service.ServiceManager, 
+                    i18nNamespace: DR.Store.i18n
+                };
             }
-            
         });
 
     WinJS.Namespace.define("DR.Store.Core", {

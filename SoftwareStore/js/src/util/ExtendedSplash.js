@@ -70,15 +70,13 @@
     "use strict";
 
     var Class = DR.Class.extend(
-        function(splash, splashImagePath, nextPageUrl) {
+        function(splash, splashImagePath) {
             this.splash = splash;
             this.splashImagePath = splashImagePath;
-            this.nextPageUrl = nextPageUrl;
         }, 
         {
             splash: null,
             splashImagePath: null,
-            nextPageUrl: null,
 
             /**
              * Displays the extended splash screen. 
