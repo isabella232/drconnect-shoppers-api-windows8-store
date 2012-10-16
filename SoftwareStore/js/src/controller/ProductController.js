@@ -1,20 +1,54 @@
-﻿(function () {
+﻿/**
+ * Product details page controller
+ */
+(function () {
     "use strict";
-    /**
-     * Product details page controller
-     */
+    
     var Class = DR.MVC.SinglePageController.extend(
         function () {
             this._super();
         },
         {
+            currentProductPromise: null,
+
+            /**
+             * Called when the product page is shown
+             */
             initPage: function (page, state) {
+                var self = this;
                 page.setProductName(state.item.displayName);
-                loadFullProduct(state.item.id).then(function (product) {
+
+                // Loads the product and saves the promise to use it later on sharing
+                this.currentProductPromise = loadFullProduct(state.item.id);
+
+                this.currentProductPromise.then(function (product) {
                     page.setProduct(product);
                 });
                 page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 page.addEventListener(page.events.ADD_TO_CART, this._onAddToCartClicked.bind(this), false);
+            },
+
+            /**
+             * Sharing handler.
+             * Called when the user wants to share the product
+             * Returns a promise that will be complete when the loading of the product is complete. Only then the product is shared
+             */
+            share: function (sharing) {
+                if (this.currentProductPromise) {
+                    
+                    return this.currentProductPromise.then(function (product) {
+                        sharing.setBasicInfo(product.displayName, DR.Store.App.locale.getMessage("sharing.product.description"));
+                        sharing.setText(product.shortDescription || product.displayName);
+
+                        if (product.longDescription) {
+                            sharing.setHTML(product.longDescription);
+                        }
+
+                        if (product.productImage) {
+                            sharing.setImage(product.productImage);
+                        }
+                    });
+                }
             },
 
             _onCartButtonClicked: function(e) {

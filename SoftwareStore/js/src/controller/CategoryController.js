@@ -16,7 +16,10 @@
              * Loads the data and passes it to the page on initialization
              */
             initPage: function (page, state) {
+                // Event Listening
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
+                page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
+                page.addEventListener(page.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
 
                 // Create the subcategory data adapter
                 var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
@@ -45,6 +48,14 @@
                 console.log("[Category Page:] " + item.data.displayName + " selected");
                 var url = (item.itemType == DR.Store.Datasource.ItemType.PRODUCT) ? DR.Store.URL.PRODUCT_PAGE : DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item.data });
+            },
+
+            _onCartButtonClicked: function (e) {
+                this.goToPage(DR.Store.URL.CART_PAGE);
+            },
+
+            _onHomeButtonClicked: function (e) {
+                this.goToPage(DR.Store.URL.HOME_PAGE);
             }
         }
     );

@@ -82,9 +82,14 @@
     <Content Include="js\src\framework\BaseController.js" />
     <Content Include="js\src\framework\BaseDispatcher.js" />
     <Content Include="js\src\framework\BaseServiceManager.js" />
+    <Content Include="js\src\framework\LocalizationManager.js" />
+    <Content Include="js\src\framework\SharingAdapter.js" />
     <Content Include="js\src\framework\SinglePageController.js" />
+    <Content Include="js\src\framework\BaseUrlMapper.js" />
     <Content Include="js\src\framework\UrlNavigationManager.js" />
-    <Content Include="js\src\framework\Util.js" />
+    <Content Include="js\src\framework\SharingManager.js" />
+    <Content Include="js\src\framework\Class.js" />
+    <Content Include="js\src\i18n\en_us.js" />
     <Content Include="js\src\Notifications.js" />
     <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
@@ -92,6 +97,7 @@
     <Content Include="js\src\service\ServiceManager.js" />
     <Content Include="js\src\URL.js" />
     <Content Include="js\src\util\ExtendedSplash.js" />
+    <Content Include="js\src\util\File.js" />
     <Content Include="pages\cart\cart.css" />
     <Content Include="pages\cart\cart.html" />
     <Content Include="pages\cart\cart.js" />
@@ -110,6 +116,7 @@
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
+    <Content Include="widgets\tabs\TabControlManager.js" />
     <Content Include="widgets\templates\cartLineItemTemplate.css" />
     <Content Include="widgets\templates\cartLineItemTemplate.html" />
     <Content Include="widgets\templates\categoryTemplate.css" />

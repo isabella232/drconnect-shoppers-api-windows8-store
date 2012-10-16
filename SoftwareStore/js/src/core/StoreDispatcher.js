@@ -12,18 +12,25 @@
             /**
              * Mapping of all the URIs 
              */
-            declareUrlMappings: function (c) {
-                this.addUrlMapping(DR.Store.URL.HOME_PAGE, c.homeController);
-                this.addUrlMapping(DR.Store.URL.PRODUCT_PAGE, c.productController);
-                this.addUrlMapping(DR.Store.URL.CATEGORY_PAGE, c.categoryController);
-                this.addUrlMapping(DR.Store.URL.CART_PAGE, c.cartController);
+            declareUrlMappings: function (u, c) {
+                this.addUrlMapping(u.HOME_PAGE, c.homeController);
+                this.addUrlMapping(u.PRODUCT_PAGE, c.productController);
+                this.addUrlMapping(u.CATEGORY_PAGE, c.categoryController);
+                this.addUrlMapping(u.CART_PAGE, c.cartController);
+            },
+
+            /**
+             * Sharing Mappings
+             */
+            declareSharingMappings: function (u, c) {
+                this.addSharingMapping(u.PRODUCT_PAGE, c.productController, true);
             },
 
             /**
              * Notification Mapping
              */
-            declareMappings: function (c) {
-                this.addMapping(DR.Store.Notifications.ADD_TO_CART, c.cartController, "addToCart");
+            declareMappings: function (n, c) {
+                this.addMapping(n.ADD_TO_CART, c.cartController, "addToCart");
             },
 
             /**

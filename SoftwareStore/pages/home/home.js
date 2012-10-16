@@ -15,11 +15,13 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
-            // TODO: Initialize the page here.
+            
+            // Gets the List Control
             this.itemsList = this.element.querySelector(".itemslist").winControl;
+
+            // Defines the selection behaviour
             this.itemsList.addEventListener("selectionchanged", this._itemSelected.bind(this));
             this.itemsList.addEventListener("selectionchanging", _onSelectionChanging.bind(this));
-            
             this.itemsList.oniteminvoked = this._onItemInvoked.bind(this);
 
             // Set the template variables
@@ -44,6 +46,7 @@
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
+
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
             var name = args.srcElement.groupName;
@@ -87,13 +90,19 @@
         }
     });
 
-   
-    function _onSelectionChanging(args) {
-        //var self = this;
-        //args.detail.itemPromise.then(function (item) {
-        //    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data });
-        //});
-       
+    /**
+     * Function called when the selection on the list is changing
+     */ 
+    function _onSelectionChanging(event) {
+        // Checks if the item type is a category. In that case blocks the event to avoid the selection of a subcategory
+        event.detail.newSelection.getItems().then(function (items) {
+            items.forEach(function (e, i) {
+                if (e.data.type == "category") {
+                    event.preventDefault();
+                    return;
+                }
+            });
+        });
     }
 
     function renderHeader(itemPromise) {
@@ -114,9 +123,6 @@
             switch (currentItem.data.type) {
                 case 'product':
                     template = oSelf._itemTemplate;
-                    currentItem.oncontextmenu = function () {
-                        console.log("Hola");
-                    };
                     break;
                 case 'category':
                     template = oSelf._categoryTemplate;
