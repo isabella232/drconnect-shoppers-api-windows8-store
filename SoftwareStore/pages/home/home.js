@@ -31,6 +31,8 @@
             // Initialize the Application Bars
             this._initializeAppBars();
 
+            WinJS.Resources.processAll(element);
+
         },
 
         dataLoaded: function () {

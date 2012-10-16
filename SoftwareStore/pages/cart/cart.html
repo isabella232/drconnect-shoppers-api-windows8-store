@@ -24,25 +24,25 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" type="button"></button>
             <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle">Shopping Cart</span>
+                <span class="pagetitle" data-win-res="{textContent: 'cart.shoppingCartTile'}">Shopping Cart</span>
             </h1>
         </header>
 
         <section aria-label="Cart content" role="main">
-            <div class="cart-empty"><span>The cart is empty</span></div>
+            <div class="cart-empty"><span  data-win-res="{textContent: 'cart.cartEmpty'}">The cart is empty</span></div>
             <div class="cart-list-container">
                 <div class="cart-list-header item-container">
                     <div class="col-2">
-                        <p>Item</p>
+                        <p data-win-res="{textContent: 'cart.detail.item'}">Item</p>
                     </div>
                     <div class="col-3">
-                        <p>Quantity</p>
+                        <p data-win-res="{textContent: 'cart.detail.quantity'}">Quantity</p>
                     </div>
                     <div class="col-4">
-                        <p class="item-pricing">Unit Price</p>
+                        <p class="item-pricing" data-win-res="{textContent: 'cart.detail.unitPrice'}">Unit Price</p>
                     </div>
                     <div class="col-5">
-                        <p class="item-total">Total</p>
+                        <p class="item-total" data-win-res="{textContent: 'cart.detail.total'}">Total</p>
                     </div>
                 </div>
 
@@ -50,9 +50,9 @@
                 </div>
 
                 <div class="cart-summary">
-                    <p class="cart-subtotal">Sutotal: <span id="cart-subtotal"></span></p>
-                    <p class="cart-tax">Tax: <span id="cart-tax"></span></p>
-                    <p class="cart-total">Total: <span id="cart-total"></span></p>
+                    <p class="cart-subtotal" data-win-res="{textContent: 'cart.summary.subtotal'}">Sutotal: <span id="cart-subtotal"></span></p>
+                    <p class="cart-tax" data-win-res="{textContent: 'cart.summary.tax'}">Tax: <span id="cart-tax"></span></p>
+                    <p class="cart-total" data-win-res="{textContent: 'cart.summary.total'}">Total: <span id="cart-total"></span></p>
                 </div>
 
                 <!-- TODO Add a Proceed to Checkout button -->

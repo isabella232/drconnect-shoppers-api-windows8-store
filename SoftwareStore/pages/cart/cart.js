@@ -115,6 +115,8 @@
 
             WinJS.Utilities.addClass(this.cartContent, "hidden");
             WinJS.Utilities.addClass(this.emptyMessage, "hidden");
+
+            WinJS.Resources.processAll(element);
         },
         clear: function () {
             this.element.querySelector("#cart-subtotal").textContent = "";

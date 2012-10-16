@@ -1,0 +1,20 @@
+﻿// For details on localizing a Windows app, see: http://go.microsoft.com/fwlink/?LinkId=212836
+
+{   
+    "trademark"                         : "Digital River is the authorized reseller and merchant of record of the product and service offered within this store.",
+    "trademark.privacyPolicy"           : "Privacy Policy",
+    "trademark.termsOfUse"              : "Terms of Use",
+    "trademark.customPrivacyPolicy"     : "Your California Privacy Policy",
+
+    "cart.shoppingCartTile"             : "BALABALALJDKLJSKLDJShopping Cart",
+    "cart.cartEmpty"                    : "The cart is empty",
+    "cart.detail.item"                  : "Item",
+    "cart.detail.quantity"              : "Quantity",
+    "cart.detail.unitPrice"             : "Unit Price",
+    "cart.detail.total"                 : "Total",
+    "cart.summary.subtotal"             : "Sutotal:",
+    "cart.summary.tax"                  : "Tax:",
+    "cart.summary.total"                : "Total:"
+
+
+}
