@@ -128,10 +128,6 @@ progress {
 	display: -ms-grid;
 }
 
-.cart-empty {
-	margin-left: 120px;
-}
-
 /*
 	Defines the standard footer on each page
 */
@@ -191,7 +187,3 @@ footer p {
             margin-left: 29px;
         }
 }
-
-.details-pane {
-}
-

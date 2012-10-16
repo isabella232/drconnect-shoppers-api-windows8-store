@@ -1,23 +1,23 @@
 ﻿.cart-list-container {
     display: -ms-grid;
     -ms-grid-columns: 1fr 400px;
-    -ms-grid-rows: 40px 1fr 200px;
+    -ms-grid-rows: 40px 1fr 150px;
     color: white;
     height: 100%;
     margin-left: 120px;
 }
 
-.cartlist {
+.cartpage .cartlist {
     -ms-grid-column: 1;
     -ms-grid-row: 2;
     height: 100%;
     width: 100%;
-    margin-top: 10px;
 }
 
 .cart-list-header {
     border-bottom: 2px solid white;
     margin-bottom: 0px;
+    margin-right: 24px;
     padding-bottom: 5px;
 }
 
@@ -37,17 +37,21 @@
 }
 
 .cartpage .win-listview .win-container {
-    margin: 0px 0px 10px 0px;
+	margin: 5px 24px 5px 0px;
 }
 
-.cart-line-item.item-container {
+.cartpage .item-container {
     -ms-grid-columns: 80px 3fr 2fr 1fr 1fr;
     display: -ms-grid;
     margin-top: 0px;
     margin-bottom: 0px;
-    width: 100%;
+    margin-left: 3px;
     height: auto;
 }
+
+.cartpage .win-listview > .win-vertical .win-item {
+}
+
 
 /* Over rides default.css */
 .item-container .item-title {
@@ -89,26 +93,36 @@
         padding: 5px;
     }
 
-    .cart-line-item .item-pricing {
+    .cartpage .item-pricing {
         text-align: right;
     }
 
-    .cart-line-item .item-total {
+    .cartpage .item-total {
         text-align: right;
+        padding-right: 5px;
     }
 
     .cart-line-item .image-wrapper {
-        max-height: 70px;
+        max-height: 65px;
         overflow-y: hidden;
+        padding: 2px;
+        margin: 5px;
+        max-width: 65px;
+        background-color: white;
+        text-align: center;
     }
 
         .cart-line-item .image-wrapper img {
-            max-width: 70px;
+            max-width: 65px;
+            margin-left: auto;
+            margin-right: auto;
+            max-height: 65px;
         }
 
 .cart-summary {
     -ms-grid-row: 3;
-    margin-right: 10px;
+    margin-right: 24px;
+    padding-top: 10px;
 }
 
     .cart-summary p {
@@ -119,4 +133,10 @@
 
     .cart-summary .cart-total {
         font-size: 20pt;
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
     }
+	
+	.cart-empty {
+	margin-left: 120px;
+}
