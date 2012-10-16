@@ -15,6 +15,9 @@
             initPage: function (page, keyword) {
                 var self = this;
 
+                // Add Event Listeners
+                page.addEventListener(page.events.PRODUCT_SELECTED, this._onItemSelected.bind(this), false);
+
                 // Create the paginated product search data adapter using the keyword
                 var searchDS = new DR.Store.DataSource.SearchProductPaginatedDataSource(keyword);
 
@@ -31,6 +34,15 @@
             searchRequested: function (queryText) {
                 // Navigate to the search page, the rest is done there
                 this.goToPage(DR.Store.URL.SEARCH_PAGE, queryText);
+            },
+
+            /**
+           * Handler executed when a product on the search screen is selected
+           */
+            _onItemSelected: function (e) {
+                var item = e.detail.item;
+                console.log("[Search] " + item.displayName + " (product) selected");
+                this.goToPage(DR.Store.URL.PRODUCT_PAGE, { item: item });
             }
         }
     );
