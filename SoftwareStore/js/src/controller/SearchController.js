@@ -1,5 +1,5 @@
 ﻿/**
- * Product details page controller
+ * Product search page controller
  */
 (function () {
     "use strict";
@@ -10,11 +10,12 @@
         },
         {
             /**
-             * Called when the product page is shown
+             * Called when the page is shown
              */
             initPage: function (page, keyword) {
                 var self = this;
-                // Create the paginated products data adapter
+
+                // Create the paginated product search data adapter using the keyword
                 var searchDS = new DR.Store.DataSource.SearchProductPaginatedDataSource(keyword);
 
                 // Send the datasource to the view
@@ -25,7 +26,7 @@
             },
 
             /**
-             * Method called when the user uses the Windows 8 search
+             * Method called when the user uses the Windows 8 native search
              */
             searchRequested: function (queryText) {
                 // Navigate to the search page, the rest is done there

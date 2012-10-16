@@ -1,9 +1,10 @@
-﻿(function () {
+﻿/**
+ * Inherits PaginatedDataAdapter to overriding the retrievePage in order to call the corresponding service
+ * Looks for products by keyword
+ */
+(function () {
     "use strict";
-    /**
-     * Inherits PaginatedDataAdapter to overriding the retrievePage in order to call the corresponding service
-     * 
-     */
+
     var Class = DR.Store.DataSource.PaginatedDataAdapter.extend(
         function (keyword) {
             this._super();

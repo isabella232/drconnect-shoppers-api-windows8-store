@@ -8,6 +8,7 @@
     var Class = DR.Class.extend(
         function () {
             this.pageNavigator = DR.Store.App.pageNavigator;
+            this.app = DR.Store.App;
         },
         {
             pageNavigator: null,
@@ -32,7 +33,7 @@
              * @param data				JSON object with possible params to be forwarded
              */
             notify: function (notificationName, data) {
-                var dispatcher = DR.Store.App.getDispatcher();
+                var dispatcher = this.app.getDispatcher();
                 dispatcher.handle(notificationName, data);
             },
 
@@ -40,7 +41,7 @@
              * Navigates to the provided URL
              */
             goToPage: function (url, data) {
-                DR.Store.App.navigateTo(url, data);
+                this.app.navigateTo(url, data);
             }
         }
         );

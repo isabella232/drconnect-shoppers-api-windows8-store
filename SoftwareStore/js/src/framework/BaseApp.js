@@ -15,33 +15,64 @@
     }
 
     var Class = DR.Class.extend(
-        function (config, namespace, dispatcherClass, serviceManagerClass, i18nNamespace) {
+        function (config, implementation) {
             this.config = getConfig(config);
-            this.namespace = namespace;
-            this.dispatcher = new dispatcherClass();
-            if (serviceManagerClass) {
-                this.serviceManager = new serviceManagerClass(this.config.key);
-            }
+            this.namespace = implementation.namespace;
+            this.dispatcher = new implementation.dispatcherClass();
+            
+            this.initManagers(implementation.serviceManagerClass);
+            
             this.namespace.App = this;
-            this.namespace.Services = this.serviceManager;
 
             // TODO Change to use WinJS i18n
-            this.locale = new DR.MVC.LocalizationManager(i18nNamespace, DEFAULT_LOCALE);
+            this.locale = new DR.MVC.LocalizationManager(implementation.i18nNamespace, DEFAULT_LOCALE);
         },
         {
             config: {},
             namespace: null,
             dispatcher: null,
             serviceManager: null,
-            start: function () {
+            searchManager: null,
+            sharingManager: null,
+            navigationManager: null,
+
+            /**
+             * Initializes the app's managers
+             */
+            initManagers: function(serviceManagerClass) {
+                if (serviceManagerClass) {
+                    this.serviceManager = new serviceManagerClass(this.config.key);
+                    this.namespace.Services = this.serviceManager;
+                }
+            },
+
+            /**
+             * Initializes the dispatcher and the managers that depend on it
+             */
+            _initDispatcher: function () {
+                this.dispatcher.initialize();
+
+                this.searchManager = new DR.MVC.SearchManager(this.dispatcher);
+                this.sharingManager = new DR.MVC.Sharing.SharingManager(this, this.dispatcher.sharingMappings);
+
+                this.navigationManager = new DR.MVC.UrlNavigationManager(this.dispatcher.urlMappings, this.config.landingPage, this.searchManager);
+
+                // Restore the nav history from the session if available
+                var app = WinJS.Application;
+                if (app.sessionState.history) {
+                    this.navigationManager.setNavigationHistory(app.sessionState.history);
+                }
+            },
+
+            startServices: function () {
                 console.log("App starting...");
                 if (!this.serviceManager) {
-                    this.dispatcher.initialize()
+                    this._initDispatcher();
                     return WinJS.Promise.as(true);
                 } else {
-                   return this.serviceManager.initialize().then(
+                    return this.serviceManager.initialize().then(
                         function () {
-                            this.dispatcher.initialize();
+                            this._initDispatcher();
                         }.bind(this),
                         function (error) {
                             //TODO Do somehting
@@ -52,8 +83,50 @@
                 return this.dispatcher;
             },
             navigateTo: function (url, data) {
-                this.dispatcher.navigateTo(url, data);
+                this.navigationManager.goToPage(url, data);
+            },
+            getCurrentUrl: function() {
+                return this.navigationManager.getCurrentUrl();
+            },
+
+            start: function (args) {
+                var app = WinJS.Application;
+                var activation = Windows.ApplicationModel.Activation;
+
+                if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.running && args.detail.previousExecutionState !== activation.ApplicationExecutionState.suspended) {
+                    if (args.detail.previousExecutionState === activation.ApplicationExecutionState.terminated) {
+                        this.reloadContext();
+                    } else {
+                        this.showSplash(args);
+                    }
+                    
+                    var self = this;
+                    return this.startServices().then(function () {
+                        if (self.splash) self.splash.remove();
+
+                        self.navigationManager.showInitialPage(args);
+                    });
+                } else {
+                    this.navigationManager.showInitialPage(args);
+                    return WinJS.Promise.wrap(true);
+                }
+            },
+
+            showSplash: function (args) {
+                if (this.config.extendedSplashImage) {
+                    // Retrieve splash screen object
+                    this.splash = new DR.Store.Util.ExtendedSplash(args.detail.splashScreen, this.config.extendedSplashImage);
+                    // Create and display the extended splash screen using the splash screen object and the same image specified for the system splash screen.
+                    if (!Windows.ApplicationModel.DesignMode) {
+                        this.splash.show();
+                    }
+                }
+                
+                
+            },
+            reloadContext: function () {
             }
+            
         }
         );
 

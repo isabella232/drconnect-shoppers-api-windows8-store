@@ -5,10 +5,16 @@
  */
 (function () {
     "use strict";
+    var dataTransferManager = Windows.ApplicationModel.DataTransfer.DataTransferManager.getForCurrentView();
 
     var Class = DR.MVC.UrlMapper.extend(
-        function (dispatcher) {
-            this._super(dispatcher.sharingMappings);
+        function (app, mappings) {
+            this._super(mappings);
+
+            this.app = app;
+
+            // Add Win8 sharing event handler
+            dataTransferManager.ondatarequested = this.onShareRequest.bind(this);
 
             // Sharing manager should not throw an error on not found, it should just return nothing
             this.failOnMappingNotFound = false;
@@ -16,6 +22,14 @@
             this.notFoundMessage = "No sharing handler was defined for page with URI";
         },
         {
+            /**
+             * Event handler for Win8 sharing event
+             */
+            onShareRequest: function (e) {
+                console.log("Sharing request received");
+                this.handle({ location: this.app.getCurrentUrl(), sharingEvent: e });
+            },
+
             /**
              * Handle URI change notifications by calling the sharing handler.
              * Async sharing is handled here using WinJS's deferral.

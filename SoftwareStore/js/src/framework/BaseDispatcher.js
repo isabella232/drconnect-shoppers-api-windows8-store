@@ -1,10 +1,9 @@
 ﻿(function () {
     "use strict";
 
-    var dataTransferManager = Windows.ApplicationModel.DataTransfer.DataTransferManager.getForCurrentView();
-    var nav = WinJS.Navigation;
-    var URL_CHANGE_NOTIFICATION = "urlChanged";
-    var SHARE_NOTIFICATION = "elementShared";
+    /**
+     * Notification used internally
+     */
     var SEARCH_NOTIFICATION = "userSearched";
 
     /**
@@ -13,7 +12,6 @@
     var DEFAULT_CONTROLLER_METHOD = "handle";
     var DEFAULT_CONTROLLER_URL_METHOD = "handle";
     var DEFAULT_CONTROLLER_SHARE_METHOD = "share";
-
     
     /**
      * Base Class for dispatcher
@@ -24,55 +22,21 @@
         function () {
         },
         {
-
             /**
              * Properties
              */
             mappings: {},
             urlMappings: {},
             sharingMappings: {},
-            pageNavigator: null,
             controllers: null,
-            navigationManager: null,
-            sharingManager: null,
-            searchManager: null,
-
-            navigated: function (e) {
-                this.handle(URL_CHANGE_NOTIFICATION, e.detail);
-            },
-
-            onShareRequest: function(e) {
-                this.handle(SHARE_NOTIFICATION, { location: this.getCurrentUrl(), sharingEvent: e });
-            },
 
             initialize: function () {
                 console.log("Initializing dispatcher");
                 this.controllers = this.initControllers();
 
-                nav.onnavigated = this.navigated.bind(this);
-                
-                dataTransferManager.ondatarequested = this.onShareRequest.bind(this);
-
                 this.declareUrlMappings(DR.Store.URL, this.controllers);
-                this.navigationManager = new DR.MVC.UrlNavigationManager(this);
-
                 this.declareSharingMappings(DR.Store.URL, this.controllers);
-                this.sharingManager = new DR.MVC.Sharing.SharingManager(this);
-
                 this.declareMappings(DR.Store.Notifications, this.controllers);
-
-                this.addMapping(SHARE_NOTIFICATION, this.sharingManager);
-                this.addMapping(URL_CHANGE_NOTIFICATION, this.navigationManager);
-
-                this.searchManager = new DR.MVC.SearchManager(this);
-            },
-
-            getCurrentUrl: function() {
-                return this.navigationManager.getCurrentUrl();
-            },
-
-            navigateTo: function (url, data) {
-                return this.navigationManager.goToPage(url, data);
             },
 
             /**
