@@ -5,9 +5,9 @@
     z-index: 0;
     -ms-grid-column: 1;
     -ms-grid-columns: 470px auto 1fr;
-    margin-left: 120px;
-    margin-right: 80px;
-    -ms-grid-rows: 50px 1fr;
+    margin-left: 117px;
+    margin-right: 40px;
+    -ms-grid-rows: 50px auto 1fr;
 }
 
 .productpage .display-pane-header {
@@ -35,6 +35,7 @@
     -ms-grid-column: 1;
     -ms-grid-row: 2;
     height: calc(100% - 40px);
+    -ms-grid-row-span: 2;
 }
 
 .productpage .product-image {
@@ -68,6 +69,7 @@
 	display: none;
 	overflow-y: auto;
 	height: calc(100% - 20px);
+	-ms-grid-row-span: 2;
 }
 
 .productpage .long-description {
@@ -90,6 +92,7 @@
 .productpage .pricing {
     -ms-grid-column: 2;
     -ms-grid-row: 2;
+    margin-bottom: 20px;
 }
 
     .productpage .pricing h2 {
@@ -105,8 +108,10 @@
 }
 
 .productpage .offers-container {
-    -ms-grid-row: 2;
-    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+    margin-left: 80px;
+    -ms-grid-row-span: 3;
 }
 
 .productpage .offers-header {
@@ -120,31 +125,34 @@
         -ms-grid-row-span: 1;
         overflow-x: hidden;
         display: block;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     .productpage .display-pane {
         margin: 0;
-        width: 470px;
+        width: 280px;
         -ms-grid-column: 1;
+        -ms-grid-row: 1;
     }
 
-    .product-pricing {
-        font-weight: 600;
-        -ms-grid-column: 2;
+    .display-pane-header {
+    	display: none;
     }
-
-    .product-image {
-        display: inline;
-        position: static;
-    }
-
-    .description-pane .short-description {
-        overflow-y: auto;
-        display: block;
+	
+    .productpage footer {
+    	display: none;
     }
 }
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
+	.productpage .offers-container {
+		display: none;
+	}
+
+	.productpage .content {
+		margin-left: 80px;
+	}
 }
 
 @media screen and (-ms-view-state: filled) {
@@ -152,8 +160,23 @@
 		-ms-grid-columns: 470px 1fr;
 		
 	}
-	.productpage .offers-container {
+	.productpage .offers-header {
+		margin-left: 0px;
 	
 	}
+	.productpage .offers-container {
+		margin-left: 0px;
+		-ms-grid-row-span: 1;
+		-ms-grid-column: 2;
+		-ms-grid-row: 3;
 	
+	}
+	.productpage .pricing {
+    -ms-grid-column: 2;
+    -ms-grid-row: 2;
+    -ms-grid-row-align: start;
+    -ms-grid-column-align: start;
+    display: inline-block;
+}
+
 }
