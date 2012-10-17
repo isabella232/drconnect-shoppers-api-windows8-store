@@ -12,12 +12,16 @@
         },
         {
             pageNavigator: null,
-            showPage: function (detail) {
+            showPage: function (detail, localized) {
                 console.log("Showing page with URI " + detail.location);
                 var p = this.pageNavigator.goToPage(detail.location, detail.state).then(function (page) {
                     if (page.clear) {
                         page.clear();
                     }
+                    if (localized) {
+                        WinJS.Resources.processAll(page.element);
+                    }
+                    
                     return page;
                 });
                 if (p) {

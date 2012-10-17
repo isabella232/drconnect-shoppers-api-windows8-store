@@ -27,7 +27,6 @@
 
             // Initializes the tabs
             this._initializeTabs();
-
             
         },
         clear: function() {

@@ -23,7 +23,7 @@
             <span tabindex="-1" class="win-commandicon win-commandring" aria-hidden="true">
                 <span tabindex="-1" class="win-commandimage" aria-hidden="true"></span>
             </span>
-            <span tabindex="-1" class="win-label" aria-hidden="true">Cart</span>
+            <span tabindex="-1" class="win-label" aria-hidden="true" data-win-res="{textContent: 'general.button.cart'}">Cart</span>
         </button>
     </div>
     <!-- The content that will be loaded and displayed. -->
@@ -41,8 +41,8 @@
 
         <div class="content" aria-label="Main content" role="main" id="content">
             <div class="display-pane-header">
-                <button id="overviewTab" class="header-button win-type-x-large win-type-interactive selected"><span>Overview</span></button>
-                <button id="detailsTab" class="header-button win-type-x-large win-type-interactive"><span>Details</span></button>
+                <button id="overviewTab" class="header-button win-type-x-large win-type-interactive selected"><span data-win-res="{textContent: 'productDetail.overviewTab'}">Overview</span></button>
+                <button id="detailsTab" class="header-button win-type-x-large win-type-interactive"><span data-win-res="{textContent: 'productDetail.detailTab'}">Details</span></button>
             </div>
 
             <div id="overview_pane" class="display-pane">
@@ -64,12 +64,12 @@
             <div class="pricing">
                 <div class="pricing-wrapper">
                     <h2 class="product-pricing"><span id="product-price"></span></h2>
-                    <button id="btnAddToCart" class="buyNow">Add To Cart</button>
+                    <button id="btnAddToCart" class="buyNow"><span data-win-res="{textContent: 'general.button.addToCart.label'}">Add To Cart</span></button>
                 </div>
             </div>
             <div class="offers-container">
                 <div class="offers-header">
-                    <h2>Special Offers</h2>
+                    <h2 data-win-res="{textContent: 'general.specialOffers'}">Special Offers</h2>
                 </div>
 
                 <div class="offers-list">

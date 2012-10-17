@@ -37,7 +37,8 @@
                 if (this.currentProductPromise) {
                     
                     return this.currentProductPromise.then(function (product) {
-                        sharing.setBasicInfo(product.displayName, DR.Store.App.locale.getMessage("sharing.product.description"));
+                        var productDescription = WinJS.Resources.getString('sharing.product.description').value;
+                        sharing.setBasicInfo(product.displayName, productDescription);
                         sharing.setText(product.shortDescription || product.displayName);
 
                         if (product.longDescription) {

@@ -36,7 +36,7 @@
 
             // Initialize the Application Bars
             this._initializeAppBars();
-            
+           
         },
 
         /**
@@ -88,22 +88,36 @@
         
         _initializeAppBars: function () {
             var self = this;
+
+            // Get the localized labels for the commands
+            var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
+            var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
+            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
+            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
+            var sortButtonLabel = WinJS.Resources.getString('general.button.sort.label').value;
+            var sortButtonTooltip = WinJS.Resources.getString('general.button.sort.tooltip').value;
+            var homeButtonLabel = WinJS.Resources.getString('general.button.home.label').value;
+            var homeButtonTooltip = WinJS.Resources.getString('general.button.home.tooltip').value;
+            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
+            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
+
+
             // Initialize the Bottom AppBar
             this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ options: { id: 'cmdAdd', label: 'Add', icon: 'add', section: 'selection', tooltip: 'Add item' } },
+                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } },
                     //TODO: Implement SortHandler
-                 { options: { id: 'cmdSort', label: 'Sort', icon: '', section: 'global', tooltip: 'Sort' } },
+                 { options: { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip } },
                  { options: { id: 'appBarSeparator', type: 'separator', section: 'global' } },
-                 { options: { id: 'gotoCart', label: 'View Cart', icon: '', section: 'global', tooltip: 'Go To Cart' }, clickHandler: this._onCartButtonClick.bind(this) }]);
-
+                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
+            // Initialize the top AppBar
             this.topAppBar = this.element.querySelector("#topAppBar").winControl;
             this.topAppBar.addCommands(
-                [{ options: { id: 'home', label: 'Home', icon: '', section: 'global', tooltip: 'Home' }, clickHandler: this._onHomeButtonClick.bind(this) },
-                 { options: { id: 'profile', label: 'Profile', icon: '', section: 'global', tooltip: 'View Profile' } }]);
+                [{ options: { id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip }, clickHandler: this._onHomeButtonClick.bind(this) },
+                 { options: { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip } }]);
         },
 
         _itemSelected: function (item) {

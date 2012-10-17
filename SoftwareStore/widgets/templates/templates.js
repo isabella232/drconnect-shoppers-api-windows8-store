@@ -10,8 +10,7 @@
     function _buildWidget(templateName) {
         var uri = "/widgets/templates/" + templateName + ".html";
         var Class = WinJS.UI.Pages.define(uri, {
-            // This function is called whenever a user navigates to this page. It
-            // populates the page elements with the app's data.
+
         });
         return Class;
     }

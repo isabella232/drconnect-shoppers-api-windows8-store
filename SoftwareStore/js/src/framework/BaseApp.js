@@ -4,8 +4,6 @@
      * most of Controller objects will inherit from this 
      */
 
-    var DEFAULT_LOCALE = "en_us"
-
     var defaultConfig = {};
     
     function getConfig(config) {
@@ -23,9 +21,6 @@
             this.initManagers(implementation.serviceManagerClass);
             
             this.namespace.App = this;
-
-            // TODO Change to use WinJS i18n
-            this.locale = new DR.MVC.LocalizationManager(implementation.i18nNamespace, DEFAULT_LOCALE);
         },
         {
             config: {},

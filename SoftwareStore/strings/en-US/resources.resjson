@@ -1,0 +1,42 @@
+﻿// For details on localizing a Windows app, see: http://go.microsoft.com/fwlink/?LinkId=212836
+
+{   
+    "trademark"                         : "Digital River is the authorized reseller and merchant of record of the product and service offered within this store.",
+    "trademark.privacyPolicy"           : "Privacy Policy",
+    "trademark.termsOfUse"              : "Terms of Use",
+    "trademark.customPrivacyPolicy"     : "Your California Privacy Policy",
+
+    "general.button.home.label"         : "Home",
+    "general.button.home.tooltip"       : "Home",
+    "general.button.addToCart.label"    : "Add To Cart",
+    "general.button.addToCart.tooltip"  : "Add Products To The Cart",
+    "general.button.cart.label"         : "View Cart",
+    "general.button.cart.tooltip"       : "Go To Cart",
+    "general.button.profile.label"      : "Profile",
+    "general.button.profile.tooltip"    : "View Profile",
+    "general.button.sort.label"         : "Sort",
+    "general.button.sort.tooltip"       : "Sort",
+    "general.specialOffers"             : "Special Offers",
+
+    "cart.shoppingCartTile"             : "Shopping Cart",
+    "cart.cartEmpty"                    : "The cart is empty",
+    "cart.detail.item"                  : "Item",
+    "cart.detail.quantity"              : "Quantity",
+    "cart.detail.unitPrice"             : "Unit Price",
+    "cart.detail.total"                 : "Total",
+    "cart.summary.subtotal"             : "Sutotal:",
+    "cart.summary.tax"                  : "Tax:",
+    "cart.summary.total"                : "Total:",
+
+    "category.emptyMessage"             : "The category has no subcategories nor products",
+
+    "productDetail.overviewTab"         : "Overview",
+    "productDetail.detailTab"           : "Details",
+
+    "search.emptyMessage"               : "No results match your search.",
+    "search.searchTitle"                : "Results for ",
+    
+    "sharing.product.description"       : "Product Description"
+
+
+}

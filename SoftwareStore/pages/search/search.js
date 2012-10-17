@@ -21,6 +21,7 @@
             this.list.oniteminvoked = this._onItemInvoked.bind(this);
 
             this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
+
         },
 
         /**
@@ -34,7 +35,8 @@
         },
 
         setKeyword: function (keyword) {
-            this.element.querySelector(".titlearea .pagesubtitle").textContent = "Results for “" + keyword + '”';
+            var searchTitle = WinJS.Resources.getString('search.searchTitle').value;
+            this.element.querySelector(".titlearea .pagesubtitle").textContent = searchTitle + "“" + keyword + '”';
         },
 
         _onItemInvoked: function (args) {

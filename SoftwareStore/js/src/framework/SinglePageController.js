@@ -2,6 +2,9 @@
     "use strict";
     /**
      * Super Class for Controllers that show a page
+     * 
+     * By default the page is localized. 
+     * Set this.localized = false in the constructor to avoid localization processing
      */
     var Class = DR.MVC.BaseController.extend(
         function () {
@@ -9,12 +12,13 @@
         },
         {
             page: null,
+            localized: true,
             /**
              *  Handles the request by showing the appropriate page.
              */
             handle: function (detail) {
                 var self = this;
-                this.showPage(detail)
+                this.showPage(detail, this.localized)
                     .then(function(control) {
                         self.page = control;
                         if (self.page) {

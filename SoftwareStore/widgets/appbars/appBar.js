@@ -17,7 +17,6 @@
             // populates the page elements with the app's data.
             appBar : null,
             ready: function (element, options) {
-                // TODO: Initialize the page here.
                 if (!this.appBar) {
                     this.appBar = element.querySelector(appBarClass).winControl;
                 }

@@ -53,7 +53,8 @@
                             sharingAdapter.finish();
                         },
                         function () {
-                            sharingAdapter.fail(DR.Store.App.locale.getMessage("sharing.errorMessage"));
+                            var errorMessage = WinJS.Resources.getString('/errors/sharing.errorMessage').value;
+                            sharingAdapter.fail(errorMessage);
                         });
                 }
             }

@@ -31,7 +31,6 @@
             // Initialize the Application Bars
             this._initializeAppBars();
 
-            WinJS.Resources.processAll(element);
 
         },
 
@@ -66,16 +65,25 @@
         
         _initializeAppBars: function () {
             var self = this;
+
+            // Get the localized labels for the commands
+            var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
+            var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
+            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
+            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
+            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
+            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
+
             // Initialize the Bottom AppBar
             this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
             this.bottomAppBar.addCommands(
-                [{ options: { id: 'cmdAdd', label: 'Add', icon: 'add', section: 'selection', tooltip: 'Add item' }},
-                 { options: { id: 'gotoCart', label: 'View Cart', icon: '', section: 'global', tooltip: 'Go To Cart' }, clickHandler: this._onCartButtonClick.bind(this) }]);
-
+                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip} },
+                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
             this.bottomAppBar.hideCommands(["cmdAdd"]);
-
+            
+            // Initialize the top AppBar
             this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommand({ id: 'profile', label: 'Profile', icon: '', section: 'global', tooltip: 'View Profile' });
+            this.topAppBar.addCommand({ id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip });
         },
 
         _itemSelected: function (item) {
