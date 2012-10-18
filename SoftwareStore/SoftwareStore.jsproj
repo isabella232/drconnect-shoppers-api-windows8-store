@@ -120,14 +120,17 @@
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
+    <Content Include="widgets\html\Footer.css" />
+    <Content Include="widgets\html\Footer.html" />
+    <Content Include="widgets\html\HtmlControl.js" />
     <Content Include="widgets\tabs\TabControlManager.js" />
-    <Content Include="widgets\templates\cartLineItemTemplate.css" />
-    <Content Include="widgets\templates\cartLineItemTemplate.html" />
-    <Content Include="widgets\templates\categoryTemplate.css" />
-    <Content Include="widgets\templates\categoryTemplate.html" />
-    <Content Include="widgets\templates\productTemplate.css" />
-    <Content Include="widgets\templates\productTemplate.html" />
-    <Content Include="widgets\templates\templates.js" />
+    <Content Include="widgets\templates\CartLineItemTemplate.css" />
+    <Content Include="widgets\templates\CartLineItemTemplate.html" />
+    <Content Include="widgets\templates\CategoryTemplate.css" />
+    <Content Include="widgets\templates\CategoryTemplate.html" />
+    <Content Include="widgets\templates\ProductTemplate.css" />
+    <Content Include="widgets\templates\ProductTemplate.html" />
+    <Content Include="widgets\templates\Template.js" />
     <None Include="SoftwareStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -90,7 +90,7 @@
     }
    
     WinJS.Namespace.define("DR.Store.Widget.AppBar", {
-        AppBar: _buildAppBar("AppBar"),
+        BottomAppBar: _buildAppBar("AppBar"),
         TopAppBar: _buildAppBar("TopAppBar")
     });
 })();

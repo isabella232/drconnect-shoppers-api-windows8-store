@@ -12,7 +12,7 @@
     <link href="category.css" rel="stylesheet" />
     <link href="/css/default.css" rel="stylesheet" />
 
-    <script src="/widgets/templates/templates.js"></script>
+    <script src="/widgets/templates/Template.js"></script>
     <script src="category.js"></script>
 </head>
 <body>
@@ -41,16 +41,9 @@
 
           <!-- Top and Bottom App Bars -->
         <div id="topAppBar" data-win-control="DR.Store.Widget.AppBar.TopAppBar"></div>
-        <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.AppBar"></div>
+        <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.BottomAppBar"></div>
 
-        <footer>
-            <p>Digital River is the authorized reseller and merchant of record of the product and service offered within this store.</p>
-            <p>
-                <span>Privacy Policy</span>
-                <span>Terms of Use</span>
-                <span>Your California Privacy Policy</span>
-            </p>
-        </footer>
+        <footer data-win-control="DR.Store.Widget.Html.Footer"/>
     </div>
 </body>
 </html>

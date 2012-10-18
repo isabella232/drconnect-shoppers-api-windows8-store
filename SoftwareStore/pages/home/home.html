@@ -12,7 +12,8 @@
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/home/home.css" rel="stylesheet" />
 
-    <script src="/widgets/templates/templates.js"></script>
+    <script src="/widgets/templates/Template.js"></script>
+    <script src="/widgets/html/HtmlControl.js"></script>
     <script src="/pages/home/home.js"></script>
 </head>
 <body>
@@ -43,17 +44,11 @@
 
         <!-- Top and Bottom App Bars -->
         <div id="topAppBar" data-win-control="DR.Store.Widget.AppBar.TopAppBar"></div>
-        <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.AppBar"></div>
+        <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.BottomAppBar"></div>
        
-         <footer>
-             <!-- This Component Contains Localized Messages -->
-            <p data-win-res="{textContent: 'trademark'}"></p>
-            <p>
-                <span data-win-res="{textContent: 'trademark.privacyPolicy'}"></span>
-                <span data-win-res="{textContent: 'trademark.termsOfUse'}"></span>
-                <span data-win-res="{textContent: 'trademark.customPrivacyPolicy'}"></span>
-            </p>
-        </footer>
+
+        <footer data-win-control="DR.Store.Widget.Html.Footer"/>
+
     </div>
 </body>
 </html>
