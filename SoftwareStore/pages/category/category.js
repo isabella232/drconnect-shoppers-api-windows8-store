@@ -161,6 +161,7 @@
                     break;
                 case DR.Store.Datasource.ItemType.CATEGORY:
                     template = oSelf._categoryTemplate;
+                    if (!currentItem.data.thumbnailImage) currentItem.data.thumbnailImage = "images/folder.jpg";
                     break;
 
                 default:

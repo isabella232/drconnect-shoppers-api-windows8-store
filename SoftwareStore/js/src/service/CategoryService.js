@@ -30,7 +30,7 @@
              */
             getCategoryById: function (id) {
                 var self = this;
-                return this._client.categories.get(id, { expand: 'categories.category.id' })
+                return this._client.categories.get(id, { expand: 'categories.category' })
                 .then(function (category) {
                     self._categories[id] = category;
                     return self._categories[id];

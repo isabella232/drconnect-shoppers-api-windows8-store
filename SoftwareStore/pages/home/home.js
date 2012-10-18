@@ -131,11 +131,12 @@
         return itemPromise.then(function (currentItem) {
             var template;
             switch (currentItem.data.type) {
-                case 'product':
+                case DR.Store.Datasource.ItemType.PRODUCT:
                     template = oSelf._itemTemplate;
                     break;
-                case 'category':
+                case DR.Store.Datasource.ItemType.CATEGORY:
                     template = oSelf._categoryTemplate;
+                    if (!currentItem.data.thumbnailImage) currentItem.data.thumbnailImage = "images/folder.jpg";
                     break;
 
                 default:
