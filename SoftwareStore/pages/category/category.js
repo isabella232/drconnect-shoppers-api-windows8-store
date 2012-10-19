@@ -10,9 +10,7 @@
 
         // EVENTS
         events: {
-            ITEM_SELECTED: "itemSelected",
-            CART_BUTTON_CLICKED: "cartButtonClicked",
-            HOME_BUTTON_CLICKED: "homeButtonClicked"
+            ITEM_SELECTED: "itemSelected"
         },
 
         // This function is called whenever a user navigates to this page. It
@@ -78,46 +76,30 @@
             });
         },
 
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
-        },
-
-        _onHomeButtonClick: function () {
-            this.dispatchEvent(this.events.HOME_BUTTON_CLICKED);
-        },
-        
         _initializeAppBars: function () {
             var self = this;
 
             // Get the localized labels for the commands
             var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
             var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
-            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
-            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
             var sortButtonLabel = WinJS.Resources.getString('general.button.sort.label').value;
             var sortButtonTooltip = WinJS.Resources.getString('general.button.sort.tooltip').value;
             var homeButtonLabel = WinJS.Resources.getString('general.button.home.label').value;
             var homeButtonTooltip = WinJS.Resources.getString('general.button.home.tooltip').value;
-            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
-            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
-
 
             // Initialize the Bottom AppBar
-            this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } },
+                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } ,
                     //TODO: Implement SortHandler
-                 { options: { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip } },
-                 { options: { id: 'appBarSeparator', type: 'separator', section: 'global' } },
-                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
+                 { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip },
+                 { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
             // Initialize the top AppBar
-            this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommands(
-                [{ options: { id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip }, clickHandler: this._onHomeButtonClick.bind(this) },
-                 { options: { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip } }]);
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+            this.topAppBar.addCommand({ id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip, clickHandler: this._onHomeButtonClick.bind(this) });
         },
 
         _itemSelected: function (item) {

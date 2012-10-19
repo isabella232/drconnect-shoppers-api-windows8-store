@@ -15,7 +15,9 @@
         return WinJS.UI.Pages.define(uri, {
             // This function is called whenever a user navigates to this page. It
             // populates the page elements with the app's data.
-            appBar : null,
+            appBar: null,
+            // Commands that will be removed when clear funcion is called
+            _commandIds: [],
             ready: function (element, options) {
                 if (!this.appBar) {
                     this.appBar = element.querySelector(appBarClass).winControl;
@@ -24,26 +26,70 @@
             },
 
             /**
-             * Adds a command to the appbar
+             * Adds a command to the appbar that will be shown in all pages
+             * options should include all data-win-options and an additional key called clickHandler
              */ 
-            addCommand: function (options, clickHandler) {
+            addDefaultCommand: function (options) {
                 // If appBar is undefined define it
                 if (!this.appBar) {
                     this.appBar = this.element.querySelector(appBarClass).winControl;
                 }
                 var button = new WinJS.UI.AppBarCommand(null, options);
-                button.onclick = clickHandler;
+                button.onclick = options.clickHandler;
                 this.appBar.element.appendChild(button.element);
             },
 
             /**
+             * Adds a commands to the appbar that will be shown in all pages
+             * options should include all data-win-options and an additional key called clickHandler
+             */
+            addDefaultCommands: function (commands) {
+                var self = this;
+                commands.forEach(function (command) {
+                    self.addCommand(command.options);
+                });
+            },
+
+            /**
+             * Removes all non default commands existent on the appBar
+             */
+            clear: function () {
+                var self = this;
+                this._commandIds.forEach(function (commandId) {
+                    self.removeCommand(commandId);
+                });
+                // Empty the commandIds list
+                this._commandIds = [];
+            },
+
+            /**
+             * Adds a command to the appbar
+             * options should include all data-win-options and an additional key called clickHandler
+             */ 
+            addCommand: function (options) {
+                // If appBar is undefined define it
+                if (!this.appBar) {
+                    this.appBar = this.element.querySelector(appBarClass).winControl;
+                }
+                var button = new WinJS.UI.AppBarCommand(null, options);
+                button.onclick = options.clickHandler;
+                this.appBar.element.appendChild(button.element);
+                this._commandIds.push(options.id);
+            },
+
+            /**
              * Adds commands to the appbar
+             * options should include all data-win-options and an additional key called clickHandler
              */
             addCommands: function (commands) {
                 var self = this;
                 commands.forEach(function (command) {
-                    self.addCommand(command.options, command.clickHandler);
+                    self.addCommand(command);
                 });
+            },
+
+            removeCommand: function(commandId){
+                this.appBar.element.removeChild(this.appBar.element.querySelector(commandId));
             },
 
             /**
