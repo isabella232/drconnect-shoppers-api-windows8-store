@@ -16,7 +16,9 @@
 
     app.addEventListener("activated", function (args) {
         args.setPromise(WinJS.UI.processAll().then(function () {
-            return storeApp.start(args);
+            return storeApp.start(args).then(function(){
+                storeApp.getDispatcher().handle(DR.Store.Notifications.APPLICATION_STARTED);
+            });
         }));
         return;
 
@@ -44,7 +46,6 @@
                 
                 
                 args.setPromise(WinJS.UI.processAll().then(function () {
-                    
                     return storeApp.start().then(function () {
                         if (nav.location) {
                             nav.history.current.initialPlaceholder = true;

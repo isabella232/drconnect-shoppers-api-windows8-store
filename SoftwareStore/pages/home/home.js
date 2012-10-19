@@ -3,8 +3,7 @@
 
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
-            ITEM_SELECTED: "itemSelected",
-            CART_BUTTON_CLICKED: "cartButtonClicked"
+            ITEM_SELECTED: "itemSelected"
         },
         itemsList: null,
         bottomAppBar: null,
@@ -69,21 +68,12 @@
             // Get the localized labels for the commands
             var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
             var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
-            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
-            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
-            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
-            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
 
             // Initialize the Bottom AppBar
-            this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
-            this.bottomAppBar.addCommands(
-                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip} },
-                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip});
             this.bottomAppBar.hideCommands(["cmdAdd"]);
             
-            // Initialize the top AppBar
-            this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommand({ id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip });
         },
 
         _itemSelected: function (item) {

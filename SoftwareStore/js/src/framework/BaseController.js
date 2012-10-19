@@ -46,7 +46,19 @@
              */
             goToPage: function (url, data) {
                 this.app.navigateTo(url, data);
+            },
+
+            /**
+             * Clears the Custom buttons of the previous page
+             */
+            clearAppBars: function () {
+                var topAppBar = DR.Store.App.AppTopBar.winControl;
+                var bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+
+                topAppBar.clear();
+                bottomAppBar.clear();
             }
+
         }
         );
 

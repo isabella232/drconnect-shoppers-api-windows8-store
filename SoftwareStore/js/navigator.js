@@ -21,6 +21,12 @@
                 document.body.onkeypress = this._keypressHandler.bind(this);
                 document.body.onmspointerup = this._mspointerupHandler.bind(this);
 
+                // Exposes the appBarElements
+                var bottomBar = document.getElementById("bottomAppBar");
+                var topBar = document.getElementById("topAppBar");
+                WinJS.Namespace.define("DR.Store.App", { AppTopBar: topBar });
+                WinJS.Namespace.define("DR.Store.App", { AppBottomBar: bottomBar });
+
                 WinJS.Namespace.define("DR.Store.App", { pageNavigator: this });
             }, {
                 home: "",

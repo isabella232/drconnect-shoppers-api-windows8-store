@@ -18,8 +18,6 @@
             initPage: function (page, state) {
                 // Event Listening
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
-                page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
-                page.addEventListener(page.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
 
                 // Create the subcategory data adapter
                 var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
