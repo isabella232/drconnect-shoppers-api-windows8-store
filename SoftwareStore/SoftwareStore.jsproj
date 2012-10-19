@@ -81,6 +81,7 @@
     <Content Include="js\src\datasource\SearchProductPaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\ProductByCategoryPaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\SubCategoriesPaginatedDataAdapter.js" />
+    <Content Include="js\src\framework\AuthenticationHelper.js" />
     <Content Include="js\src\framework\BaseApp.js" />
     <Content Include="js\src\framework\BaseController.js" />
     <Content Include="js\src\framework\BaseDispatcher.js" />

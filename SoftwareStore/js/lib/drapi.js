@@ -2215,7 +2215,7 @@ define('view/AuthManualView',['view/AuthViewUtil', 'Config'], function(Util, Con
      * Completes the process with the passed results (collected by the client app)
      */
     AuthManualView.prototype.setResults = function(token, expires_in) {
-        dr.api.callbacks.auth(token, expirationTime, null, null);
+        dr.api.callbacks.auth(token, expires_in, null, null);
     }
     
     /**

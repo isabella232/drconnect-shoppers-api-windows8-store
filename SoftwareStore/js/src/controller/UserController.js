@@ -27,16 +27,24 @@
                 }
 
                 var self = this;
+
+                // Calls the user service to login
                 DR.Store.Services.userService.login()
                 .then(function () {
+                    // Success, go to the originally requested page
+                    console.log("User logged in!");
 
-                    self.goToPage(self.requestedUrl);
+                    if (self.requestedUrl) {
+                        self.goToPage(self.requestedUrl);
+                    }
+                    
                     self.requestedUrl = null;
                 })
                 .fail(function (resp) {
-                    if (resp.details.error != DR.Store.Services.userService.USER_CANCELLED) {
+                    // Error or user cancelled
+                    if (resp.details.error != DR.MVC.AuthenticationHelper.USER_CANCELLED) {
                         // TODO SHOW ERROR
-                        console.log("Error while logging in " + resp.details.error + "(" + resp.details.error_description + ")");
+                        console.log("Error while logging in: " + resp.details.error + " (" + resp.details.error_description + ")");
                     }
                     self.requestedUrl = null;
                 });

@@ -50,7 +50,7 @@
              */
             handleSecurityException: function (err, uri) {
                 if (err == SECURITY_EXCEPTION) {
-                    console.log("Unauthorize access to " + uri + ", redirecting to the login page");
+                    console.log("Unauthorize access to " + uri + ", asking the user to authenticate");
                     this.dispatcher.handle(DR.Store.Notifications.LOGIN, uri);
                 } else {
                     throw err;

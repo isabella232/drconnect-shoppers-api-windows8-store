@@ -6,15 +6,16 @@
     "use strict";
 
     var Class = DR.Class.extend(
-        function (client) {
+        //TODO see if redirecturi can be obtained from client
+        function (client, redirectUri) {
             this._client = client;
+            this.redirectUri = redirectUri;
             this.resetUserData();
         },
         {
             _client: null,
             authenticated: false,
-            USER_CANCELLED: "user_cancel",
-
+            
             /**
              * Returns whether the user is authenticated or anonymous.
              */
@@ -36,39 +37,29 @@
              */
             login: function () {
                 var self = this;
-                return this._client.login(function (authHelper) {
-                    self._doWinLogin(authHelper);
-                });
+                return this._client.login(this._doWinLogin.bind(this));
             },
 
             /**
              * Uses Win8 framework to connect to DR Authentication Service
              */
             _doWinLogin: function (authHelper) {
-                var winAuth = Windows.Security.Authentication.Web;
                 var self = this;
 
-                winAuth.WebAuthenticationBroker.authenticateAsync(winAuth.WebAuthenticationOptions.none, Windows.Foundation.Uri(authHelper.uri), Windows.Foundation.Uri("http://shopme.digitalriver-external.com/drapi-auth.html"))
-                .done(
-                        function (result) {
-                            if (result.responseStatus == Windows.Security.Authentication.Web.WebAuthenticationStatus.success) {
-                                this.authenticated = true;
-                                authHelper.setResults();
-                            } else if (result.responseStatus === Windows.Security.Authentication.Web.WebAuthenticationStatus.errorHttp) {
-                                authHelper.setError("server_error", "There was a problem with the connection");
-                            } else {
-                                // User cancelled   
-                                authHelper.setError(self.USER_CANCELLED, "");
-                            }
-                            
+                // Call Authentication helper
+                DR.MVC.AuthenticationHelper.authenticate(authHelper.uri, this.redirectUri)
+                .then(
+                        function (response) {
+                            // Set Authenticated flag, so the application allow access to secured pages
+                            self.authenticated = true;
+
+                            authHelper.setResults(response.token, response.expirationTime);
                         },
-                        function (err) {
-                            authHelper.setError("error", err.message);
+                        function (response) {
+                            authHelper.setError(response.error, response.error_description);
                         }
-                );
-            },
-
-
+                    );
+            }
         }
     );
 
