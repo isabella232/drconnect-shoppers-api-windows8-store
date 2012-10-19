@@ -34,9 +34,5 @@
     "productDetail.detailTab"           : "Details",
 
     "search.emptyMessage"               : "No results match your search.",
-    "search.searchTitle"                : "Results for ",
-    
-    "sharing.product.description"       : "Product Description"
-
-
+    "search.searchTitle"                : "Results for "
 }

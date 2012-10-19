@@ -37,8 +37,7 @@
                 if (this.currentProductPromise) {
                     
                     return this.currentProductPromise.then(function (product) {
-                        var productDescription = WinJS.Resources.getString('sharing.product.description').value;
-                        sharing.setBasicInfo(product.displayName, productDescription);
+                        sharing.setBasicInfo(product.displayName);
                         sharing.setText(product.shortDescription || product.displayName);
 
                         if (product.longDescription) {
