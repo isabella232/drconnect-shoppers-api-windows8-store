@@ -19,7 +19,12 @@
                 page.setHomeItems(getGroupedList(list));
                 var p = this._loadItems(list);
                 page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
+                page.addEventListener(page.events.PROFILE_CLICKED, this._onProfileButtonClicked.bind(this), false);
                 return [p];
+            },
+
+            _onProfileButtonClicked: function (e) {
+                this.goToPage(DR.Store.URL.SHOPPER_PAGE);
             },
 
             _onCartButtonClicked: function (e) {

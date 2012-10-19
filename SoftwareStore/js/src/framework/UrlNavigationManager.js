@@ -6,16 +6,18 @@
 (function () {
     "use strict";
 
+    var SECURITY_EXCEPTION = "securityException";
+
     var nav = WinJS.Navigation;
 
-    //TODO Handle security
     var Class = DR.MVC.UrlMapper.extend(
         /**
          * Constructor. Receives the url mappings, the configured landing page and the search manager (when the app is loaded in search mode)
          */
-        function (mappings, landingPage, searchManager) {
+        function (dispatcher, mappings, landingPage, searchManager) {
             this._super(mappings);
             nav.onnavigated = this.onNavigated.bind(this);
+            this.dispatcher = dispatcher;
             this.searchManager = searchManager;
             this.landingPage = landingPage;
         },
@@ -28,8 +30,31 @@
              * Handle URI change notifications
              */
             doHandle: function (uri, params) {
-                console.log("Navigating to " + uri);
                 this._super(uri, params);
+            },
+
+            /**
+             * Security filter. If user is not authenticated, it throws an exception
+             */
+            applySecurity: function() {
+                var shopperSrv = DR.Store.Services.userService;
+    
+                if(!shopperSrv.isAuthenticated()) {
+                    throw SECURITY_EXCEPTION;
+                }
+            },
+
+            /**
+             * Handles security exceptions by redirecting to the landing page
+             * Any other exception is re-thrown
+             */
+            handleSecurityException: function (err, uri) {
+                if (err == SECURITY_EXCEPTION) {
+                    console.log("Unauthorize access to " + uri + ", redirecting to the login page");
+                    this.dispatcher.handle(DR.Store.Notifications.LOGIN, uri);
+                } else {
+                    throw err;
+                }
             },
 
             /** 
@@ -42,8 +67,17 @@
             /**
              * Navigates to the specified URL using the arguments
              */
-            goToPage: function (url, data) {
-                nav.navigate(url, data);
+            goToPage: function (uri, data) {
+                try {
+                    console.log("Navigating to " + uri);
+                    var mapping = this.getMapping(uri);
+                    if (mapping && mapping.secured) this.applySecurity();
+
+                    nav.navigate(uri, data);
+                } catch (err) {
+                    this.handleSecurityException(err, uri);
+                }
+                
             },
 
             /**

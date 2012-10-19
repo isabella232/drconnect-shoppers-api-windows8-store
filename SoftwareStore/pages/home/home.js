@@ -4,7 +4,8 @@
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
             ITEM_SELECTED: "itemSelected",
-            CART_BUTTON_CLICKED: "cartButtonClicked"
+            CART_BUTTON_CLICKED: "cartButtonClicked",
+            PROFILE_CLICKED: "profileClicked",
         },
         itemsList: null,
         bottomAppBar: null,
@@ -73,7 +74,11 @@
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
             this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommand({ id: 'profile', label: 'Profile', icon: '', section: 'global', tooltip: 'View Profile' });
+            this.topAppBar.addCommand({ id: 'profile', label: 'Profile', icon: '', section: 'global', tooltip: 'View Profile' }, this._onProfileButtonClick.bind(this));
+        },
+
+        _onProfileButtonClick: function (e) {
+            this.dispatchEvent(this.events.PROFILE_CLICKED);
         },
 
         _itemSelected: function (item) {

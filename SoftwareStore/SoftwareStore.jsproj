@@ -72,6 +72,7 @@
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\controller\SearchController.js" />
+    <Content Include="js\src\controller\UserController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
     <Content Include="js\src\datasource\InMemoryGroupDataSource.js" />
     <Content Include="js\src\datasource\ItemType.js" />
@@ -94,6 +95,7 @@
     <Content Include="js\src\framework\Class.js" />
     <Content Include="js\src\i18n\en_us.js" />
     <Content Include="js\src\Notifications.js" />
+    <Content Include="js\src\service\UserService.js" />
     <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
     <Content Include="js\src\service\CategoryService.js" />
@@ -117,6 +119,9 @@
     <Content Include="pages\search\search.css" />
     <Content Include="pages\search\search.html" />
     <Content Include="pages\search\search.js" />
+    <Content Include="pages\shopper\shopper.css" />
+    <Content Include="pages\shopper\shopper.html" />
+    <Content Include="pages\shopper\shopper.js" />
     <Content Include="widgets\appbars\AppBar.js" />
     <Content Include="widgets\appbars\AppBar.css" />
     <Content Include="widgets\appbars\AppBar.html" />

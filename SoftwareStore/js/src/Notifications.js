@@ -7,6 +7,7 @@
     WinJS.Namespace.define("DR.Store.Notifications", {
         PRODUCT_SELECTED: "productSelected",
         CATEGORY_SELECTED: "categorySelected",
-        ADD_TO_CART: "addToCart"
+        ADD_TO_CART: "addToCart",
+        LOGIN: "login"
     });
 })();
