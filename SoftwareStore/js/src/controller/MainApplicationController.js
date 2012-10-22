@@ -15,6 +15,7 @@
             handle: function (detail) {
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
+
             },
 
             _onCartButtonClicked: function (e) {

@@ -58,7 +58,6 @@
 
                 topAppBar.hide();
                 bottomAppBar.hide();
-
                 topAppBar.clear();
                 bottomAppBar.clear();
             }

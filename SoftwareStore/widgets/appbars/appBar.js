@@ -20,6 +20,7 @@
             _commands: [],
             _defaultCommands: [],
             _defaultRightCommands: [],
+
             ready: function (element, options) {
                 if (!this.appBar) {
                     this.appBar = element.querySelector(appBarClass).winControl;
@@ -136,6 +137,10 @@
                         self.showCommands([command.id]);
                     }
                 });
+            },
+
+            removeCommand: function(commandId){
+                this.appBar.element.removeChild(this.appBar.element.querySelector(commandId));
             },
 
             /**
