@@ -14,6 +14,7 @@
             pageNavigator: null,
             showPage: function (detail, localized) {
                 console.log("Showing page with URI " + detail.location);
+                this.clearAppBars();
                 var p = this.pageNavigator.goToPage(detail.location, detail.state).then(function (page) {
                     if (page.clear) {
                         page.clear();
@@ -54,6 +55,9 @@
             clearAppBars: function () {
                 var topAppBar = DR.Store.App.AppTopBar.winControl;
                 var bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+
+                topAppBar.hide();
+                bottomAppBar.hide();
 
                 topAppBar.clear();
                 bottomAppBar.clear();

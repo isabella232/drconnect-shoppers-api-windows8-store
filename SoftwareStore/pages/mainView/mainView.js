@@ -13,6 +13,8 @@
             initialize: function () {
                 var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
                 var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
+                var homeButtonLabel = WinJS.Resources.getString('general.button.home.label').value;
+                var homeButtonTooltip = WinJS.Resources.getString('general.button.home.tooltip').value;
                 var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
                 var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
 
@@ -21,7 +23,9 @@
 
                 // Initialize the top AppBar
                 this.topAppBar = DR.Store.App.AppTopBar.winControl;
-                this.topAppBar.addDefaultCommand({ id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip });
+                this.topAppBar.addDefaultCommands(
+                    [{ id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip, clickHandler: this._onHomeButtonClick.bind(this) },
+                     { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip }]);
             },
 
             dispatchEvent : function(event, data){

@@ -47,14 +47,7 @@
                 var url = (item.itemType == DR.Store.Datasource.ItemType.PRODUCT) ? DR.Store.URL.PRODUCT_PAGE : DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item.data });
             },
-
-            _onCartButtonClicked: function (e) {
-                this.goToPage(DR.Store.URL.CART_PAGE);
-            },
-
-            _onHomeButtonClicked: function (e) {
-                this.goToPage(DR.Store.URL.HOME_PAGE);
-            }
+          
         }
     );
 

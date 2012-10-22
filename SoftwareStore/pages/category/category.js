@@ -97,9 +97,8 @@
                  { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
-            // Initialize the top AppBar
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
-            this.topAppBar.addCommand({ id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip, clickHandler: this._onHomeButtonClick.bind(this) });
+
         },
 
         _itemSelected: function (item) {

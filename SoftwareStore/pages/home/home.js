@@ -58,10 +58,6 @@
             });
         },
 
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
-        },
-        
         _initializeAppBars: function () {
             var self = this;
 
@@ -73,6 +69,9 @@
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip});
             this.bottomAppBar.hideCommands(["cmdAdd"]);
+
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+            this.topAppBar.hideCommands(["home"]);
             
         },
 

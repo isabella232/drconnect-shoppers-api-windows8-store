@@ -18,13 +18,9 @@
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
                 page.setHomeItems(getGroupedList(list));
                 var p = this._loadItems(list);
-                page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 return [p];
             },
 
-            _onCartButtonClicked: function (e) {
-                this.goToPage(DR.Store.URL.CART_PAGE);
-            },
             /**
              * Load the items in the list
              */
