@@ -29,7 +29,7 @@
                 var self = this;
 
                 // Calls the user service to login
-                DR.Store.Services.userService.login()
+                DR.Store.Services.securityService.login()
                 .then(function () {
                     // Success, go to the originally requested page
                     console.log("User logged in!");

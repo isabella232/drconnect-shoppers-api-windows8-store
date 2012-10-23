@@ -20,14 +20,15 @@
             this.productService = new DR.Store.Service.ProductService(this._client);
             this.cartService = new DR.Store.Service.CartService(this._client);
             this.userService = new DR.Store.Service.UserService(this._client, this.redirectUri);
+            this.securityService = new DR.Store.Service.SecurityService(this._client, this.redirectUri);
         },
         {
             _client: null,
             categoryService: null,
 
             generateAuthRedirectUri: function(key) {
-                return "http://drapp/" + key + "/";
-                //return "http://shopme.digitalriver-external.com/drapi-auth.html";
+                //return "http://drapp/" + key + "/";
+                return "http://shopme.digitalriver-external.com/drapi-auth.html";
             },
 
             /**

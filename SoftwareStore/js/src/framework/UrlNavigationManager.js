@@ -37,9 +37,9 @@
              * Security filter. If user is not authenticated, it throws an exception
              */
             applySecurity: function() {
-                var shopperSrv = DR.Store.Services.userService;
+                var securityService = DR.Store.Services.securityService;
     
-                if(!shopperSrv.isAuthenticated()) {
+                if (!securityService.isAuthenticated()) {
                     throw SECURITY_EXCEPTION;
                 }
             },

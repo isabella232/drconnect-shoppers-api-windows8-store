@@ -1,27 +1,19 @@
 ﻿/**
  * User Service.
- * Responsible for authenticating (using oAuth2 flow) and connecting to the shopper endpoint in DR Rest API and caching the results.
+ * Manages all the services related to the shopper
  */
 (function () {
     "use strict";
 
     var Class = DR.Class.extend(
-        //TODO see if redirecturi can be obtained from client
-        function (client, redirectUri) {
+        function (client) {
             this._client = client;
-            this.redirectUri = redirectUri;
-            this.resetUserData();
+            //this.resetUserData();
         },
         {
             _client: null,
             authenticated: false,
             
-            /**
-             * Returns whether the user is authenticated or anonymous.
-             */
-            isAuthenticated: function () {
-                return this.authenticated;
-            },
 
             /**
              * Clears all User (Shopper) related data
@@ -32,34 +24,6 @@
                 //this.resetPersonalInformation();
             },
 
-            /** 
-             * Starts the authentication process
-             */
-            login: function () {
-                var self = this;
-                return this._client.login(this._doWinLogin.bind(this));
-            },
-
-            /**
-             * Uses Win8 framework to connect to DR Authentication Service
-             */
-            _doWinLogin: function (authHelper) {
-                var self = this;
-
-                // Call Authentication helper
-                DR.MVC.AuthenticationHelper.authenticate(authHelper.uri, this.redirectUri)
-                .then(
-                        function (response) {
-                            // Set Authenticated flag, so the application allow access to secured pages
-                            self.authenticated = true;
-
-                            authHelper.setResults(response.token, response.expirationTime);
-                        },
-                        function (response) {
-                            authHelper.setError(response.error, response.error_description);
-                        }
-                    );
-            }
         }
     );
 

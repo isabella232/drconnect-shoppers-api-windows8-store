@@ -96,6 +96,7 @@
     <Content Include="js\src\framework\Class.js" />
     <Content Include="js\src\i18n\en_us.js" />
     <Content Include="js\src\Notifications.js" />
+    <Content Include="js\src\service\SecurityService.js" />
     <Content Include="js\src\service\UserService.js" />
     <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
