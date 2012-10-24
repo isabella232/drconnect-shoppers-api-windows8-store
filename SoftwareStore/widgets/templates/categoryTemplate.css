@@ -4,7 +4,7 @@
 */
 
 .categoryTemplate.category-container {
-	width: 148px;
+	width: 150px;
 	height: 150px;
 	display: -ms-grid;
 	-ms-grid-rows: 1fr 30px;
@@ -13,19 +13,26 @@
 
 .categoryTemplate .image-wrapper {
 	-ms-grid-row: 1;
-	background-color: rgba(255, 255, 255, 0.502);
-	padding: 2px;
+	background-color: white;
 	display: block;
 	text-align: center;
-	width: 144px;
+	width: 146px;
+	height: 146px;
+	padding: 2px;
+}
+
+.categoryTemplate .image-wrapper img {
+	max-width: 144px;
+	max-height: 144px;
 }
 
 .categoryTemplate .category-title {
 	-ms-grid-row: 2;
 	-ms-grid-row-align: center;
-	background-color: rgba(21, 31, 50, 0.498);
+	background-color: rgba(21, 31, 50, 0.698);
 	height: 30px;
 	overflow: hidden;
+	display: inline-block;
 }
 
 .categoryTemplate .category-title p{
@@ -37,6 +44,5 @@
 	padding-top: 5px;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	width: calc(100% - 10px);
 	height: 25px;
 }
