@@ -4,9 +4,6 @@
 (function () {
     "use strict";
 
-    // TODO CHANGE to another location!
-    var PAGE_SIZE = 5;
-
     var Class = DR.MVC.SinglePageController.extend(
         function () {
             this._super();
@@ -18,6 +15,7 @@
             initPage: function (page, state) {
                 // Event Listening
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
+                page.addEventListener(page.events.ADD_PRODUCTS_TO_CART, this._onAddToCartClicked.bind(this), false);
 
                 // Create the subcategory data adapter
                 var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
@@ -47,6 +45,10 @@
                 var url = (item.itemType == DR.Store.Datasource.ItemType.PRODUCT) ? DR.Store.URL.PRODUCT_PAGE : DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item.data });
             },
+
+            _onAddToCartClicked: function (e) {
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
+            }
           
         }
     );

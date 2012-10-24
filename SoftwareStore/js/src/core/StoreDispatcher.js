@@ -32,6 +32,7 @@
              */
             declareMappings: function (n, c) {
                 this.addMapping(n.ADD_TO_CART, c.cartController, "addToCart");
+                this.addMapping(n.ADD_PRODUCTS_TO_CART, c.cartController, "addProductsToCart");
                 this.addMapping(n.APPLICATION_STARTED, c.mainApplicationController, "handle");
                 this.addSearchMapping(c.searchController, "searchRequested");
             },

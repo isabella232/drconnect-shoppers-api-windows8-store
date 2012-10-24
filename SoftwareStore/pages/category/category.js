@@ -10,7 +10,8 @@
 
         // EVENTS
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
 
         // This function is called whenever a user navigates to this page. It
@@ -91,7 +92,7 @@
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } ,
+                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this) } ,
                     //TODO: Implement SortHandler
                  { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip },
                  { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
@@ -112,6 +113,19 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+            this.list.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
 
     });

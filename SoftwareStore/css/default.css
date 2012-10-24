@@ -64,26 +64,7 @@ progress {
         width: calc(100% - 30%);
     }
 
-.page-header-bar {
-	position: absolute;
-	right: 67px;
-	top: 58px;
-}
-
-.page-header-bar .win-commandicon {
-	margin-left: 14px;
-	margin-right: 12px;
-	padding-top: 0px;
-	padding-bottom: 0px;
-}
-.page-header-bar button.win-command
-{
-	padding-top: 0px;
-	padding-bottom: 0px; 
-
-}
-
-.page-header-bar span.win-label {
+span.win-label {
 	display: none;
 }
 

@@ -658,8 +658,8 @@
         result.connection = {};
         result.connection.URI = {
             BASE_URL: null,
-            DEV_BASE_URL: 'https://api.digitalriver.com/',
-            PRD_BASE_URL: 'https://api.digitalriver.com/',
+            DEV_BASE_URL: 'http://23.21.197.49/',
+            PRD_BASE_URL: 'http://23.21.197.49/',
             // DEV_BASE_URL: 'https://api.digitalriver.com/',
             // PRD_BASE_URL: 'https://api.digitalriver.com/',
             VERSION: 'v1',

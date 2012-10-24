@@ -4,8 +4,7 @@
  */
 (function () {
     "use strict";
-    
-    // TODO MUST BE PART OF THE CONFIG!
+    // TODO: MUST BE PART OF THE CONFIG
     var PAGE_SIZE = 5;
 
     var Class = DR.MVC.SinglePageController.extend(
@@ -16,6 +15,7 @@
             initPage: function (page) {
                 var list = new WinJS.Binding.List();
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
+                page.addEventListener(page.events.ADD_PRODUCTS_TO_CART, this._onAddToCartClicked.bind(this), false);
                 page.setHomeItems(getGroupedList(list));
                 var p = this._loadItems(list);
                 return [p];
@@ -43,6 +43,10 @@
                 console.log("[Home] " + item.displayName + " (" + item.type + ") selected");
                 var url = (item.type == "product")?DR.Store.URL.PRODUCT_PAGE:DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item });
+            },
+
+            _onAddToCartClicked: function (e) {
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
             }
         }
     );

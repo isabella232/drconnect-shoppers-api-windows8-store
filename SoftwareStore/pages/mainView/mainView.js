@@ -26,6 +26,16 @@
                 this.topAppBar.addDefaultCommands(
                     [{ id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip, clickHandler: this._onHomeButtonClick.bind(this) },
                      { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip }]);
+
+
+
+                // TODO: Intialize the PageHeaderBar (add Buttons and event listeners)
+                
+
+
+
+
+
             },
 
             dispatchEvent : function(event, data){

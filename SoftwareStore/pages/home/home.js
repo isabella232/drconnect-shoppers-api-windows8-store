@@ -3,7 +3,8 @@
 
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
         itemsList: null,
         bottomAppBar: null,
@@ -67,7 +68,7 @@
 
             // Initialize the Bottom AppBar
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
-            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip});
+            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this)});
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
@@ -86,6 +87,18 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+            this.itemsList.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
     });
 

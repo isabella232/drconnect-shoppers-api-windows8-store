@@ -39,9 +39,10 @@
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
+                    console.error("Error when adding a product: " + error);
                     debugger;
                 });
-            }
+            },
 
         }
     );

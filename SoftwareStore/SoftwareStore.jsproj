@@ -123,8 +123,8 @@
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
-    <Content Include="widgets\html\DefaultAppBar.css" />
-    <Content Include="widgets\html\DefaultAppBar.html" />
+    <Content Include="widgets\html\PageHeaderBar.css" />
+    <Content Include="widgets\html\PageHeaderBar.html" />
     <Content Include="widgets\html\Footer.css" />
     <Content Include="widgets\html\Footer.html" />
     <Content Include="widgets\html\HtmlControl.js" />

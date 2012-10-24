@@ -26,6 +26,35 @@
                 });
             },
 
+            /*addProductsToCart: function (args) {
+                var self = this;
+                var promises = [];
+                args.forEach(function (productToAdd) {
+                    promises.push(DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri));
+                });
+                console.log(args.length);
+
+                WinJS.Promise.join(promises).then(function (data) {
+                    self.goToPage(DR.Store.URL.CART_PAGE);
+                });
+            },*/
+
+            addProductsToCart: function (args) {
+                var self = this;
+                var list = [];
+                var productToAdd;
+                if (args.length > 0) {
+                    productToAdd = args.splice(0,1)[0];
+                    DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri).then(function (data) {
+                        if (args.length > 0) {
+                            self.addProductsToCart(args);
+                        } else {
+                            self.goToPage(DR.Store.URL.CART_PAGE);
+                        }
+                    });
+                }
+            },
+
             _onCartItemSelected: function (e) {
                 this.goToPage(DR.Store.URL.PRODUCT_PAGE, e.detail);
             }
