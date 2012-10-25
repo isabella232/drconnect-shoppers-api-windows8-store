@@ -25,6 +25,22 @@
                 });
             },
 
+            getItemsCount: function(){
+                var self = this;
+                console.log("Retrieving cart for Items count");
+
+                var params = { expand: "lineItems.lineItem.product.id"};
+
+                return this._client.cart.get(params).then(function (data) {
+                    var count = 0;
+                    data.lineItems.lineItem.forEach(function(lineItem){
+                        count += lineItem.quantity;
+                    });
+                    return count;
+                });
+
+            },
+
             /**
              * Adds a Product to the Cart
              * @param product product to be added

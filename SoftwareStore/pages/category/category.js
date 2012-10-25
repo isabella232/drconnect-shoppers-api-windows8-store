@@ -58,6 +58,10 @@
             this._showMessageIfEmpty();
         },
 
+        clearSelection: function () {
+            this.list.selection.clear();
+        },
+
         /**
          * Shows a message when there are no items to show
          */

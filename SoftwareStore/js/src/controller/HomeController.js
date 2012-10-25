@@ -46,7 +46,18 @@
             },
 
             _onAddToCartClicked: function (e) {
+                // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
+                this._addToCartTimeStamp = new Date().getTime();
+                e.detail.timeStamp = this._addToCartTimeStamp;
+                
                 this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
+            },
+
+            _onProductsAdded: function (timeStamp) {
+                if (timeStamp === this._addToCartTimeStamp) {
+                    this.page.clearSelection();
+                    this._addToCartTimeStamp = null;
+                }
             }
         }
     );

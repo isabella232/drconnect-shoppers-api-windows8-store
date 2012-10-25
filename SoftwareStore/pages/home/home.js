@@ -48,6 +48,10 @@
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
 
+        clearSelection : function(){
+            this.itemsList.selection.clear();
+        },
+
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
             var name = args.srcElement.groupName;

@@ -22,7 +22,8 @@
                 var self = this;
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
-                    self.goToPage(DR.Store.URL.CART_PAGE);
+                    self.notify(DR.Store.Notifications.PRODUCT_ADDED_TO_CART);
+                   // self.goToPage(DR.Store.URL.CART_PAGE);
                 });
             },
 
@@ -49,7 +50,9 @@
                         if (args.length > 0) {
                             self.addProductsToCart(args);
                         } else {
-                            self.goToPage(DR.Store.URL.CART_PAGE);
+                            var sourceController = args.timeStamp;
+                            self.notify(DR.Store.Notifications.PRODUCT_ADDED_TO_CART, sourceController);
+                            //self.goToPage(DR.Store.URL.CART_PAGE);
                         }
                     });
                 }
