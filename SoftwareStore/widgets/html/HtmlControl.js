@@ -18,7 +18,7 @@
 
     WinJS.Namespace.define("DR.Store.Widget.Html", {
         Footer: _buildHtmlControl("Footer"),
-        DefaultAppBar: _buildHtmlControl("DefaultAppBar")
+        PageHeaderBar: _buildHtmlControl("PageHeaderBar")
     });
 
 })();

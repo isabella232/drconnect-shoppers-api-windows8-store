@@ -3,7 +3,8 @@
 
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
         itemsList: null,
         bottomAppBar: null,
@@ -47,6 +48,13 @@
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
 
+        /**
+         * Clears the current selected items from the list
+         */
+        clearSelection : function(){
+            this.itemsList.selection.clear();
+        },
+
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
             var name = args.srcElement.groupName;
@@ -58,6 +66,9 @@
             });
         },
 
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
@@ -67,7 +78,7 @@
 
             // Initialize the Bottom AppBar
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
-            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip});
+            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this)});
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
@@ -75,6 +86,9 @@
             
         },
 
+        /**
+        * Behaviour the an items is selected from the list
+        */
         _itemSelected: function (item) {
             var count = this.itemsList.selection.count();
             if (count > 0) {
@@ -86,6 +100,24 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+
+        /**
+         * Default behaviour when add products to cart is called.
+         */
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+
+            // Builds a list with the items currently selected
+            this.itemsList.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
     });
 

@@ -8,6 +8,8 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
+    //604df5ac990fbc67dab8fc098af271e6
+    //dbefd4f1739dded86c0a4967442935b3
     var storeApp = new DR.Store.Core.Application({ key: "dbefd4f1739dded86c0a4967442935b3", extendedSplashImage: "/images/SoftwareStoreSplashScreen.png", landingPage: DR.Store.URL.HOME_PAGE });
 
     if (!console.debug) {

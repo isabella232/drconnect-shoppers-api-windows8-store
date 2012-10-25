@@ -24,8 +24,11 @@
                 // Exposes the appBarElements
                 var bottomBar = document.getElementById("bottomAppBar");
                 var topBar = document.getElementById("topAppBar");
+                var pageHeaderBar = document.getElementById("pageHeaderBar");
                 WinJS.Namespace.define("DR.Store.App", { AppTopBar: topBar });
                 WinJS.Namespace.define("DR.Store.App", { AppBottomBar: bottomBar });
+                WinJS.Namespace.define("DR.Store.App", { PageHeaderBar: pageHeaderBar });
+                
 
                 WinJS.Namespace.define("DR.Store.App", { pageNavigator: this });
             }, {

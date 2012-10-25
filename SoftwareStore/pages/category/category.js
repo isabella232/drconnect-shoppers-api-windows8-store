@@ -10,7 +10,8 @@
 
         // EVENTS
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
 
         // This function is called whenever a user navigates to this page. It
@@ -58,6 +59,13 @@
         },
 
         /**
+        * Clears the current selected items from the list
+        */
+        clearSelection: function () {
+            this.list.selection.clear();
+        },
+
+        /**
          * Shows a message when there are no items to show
          */
         _showMessageIfEmpty: function () {
@@ -76,6 +84,9 @@
             });
         },
 
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
@@ -91,7 +102,7 @@
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } ,
+                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this) } ,
                     //TODO: Implement SortHandler
                  { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip },
                  { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
@@ -101,6 +112,9 @@
 
         },
 
+        /**
+         * Behaviour the an items is selected from the list
+         */
         _itemSelected: function (item) {
             var count = this.list.selection.count();
             if (count > 0) {
@@ -112,6 +126,22 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+
+        /**
+        * Default behaviour when add products to cart is called.
+        */
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+            this.list.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
 
     });

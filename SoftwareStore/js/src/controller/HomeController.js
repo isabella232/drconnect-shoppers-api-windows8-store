@@ -4,8 +4,7 @@
  */
 (function () {
     "use strict";
-    
-    // TODO MUST BE PART OF THE CONFIG!
+    // TODO: MUST BE PART OF THE CONFIG
     var PAGE_SIZE = 5;
 
     var Class = DR.MVC.SinglePageController.extend(
@@ -16,6 +15,7 @@
             initPage: function (page) {
                 var list = new WinJS.Binding.List();
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
+                page.addEventListener(page.events.ADD_PRODUCTS_TO_CART, this._onAddToCartClicked.bind(this), false);
                 page.setHomeItems(getGroupedList(list));
                 var p = this._loadItems(list);
                 return [p];
@@ -43,6 +43,28 @@
                 console.log("[Home] " + item.displayName + " (" + item.type + ") selected");
                 var url = (item.type == "product")?DR.Store.URL.PRODUCT_PAGE:DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item });
+            },
+            
+            /**
+             * Sends the notification for add the products selected for the cart
+             */
+            _onAddToCartClicked: function (e) {
+                // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
+                this._addToCartTimeStamp = new Date().getTime();
+                e.detail.timeStamp = this._addToCartTimeStamp;
+                
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
+            },
+
+            /**
+             * Called when a product has been successfully added to the cart
+             */
+            _onProductsAdded: function (timeStamp) {
+                // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
+                if (timeStamp && timeStamp === this._addToCartTimeStamp) {
+                    this.page.clearSelection();
+                    this._addToCartTimeStamp = null;
+                }
             }
         }
     );
