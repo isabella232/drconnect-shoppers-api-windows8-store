@@ -12,6 +12,9 @@
             _client: null,
             _cart: null,
 
+            /**
+             * Gets the cart
+             */
             get: function () {
                 var self = this;
                 console.log("Retrieving cart");
@@ -25,6 +28,9 @@
                 });
             },
 
+            /**
+             * Gets the quantity of items added to the cart
+             */
             getItemsCount: function(){
                 var self = this;
                 console.log("Retrieving cart for Items count");
@@ -55,7 +61,7 @@
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
-                    console.error("Error when adding a product: " + error);
+                    console.error("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
                     debugger;
                 });
             },

@@ -48,6 +48,9 @@
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
 
+        /**
+         * Clears the current selected items from the list
+         */
         clearSelection : function(){
             this.itemsList.selection.clear();
         },
@@ -63,6 +66,9 @@
             });
         },
 
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
@@ -80,6 +86,9 @@
             
         },
 
+        /**
+        * Behaviour the an items is selected from the list
+        */
         _itemSelected: function (item) {
             var count = this.itemsList.selection.count();
             if (count > 0) {
@@ -92,9 +101,15 @@
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
         },
+
+        /**
+         * Default behaviour when add products to cart is called.
+         */
         _onAddToCart: function () {
             var self = this;
             var selectedItems = [];
+
+            // Builds a list with the items currently selected
             this.itemsList.selection.getItems().then(function (items) {
                 items.forEach(function (item) {
                     selectedItems.push({ product: item.data, qty: 1 });

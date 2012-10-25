@@ -58,6 +58,9 @@
             this._showMessageIfEmpty();
         },
 
+        /**
+        * Clears the current selected items from the list
+        */
         clearSelection: function () {
             this.list.selection.clear();
         },
@@ -81,6 +84,9 @@
             });
         },
 
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
@@ -106,6 +112,9 @@
 
         },
 
+        /**
+         * Behaviour the an items is selected from the list
+         */
         _itemSelected: function (item) {
             var count = this.list.selection.count();
             if (count > 0) {
@@ -119,6 +128,9 @@
             }
         },
 
+        /**
+        * Default behaviour when add products to cart is called.
+        */
         _onAddToCart: function () {
             var self = this;
             var selectedItems = [];

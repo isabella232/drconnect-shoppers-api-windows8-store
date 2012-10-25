@@ -44,7 +44,10 @@
                 var url = (item.type == "product")?DR.Store.URL.PRODUCT_PAGE:DR.Store.URL.CATEGORY_PAGE;
                 this.goToPage(url, { item: item });
             },
-
+            
+            /**
+             * Sends the notification for add the products selected for the cart
+             */
             _onAddToCartClicked: function (e) {
                 // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
                 this._addToCartTimeStamp = new Date().getTime();
@@ -53,8 +56,12 @@
                 this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
             },
 
+            /**
+             * Called when a product has been successfully added to the cart
+             */
             _onProductsAdded: function (timeStamp) {
-                if (timeStamp === this._addToCartTimeStamp) {
+                // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
+                if (timeStamp && timeStamp === this._addToCartTimeStamp) {
                     this.page.clearSelection();
                     this._addToCartTimeStamp = null;
                 }
