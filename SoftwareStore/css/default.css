@@ -61,7 +61,7 @@ progress {
     }
 
     h1.titlearea {
-        width: calc(100% - 30%);
+        width: calc(100% - 20px);
     }
 
 span.win-label {
@@ -130,9 +130,7 @@ footer p {
     }
 
         .fragment header[role=banner] .win-backbutton {
-            margin: 0;
-            margin-right: 10px;
-            margin-top: 76px;
+            margin: 36px 10px 0 0;
         }
 
             .fragment header[role=banner] .win-backbutton:disabled {
@@ -142,7 +140,7 @@ footer p {
         .fragment header[role=banner] .titlearea {
             -ms-grid-column: 2;
             margin-left: 0;
-            margin-top: 68px;
+            margin-top: 28px;
         }
 
     .item-container {
