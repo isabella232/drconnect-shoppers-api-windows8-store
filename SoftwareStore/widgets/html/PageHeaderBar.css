@@ -20,3 +20,9 @@
 .page-header-bar span.win-label {
 	display: none;
 }
+
+@media screen and (-ms-view-state: snapped) {
+	.page-header-bar {
+		display: none;
+	}
+}
