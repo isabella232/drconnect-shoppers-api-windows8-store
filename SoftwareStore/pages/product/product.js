@@ -35,6 +35,7 @@
             this.element.querySelector(".titlearea .pagetitle").textContent = "";
             this.element.querySelector("#product-price").textContent = "";
             this.element.querySelector(".short-description").innerHTML = "";
+            this.element.querySelector("#snapped_description").innerHTML = "";
             this.element.querySelector(".long-description").innerHTML = "";
         },
 
@@ -75,6 +76,7 @@
             this.element.querySelector(".titlearea .pagetitle").textContent = product.displayName;
             this.element.querySelector("#product-price").textContent = window.toStaticHTML(product.pricing.formattedListPrice);
             this.element.querySelector(".content .short-description").innerHTML = window.toStaticHTML(product.shortDescription || "");
+            this.element.querySelector("#snapped_description").innerHTML = window.toStaticHTML(product.shortDescription || "");
             this.element.querySelector(".content .long-description").innerHTML = window.toStaticHTML(product.longDescription || "");
 
             this.showLoader(false);
