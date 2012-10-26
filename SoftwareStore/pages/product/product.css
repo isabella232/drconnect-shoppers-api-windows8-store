@@ -104,7 +104,6 @@
     background-color: rgba(33, 47, 76, 0.498);
     border: 2px solid #5F84CF;
     width: 130px;
-    margin-left: 0px;
 }
 
 .productpage .offers-container {
@@ -120,6 +119,10 @@
 }
 
 @media screen and (-ms-view-state: snapped) {
+	.productpage.fragment {
+		-ms-grid-rows: 80px 1fr 80px;
+	}
+
     .productpage .content {
         -ms-grid-row: 2;
         -ms-grid-row-span: 1;
@@ -131,13 +134,31 @@
 
     .productpage .display-pane {
         margin: 0;
-        width: 280px;
         -ms-grid-column: 1;
         -ms-grid-row: 1;
+        height: auto;
     }
 
     .display-pane-header {
     	display: none;
+    }
+
+    .productpage .short-description {
+    	min-height: 100px;
+    	max-height: 150px;
+    }
+
+
+    .productpage .offers-container {
+    	display: none;
+    }
+
+    .productpage .pricing {
+    	width: 260px;
+    	margin-top: 20px;
+    }
+
+    .productpage .page-header-bar {
     }
 	
     .productpage footer {
