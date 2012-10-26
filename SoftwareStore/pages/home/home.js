@@ -4,7 +4,7 @@
     WinJS.UI.Pages.define("/pages/home/home.html", {
         events: {
             ITEM_SELECTED: "itemSelected",
-            CART_BUTTON_CLICKED: "cartButtonClicked"
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
         itemsList: null,
         bottomAppBar: null,
@@ -48,6 +48,13 @@
             this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
         },
 
+        /**
+         * Clears the current selected items from the list
+         */
+        clearSelection : function(){
+            this.itemsList.selection.clear();
+        },
+
         _onHeaderClicked: function (args) {
             var id = args.srcElement.groupKey;
             var name = args.srcElement.groupName;
@@ -59,33 +66,29 @@
             });
         },
 
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
-        },
-        
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
             // Get the localized labels for the commands
             var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
             var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
-            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
-            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
-            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
-            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
 
             // Initialize the Bottom AppBar
-            this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
-            this.bottomAppBar.addCommands(
-                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip} },
-                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this)});
             this.bottomAppBar.hideCommands(["cmdAdd"]);
+
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+            this.topAppBar.hideCommands(["home"]);
             
-            // Initialize the top AppBar
-            this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommand({ id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip });
         },
 
+        /**
+        * Behaviour the an items is selected from the list
+        */
         _itemSelected: function (item) {
             var count = this.itemsList.selection.count();
             if (count > 0) {
@@ -97,6 +100,24 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+
+        /**
+         * Default behaviour when add products to cart is called.
+         */
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+
+            // Builds a list with the items currently selected
+            this.itemsList.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
     });
 

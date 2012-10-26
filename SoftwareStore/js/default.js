@@ -8,6 +8,8 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
+    //604df5ac990fbc67dab8fc098af271e6
+    //dbefd4f1739dded86c0a4967442935b3
     var storeApp = new DR.Store.Core.Application({ key: "dbefd4f1739dded86c0a4967442935b3", extendedSplashImage: "/images/SoftwareStoreSplashScreen.png", landingPage: DR.Store.URL.HOME_PAGE });
 
     if (!console.debug) {
@@ -16,7 +18,9 @@
 
     app.addEventListener("activated", function (args) {
         args.setPromise(WinJS.UI.processAll().then(function () {
-            return storeApp.start(args);
+            return storeApp.start(args).then(function(){
+                storeApp.getDispatcher().handle(DR.Store.Notifications.APPLICATION_STARTED);
+            });
         }));
         return;
 
@@ -44,7 +48,6 @@
                 
                 
                 args.setPromise(WinJS.UI.processAll().then(function () {
-                    
                     return storeApp.start().then(function () {
                         if (nav.location) {
                             nav.history.current.initialPlaceholder = true;

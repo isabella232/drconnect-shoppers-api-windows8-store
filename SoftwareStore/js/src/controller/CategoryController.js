@@ -4,9 +4,6 @@
 (function () {
     "use strict";
 
-    // TODO CHANGE to another location!
-    var PAGE_SIZE = 5;
-
     var Class = DR.MVC.SinglePageController.extend(
         function () {
             this._super();
@@ -18,8 +15,7 @@
             initPage: function (page, state) {
                 // Event Listening
                 page.addEventListener(page.events.ITEM_SELECTED, this._onItemSelected.bind(this), false);
-                page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
-                page.addEventListener(page.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
+                page.addEventListener(page.events.ADD_PRODUCTS_TO_CART, this._onAddToCartClicked.bind(this), false);
 
                 // Create the subcategory data adapter
                 var subcategoryDA = new DR.Store.DataSource.SubCategoriesPaginatedDataAdapter(state.item.id);
@@ -50,13 +46,28 @@
                 this.goToPage(url, { item: item.data });
             },
 
-            _onCartButtonClicked: function (e) {
-                this.goToPage(DR.Store.URL.CART_PAGE);
+            /**
+            * Sends the notification for add the products selected for the cart
+            */
+            _onAddToCartClicked: function (e) {
+                // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
+                this._addToCartTimeStamp = new Date().getTime();
+                e.detail.timeStamp = this._addToCartTimeStamp;
+                
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
             },
 
-            _onHomeButtonClicked: function (e) {
-                this.goToPage(DR.Store.URL.HOME_PAGE);
+            /**
+            * Called when a product has been successfully added to the cart
+            */
+            _onProductsAdded: function (timeStamp) {
+                // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
+                if (timeStamp && timeStamp === this._addToCartTimeStamp) {
+                    this.page.clearSelection();
+                    this._addToCartTimeStamp = null;
+                }
             }
+          
         }
     );
 

@@ -36,6 +36,7 @@
     <script src="/js/src/datasource/MultiplePaginatedDataAdapter.js"></script>
 
     <!-- General Widgets -->
+    <script src="/widgets/html/HtmlControl.js"></script>
     <script src="/widgets/appbars/AppBar.js"></script>
 
     <script src="/js/src/URL.js"></script>
@@ -47,6 +48,8 @@
     <script src="/js/src/service/CartService.js"></script>
     <script src="/js/src/service/ServiceManager.js"></script>
     <script src="/js/src/core/StoreDispatcher.js"></script>
+    <script src="/pages/mainView/mainView.js"></script>
+    <script src="/js/src/controller/MainApplicationController.js"></script>
     <script src="/js/src/controller/HomeController.js"></script>
     <script src="/js/src/controller/CategoryController.js"></script>
     <script src="/js/src/controller/ProductController.js"></script>
@@ -63,9 +66,17 @@
         <progress id="extendedSplashProgress" style="color: white; max-width:40px;" class="win-medium win-ring"></progress>
     </div>
 
-    <div id="contenthost" data-win-control="DR.Store.Core.PageControlNavigator" data-win-options="{home: '/pages/home/home.html'}"></div>
-    <!-- <div id="appbar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmd', label:'Command', icon:'placeholder'}" type="button"></button>
-    </div> -->
+    <!--Sets the Page Header Bar (contains the client image and the cart button-->
+    <div id="pageHeaderBar" data-win-control="DR.Store.Widget.Html.PageHeaderBar"></div>
+
+    <div id="contenthost" data-win-control="DR.Store.Core.PageControlNavigator" data-win-options="{home: '/pages/home/home.html'}">
+    </div>
+
+    <!-- Top and Bottom App Bars -->
+    <div id="topAppBar" data-win-control="DR.Store.Widget.AppBar.TopAppBar"></div>
+    <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.BottomAppBar"></div>
+
+  
+
 </body>
 </html>

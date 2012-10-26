@@ -22,7 +22,6 @@
             flipView.itemTemplate = element.querySelector('#imageFlipViewTemplate');
             flipView.itemDataSource = this.images.dataSource;
 
-            element.querySelector("#upper-cart").onclick = oSelf._onCartButtonClick.bind(oSelf);
             element.querySelector("#btnAddToCart").onclick = oSelf._onAddToCart.bind(oSelf);
 
             // Initializes the tabs
@@ -46,10 +45,6 @@
             this.tabControl = new DR.Store.Widget.Tabs.TabControlManager(this.element);
             this.tabControl.addTab("#overviewTab", '#overview_pane');
             this.tabControl.addTab("#detailsTab", '#details_pane');
-        },
-
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
         },
 
         _onAddToCart: function () {

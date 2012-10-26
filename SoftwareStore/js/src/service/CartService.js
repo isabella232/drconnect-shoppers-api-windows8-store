@@ -12,6 +12,9 @@
             _client: null,
             _cart: null,
 
+            /**
+             * Gets the cart
+             */
             get: function () {
                 var self = this;
                 console.log("Retrieving cart");
@@ -23,6 +26,25 @@
                     self._cart = data;
                     return data;
                 });
+            },
+
+            /**
+             * Gets the quantity of items added to the cart
+             */
+            getItemsCount: function(){
+                var self = this;
+                console.log("Retrieving cart for Items count");
+
+                var params = { expand: "lineItems.lineItem.product.id"};
+
+                return this._client.cart.get(params).then(function (data) {
+                    var count = 0;
+                    data.lineItems.lineItem.forEach(function(lineItem){
+                        count += lineItem.quantity;
+                    });
+                    return count;
+                });
+
             },
 
             /**
@@ -39,9 +61,10 @@
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
+                    console.error("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
                     debugger;
                 });
-            }
+            },
 
         }
     );

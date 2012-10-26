@@ -11,8 +11,7 @@
         // EVENTS
         events: {
             ITEM_SELECTED: "itemSelected",
-            CART_BUTTON_CLICKED: "cartButtonClicked",
-            HOME_BUTTON_CLICKED: "homeButtonClicked"
+            ADD_PRODUCTS_TO_CART: "addProductsToCart"
         },
 
         // This function is called whenever a user navigates to this page. It
@@ -60,6 +59,13 @@
         },
 
         /**
+        * Clears the current selected items from the list
+        */
+        clearSelection: function () {
+            this.list.selection.clear();
+        },
+
+        /**
          * Shows a message when there are no items to show
          */
         _showMessageIfEmpty: function () {
@@ -78,48 +84,37 @@
             });
         },
 
-        _onCartButtonClick: function () {
-            this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
-        },
-
-        _onHomeButtonClick: function () {
-            this.dispatchEvent(this.events.HOME_BUTTON_CLICKED);
-        },
-        
+        /**
+         * Initializes the application bars
+         */
         _initializeAppBars: function () {
             var self = this;
 
             // Get the localized labels for the commands
             var addButtonLabel = WinJS.Resources.getString('general.button.addToCart.label').value;
             var addButtonTooltip = WinJS.Resources.getString('general.button.addToCart.tooltip').value;
-            var cartButtonLabel = WinJS.Resources.getString('general.button.cart.label').value;
-            var cartButtonTooltip = WinJS.Resources.getString('general.button.cart.tooltip').value;
             var sortButtonLabel = WinJS.Resources.getString('general.button.sort.label').value;
             var sortButtonTooltip = WinJS.Resources.getString('general.button.sort.tooltip').value;
             var homeButtonLabel = WinJS.Resources.getString('general.button.home.label').value;
             var homeButtonTooltip = WinJS.Resources.getString('general.button.home.tooltip').value;
-            var profileButtonLabel = WinJS.Resources.getString('general.button.profile.label').value;
-            var profileButtonTooltip = WinJS.Resources.getString('general.button.profile.tooltip').value;
-
 
             // Initialize the Bottom AppBar
-            this.bottomAppBar = this.element.querySelector("#bottomAppBar").winControl;
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ options: { id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip } },
+                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this) } ,
                     //TODO: Implement SortHandler
-                 { options: { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip } },
-                 { options: { id: 'appBarSeparator', type: 'separator', section: 'global' } },
-                 { options: { id: 'gotoCart', label: cartButtonLabel, icon: '', section: 'global', tooltip: cartButtonTooltip }, clickHandler: this._onCartButtonClick.bind(this) }]);
+                 { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip },
+                 { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
             this.bottomAppBar.hideCommands(["cmdAdd"]);
 
-            // Initialize the top AppBar
-            this.topAppBar = this.element.querySelector("#topAppBar").winControl;
-            this.topAppBar.addCommands(
-                [{ options: { id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip }, clickHandler: this._onHomeButtonClick.bind(this) },
-                 { options: { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip } }]);
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+
         },
 
+        /**
+         * Behaviour the an items is selected from the list
+         */
         _itemSelected: function (item) {
             var count = this.list.selection.count();
             if (count > 0) {
@@ -131,6 +126,22 @@
                 this.bottomAppBar.hide();
                 this.bottomAppBar.hideCommands(["cmdAdd"]);
             }
+        },
+
+        /**
+        * Default behaviour when add products to cart is called.
+        */
+        _onAddToCart: function () {
+            var self = this;
+            var selectedItems = [];
+            this.list.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data, qty: 1 });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
+                }
+            });
         }
 
     });
