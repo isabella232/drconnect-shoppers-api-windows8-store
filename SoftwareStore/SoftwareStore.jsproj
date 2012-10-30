@@ -62,6 +62,7 @@
     <Content Include="images\SoftwareStoreBigBackgroundImage.png" />
     <Content Include="images\SoftwareStoreSplashScreen.png" />
     <Content Include="images\SoftwareStoreWideLogo.png" />
+    <Content Include="images\softwarestore_logo2.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
     <Content Include="js\default.js" />
