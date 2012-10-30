@@ -135,6 +135,7 @@
         margin-right: 20px;
         -ms-grid-rows: 160px auto 1fr;
         -ms-grid-columns: 280px;
+        overflow-y: hidden;
     }
 
     .productpage .display-pane {
@@ -145,7 +146,7 @@
         -ms-grid-row-span: 1;
     }
 
-    .display-pane-header {
+    .productpage .display-pane-header {
     	display: none;
     }
 	

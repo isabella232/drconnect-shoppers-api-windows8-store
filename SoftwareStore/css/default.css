@@ -61,7 +61,7 @@ progress {
     }
 
     h1.titlearea {
-        width: calc(100% - 20px);
+        width: 80%;
     }
 
 span.win-label {
@@ -154,6 +154,10 @@ footer p {
     .page-header-bar {
         top: 0px;
         right: 10px;
+    }
+
+    h1.titlearea {
+    	width: calc(100% - 20px);
     }
 }
 

@@ -3,7 +3,9 @@
  */
 (function () {
     "use strict";
-    
+    var appView = Windows.UI.ViewManagement.ApplicationView;
+    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
+
     var Class = DR.MVC.SinglePageController.extend(
         function () {
             this._super();
@@ -51,12 +53,23 @@
                 }
             },
 
-            _onCartButtonClicked: function(e) {
+            _onCartButtonClicked: function (e) {
                 this.goToPage(DR.Store.URL.CART_PAGE);
             },
 
             _onAddToCartClicked: function (e) {
-                this.notify(DR.Store.Notifications.ADD_TO_CART, e.detail);
+                var unsnapped = true;
+                var oSelf = this;
+
+                // Check to see if the application is in snapped view.
+                if (appView.value === appViewState.snapped) {
+                    unsnapped = Windows.UI.ViewManagement.ApplicationView.tryUnsnap();
+                }
+                if (unsnapped) {
+                    setTimeout(function () {
+                        oSelf.notify(DR.Store.Notifications.ADD_TO_CART, e.detail);
+                    }, 0);
+                }
             }
         }
     );
