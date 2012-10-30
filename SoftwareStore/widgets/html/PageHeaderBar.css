@@ -1,7 +1,7 @@
 ﻿.page-header-bar {
 	position: absolute;
 	right: 67px;
-	top: 58px;
+	top: 40px;
 }
 
 .page-header-bar .win-commandicon {
@@ -13,7 +13,9 @@
 .page-header-bar button.win-command
 {
 	padding-top: 0px;
-	padding-bottom: 0px; 
+	padding-bottom: 0px;
+	margin-top: 10px;
+	vertical-align: top; 
 
 }
 
