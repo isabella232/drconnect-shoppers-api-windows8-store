@@ -53,9 +53,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="css\categoryTemplate.css" />
     <Content Include="css\default.css" />
-    <Content Include="css\productTemplate.css" />
     <Content Include="images\folder.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
