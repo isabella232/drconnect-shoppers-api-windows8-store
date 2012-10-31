@@ -1,6 +1,9 @@
 ﻿(function () {
     "use strict";
 
+    var appView = Windows.UI.ViewManagement.ApplicationView;
+    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
+
     var Class = DR.Class.extend(
         function (config, implementation) {
         },
@@ -65,7 +68,19 @@
              * Default behaviour when the cart button (on bottomAppBar or pageHeaderBar) is clicked
              */
             _onCartButtonClick: function () {
-                this.dispatchEvent(this.events.CART_BUTTON_CLICKED);
+                var unsnapped = true;
+                var oSelf = this;
+
+                // Check to see if the application is in snapped view.
+                if (appView.value === appViewState.snapped) {
+                    unsnapped = Windows.UI.ViewManagement.ApplicationView.tryUnsnap();
+                }
+
+                if (unsnapped) {
+                    setTimeout(function () {
+                        oSelf.dispatchEvent(oSelf.events.CART_BUTTON_CLICKED);
+                    }, 0);
+                }
             },
 
             /**
