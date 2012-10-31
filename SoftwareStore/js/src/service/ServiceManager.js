@@ -28,7 +28,6 @@
 
             generateAuthRedirectUri: function(key) {
                 return "http://drapp/" + key + "/";
-                //return "http://shopme.digitalriver-external.com/drapi-auth.html";
             },
 
             /**
