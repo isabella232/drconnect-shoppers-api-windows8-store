@@ -122,10 +122,6 @@
 }
 
 @media screen and (-ms-view-state: snapped) {
-	.productpage.fragment {
-		-ms-grid-rows: 80px 1fr 80px;
-	}
-
     .productpage .content {
         -ms-grid-row: 2;
         -ms-grid-row-span: 1;
