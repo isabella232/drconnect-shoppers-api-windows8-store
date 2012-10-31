@@ -89,9 +89,9 @@
                 var animation;
 
                 // show the icon
-                animationIcon.style.display = "block";
                 animationIcon.style.left = offset.left + "px";
                 animationIcon.style.top = offset.top + "px";
+                animationIcon.style.display = "block";
 
                 // set the animation
                 animation = WinJS.UI.Animation.createRepositionAnimation(animationIcon);
