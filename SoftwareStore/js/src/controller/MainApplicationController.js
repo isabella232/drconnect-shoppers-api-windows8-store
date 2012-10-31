@@ -14,6 +14,7 @@
             handle: function (detail) {
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
+                WinJS.Utilities.eventMixin.addEventListener(this._view.events.PROFILE_CLICKED, this._onProfileButtonClicked.bind(this), false);
             },
 
             /**
@@ -39,6 +40,10 @@
              */
             _onHomeButtonClicked: function (e) {
                 this.goToPage(DR.Store.URL.HOME_PAGE);
+            },
+
+            _onProfileButtonClicked: function (e) {
+                this.goToPage(DR.Store.URL.SHOPPER_PAGE);
             }
 
 

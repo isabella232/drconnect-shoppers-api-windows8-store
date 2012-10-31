@@ -10,7 +10,8 @@
         {
             events: {
                 CART_BUTTON_CLICKED: "cartButtonClicked",
-                HOME_BUTTON_CLICKED: "homeButtonClicked"
+                HOME_BUTTON_CLICKED: "homeButtonClicked",
+                PROFILE_CLICKED: "profileClicked"
             },
 
             /**
@@ -47,7 +48,7 @@
                 this.topAppBar = DR.Store.App.AppTopBar.winControl;
                 this.topAppBar.addDefaultCommands(
                     [{ id: 'home', label: homeButtonLabel, icon: '', section: 'global', tooltip: homeButtonTooltip, clickHandler: this._onHomeButtonClick.bind(this) },
-                     { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip }]);
+                     { id: 'profile', label: profileButtonLabel, icon: '', section: 'global', tooltip: profileButtonTooltip, clickHandler: this._onProfileButtonClick.bind(this) }]);
 
 
                 // Initialize the pageHeaderBar to handle the buttons present on it
@@ -90,6 +91,9 @@
                 this.dispatchEvent(this.events.HOME_BUTTON_CLICKED);
             },
 
+            _onProfileButtonClick: function (e) {
+                this.dispatchEvent(this.events.PROFILE_CLICKED);
+            },
 
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart

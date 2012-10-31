@@ -83,7 +83,7 @@
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
             this.topAppBar.hideCommands(["home"]);
-            
+
         },
 
         /**
