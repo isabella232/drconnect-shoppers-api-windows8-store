@@ -12,6 +12,8 @@
         },
         {
             _client: null,
+            _addresses: null,
+            _paymentOptions: null,
             authenticated: false,
             
 
@@ -22,6 +24,29 @@
                 this.authenticated = false;
                 //this.shopper = null;
                 //this.resetPersonalInformation();
+            },
+
+            /**
+             * returns the Shopper Addresses from the api library
+             */
+            getAddresses: function () {
+                console.log("Retrieving addresses");
+                var self = this;
+                return this._client.shopper.getAddresses({ "expand": "all" }).then(function (data) {
+                    self._addresses = data;
+                    return data;
+                });
+            },
+            /**
+	         * Gets the payment options for the shopper
+	         */
+            getPaymentOptions: function () {
+                console.log("Retrieving payment options for shopper");
+                var self = this;
+                return this._client.shopper.getPaymentOptions({ "expand": "all" }).then(function (data) {
+                    self._paymentOptions = data;
+                    return data;
+                });
             },
 
         }

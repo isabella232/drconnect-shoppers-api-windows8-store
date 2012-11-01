@@ -17,6 +17,7 @@
                 this.addUrlMapping(u.PRODUCT_PAGE, c.productController);
                 this.addUrlMapping(u.CATEGORY_PAGE, c.categoryController);
                 this.addUrlMapping(u.CART_PAGE, c.cartController);
+                this.addUrlMapping(u.CHECKOUT_PAGE, c.checkoutController,true);
                 this.addUrlMapping(u.SEARCH_PAGE, c.searchController);
                 this.addUrlMapping(u.SHOPPER_PAGE, c.userController, true);
             },
@@ -52,6 +53,7 @@
                     homeController: new c.HomeController(),
                     productController: new c.ProductController(),
                     cartController: new c.CartController(),
+                    checkoutController: new c.CheckoutController(),
                     categoryController: new c.CategoryController(),
                     searchController: new c.SearchController(),
                     userController: new c.UserController()

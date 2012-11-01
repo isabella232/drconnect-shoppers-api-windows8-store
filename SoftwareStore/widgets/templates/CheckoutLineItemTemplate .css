@@ -1,0 +1,19 @@
+﻿.checkoutpage .item-container {
+    -ms-grid-columns: 40px 70px 1fr;
+    display: -ms-grid;
+    width: 100%;
+    height: auto;
+}
+
+.checkoutpage .win-listview .win-container {
+    margin: 5px 24px 5px 2px;
+}
+
+.checkoutpage .quantity {
+	padding-right: 5px;
+}
+
+.checkoutpage .checkout-line-item image {
+	max-width: 56px;
+	max-height: 56px;
+}

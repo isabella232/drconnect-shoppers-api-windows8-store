@@ -10,7 +10,13 @@
         {
             initPage: function (page, state) {
                 page.addEventListener(page.events.ITEM_SELECTED, this._onCartItemSelected.bind(this), false);
+                page.addEventListener(page.events.CHECKOUT_CLICKED, this._onCheckout.bind(this), false);
                 return DR.Store.Services.cartService.get().then(function (cart) {
+                    if (cart.lineItems.lineItem && cart.lineItems.lineItem.length > 0) {
+                        page.showCheckoutButton();
+                    } else {
+                        page.hideCheckoutButton();
+                    }
                     page.setCart(cart);
                 });
             },
@@ -24,6 +30,7 @@
                 var self = this;
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
+                    console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.PRODUCT_ADDED_TO_CART);
                    // self.goToPage(DR.Store.URL.CART_PAGE);
                 });
@@ -61,6 +68,7 @@
                         } else {
                             var timeStamp = productsList.timeStamp;
                             // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
+                            console.log("Sending add product finished notification");
                             self.notify(DR.Store.Notifications.PRODUCT_ADDED_TO_CART, timeStamp);
                             //self.goToPage(DR.Store.URL.CART_PAGE);
                         }
@@ -68,8 +76,18 @@
                 }
             },
 
+            /**
+             * Default Behaviour when a product is clicked on the cart page
+             */
             _onCartItemSelected: function (e) {
                 this.goToPage(DR.Store.URL.PRODUCT_PAGE, e.detail);
+            },
+
+            /**
+             * Default Behaviour when a checkout button is clicked on the cart page
+             */
+            _onCheckout: function (e) {
+                this.goToPage(DR.Store.URL.CHECKOUT_PAGE);
             }
         }
     );

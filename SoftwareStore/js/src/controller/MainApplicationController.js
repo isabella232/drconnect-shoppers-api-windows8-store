@@ -46,7 +46,6 @@
                 this.goToPage(DR.Store.URL.SHOPPER_PAGE);
             }
 
-
         });
     // EXPOSING THE CLASS
     WinJS.Namespace.define("DR.Store.Controller", {

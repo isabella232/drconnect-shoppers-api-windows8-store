@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>checkout</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="checkout.css" rel="stylesheet" />
+    <script src="/widgets/templates/Template.js"></script>
+    <link href="../../widgets/templates/CheckoutLineItemTemplate%20.css" rel="stylesheet" />
+    <script src="/widgets/html/HtmlControl.js"></script>
+    <script src="/widgets/html/comboList/AddressListWidget.js"></script>
+    <script src="/widgets/html/comboList/PaymentOptionListWidget.js"></script>
+    <script src="checkout.js"></script>
+    
+</head>
+<body>
+
+     <!-- Cart Line Item Template -->
+    <div data-win-control="DR.Store.Widget.CheckoutLineItemTemplate"></div>
+   
+
+    <div class="fragment checkoutpage">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Confirm Order</span>
+            </h1>
+        </header>
+        <section class="content" aria-label="Checkout content" role="main">
+            <div class="checkout-list-container">
+                <h2 class="checkout-list-header" data-win-res="{textContent: 'cart.shoppingCartTile'}"></h2>
+                <div class="checkoutlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist">
+                </div>
+
+                 <div class="checkout-summary">
+                    <p class="row-1"><span class="cart-subtotal col-1" data-win-res="{textContent: 'cart.summary.subtotal'}"></span> <span id="cart-subtotal" class="col-2"></span></p>
+                    <p class="row-2"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span> <span id="cart-tax" class="col-2"></span></p>
+                    <p class="row-3"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.discount'}"></span> <span id="cart-discount" class="col-2"></span></p>
+                    <p class="row-4"><span class="cart-total col-1" data-win-res="{textContent: 'cart.summary.total'}"></span> <span id="cart-total" class="cart-total col-2"></span></p>
+                </div>
+            </div>
+            
+            <div id="addresses" class="addresses"">
+                <div class="address-block">
+                    <h2 data-win-res="{textContent: 'checkout.billingAddress'}"></h2>
+                    <div id="billingAddress"  data-win-control="DR.Store.Widget.Html.AddressListWidget"></div>
+                </div>
+                <div class="address-block">
+                    <h2 data-win-res="{textContent: 'checkout.shippingAddress'}"></h2>
+                    <div id="shippingAddress"  data-win-control="DR.Store.Widget.Html.AddressListWidget"></div>
+                </div>
+            </div>
+
+            <div id="shipping" class="shipping">
+                <div class="address-block">
+                     <h2 data-win-res="{textContent: 'checkout.paymentInformation'}">Payment Iformation</h2>
+                     <div id="paymentOption" data-win-control="DR.Store.Widget.Html.PaymentOptionListWidget"></div>
+                </div>
+
+                <div class="address-block">
+                    <h2 data-win-res="{textContent: 'checkout.shippingMethod'}"></h2>
+                    <label id="shippingMethod"></label>
+                </div>
+            </div>
+
+            <div class="checkout">
+                <p data-win-res="{textContent: 'trademark.checkoutAgreement'}"></p>
+                <p>
+                    <button id="submitButton"><span data-win-res="{textContent: 'general.button.submit.label'}"></span></button>
+                </p>
+            </div>
+        </section>
+
+         <footer data-win-control="DR.Store.Widget.Html.Footer"></footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>checkoutLineItemTemplate</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="CheckoutLineItemTemplate.css" rel="stylesheet" />
+    <script src="Template.js"></script>
+    </head>
+<body>
+      <!-- checkout line item template -->
+    <div class="checkout-item-template" id="cartTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item-container checkout-line-item">
+            <div class="col-1">
+                <p class="quantity" data-win-bind="textContent: quantity" style="text-align: right;"></p>
+            </div>
+            <div class="image-wrapper col-2">
+                <img src="#" class="item-image" data-win-bind="src:product.thumbnailImage; alt: product.displayName" />
+            </div>
+            <div class="col-3">
+                <p class="item-title" data-win-bind="textContent: product.displayName"></p>
+                <p class="item-total" data-win-bind="textContent: pricing.formattedListPriceWithQuantity"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

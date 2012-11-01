@@ -5,6 +5,7 @@
     "trademark.privacyPolicy"           : "Privacy Policy",
     "trademark.termsOfUse"              : "Terms of Use",
     "trademark.customPrivacyPolicy"     : "Your California Privacy Policy",
+    "trademark.checkoutAgreement"       : "By clicking the Submit Order button, I agree to Digital River's Terms Of Sale and Privacy Policy",
 
     "general.button.home.label"         : "Home",
     "general.button.home.tooltip"       : "Home",
@@ -16,6 +17,8 @@
     "general.button.profile.tooltip"    : "View Profile",
     "general.button.sort.label"         : "Sort",
     "general.button.sort.tooltip"       : "Sort",
+    "general.button.checkout.label"     : "Checkout",
+    "general.button.submit.label"       : "Submit Order",
     "general.specialOffers"             : "Special Offers",
 
     "cart.shoppingCartTile"             : "Shopping Cart",
@@ -27,6 +30,7 @@
     "cart.summary.subtotal"             : "Sutotal:",
     "cart.summary.tax"                  : "Tax:",
     "cart.summary.total"                : "Total:",
+    "cart.summary.discount"             : "Discount:",
 
     "category.emptyMessage"             : "The category has no subcategories nor products",
 
@@ -34,5 +38,11 @@
     "productDetail.detailTab"           : "Details",
 
     "search.emptyMessage"               : "No results match your search.",
-    "search.searchTitle"                : "Results for "
+    "search.searchTitle"                : "Results for ",
+
+    "checkout.paymentInformation"       : "Payment Information",
+    "checkout.billingAddress"           : "Billing Address",
+    "checkout.shippingAddress"           : "Shipping Address",
+    "checkout.shippingMethod"           : "Shipping Method",
+    "checkout.shippingMethodNotRequired": "Digital Products, No Shipping Required"
 }

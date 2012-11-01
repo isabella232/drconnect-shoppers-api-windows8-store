@@ -62,9 +62,49 @@
                     return data;
                 }, function (error) {
                     console.error("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
-                    debugger;
                 });
             },
+
+            /**
+             * Apply Billing and Shipping Addresses to the Cart
+             * @param shippingAddressId Id of the shipping address to be applied
+             * @param billingAddressId Id of the billing address to be applied
+             * @param payementOptionId Id of the payment option to be applied
+             * @returns Cart
+             */
+            applyShopper: function (shippingAddressId, billingAddressId, paymentOptionId) {
+                console.debug("Calling DR applyShopper service");
+
+                var self = this;
+                var params = {}
+
+                params.expand = "all";
+                if (shippingAddressId) params.shippingAddressId = shippingAddressId;
+                if (billingAddressId) params.billingAddressId = billingAddressId;
+                if (paymentOptionId) params.paymentOptionId = paymentOptionId;
+
+                return this._client.cart.applyShopper(params).then(function (data) {
+                        self._cart = data;
+                        console.info("Billing and Shipping Addresses applied to Cart");
+                        return data;
+                    }, function (error) {
+                        console.error("Error when applying shopper to cart: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+            /**
+             * Submits the Cart
+             * @returns Cart
+             */
+            submit: function (params) {
+                console.debug("Calling DR submitCart service");
+                return this._client.cart.submit({ "cartId": "active", "includeTestOrders": "true" }).then(function (data) {
+                    // Invalidate cached cart after submitting it
+                    //that.invalidateCache();
+                    console.info("Cart Submitted Successfully");
+                    return(data);
+                });
+            }
 
         }
     );
