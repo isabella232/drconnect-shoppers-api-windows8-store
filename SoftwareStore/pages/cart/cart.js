@@ -127,6 +127,7 @@
         clear: function () {
             this.element.querySelector("#cart-subtotal").textContent = "";
             this.element.querySelector("#cart-tax").textContent = "";
+            this.element.querySelector("#cart-discount").textContent = "";
             this.element.querySelector("#cart-total").textContent = "";
         },
         /**
@@ -142,6 +143,7 @@
             
             this.element.querySelector("#cart-subtotal").textContent = cart.pricing.formattedSubtotal;
             this.element.querySelector("#cart-tax").textContent = cart.pricing.formattedTax;
+            this.element.querySelector("#cart-discount").textContent = cart.pricing.formattedDiscount;
             this.element.querySelector("#cart-total").textContent = cart.pricing.formattedOrderTotal;
             this._setCartItems(items);
 
