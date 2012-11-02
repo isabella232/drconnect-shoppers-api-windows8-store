@@ -19,9 +19,10 @@
     "general.button.sort.tooltip"       : "Sort",
     "general.button.checkout.label"     : "Checkout",
     "general.button.submit.label"       : "Submit Order",
+    "general.button.contshop.label"     : "Continue Shopping",
     "general.specialOffers"             : "Special Offers",
 
-    "cart.shoppingCartTile"             : "Shopping Cart",
+    "cart.shoppingCartTitle"            : "Shopping Cart",
     "cart.cartEmpty"                    : "The cart is empty",
     "cart.detail.item"                  : "Item",
     "cart.detail.quantity"              : "Quantity",
@@ -40,9 +41,14 @@
     "search.emptyMessage"               : "No results match your search.",
     "search.searchTitle"                : "Results for ",
 
+    "checkout.title"                    : "Confirm Order",
     "checkout.paymentInformation"       : "Payment Information",
     "checkout.billingAddress"           : "Billing Address",
-    "checkout.shippingAddress"           : "Shipping Address",
+    "checkout.shippingAddress"          : "Shipping Address",
     "checkout.shippingMethod"           : "Shipping Method",
-    "checkout.shippingMethodNotRequired": "Digital Products, No Shipping Required"
+    "checkout.shippingMethodNotRequired": "Digital Products, No Shipping Required",
+
+    "thanks.title"                      : "Thank You For Buying",
+    "thanks.orderNumber"                : "Your order number is: "
+
 }

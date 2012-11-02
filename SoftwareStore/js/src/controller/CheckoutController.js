@@ -33,22 +33,22 @@
                 var self = this;
                 var params = e.detail;
                 // If a any address or payment has been modified applies the shopper first
-                if (params.length > 0) {
+                if (params.shippingAddressId || params.billingAddressId || params.paymentOptionId) {
                     return DR.Store.Services.cartService.applyShopper(params.shippingAddressId, params.billingAddressId, params.paymentOptionId).then(function (cart) {
-                        self._doSubmit();
+                        self._doSubmit(params.cart);
                     });
                 } else {
-                    return self._doSubmit();
+                    return self._doSubmit(params.cart);
                 }
             },
 
             /**
              * Submits the cart
              */
-            _doSubmit: function () {
+            _doSubmit: function (cart) {
                 var self = this;
                 return DR.Store.Services.cartService.submit().then(function (data) {
-                    self.goToPage(DR.Store.URL.HOME_PAGE);
+                    self.goToPage(DR.Store.URL.THANKS_PAGE, cart);
                 });
             }
 

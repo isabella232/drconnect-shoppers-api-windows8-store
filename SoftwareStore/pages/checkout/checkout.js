@@ -7,7 +7,6 @@
         events: {
             SUBMIT_CLICKED: "submitClicked"
         },
-        _submitButton: null,
 
         ready: function (element, options) {
             this.itemsList = this.element.querySelector("#cartlist").winControl;
@@ -20,8 +19,9 @@
             this._paymentOptionWidget = this.element.querySelector("#paymentOption").winControl;
 
             // Gets the checkout button
-            this._submitButton = this.element.querySelector("#submitButton");
-            this._submitButton.onclick = this._onSubmitClicked.bind(this);
+            var submitButton = this.element.querySelector("#submitButton");
+            submitButton.onclick = this._onSubmitClicked.bind(this);
+
         },
 
         _cart: null,
@@ -133,6 +133,8 @@
             if (this._selectedPaymentOption.id != this._paymentOptionWidget.getSelectedItem().id) {
                 params.paymentOptionId = this._paymentOptionWidget.getSelectedItem().id;
             }
+
+            params.cart = this._cart;
 
             this.dispatchEvent(this.events.SUBMIT_CLICKED, params);
         }
