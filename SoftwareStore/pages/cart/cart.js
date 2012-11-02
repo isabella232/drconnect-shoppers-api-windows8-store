@@ -96,7 +96,8 @@
     WinJS.UI.Pages.define("/pages/cart/cart.html", {
         events: {
             ITEM_SELECTED: "itemSelected",
-            CHECKOUT_CLICKED: "checkoutClicked"
+            CHECKOUT_CLICKED: "checkoutClicked",
+            LINE_ITEM_QUANTITY_CHANGED: "lineItemQuantityChanged"
         },
         itemsList: null,
         cartContent: null,
@@ -107,7 +108,7 @@
         ready: function (element, options) {
 
             this.itemsList = this.element.querySelector("#cartlist").winControl;
-            this.itemsList.itemTemplate = element.querySelector('#cartTemplate');
+            this.itemsList.itemTemplate = renderCartItem.bind(this);//element.querySelector('#cartTemplate');
             this.itemsList.layout = new WinJS.UI.ListLayout();
 
             this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
@@ -145,6 +146,7 @@
             this._setCartItems(items);
 
             WinJS.Utilities.removeClass(this.cartContent, "hidden");
+
         },
 
         /**
@@ -180,9 +182,35 @@
 
         _onCheckoutClicked: function (e) {
             this.dispatchEvent(this.events.CHECKOUT_CLICKED);
+        },
+
+        /**
+         * Behaviour when a quantity on a cartItem has changed
+         */
+        _onValueChanged: function (e, currentItem) {
+            this.dispatchEvent(this.events.LINE_ITEM_QUANTITY_CHANGED, { item: currentItem, quantity: e.target.value});
         }
 
     });
+
+
+    /**
+     * Renders the cartItems
+     */
+    function renderCartItem(itemPromise) {
+        var self = this;
+        var template = this.element.querySelector('#cartTemplate').winControl;
+        return itemPromise.then(function (currentItem) {
+            return template.render(currentItem.data).then(function (element) {
+                // Adds an event listener in order to handle the quantity combo change
+                element.querySelector("#itemQuantitySelector").addEventListener("change", function (event) {
+                    self._onValueChanged(event, currentItem);
+                }, false);
+                return element
+            });
+        });
+
+    }
 
     /**
      * Functions to expose externally.

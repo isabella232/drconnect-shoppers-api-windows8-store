@@ -11,6 +11,7 @@
             initPage: function (page, state) {
                 page.addEventListener(page.events.ITEM_SELECTED, this._onCartItemSelected.bind(this), false);
                 page.addEventListener(page.events.CHECKOUT_CLICKED, this._onCheckout.bind(this), false);
+                page.addEventListener(page.events.LINE_ITEM_QUANTITY_CHANGED, this._onEditQuantity.bind(this), false);
                 return DR.Store.Services.cartService.get().then(function (cart) {
                     if (cart.lineItems.lineItem && cart.lineItems.lineItem.length > 0) {
                         page.showCheckoutButton();
@@ -82,6 +83,24 @@
             _onCartItemSelected: function (e) {
                 this.goToPage(DR.Store.URL.PRODUCT_PAGE, e.detail);
             },
+
+            /**
+             * Behaviour when a cartItem quantity has changed
+             */
+            _onEditQuantity: function (e) {
+                var self = this;
+                // Call the service to edit the line Item quantity
+                DR.Store.Services.cartService.editLineItem(e.item.data, e.quantity).then(function (data) {
+                    // Once the item has been edited it gets the shopping cart again because a the cart Totals has been changed and the editLineItem only returns
+                    // the lineItem
+                    DR.Store.Services.cartService.get().then(function (cart) {
+                        // Sets the cart in order to update the view
+                        self.page.setCart(cart);
+                    });
+                });
+
+            },
+
 
             /**
              * Default Behaviour when a checkout button is clicked on the cart page

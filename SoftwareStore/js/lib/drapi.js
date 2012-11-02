@@ -2922,6 +2922,16 @@ define('service/CartService',['service/BaseService', 'Config'], function(BaseSer
         },
         
         /**
+         * Edits the quantity of a Line Item
+         * @param lineItem to edit
+         * @param parameters
+         * @param callback service response
+         */
+        editLineItemQuantity: function(lineItem, parameters, callbacks){
+            return this.makeRequest(this.session.create(lineItem.uri, parameters), callbacks);  
+        },
+        
+        /**
          * Gets the shipping options for a cart
          * @param parameters
          * @param callback service response

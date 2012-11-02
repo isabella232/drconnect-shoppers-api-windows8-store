@@ -56,12 +56,30 @@
              * @returns 
              */
             addToCart: function (product, qty, addToCartUri) {
+                console.log("Calling DR addToCartService");
                 return this._client.cart.addLineItem(product, addToCartUri, { quantity: qty })
                 .then(function (data) {
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
                     console.error("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+            /**
+            * Edits the Quantity of a line Item
+            * @param lineItem lineItem to edit
+            * @param qty the new quantity of the lineItem
+            * @returns 
+            */
+            editLineItem: function (lineItem, qty) {
+                console.log("Calling DR addToCartService");
+                return this._client.cart.editLineItemQuantity(lineItem, { quantity: qty })
+                .then(function (data) {
+                    console.log("LineItem '" + lineItem.product.displayName + "' (qty:" + qty + ") modified on cart");
+                    return data;
+                }, function (error) {
+                    console.error("Error when trying to modify lineItem: " + error.details.error.code + ": " + error.details.error.description);
                 });
             },
 
