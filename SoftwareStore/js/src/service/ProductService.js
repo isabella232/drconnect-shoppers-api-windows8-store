@@ -86,6 +86,13 @@
                 var self = this;
                 console.log("Calling DR productSearch service");
 
+                if (!cleanKeyword || cleanKeyword === "") {
+                    return WinJS.Promise.wrap({
+                        totalResults: 0,
+                        product: []
+                    });
+                }
+
                 return this._client.products.search(params)
                     .then(function (data) {
                         var total = data.totalResults;
