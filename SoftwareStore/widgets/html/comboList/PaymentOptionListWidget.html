@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>addressListWidget</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="AddressListWidget.css" rel="stylesheet" />
+    <script src="ComboListWidgetHelper.js"></script>
+    <script src="PaymentOptionListWidget.js"></script>
+     <script src="/widgets/templates/Template.js"></script>
+</head>
+<body>
+
+    <!--AddressDetailTemplate-->
+    <div data-win-control="DR.Store.Widget.PaymentOptionDetailTemplate"></div>
+
+    <!--Address DropDownList-->
+
+    <!-- TODO @Fernando Change this, it creates multiple elements with the same ID -->
+    <select class="payment-combo-options"></select>
+    <div class="payment-tile"></div>
+
+</body>
+</html>

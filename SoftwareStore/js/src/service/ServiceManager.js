@@ -1,19 +1,34 @@
-﻿(function () {
+﻿/**
+ * Service manager for the App.
+ */
+(function () {
     "use strict";
-    /**
-     * Service manager for the App.
-     */
+
+    
     var Class = DR.MVC.BaseServiceManager.extend(
         function (key) {
-            this._client = new dr.api.Client(key);
+            this.redirectUri = this.generateAuthRedirectUri(key);
+
+            var options = {
+                authMode: dr.api.authModes.MANUAL,
+                authRedirectUrl: this.redirectUri
+            };
+
+            this._client = new dr.api.Client(key, options);
 
             this.categoryService = new DR.Store.Service.CategoryService(this._client);
             this.productService = new DR.Store.Service.ProductService(this._client);
             this.cartService = new DR.Store.Service.CartService(this._client);
+            this.userService = new DR.Store.Service.UserService(this._client, this.redirectUri);
+            this.securityService = new DR.Store.Service.SecurityService(this._client, this.redirectUri);
         },
         {
             _client: null,
             categoryService: null,
+
+            generateAuthRedirectUri: function(key) {
+                return "http://drapp/" + key + "/";
+            },
 
             /**
              * Connects to DR Api using the provided Key

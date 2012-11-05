@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>categorytemplate</title>
+    <title>cartLineItemTemplate</title>
 
     <!-- WinJS references -->
     <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
@@ -25,7 +25,7 @@
             <div class="col-3" style="-ms-grid-row-align: stretch;">
                 <p class="item-quantity">
                     <!-- TODO Quantity should be a list from 1-99 -->
-                    <select class=".quantitySelector" data-win-bind="selectedIndex: quantity DR.Store.Pages.Cart.quantityToIndex">
+                    <select id="itemQuantitySelector" class=".quantitySelector win-interactive" data-win-bind="selectedIndex: quantity DR.Store.Pages.Cart.quantityToIndex">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>

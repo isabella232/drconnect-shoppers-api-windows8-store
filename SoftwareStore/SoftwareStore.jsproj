@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|AnyCPU">
@@ -67,12 +67,16 @@
     <Content Include="js\lib\drapi.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\src\App.js" />
+
+    <Content Include="js\src\controller\ThanksController.js" />
+    <Content Include="js\src\controller\CheckoutController.js" />
     <Content Include="js\src\controller\CategoryController.js" />
     <Content Include="js\src\controller\CartController.js" />
     <Content Include="js\src\controller\MainApplicationController.js" />
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\controller\SearchController.js" />
+    <Content Include="js\src\controller\UserController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
     <Content Include="js\src\datasource\InMemoryGroupDataSource.js" />
     <Content Include="js\src\datasource\ItemType.js" />
@@ -81,6 +85,7 @@
     <Content Include="js\src\datasource\SearchProductPaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\ProductByCategoryPaginatedDataAdapter.js" />
     <Content Include="js\src\datasource\SubCategoriesPaginatedDataAdapter.js" />
+    <Content Include="js\src\framework\AuthenticationHelper.js" />
     <Content Include="js\src\framework\BaseApp.js" />
     <Content Include="js\src\framework\BaseController.js" />
     <Content Include="js\src\framework\BaseDispatcher.js" />
@@ -93,6 +98,8 @@
     <Content Include="js\src\framework\SharingManager.js" />
     <Content Include="js\src\framework\Class.js" />
     <Content Include="js\src\Notifications.js" />
+    <Content Include="js\src\service\SecurityService.js" />
+    <Content Include="js\src\service\UserService.js" />
     <Content Include="js\src\service\CartService.js" />
     <Content Include="js\src\service\ProductService.js" />
     <Content Include="js\src\service\CategoryService.js" />
@@ -106,6 +113,9 @@
     <Content Include="pages\category\category.css" />
     <Content Include="pages\category\category.html" />
     <Content Include="pages\category\category.js" />
+    <Content Include="pages\checkout\checkout.css" />
+    <Content Include="pages\checkout\checkout.html" />
+    <Content Include="pages\checkout\checkout.js" />
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
@@ -117,17 +127,36 @@
     <Content Include="pages\search\search.css" />
     <Content Include="pages\search\search.html" />
     <Content Include="pages\search\search.js" />
+    <Content Include="pages\shopper\shopper.css" />
+    <Content Include="pages\shopper\shopper.html" />
+    <Content Include="pages\shopper\shopper.js" />
+    <Content Include="pages\thanks\thanks.css" />
+    <Content Include="pages\thanks\thanks.html" />
+    <Content Include="pages\thanks\thanks.js" />
     <Content Include="widgets\appbars\AppBar.js" />
     <Content Include="widgets\appbars\AppBar.css" />
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
+    <Content Include="widgets\html\comboList\PaymentOptionListWidget.css" />
+    <Content Include="widgets\html\comboList\PaymentOptionListWidget.html" />
+    <Content Include="widgets\html\comboList\PaymentOptionListWidget.js" />
+    <Content Include="widgets\html\comboList\AddressListWidget.css" />
+    <Content Include="widgets\html\comboList\AddressListWidget.html" />
+    <Content Include="widgets\html\comboList\AddressListWidget.js" />
+    <Content Include="widgets\html\comboList\ComboListWidgetHelper.js" />
     <Content Include="widgets\html\PageHeaderBar.css" />
     <Content Include="widgets\html\PageHeaderBar.html" />
     <Content Include="widgets\html\Footer.css" />
     <Content Include="widgets\html\Footer.html" />
     <Content Include="widgets\html\HtmlControl.js" />
     <Content Include="widgets\tabs\TabControlManager.js" />
+    <Content Include="widgets\templates\PaymentOptionDetailTemplate.css" />
+    <Content Include="widgets\templates\PaymentOptionDetailTemplate.html" />
+    <Content Include="widgets\templates\AddressDetailTemplate.css" />
+    <Content Include="widgets\templates\AddressDetailTemplate.html" />
+    <Content Include="widgets\templates\CheckoutLineItemTemplate .css" />
+    <Content Include="widgets\templates\CheckoutLineItemTemplate.html" />
     <Content Include="widgets\templates\CartLineItemTemplate.css" />
     <Content Include="widgets\templates\CartLineItemTemplate.html" />
     <Content Include="widgets\templates\CategoryTemplate.css" />

@@ -95,17 +95,20 @@
     */
     WinJS.UI.Pages.define("/pages/cart/cart.html", {
         events: {
-            ITEM_SELECTED: "itemSelected"
+            ITEM_SELECTED: "itemSelected",
+            CHECKOUT_CLICKED: "checkoutClicked",
+            LINE_ITEM_QUANTITY_CHANGED: "lineItemQuantityChanged"
         },
         itemsList: null,
         cartContent: null,
         emptyMessage: null,
+        _checkoutButton: null,
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
-            // TODO: Initialize the page here.
+
             this.itemsList = this.element.querySelector("#cartlist").winControl;
-            this.itemsList.itemTemplate = element.querySelector('#cartTemplate');
+            this.itemsList.itemTemplate = renderCartItem.bind(this);//element.querySelector('#cartTemplate');
             this.itemsList.layout = new WinJS.UI.ListLayout();
 
             this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
@@ -116,10 +119,15 @@
             WinJS.Utilities.addClass(this.cartContent, "hidden");
             WinJS.Utilities.addClass(this.emptyMessage, "hidden");
            
+            // Gets the checkout button
+            this._checkoutButton = this.element.querySelector("#checkoutButton");
+            this._checkoutButton.onclick = this._onCheckoutClicked.bind(this);
+
         },
         clear: function () {
             this.element.querySelector("#cart-subtotal").textContent = "";
             this.element.querySelector("#cart-tax").textContent = "";
+            this.element.querySelector("#cart-discount").textContent = "";
             this.element.querySelector("#cart-total").textContent = "";
         },
         /**
@@ -135,11 +143,28 @@
             
             this.element.querySelector("#cart-subtotal").textContent = cart.pricing.formattedSubtotal;
             this.element.querySelector("#cart-tax").textContent = cart.pricing.formattedTax;
+            this.element.querySelector("#cart-discount").textContent = cart.pricing.formattedDiscount;
             this.element.querySelector("#cart-total").textContent = cart.pricing.formattedOrderTotal;
             this._setCartItems(items);
 
             WinJS.Utilities.removeClass(this.cartContent, "hidden");
+
         },
+
+        /**
+         * Hides the checkout button (usefull when cart is empty)
+         */
+        hideCheckoutButton: function (){
+            WinJS.Utilities.addClass(this._checkoutButton, "hidden");
+        },
+
+        /**
+         * Shows the checkout button (usefull when cart is empty)
+         */
+        showCheckoutButton: function (){
+            WinJS.Utilities.removeClass(this._checkoutButton, "hidden");
+        },
+
         _setCartItems: function (items) {
             var cartlist = new WinJS.Binding.List();
             this.itemsList.itemDataSource = cartlist.dataSource;
@@ -155,10 +180,39 @@
                     self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data.product });
                 }
             });
+        },
 
+        _onCheckoutClicked: function (e) {
+            this.dispatchEvent(this.events.CHECKOUT_CLICKED);
+        },
+
+        /**
+         * Behaviour when a quantity on a cartItem has changed
+         */
+        _onValueChanged: function (e, currentItem) {
+            this.dispatchEvent(this.events.LINE_ITEM_QUANTITY_CHANGED, { item: currentItem, quantity: e.target.value});
         }
 
     });
+
+
+    /**
+     * Renders the cartItems
+     */
+    function renderCartItem(itemPromise) {
+        var self = this;
+        var template = this.element.querySelector('#cartTemplate').winControl;
+        return itemPromise.then(function (currentItem) {
+            return template.render(currentItem.data).then(function (element) {
+                // Adds an event listener in order to handle the quantity combo change
+                element.querySelector("#itemQuantitySelector").addEventListener("change", function (event) {
+                    self._onValueChanged(event, currentItem);
+                }, false);
+                return element
+            });
+        });
+
+    }
 
     /**
      * Functions to expose externally.

@@ -18,6 +18,9 @@
     WinJS.Namespace.define("DR.Store.Widget", {
         ProductTemplate: _buildWidget("ProductTemplate"),
         CategoryTemplate: _buildWidget("CategoryTemplate"),
-        CartLineItemTemplate: _buildWidget("CartLineItemTemplate")
+        CartLineItemTemplate: _buildWidget("CartLineItemTemplate"),
+        CheckoutLineItemTemplate: _buildWidget("CheckoutLineItemTemplate"),
+        AddressDetailTemplate: _buildWidget("AddressDetailTemplate"),
+        PaymentOptionDetailTemplate: _buildWidget("PaymentOptionDetailTemplate")
     });
 })();

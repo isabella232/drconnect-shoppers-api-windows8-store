@@ -83,8 +83,9 @@
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
             this.topAppBar.hideCommands(["home"]);
-            
+
         },
+
 
         /**
         * Behaviour the an items is selected from the list

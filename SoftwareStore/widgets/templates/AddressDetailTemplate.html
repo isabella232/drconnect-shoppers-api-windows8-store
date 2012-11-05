@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AddressDetailTemplate</title>
+
+    <link href="AddressDetailTemplate.css" rel="stylesheet" />
+    <script src="Template.js"></script>
+</head>
+<body>
+    <div id="addressDetailTemplate" data-win-control="WinJS.Binding.Template">
+        <label><span data-win-bind="textContent: firstName"/></label>
+        <label> <span data-win-bind="textContent: lastName"/></label><br />
+        <label><span data-win-bind="textContent: line1"/></label><br />
+        <label><span data-win-bind="textContent: city"/></label>
+        <label>, <span data-win-bind="textContent: countrySubdivision"/></label>&nbsp;
+        <label><span data-win-bind="textContent: postalCode"/></label><br />
+        <label><span data-win-bind="textContent: phoneNumber"/></label>
+    </div>
+</body>
+</html>

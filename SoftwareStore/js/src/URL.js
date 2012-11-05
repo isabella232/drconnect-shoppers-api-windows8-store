@@ -9,6 +9,9 @@
         PRODUCT_PAGE: "/pages/product/product.html",
         CATEGORY_PAGE: "/pages/category/category.html",
         CART_PAGE: "/pages/cart/cart.html",
-        SEARCH_PAGE: "/pages/search/search.html"
+        CHECKOUT_PAGE: "/pages/checkout/checkout.html",
+        THANKS_PAGE: "/pages/thanks/thanks.html",
+        SEARCH_PAGE: "/pages/search/search.html",
+        SHOPPER_PAGE: "/pages/shopper/shopper.html"
     });
 })();

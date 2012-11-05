@@ -17,7 +17,10 @@
                 this.addUrlMapping(u.PRODUCT_PAGE, c.productController);
                 this.addUrlMapping(u.CATEGORY_PAGE, c.categoryController);
                 this.addUrlMapping(u.CART_PAGE, c.cartController);
+                this.addUrlMapping(u.CHECKOUT_PAGE, c.checkoutController, true);
+                this.addUrlMapping(u.THANKS_PAGE, c.thanksController, true);
                 this.addUrlMapping(u.SEARCH_PAGE, c.searchController);
+                this.addUrlMapping(u.SHOPPER_PAGE, c.userController, true);
             },
 
             /**
@@ -37,6 +40,7 @@
                 this.addMapping(n.PRODUCT_ADDED_TO_CART, c.homeController, "_onProductsAdded");
                 this.addMapping(n.PRODUCT_ADDED_TO_CART, c.categoryController, "_onProductsAdded");
                 this.addMapping(n.APPLICATION_STARTED, c.mainApplicationController, "handle");
+                this.addMapping(n.LOGIN, c.userController, "login");
                 this.addSearchMapping(c.searchController, "searchRequested");
             },
 
@@ -50,8 +54,11 @@
                     homeController: new c.HomeController(),
                     productController: new c.ProductController(),
                     cartController: new c.CartController(),
+                    checkoutController: new c.CheckoutController(),
+                    thanksController: new c.ThanksController(),
                     categoryController: new c.CategoryController(),
-                    searchController: new c.SearchController()
+                    searchController: new c.SearchController(),
+                    userController: new c.UserController()
                 }
             }
         }

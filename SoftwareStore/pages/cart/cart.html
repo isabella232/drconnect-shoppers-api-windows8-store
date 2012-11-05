@@ -12,6 +12,7 @@
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/cart/cart.css" rel="stylesheet" />
     <script src="/widgets/templates/Template.js"></script>
+    <script src="/widgets/html/HtmlControl.js"></script>
     <script src="/pages/cart/cart.js"></script>
 </head>
 <body>
@@ -24,7 +25,7 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" type="button"></button>
             <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle" data-win-res="{textContent: 'cart.shoppingCartTile'}">Shopping Cart</span>
+                <span class="pagetitle" data-win-res="{textContent: 'cart.shoppingCartTitle'}"></span>
             </h1>
         </header>
 
@@ -52,12 +53,19 @@
                 <div class="cart-summary">
                     <p><span class="cart-subtotal" data-win-res="{textContent: 'cart.summary.subtotal'}">Sutotal:</span> <span id="cart-subtotal"></span></p>
                     <p><span class="cart-tax" data-win-res="{textContent: 'cart.summary.tax'}">Tax: </span> <span id="cart-tax"></span></p>
+                    <p><span class="cart-tax" data-win-res="{textContent: 'cart.summary.discount'}">Discount: </span> <span id="cart-discount"></span></p>
                     <p><span class="cart-total" data-win-res="{textContent: 'cart.summary.total'}">Total: </span> <span id="cart-total"></span></p>
-                </div>
 
+                    <!--Checkout buttons-->
+                    <p>
+                        <button id="checkoutButton" class="hidden"><span data-win-res="{textContent: 'general.button.checkout.label'}"></span></button>
+                    </p>
+                </div>
                 <!-- TODO Add a Proceed to Checkout button -->
             </div>
         </section>
+
+        <footer data-win-control="DR.Store.Widget.Html.Footer"/>
     </div>
 </body>
 </html>

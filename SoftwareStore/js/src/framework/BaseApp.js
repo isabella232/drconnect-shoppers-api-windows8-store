@@ -50,7 +50,7 @@
                 this.searchManager = new DR.MVC.SearchManager(this.dispatcher);
                 this.sharingManager = new DR.MVC.Sharing.SharingManager(this, this.dispatcher.sharingMappings);
 
-                this.navigationManager = new DR.MVC.UrlNavigationManager(this.dispatcher.urlMappings, this.config.landingPage, this.searchManager);
+                this.navigationManager = new DR.MVC.UrlNavigationManager(this.dispatcher, this.dispatcher.urlMappings, this.config.landingPage, this.searchManager);
 
                 // Restore the nav history from the session if available
                 var app = WinJS.Application;
