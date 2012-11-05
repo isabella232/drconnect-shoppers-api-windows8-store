@@ -2,6 +2,7 @@
 // http://go.microsoft.com/fwlink/?LinkId=232511
 (function () {
     "use strict";
+    var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
 
     WinJS.UI.Pages.define("/pages/product/product.html", {
         events: {
@@ -85,7 +86,16 @@
             } else {
                 WinJS.Utilities.addClass(progress, "hidden");
             }
+        },
+        // is called when the view is changed (rotated, snapped, etc.)
+        updateLayout: function (element, viewState, lastViewState) {
+            // Check to see if the application is in snapped view.
+            if (lastViewState !== viewState) {
+                if (lastViewState === appViewState.snapped || viewState === appViewState.snapped) {
+                    // force the first tab to be shown. CSS hides the rest of the tabs.
+                    this.tabControl.showTab(0);
+                }
+            }
         }
-
     });
 })();

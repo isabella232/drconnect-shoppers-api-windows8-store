@@ -25,8 +25,37 @@
                  var panelDiv = this.element.querySelector(tabPanelId);
                  this.tabsList.push({ tab: tabDiv, panel: panelDiv });
                  tabDiv.addEventListener("click", _onTabClicked.bind(this));
-             }
+             },
+             /**
+              * Returns an Object representing the tab at index or undefined;
+              */
+             getTab: function (index) {
+                 return (index < this.tabsList.length) ? this.tabsList[index] : undefined;
+             },
+             /**
+              * shows the tab panel and highlights the selected tab; hides and unselects the others.
+              * @return the tab or undefined
+              */
+             showTab: function (tabIndex) {
+                 var tabControl = this.getTab(tabIndex);
+                 if (tabControl) {
+                     this.tabsList.forEach(function (t) {
+                         WinJS.Utilities.removeClass(t.tab, 'selected');
+                         _toggleTab(t.panel, false);
+                     });
+                     WinJS.Utilities.addClass(tabControl.tab, 'selected');
+                     _toggleTab(tabControl.panel, true);
+                 }
+                 return tabControl;
+             },
 
+             removeTab: function (tabIndex) {
+                 var tabControl = this.getTab(tabIndex);
+                 if (tabControl) {
+                     this.tabsList.splice(tabIndex, 1);
+                 }
+                 return tabControl;
+             }
          }
 
     );
@@ -55,6 +84,8 @@
      * @panel panel that needs to be shown or hidden
      * @visible true to show, false to hide
      */
+
+    // TODO this should return a promise so that the transition can be animated.
     function _toggleTab(panel, visible){
         if (panel) {
             if (typeof visible === 'undefined') {
