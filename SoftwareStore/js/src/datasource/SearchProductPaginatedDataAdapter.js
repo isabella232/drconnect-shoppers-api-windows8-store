@@ -24,6 +24,8 @@
                             count: data.totalResults,
                             items: data.product
                         }
+                    }, function (error) {
+                        console.log("Error in Search: " + error.details.error.code + ": " + error.details.error.description);
                     });
             }
         }
