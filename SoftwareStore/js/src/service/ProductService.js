@@ -79,11 +79,19 @@
              */
             searchProduct: function (keyword, pageNumber, pageSize) {
 
+                var cleanKeyword = clearKeyword(keyword);
                 // Set params
-                var params = { expand: 'product.id', keyword: keyword };
+                var params = { expand: 'product.id', keyword: cleanKeyword };
 
                 var self = this;
                 console.log("Calling DR productSearch service");
+
+                if (!cleanKeyword || cleanKeyword === "") {
+                    return WinJS.Promise.wrap({
+                        totalResults: 0,
+                        product: []
+                    });
+                }
 
                 return this._client.products.search(params)
                     .then(function (data) {
@@ -122,6 +130,23 @@
             }
         }
     );
+
+    /**
+     * Clears the search keywork looking for invalid characters (those ones that the API doesn't support) removing them
+     * Unsupported characters are !\"#$%&'()*+-/:<=>?@[]^`{|}~
+     */
+    function clearKeyword(keyword) {
+        var result = keyword;
+        var invalidCharacters = "!\"#$%&'()*+-/:<=>?@[]^`{|}~";
+        var array = invalidCharacters.split("");
+        array.forEach(function (char) {
+            while (result.indexOf(char) != -1) {
+                result = result.replace(char, "");
+            }
+        });
+        
+        return result;
+    }
 
     WinJS.Namespace.define("DR.Store.Service", {
         ProductService: Class
