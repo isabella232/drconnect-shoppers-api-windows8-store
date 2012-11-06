@@ -29,33 +29,55 @@
              /**
               * Returns an Object representing the tab at index or undefined;
               */
-             getTab: function (index) {
-                 return (index < this.tabsList.length) ? this.tabsList[index] : undefined;
+             getTab: function (tabId) {
+                 var index = this.getTabIndexForId(tabId);
+                 return (index >= 0) ? this.tabsList[index] : undefined;
+             },
+
+             /**
+              * Gets the index for a tabId
+              */
+             getTabIndexForId: function (tabId) {
+                 this.tabsList.forEach(function (tabControl, i ) {
+                     if (tabId != tabControl.tab.id) {
+                         return i;
+                     }
+                 });
+                 return -1;
              },
              /**
               * shows the tab panel and highlights the selected tab; hides and unselects the others.
               * @return the tab or undefined
               */
-             showTab: function (tabIndex) {
-                 var tabControl = this.getTab(tabIndex);
-                 if (tabControl) {
-                     this.tabsList.forEach(function (t) {
-                         WinJS.Utilities.removeClass(t.tab, 'selected');
-                         _toggleTab(t.panel, false);
-                     });
-                     WinJS.Utilities.addClass(tabControl.tab, 'selected');
-                     _toggleTab(tabControl.panel, true);
-                 }
-                 return tabControl;
+             showTab: function (tabId) {
+                 var shownTab = undefined;
+                 this.tabsList.forEach(function (tabControl) {
+                     if (tabId != tabControl.tab.id) {
+                         // Hides the other tabs
+                         WinJS.Utilities.removeClass(tabControl.tab, 'selected');
+                         _toggleTab(tabControl.panel, false);
+                     } else {
+                         // If matches with the tab clicked shows the tab
+                         WinJS.Utilities.addClass(tabControl.tab, 'selected');
+                         _toggleTab(tabControl.panel, true);
+                         shownTab = tabControl;
+                     }
+                 });
+                 return shownTab;
              },
 
-             removeTab: function (tabIndex) {
-                 var tabControl = this.getTab(tabIndex);
-                 if (tabControl) {
-                     this.tabsList.splice(tabIndex, 1);
+             /**
+              * Removes the tab matching the tabId from the list
+              */
+             removeTab: function (tabId) {
+                 var tabIndex = this.getTabIndexForId(tabId);
+                 var tabControl = undefined;
+                 if (tabIndex >= 0) {
+                     tabControl = this.tabsList.splice(tabIndex, 1);
                  }
                  return tabControl;
              }
+
          }
 
     );
@@ -66,17 +88,7 @@
     function _onTabClicked(event) {
         var self = this;
         var target = event.target;
-        this.tabsList.forEach(function (tabControl) {
-            if (target.id != tabControl.tab.id) {
-                // Hides the other tabs
-                WinJS.Utilities.removeClass(tabControl.tab, 'selected');
-                _toggleTab(tabControl.panel, false);
-            } else {
-                // If matches with the tab clicked shows the tab
-                WinJS.Utilities.addClass(tabControl.tab, 'selected');
-                _toggleTab(tabControl.panel, true);
-            }
-        });
+        this.showTab(target.id);
     }
 
     /**

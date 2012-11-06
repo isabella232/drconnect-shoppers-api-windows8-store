@@ -92,8 +92,8 @@
             // Check to see if the application is in snapped view.
             if (lastViewState !== viewState) {
                 if (lastViewState === appViewState.snapped || viewState === appViewState.snapped) {
-                    // force the first tab to be shown. CSS hides the rest of the tabs.
-                    this.tabControl.showTab(0);
+                    // force the overview tab to be shown. CSS hides the rest of the tabs.
+                    this.tabControl.showTab("overviewTab");
                 }
             }
         }
