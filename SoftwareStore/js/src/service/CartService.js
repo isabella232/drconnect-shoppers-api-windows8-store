@@ -39,9 +39,11 @@
 
                 return this._client.cart.get(params).then(function (data) {
                     var count = 0;
-                    data.lineItems.lineItem.forEach(function(lineItem){
-                        count += lineItem.quantity;
-                    });
+                    if (data.lineItems.lineItem) {
+                        data.lineItems.lineItem.forEach(function (lineItem) {
+                            count += lineItem.quantity;
+                        });
+                    }
                     return count;
                 });
 
@@ -80,6 +82,22 @@
                     return data;
                 }, function (error) {
                     console.error("Error when trying to modify lineItem: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+            /**
+             * Removes a Line Item from the Cart
+             * @param lineItem to be removed
+             * @returns Cart
+             */
+            removeLineItemFromCart: function (lineItem) {
+                var self = this;
+                console.debug("Calling DR removeFrom service");
+                return this._client.cart.removeLineItem(lineItem, {}).then(function (data) {
+                    // Invalidate cached cart after submitting it
+                    //self.invalidateCache();
+                    console.info("Line item removed");
+                    return;
                 });
             },
 

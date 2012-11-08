@@ -88,7 +88,7 @@
 
 
         /**
-        * Behaviour the an items is selected from the list
+        * Behaviour the an item is selected from the list
         */
         _itemSelected: function (item) {
             var count = this.itemsList.selection.count();

@@ -10,7 +10,8 @@
         CATEGORY_SELECTED: "categorySelected",
         ADD_TO_CART: "addToCart",
         ADD_PRODUCTS_TO_CART: "addProductsToCart",
-        PRODUCT_ADDED_TO_CART: "productAddedToCart",
+        REMOVE_FROM_CART: "removeFromCart",
+        CART_CHANGED: "cartChanged",
         LOGIN: "login"
     });
 })();

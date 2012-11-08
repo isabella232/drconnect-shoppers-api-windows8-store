@@ -10,7 +10,19 @@
             // populates the page elements with the app's data.
             ready: function (element, options) {
 
+            },
+
+            /**
+             * Hides and element inside the html control
+             */
+            hideElement: function (controlId) {
+                WinJS.Utilities.addClass(this.element.querySelector(controlId), "hidden");
+            },
+
+            showElement: function (controlId) {
+                WinJS.Utilities.removeClass(this.element.querySelector(controlId), "hidden");
             }
+
 
         });
         return Class;
