@@ -20,7 +20,7 @@
             /**
              * This function is called when a product/s is successfully added to the cart
              */
-            handleProductAddedToCart: function () {
+            handleCartChanged: function () {
                 var self = this;
                 DR.Store.Services.cartService.getItemsCount().then(function (count) {
                     self._view.animatePageHeaderCartIcon(count);

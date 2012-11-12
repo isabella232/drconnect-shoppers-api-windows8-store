@@ -98,12 +98,18 @@
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
              */
-            animatePageHeaderCartIcon : function(cartQuantity){
+            animatePageHeaderCartIcon: function (cartQuantity) {
+
+                var button = this.pageHeaderBar.element.querySelector('#upper-cart');
+                // If the cart button on the page header bar is not visible there is no animation
+                if (button.currentStyle.display === "none") {
+                    return;
+                }
+
                 var animationIcon = this.pageHeaderBar.element.querySelector('#addToCartAnimation');
                 // Sets the animation
                 animationIcon.querySelector('#quantity').textContent = cartQuantity;
                 
-                var button = this.pageHeaderBar.element.querySelector('#upper-cart');
                 var offset = _findTopLeft(button);
                 var animation;
 

@@ -3,15 +3,13 @@
     /**
      * Control that contains a ComboBox and a Detail panel for the selected value in the combo
      */
-    var Class = WinJS.UI.Pages.define("/widgets/html/comboList/PaymentOptionListWidget.html", {
+    var Class = WinJS.UI.Pages.define("/widgets/html/comboList/ShippingMethodListWidget.html", {
 
         // Combo List Widget Helper
         _comboListHelper: null,
         ready: function (element, options) {
-            var listElement = element.querySelector(".payment-combo-options");
-            var detailTemplate = element.querySelector("#paymentDetailTemplate").winControl;
-            var detailElement = element.querySelector(".payment-tile");
-            this._comboListHelper = new DR.Store.Widget.Html.ComboListWidgetHelper(this.element, listElement, detailElement, detailTemplate,
+            var listElement = element.querySelector(".shipping-combo-options");
+            this._comboListHelper = new DR.Store.Widget.Html.ComboListWidgetHelper(this.element, listElement, null, null,
                 this._getSelectedItemFromList.bind(this), this._getTextForComboItem);
         },
 
@@ -42,7 +40,7 @@
          */
         _getSelectedItemFromList: function (value) {
             var list = this._comboListHelper.getList();
-            if (value.nickName) {
+            if (value.code) {
                 var index = _getIndexForValue(list, value);
                 return {
                     "index": index,
@@ -54,7 +52,7 @@
         },
 
         _getTextForComboItem: function (item) {
-            return item.nickName;
+            return item.description;
         }
 
     });
@@ -62,7 +60,7 @@
     /**
 	 * Determines if a payment is equal to another payment. 
 	 */
-    function paymentEquals(payment1, payment2) {
+    function shippingEquals(shipping1, shipping2) {
         return ((payment1.name == payment2.type || !payment1.name && !payment2.type) &&
                  (payment1.expirationMonth == payment2.expirationMonth || !payment1.expirationMonth && !payment2.expirationMonth) &&
                  (payment1.expirationYear == payment2.expirationYear || !payment1.expirationYear && !payment2.expirationYear));
@@ -74,7 +72,7 @@
      */
     function _getIndexForValue(list, value) {
        list.forEach(function (item, index) {
-            if (item.id === value.id) return index;
+            if (item.id === value.code) return index;
             else return -1;
         });
     }
@@ -86,7 +84,7 @@
     function _getSelectedPaymentFromList(list, value) {
         for (var i = 0; i < list.length; i++) {
             var payment = list[i];
-            if (paymentEquals(value, payment.creditCard)) {
+            if (shippingEquals(value, payment.creditCard)) {
                 var result = {}
                 result.value = payment;
                 result.index = i;
@@ -97,7 +95,7 @@
     }
 
     WinJS.Namespace.define("DR.Store.Widget.Html", {
-        PaymentOptionListWidget: Class
+        ShippingMethodListWidget: Class
     });
 
 

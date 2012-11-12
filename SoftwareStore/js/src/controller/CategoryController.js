@@ -60,7 +60,7 @@
             /**
             * Called when a product has been successfully added to the cart
             */
-            _onProductsAdded: function (timeStamp) {
+            _onCartChanged: function (timeStamp) {
                 // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
                 if (timeStamp && timeStamp === this._addToCartTimeStamp) {
                     this.page.clearSelection();

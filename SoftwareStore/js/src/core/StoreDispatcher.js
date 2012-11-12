@@ -36,9 +36,11 @@
             declareMappings: function (n, c) {
                 this.addMapping(n.ADD_TO_CART, c.cartController, "addToCart");
                 this.addMapping(n.ADD_PRODUCTS_TO_CART, c.cartController, "addProductsToCart");
-                this.addMapping(n.PRODUCT_ADDED_TO_CART, c.mainApplicationController, "handleProductAddedToCart");
-                this.addMapping(n.PRODUCT_ADDED_TO_CART, c.homeController, "_onProductsAdded");
-                this.addMapping(n.PRODUCT_ADDED_TO_CART, c.categoryController, "_onProductsAdded");
+                this.addMapping(n.REMOVE_FROM_CART, c.cartController, "removeFromCart");
+                this.addMapping(n.CART_CHANGED, c.mainApplicationController, "handleCartChanged");
+                this.addMapping(n.CART_CHANGED, c.homeController, "_onCartChanged");
+                this.addMapping(n.CART_CHANGED, c.categoryController, "_onCartChanged");
+                this.addMapping(n.CART_CHANGED, c.cartController, "_onCartChanged");
                 this.addMapping(n.APPLICATION_STARTED, c.mainApplicationController, "handle");
                 this.addMapping(n.LOGIN, c.userController, "login");
                 this.addSearchMapping(c.searchController, "searchRequested");

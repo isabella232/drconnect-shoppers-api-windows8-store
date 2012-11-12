@@ -12,7 +12,7 @@
             var detailTemplate = element.querySelector("#addressDetailTemplate").winControl;
             var detailElement = element.querySelector(".address-tile");
             this._comboListHelper = new DR.Store.Widget.Html.ComboListWidgetHelper(this.element, listElement, detailElement, detailTemplate,
-                this._getSelectedItemFromList.bind(this));
+                this._getSelectedItemFromList.bind(this), this._getTextForComboItem);
         },
 
         /**
@@ -51,6 +51,10 @@
             } else {
                 return _getSelectedAddressFromList(list, value);
             }
+        },
+
+        _getTextForComboItem: function (item) {
+            return item.nickName;
         }
 
     });

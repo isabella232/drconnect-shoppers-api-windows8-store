@@ -1,101 +1,9 @@
 ﻿(function () {
-    /*
-    if (Windows.ApplicationModel.DesignMode) {
-        var cartitems = {
-            "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/CartsResource",
-            "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/carts\/active",
-            "id": 12616335842,
-            "lineItems": {
-                "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/LineItemsResource",
-                "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/carts\/active\/line-items",
-                "lineItem": [
-                    {
-                        "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/LineItemsResource",
-                        "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/carts\/active\/line-items\/12861215142",
-                        "id": 12861215142,
-                        "quantity": 2,
-                        "product": {
-                            "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/ProductsResource",
-                            "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/products\/248217400",
-                            "id": 248217400,
-                            "displayName": "Photo Editor",
-                            "thumbnailImage": "http:\/\/drh1.img.digitalriver.com\/DRHM\/Storefront\/Company\/aqued\/images\/product\/thumbnail\/80x80photo.png"
-                        },
-                        "pricing": {
-                            "listPrice": {
-                                "currency": "USD",
-                                "value": 3.00
-                            },
-                            "listPriceWithQuantity": {
-                                "currency": "USD",
-                                "value": 6.00
-                            },
-                            "salePriceWithQuantity": {
-                                "currency": "USD",
-                                "value": 5.40
-                            },
-                            "formattedListPrice": "$3.00",
-                            "formattedListPriceWithQuantity": "$6.00",
-                            "formattedSalePriceWithQuantity": "$5.40"
-                        }
-                    }
-                ]
-            },
-            "billingAddress": {
-                "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/AddressesResource",
-                "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/carts\/active\/billing-address"
-            },
-            "shippingAddress": {
-                "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/AddressesResource",
-                "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/carts\/active\/shipping-address"
-            },
-            "payment": null,
-            "shippingMethod": {
-                "code": null,
-                "description": null
-            },
-            "shippingOptions": {
-                "relation": "http:\/\/developers.digitalriver.com\/v1\/shoppers\/ShippingOptionsResource",
-                "uri": "https:\/\/api.digitalriver.com\/v1\/shoppers\/me\/shipping-options"
-            },
-            "pricing": {
-                "subtotal": {
-                    "currency": "USD",
-                    "value": 5.40
-                },
-                "discount": {
-                    "currency": "USD",
-                    "value": "0.54"
-                },
-                "shippingAndHandling": {
-                    "currency": "USD",
-                    "value": "0.00"
-                },
-                "tax": {
-                    "currency": "USD",
-                    "value": "0.00"
-                },
-                "orderTotal": {
-                    "currency": "USD",
-                    "value": 4.86
-                },
-                "formattedSubtotal": "$5.40",
-                "formattedDiscount": "$0.54",
-                "formattedShippingAndHandling": "$0.00",
-                "formattedTax": "$0.00",
-                "formattedOrderTotal": "$4.86"
-            }
-        };
-    
-        var cartlist = WinJS.Binding.List();
-        cart.lineItem.lineItem.forEach(function (item) {
-            cartlist.push(item);
-        });
-    }
-    */
     WinJS.UI.Pages.define("/pages/cart/cart.html", {
         events: {
             ITEM_SELECTED: "itemSelected",
+            REMOVE_ITEM_CLICKED: "removeItemClicked",
+            RESET_CART_CLICKED: "resetCartClicked",
             CHECKOUT_CLICKED: "checkoutClicked",
             LINE_ITEM_QUANTITY_CHANGED: "lineItemQuantityChanged"
         },
@@ -103,6 +11,8 @@
         cartContent: null,
         emptyMessage: null,
         _checkoutButton: null,
+        // Items list used to reset the cart if requested
+        _cartItems: null,
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
@@ -110,8 +20,11 @@
             this.itemsList = this.element.querySelector("#cartlist").winControl;
             this.itemsList.itemTemplate = renderCartItem.bind(this);//element.querySelector('#cartTemplate');
             this.itemsList.layout = new WinJS.UI.ListLayout();
+            this._cartItems = new WinJS.Binding.List();
+            this.itemsList.itemDataSource = this._cartItems.dataSource;
 
             this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
+            this.itemsList.addEventListener("selectionchanged", this._itemSelected.bind(this));
             
             this.cartContent = this.element.querySelector(".cart-list-container");
             this.emptyMessage = this.element.querySelector(".cart-empty");
@@ -123,6 +36,7 @@
             this._checkoutButton = this.element.querySelector("#checkoutButton");
             this._checkoutButton.onclick = this._onCheckoutClicked.bind(this);
 
+            this._initializeAppBars();
         },
         clear: function () {
             this.element.querySelector("#cart-subtotal").textContent = "";
@@ -136,8 +50,13 @@
         setCart: function (cart) {
             var items = cart.lineItems.lineItem;
 
+            // If there are no items, clears the cart page
             if (!items) {
                 WinJS.Utilities.removeClass(this.emptyMessage, "hidden");
+                this.clear();
+                WinJS.Utilities.addClass(this.cartContent, "hidden");
+                this._setCartItems([]);
+                this._hideCheckoutButton();
                 return;
             }
             
@@ -148,40 +67,107 @@
             this._setCartItems(items);
 
             WinJS.Utilities.removeClass(this.cartContent, "hidden");
+            this._showCheckoutButton();
 
         },
 
         /**
          * Hides the checkout button (usefull when cart is empty)
          */
-        hideCheckoutButton: function (){
+        _hideCheckoutButton: function (){
             WinJS.Utilities.addClass(this._checkoutButton, "hidden");
         },
 
         /**
          * Shows the checkout button (usefull when cart is empty)
          */
-        showCheckoutButton: function (){
+        _showCheckoutButton: function (){
             WinJS.Utilities.removeClass(this._checkoutButton, "hidden");
         },
 
+        /**
+         * Sets the cart items
+         */
         _setCartItems: function (items) {
-            var cartlist = new WinJS.Binding.List();
-            this.itemsList.itemDataSource = cartlist.dataSource;
+            var self = this;
+            // Empty the list and populates it with the new items
+            // We don't recrate the list calling a new WinJS.Binding.List because there is a bug on the 
+            // when trying to re-render the items
+            this._cartItems.splice(0, this._cartItems.length);
             items.forEach(function (item) {
-                cartlist.push(item);
+                self._cartItems.push(item);
             });
         },
 
+        /**
+         * Default behaviour when a cart item is clicked
+         */
         _onCartItemClicked: function (e) {
             var self = this;
             e.detail.itemPromise.then(function (item) {
-                if (item.data.product) {
-                    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data.product });
+                self._doItemSelected(item);
+            });
+        },
+
+        /**
+         * Behaviour when view item button is clicked
+         */
+        _onViewItem: function (e) {
+            var self = this;
+
+            this.itemsList.selection.getItems().then(function (items) {
+                self._doItemSelected(items[0]);
+            });
+        },
+
+        /**
+         * Dispathches the event when an item is selected
+         */
+        _doItemSelected: function (item) {
+            if (item.data.product) {
+                this.dispatchEvent(this.events.ITEM_SELECTED, { item: item.data.product });
+            }
+        },
+
+        /**
+        * Default behaviour when remove from cart button is clicked
+        */
+        _onRemoveItem: function (e) {
+            var self = this;
+            var selectedItems = [];
+
+            // Builds a list with the items currently selected
+            this.itemsList.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push(item.data);
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.REMOVE_ITEM_CLICKED, selectedItems);
                 }
             });
         },
 
+        /**
+       * Default behaviour when remove from cart button is clicked
+       */
+        _onResetCart: function (e) {
+            var self = this;
+            var items = [];
+
+            // Builds a list with the items currently selected
+            
+            this._cartItems.forEach(function (item) {
+                items.push(item);
+            });
+            if (items.length > 0) {
+                self.dispatchEvent(self.events.RESET_CART_CLICKED, items);
+            }
+            
+        },
+
+        /**
+         * Behaviour when checkout button is clicked
+         */
         _onCheckoutClicked: function (e) {
             this.dispatchEvent(this.events.CHECKOUT_CLICKED);
         },
@@ -191,6 +177,60 @@
          */
         _onValueChanged: function (e, currentItem) {
             this.dispatchEvent(this.events.LINE_ITEM_QUANTITY_CHANGED, { item: currentItem, quantity: e.target.value});
+        },
+
+        /**
+         * Initializes the application bars
+         */
+        _initializeAppBars: function () {
+            var self = this;
+
+            // Get the localized labels for the commands
+            var removeButtonLabel = WinJS.Resources.getString('general.button.removeFromCart.label').value;
+            var removeButtonTooltip = WinJS.Resources.getString('general.button.removeFromCart.tooltip').value;
+            var viewItemButtonLabel = WinJS.Resources.getString('general.button.viewItem.label').value;
+            var viewItemButtonTooltip = WinJS.Resources.getString('general.button.viewItem.tooltip').value;
+            var resetCartButtonLabel = WinJS.Resources.getString('general.button.resetCart.label').value;
+            var resetCartButtonTooltip = WinJS.Resources.getString('general.button.resetCart.tooltip').value;
+
+            // Initialize the Bottom AppBar
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+            this.bottomAppBar.addCommand({ id: 'cmdRemove', label: removeButtonLabel, icon: '', section: 'selection', tooltip: removeButtonTooltip, clickHandler: this._onRemoveItem.bind(this) });
+            this.bottomAppBar.addCommand({ id: 'cmdViewItem', label: viewItemButtonLabel, icon: '', section: 'selection', tooltip: viewItemButtonTooltip, clickHandler: this._onViewItem.bind(this) });
+            this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
+            this.bottomAppBar.hideCommands(["cmdRemove", "cmdViewItem","gotoCart"]);
+            this.bottomAppBar.hideCommands(["cmdViewItem"]);
+            
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+
+            // Because this page is the cart page, hides the gotoCart button on the page header bar
+            var pageHeaderBar = DR.Store.App.PageHeaderBar.winControl;
+            pageHeaderBar.hideElement("#upper-cart");
+
+
+        },
+
+        /**
+        * Behaviour the an item is selected from the list
+        */
+        _itemSelected: function (item) {
+            var count = this.itemsList.selection.count();
+            if (count > 0) {
+                this.bottomAppBar.showCommands(["cmdRemove","cmdViewItem"]);
+                this.topAppBar.show();
+                this.bottomAppBar.show();
+            } else {
+                this.topAppBar.hide();
+                this.bottomAppBar.hide();
+                this.bottomAppBar.hideCommands(["cmdRemove", "cmdViewItem"]);
+            }
+        },
+
+        /**
+         * Clears the current selected items from the list
+         */
+        clearSelection: function () {
+            this.itemsList.selection.clear();
         }
 
     });

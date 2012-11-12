@@ -11,6 +11,8 @@
             initPage: function (page, state) {
                 // Adds a listener for the submit cart button
                 page.addEventListener(page.events.SUBMIT_CLICKED, this._onSubmit.bind(this), false);
+                page.addEventListener(page.events.SHIPPING_ADDRESS_CHANGED, this._onShippingAddressChanged.bind(this), false);
+                page.addEventListener(page.events.SHIPPING_OPTION_CHANGED, this._onShippingOptionChanged.bind(this), false);
 
                 DR.Store.Services.userService.getAddresses().then(function (addresses) {
                     page.setAddresses(addresses);
@@ -34,12 +36,34 @@
                 var params = e.detail;
                 // If a any address or payment has been modified applies the shopper first
                 if (params.shippingAddressId || params.billingAddressId || params.paymentOptionId) {
-                    return DR.Store.Services.cartService.applyShopper(params.shippingAddressId, params.billingAddressId, params.paymentOptionId).then(function (cart) {
+                    return DR.Store.Services.cartService.applyShopper(null, params.billingAddressId, params.paymentOptionId).then(function (cart) {
                         self._doSubmit(params.cart);
                     });
                 } else {
                     return self._doSubmit(params.cart);
                 }
+            },
+
+            /**
+             * Behaviour when shipping address changes
+             */
+            _onShippingAddressChanged: function (e) {
+                var self = this;
+                var params = e.detail;
+                DR.Store.Services.cartService.applyShopper(params.shippingAddressId, params.billingAddressId, params.paymentOptionId).then(function (cart) {
+                    self.page.setCart(cart);
+                });
+            },
+
+            /**
+             * Behaviour when shipping option changes
+             */
+            _onShippingOptionChanged: function (e) {
+                var self = this;
+                var optionId = e.detail;
+                DR.Store.Services.cartService.applyShippingOption(optionId).then(function (cart) {
+                    self.page.setCart(cart);
+                });
             },
 
             /**
