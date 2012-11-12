@@ -15,6 +15,7 @@
     <script src="/widgets/html/HtmlControl.js"></script>
     <script src="/widgets/html/comboList/AddressListWidget.js"></script>
     <script src="/widgets/html/comboList/PaymentOptionListWidget.js"></script>
+    <script src="/widgets/html/comboList/ShippingMethodListWidget.js"></script>
     <script src="checkout.js"></script>
     
 </head>
@@ -40,8 +41,9 @@
                  <div class="checkout-summary">
                     <p class="row-1"><span class="cart-subtotal col-1" data-win-res="{textContent: 'cart.summary.subtotal'}"></span> <span id="cart-subtotal" class="col-2"></span></p>
                     <p class="row-2"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span> <span id="cart-tax" class="col-2"></span></p>
-                    <p class="row-3"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.discount'}"></span> <span id="cart-discount" class="col-2"></span></p>
-                    <p class="row-4"><span class="cart-total col-1" data-win-res="{textContent: 'cart.summary.total'}"></span> <span id="cart-total" class="cart-total col-2"></span></p>
+                    <p class="row-3"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.shippingAndHandling'}"></span> <span id="cart-shipping" class="col-2"></span></p>
+                    <p class="row-4"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.discount'}"></span> <span id="cart-discount" class="col-2"></span></p>
+                    <p class="row-5"><span class="cart-total col-1" data-win-res="{textContent: 'cart.summary.total'}"></span> <span id="cart-total" class="cart-total col-2"></span></p>
                 </div>
             </div>
             
@@ -64,7 +66,8 @@
 
                 <div class="address-block">
                     <h2 data-win-res="{textContent: 'checkout.shippingMethod'}"></h2>
-                    <label id="shippingMethod"></label>
+                    <label id="shippingMethodEmpty"></label>
+                    <div id="shippingMethod" data-win-control="DR.Store.Widget.Html.ShippingMethodListWidget"></div>
                 </div>
             </div>
 

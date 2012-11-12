@@ -38,6 +38,7 @@
     "cart.summary.tax"                  		: "Tax:",
     "cart.summary.total"                		: "Total:",
     "cart.summary.discount"             		: "Discount:",
+    "cart.summary.shippingAndHandling"   		: "Shipping:",
 
     "category.emptyMessage"             		: "The category has no subcategories nor products",
 

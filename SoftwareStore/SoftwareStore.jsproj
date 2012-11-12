@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|AnyCPU">
@@ -67,7 +67,6 @@
     <Content Include="js\lib\drapi.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\src\App.js" />
-
     <Content Include="js\src\controller\ThanksController.js" />
     <Content Include="js\src\controller\CheckoutController.js" />
     <Content Include="js\src\controller\CategoryController.js" />
@@ -138,6 +137,9 @@
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
+    <Content Include="widgets\html\comboList\ShippingMethodListWidget.css" />
+    <Content Include="widgets\html\comboList\ShippingMethodListWidget.html" />
+    <Content Include="widgets\html\comboList\ShippingMethodListWidget.js" />
     <Content Include="widgets\html\comboList\PaymentOptionListWidget.css" />
     <Content Include="widgets\html\comboList\PaymentOptionListWidget.html" />
     <Content Include="widgets\html\comboList\PaymentOptionListWidget.js" />

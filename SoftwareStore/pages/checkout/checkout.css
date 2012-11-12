@@ -93,6 +93,10 @@
 	-ms-grid-row: 4;
 }
 
+.row-5 {
+	-ms-grid-row: 5;
+}
+
 /* Over-rides ui-dark.css */
 
 .checkout-line-item {

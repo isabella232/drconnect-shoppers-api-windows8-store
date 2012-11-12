@@ -5,7 +5,9 @@
 
     WinJS.UI.Pages.define("/pages/checkout/checkout.html", {
         events: {
-            SUBMIT_CLICKED: "submitClicked"
+            SUBMIT_CLICKED: "submitClicked",
+            SHIPPING_ADDRESS_CHANGED: "shippingAddressChanged",
+            SHIPPING_OPTION_CHANGED: "shippingOptionChanged"
         },
 
         ready: function (element, options) {
@@ -17,6 +19,14 @@
             this._billingAddressWidget = this.element.querySelector("#billingAddress").winControl;
             this._shippingAddressWidget = this.element.querySelector("#shippingAddress").winControl;
             this._paymentOptionWidget = this.element.querySelector("#paymentOption").winControl;
+            this._shippingMethodWidget = this.element.querySelector("#shippingMethod").winControl;
+
+            // adds Handlers for shipping address and methods
+            var shippingAddressCombo = this.element.querySelector("#shippingAddress").querySelector(".address-combo-options");
+            shippingAddressCombo.addEventListener("change", this._onShippingAddressChanged.bind(this), false);
+
+            var shippingOptionCombo = this.element.querySelector("#shippingMethod").querySelector(".shipping-combo-options");
+            shippingOptionCombo.addEventListener("change", this._onShippingOptionChanged.bind(this), false);
 
             // Gets the checkout button
             var submitButton = this.element.querySelector("#submitButton");
@@ -30,18 +40,23 @@
         _billingAddressWidget: null,
         _shippingAddressWidget: null,
         _paymentOptionWidget: null,
+        _shippingMethodWidget: null,
         _selectedPaymentOption: null,
         _selectedBillingAddress: null,
         _selectedShippingAddress: null,
+        _selectedShippingMethod: null,
 
         /**
          * Sets the cart
+         * @skipSetAddressAndPayment defines if addresses and payment should be set or now (by default always is set) Useful when shipping method is changed
+         *
          */
         setCart: function (cart) {
             this._cart = cart;
 
             this.element.querySelector("#cart-subtotal").textContent = cart.pricing.formattedSubtotal;
             this.element.querySelector("#cart-tax").textContent = cart.pricing.formattedTax;
+            this.element.querySelector("#cart-shipping").textContent = cart.pricing.formattedShippingAndHandling;
             this.element.querySelector("#cart-discount").textContent = cart.pricing.formattedDiscount;
             this.element.querySelector("#cart-total").textContent = cart.pricing.formattedOrderTotal;
 
@@ -52,6 +67,7 @@
                 cartlist.push(item);
             });
 
+         
             // If addresses are seted then set de selected address for the cart
             if (this._addresses) {
                 this._billingAddressWidget.setValue(cart.billingAddress);
@@ -111,11 +127,20 @@
          * Sets the Shipping Method
          */
         _setShippingMethod: function (cart) {
-            if (cart.shippingMethod.code) {
-                this.element.querySelector("#shippingMethod").textContent = cart.shippingMethod.code + " " + cart.shippingMethod.description;
+            if (!cart.shippingMethod.code) {
+                this.element.querySelector("#shippingMethodEmpty").textContent = WinJS.Resources.getString("checkout.shippingMethodNotRequired").value;
+                WinJS.Utilities.addClass(this.element.querySelector("#shippingMethod"), "hidden");
             } else {
-                this.element.querySelector("#shippingMethod").textContent = WinJS.Resources.getString("checkout.shippingMethodNotRequired").value;
+                var selectedShipping = null;
+                if (cart.shippingMethod.code)
+                    selectedShipping = cart.shippingMethod;
+                this._shippingMethodWidget.setList(cart.shippingOptions.shippingOption, selectedShipping);
+
+                // Sets the currentPaymentOption in order to decide if apply shopper is needed before submitting the cart
+                this._selectedShippingMethod = this._shippingMethodWidget.getSelectedItem();
+                WinJS.Utilities.removeClass(this.element.querySelector("#shippingMethod"), "hidden");
             }
+
         },
 
         /**
@@ -137,6 +162,32 @@
             params.cart = this._cart;
 
             this.dispatchEvent(this.events.SUBMIT_CLICKED, params);
+        },
+
+        /**
+         * Behaviour when shippingAddress changes
+         */
+        _onShippingAddressChanged: function (event) {
+            var params = {};
+
+            if (this._selectedBillingAddress.id != this._billingAddressWidget.getSelectedItem().id) {
+                params.billingAddressId = this._billingAddressWidget.getSelectedItem().id;
+            }
+
+            if (this._selectedPaymentOption.id != this._paymentOptionWidget.getSelectedItem().id) {
+                params.paymentOptionId = this._paymentOptionWidget.getSelectedItem().id;
+            }
+            params.shippingAddressId = this._shippingAddressWidget.getSelectedItem().id;
+            this.dispatchEvent(this.events.SHIPPING_ADDRESS_CHANGED, params);
+        },
+
+        /**
+         * Behaviour when shippingOption changes
+         */
+        _onShippingOptionChanged: function (event) {
+          
+            var shippingOptionId = this._shippingMethodWidget.getSelectedItem().id;
+            this.dispatchEvent(this.events.SHIPPING_OPTION_CHANGED, shippingOptionId);
         }
 
     });

@@ -64,7 +64,7 @@
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
-                    console.error("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
+                    console.log("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
                 });
             },
 
@@ -81,7 +81,7 @@
                     console.log("LineItem '" + lineItem.product.displayName + "' (qty:" + qty + ") modified on cart");
                     return data;
                 }, function (error) {
-                    console.error("Error when trying to modify lineItem: " + error.details.error.code + ": " + error.details.error.description);
+                    console.log("Error when trying to modify lineItem: " + error.details.error.code + ": " + error.details.error.description);
                 });
             },
 
@@ -124,7 +124,25 @@
                         console.info("Billing and Shipping Addresses applied to Cart");
                         return data;
                     }, function (error) {
-                        console.error("Error when applying shopper to cart: " + error.details.error.code + ": " + error.details.error.description);
+                        console.log("Error when applying shopper to cart: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+            /**
+	         * Applies Shipping Options to the cart
+	         * @returns
+	         */
+            applyShippingOption: function (optionId) {
+                console.debug("Calling DR applyShippingOption service");
+                var params = {}
+
+                params.expand = "all";
+                params.shippingOptionId = optionId;
+                var self = this;
+                return this._client.cart.applyShippingOption(params).then(function (data) {
+                    self._cart = data;
+                    console.info("Shipping Option applied to Cart");
+                    return data;
                 });
             },
 
