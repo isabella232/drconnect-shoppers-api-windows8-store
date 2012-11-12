@@ -8,23 +8,67 @@
     <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
-
+    <link href="../../css/default.css" rel="stylesheet" />
     <link href="thanks.css" rel="stylesheet" />
     <script src="thanks.js"></script>
 </head>
 <body>
     <div class="thanks fragment">
         <header aria-label="Header content" role="banner">
+            <button class="dr-homebutton" aria-label="Back" type="button"></button>
             <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle" data-win-res="{textContent: 'thanks.title'}"></span>
+                <span class="pagetitle" data-win-res="{textContent: 'thanks.title'}">Thank You For Buying</span>
             </h1>
         </header>
-        <section aria-label="Main content" role="main">
-            <p> <label data-win-res="{textContent: 'thanks.orderNumber'}"></label> <label id="orderNumber"></label></p>
-            <p><button id="continueShopping"><span data-win-res="{textContent: 'general.button.contshop.label'}"></span></button></p>
+        <section aria-label="Main content" role="main" style="-ms-grid-rows: auto 1fr 125px;">
+            <div class="col-1">
+                <div class="order-information">
+                    <h2 data-win-res="{textContent: 'thanks.orderInfoHeader'}"></h2>
+                    <p>
+                        <span data-win-res="{textContent: 'thanks.orderDateLabel'}"></span>
+                        <span id="orderDate"></span>
+                    </p>
+                    <p>
+                        <span data-win-res="{textContent: 'thanks.orderNumberLabel'}"></span>
+                        <span id="orderNumber"></span>
+                    </p>
+                    <p>
+                        <span data-win-res="{textContent: 'thanks.orderTotalLabel'}"></span>
+                        <span id="orderTotal"></span>
+                    </p>
+                    <p class="text" data-win-res="{textContent: 'thanks.orderDetailsText'}">
+                        You will recieve an email with details on your order at the address provided.
+                    </p>
+					<p class="text">
+						The charge(s) will appear on your credit card as "DRI*swstore".
+					</p>
+                </div>
+            </div>
+
+            <div class="order-item-list" data-win-control="WinJS.UI.ListView"></div>
+            s
+            <div class="order-summary">
+                <p class="row-1"><span class="order-fees col-1" data-win-res="{textContent: 'cart.summary.subtotal'}">Subtotal:</span><span id="order-fees" class="col-2"></span></p>
+                <p class="row-2"><span class="order-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}">Tax:</span><span id="cart-tax" class="col-2"></span></p>
+                <p class="row-3"><span class="order-shipping col-1" data-win-res="{textContent: 'cart.summary.discount'}">Discount:</span><span id="cart-discount" class="col-2"></span></p>
+                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="cart-total" class="cart-total col-2"></span></p>
+
+            </div>
+
+            <div class="col-2">
+				<h2>Shipping Address</h2>
+
+				<h2>Order Information</h2>
+                <div id="orderInformation_content"></div>
+            </div>
+
+            <div class="col-3">
+				<h2>Message Area</h2>
+                <div id="message_content"></div>
+            </div>
         </section>
 
-        <footer data-win-control="DR.Store.Widget.Html.Footer"></footer>
+        <footer data-win-control="DR.Store.Widget.Html.Footer" style="margin: 3px -1px -3px 1px;"></footer>
     </div>
 </body>
 </html>

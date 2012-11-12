@@ -49,6 +49,10 @@
     "checkout.shippingMethodNotRequired": "Digital Products, No Shipping Required",
 
     "thanks.title"                      : "Thank You For Buying",
-    "thanks.orderNumber"                : "Your order number is: "
-
+    "thanks.orderInfoHeader"            : "Order Information:",
+    "thanks.orderNumberLabel"           : "Order Number:",
+    "thanks.orderDateLabel"             : "Order Date:",
+    "thanks.orderTotalLabel"            : "Order Total:",
+    "thanks.creditCardChargeText"       : "The charge will appear on your credit card as \"DRI*swstore\"",
+    "thanks.orderDetailsText"           : "You will recieve an email with details on your order at the address provided"
 }

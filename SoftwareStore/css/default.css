@@ -48,6 +48,10 @@ progress {
             margin-left: 39px;
             margin-top: 59px;
         }
+		
+		.fragment header[role=banner] .dr-homebutton {
+		    margin-left: 39px;
+            margin-top: 59px;}
 
         .fragment header[role=banner] .titlearea {
             -ms-grid-column: 2;
@@ -121,6 +125,40 @@ footer {
 footer p {
 	margin-bottom: 5px;
 	margin-top: 0px;
+}
+
+.dr-homebutton {
+    display: inline-block;
+    min-width: 0;
+    min-height: 0;
+    background-clip: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0;
+    text-align: center;
+
+    /* Normal sizing. */
+    width: 41px;
+    height: 41px;
+    font-size: 14pt;
+    line-height: 37px; /* line-height must match the content box height. */
+    vertical-align: baseline;
+}
+.dr-homebutton:hover, .dr-homebutton:hover:active {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+}
+.dr-homebutton::before {
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    content: "\E10F";
+    vertical-align: 50%;
+}
+.dr-homebutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
+    content: "\E10F";
 }
 
 @media screen and (-ms-view-state: snapped) {
