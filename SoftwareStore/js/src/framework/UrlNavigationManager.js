@@ -64,6 +64,10 @@
                 return this.getLastMappedUrl();
             },
 
+            refreshPage: function(){
+                this.goToPage(this.getCurrentUrl());
+            },
+
             /**
              * Navigates to the specified URL using the arguments
              */

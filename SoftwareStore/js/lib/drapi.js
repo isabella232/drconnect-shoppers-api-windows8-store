@@ -418,6 +418,9 @@ define('AsyncRequester',['Class'], function(Class) {
                 var cb = this.getCallbacks(callbacks);
                 p.then(cb.success, cb.error).end();
             } else {
+            	if(this.options.error){
+            		p.then(null, this.options.error)
+            	}
                 return p;
             }
         },
