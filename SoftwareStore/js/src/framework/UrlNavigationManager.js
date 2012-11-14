@@ -64,10 +64,6 @@
                 return this.getLastMappedUrl();
             },
 
-            refreshPage: function(){
-                this.goToPage(this.getCurrentUrl());
-            },
-
             /**
              * Navigates to the specified URL using the arguments
              */
@@ -76,6 +72,9 @@
                     console.log("Navigating to " + uri);
                     var mapping = this.getMapping(uri);
                     if (mapping && mapping.secured) this.applySecurity();
+                    // Sets the navivation history in order to call refresh page easily
+                    this.lastNavigationData.uri = uri;
+                    this.lastNavigationData.data = data;
 
                     nav.navigate(uri, data);
                 } catch (err) {

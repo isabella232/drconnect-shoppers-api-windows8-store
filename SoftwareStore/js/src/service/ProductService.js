@@ -23,6 +23,8 @@
                 .then(function (product) {
                     self._products[id] = product;
                     return product;
+                }, function (error) {
+                    console.log("bla prd");
                 });
             },
 

@@ -16,8 +16,18 @@
                 page.addEventListener(page.events.LINE_ITEM_QUANTITY_CHANGED, this._onEditQuantity.bind(this), false);
                 page.addEventListener(page.events.REMOVE_ITEM_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
                 page.addEventListener(page.events.RESET_CART_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
+                return this._getCart();
+            },
+
+            /**
+             * Get the cart calling the service and set it to the view
+             */
+            _getCart: function () {
+                var self = this;
                 return DR.Store.Services.cartService.get().then(function (cart) {
-                    page.setCart(cart);
+                    self.page.setCart(cart);
+                }, function (error) {
+                    console.log("CartController: Error Retrieving cart: " + error.details.code + " - " + error.details.description);
                 });
             },
 
@@ -33,6 +43,8 @@
                     console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                    // self.goToPage(DR.Store.URL.CART_PAGE);
+                }, function (error) {
+                    console.log("CartController: Error Adding product to the cart: " + error.details.code + " - " + error.details.description);
                 });
             },
 
@@ -70,8 +82,9 @@
                             // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
                             console.log("Sending add product finished notification");
                             self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
-                            //self.goToPage(DR.Store.URL.CART_PAGE);
                         }
+                    }, function (error) {
+                        console.log("CartController: Error Adding product to the cart: " + error.details.code + " - " + error.details.description);
                     });
                 }
             },
@@ -91,7 +104,8 @@
                 WinJS.Promise.join(promises).then(function (data) {
                     console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
-                    // self.goToPage(DR.Store.URL.CART_PAGE);
+                }, function (error) {
+                    console.log("CartController: Error Removing a line item from the cart: " + error.details.code + " - " + error.details.description);
                 });
             },
 
@@ -114,10 +128,8 @@
                     // the lineItem
                     console.log("Sending cart changed notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
-                    /*DR.Store.Services.cartService.get().then(function (cart) {
-                        // Sets the cart in order to update the view
-                        self.page.setCart(cart);
-                    });*/
+                }, function (error) {
+                    console.log("CartController: Error editing a line item from the cart: " + error.details.code + " - " + error.details.description);
                 });
 
             },
@@ -143,14 +155,11 @@
              * Called when a product has been successfully added to the cart
              */
             _onCartChanged: function (timeStamp) {
-                var self = this;
                 // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
                 if (timeStamp && timeStamp === this._cartChangeTimeStamp) {
-                    self.page.clearSelection();
-                    DR.Store.Services.cartService.get().then(function (cart) {
-                        // Sets the cart in order to update the view
-                        self.page.setCart(cart);
-                    });
+                    this.page.clearSelection();
+                    // Refreshes the cart
+                    this._getCart();
                     this._cartChangeTimeStamp = null;
                 }
             }

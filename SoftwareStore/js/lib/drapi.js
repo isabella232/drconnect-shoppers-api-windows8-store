@@ -428,7 +428,7 @@ define('AsyncRequester',['Class'], function(Class) {
          * Filter the errors to handle 401 properly (it is currently returned with status = 0)
          */
         invalidTokenHandler: function(response) {
-           if(response.status == 0) {
+           if(response.status == 0 || response.status == 401) {
               response.status = 401;
               response.error = {};
               response.error.errors = {};

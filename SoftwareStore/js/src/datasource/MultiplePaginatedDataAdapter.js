@@ -5,8 +5,8 @@
      */
 
     function processErrorResponse(error) {
-       console.error("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
-       return WinJS.Promise.wrapError("Status: " + error.status + ", Code: " + error.details.error.code + ", Description: " + error.details.error.description);
+       console.error(error);
+       throw WinJS.Promise.wrapError(error);
       
     }
 

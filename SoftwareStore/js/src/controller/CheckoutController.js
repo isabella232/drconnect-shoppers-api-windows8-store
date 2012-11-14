@@ -16,14 +16,20 @@
 
                 DR.Store.Services.userService.getAddresses().then(function (addresses) {
                     page.setAddresses(addresses);
+                }, function (error) {
+                    console.log("CheckoutController: Error getting shopper's addresses: " + error.details.code + " - " + error.details.description);
                 });
 
                 DR.Store.Services.userService.getPaymentOptions().then(function (paymentOptions) {
                     page.setPaymentOptions(paymentOptions);
+                }, function (error) {
+                    console.log("CheckoutController: Error getting shopper's payment options: " + error.details.code + " - " + error.details.description);
                 });
 
                 return DR.Store.Services.cartService.applyShopper().then(function (cart) {
                     page.setCart(cart);
+                }, function (error) {
+                    console.log("CheckoutController: Error applying shopper to cart: " + error.details.code + " - " + error.details.description);
                 });
 
             },
@@ -38,6 +44,8 @@
                 if (params.shippingAddressId || params.billingAddressId || params.paymentOptionId) {
                     return DR.Store.Services.cartService.applyShopper(null, params.billingAddressId, params.paymentOptionId).then(function (cart) {
                         self._doSubmit(params.cart);
+                    }, function (error) {
+                        console.log("CheckoutController: Error applying shopper to cart: " + error.details.code + " - " + error.details.description);
                     });
                 } else {
                     return self._doSubmit(params.cart);
@@ -52,6 +60,8 @@
                 var params = e.detail;
                 DR.Store.Services.cartService.applyShopper(params.shippingAddressId, params.billingAddressId, params.paymentOptionId).then(function (cart) {
                     self.page.setCart(cart);
+                }, function (error) {
+                    console.log("CheckoutController: Error applying shopper to cart: " + error.details.code + " - " + error.details.description);
                 });
             },
 
@@ -63,6 +73,8 @@
                 var optionId = e.detail;
                 DR.Store.Services.cartService.applyShippingOption(optionId).then(function (cart) {
                     self.page.setCart(cart);
+                }, function (error) {
+                    console.log("CheckoutController: Error applying shipping option to cart: " + error.details.code + " - " + error.details.description);
                 });
             },
 

@@ -17,6 +17,7 @@
         },
         {
             lastMappedUrl: null,
+            lastNavigationData: {},
             /**
              * Handle URI change notifications
              */
@@ -47,6 +48,9 @@
 
                 // if (mapping.secured) this.applySecurity();
                 this.lastMappedUrl = uri;
+                this.lastNavigationData.uri = uri;
+                this.lastNavigationData.params = params;
+
 
                 console.log("Mapping found for " + uri);
 
@@ -55,7 +59,13 @@
 
             getLastMappedUrl: function () {
                 return this.lastMappedUrl;
-            }
+            },
+
+            refreshPage: function () {
+                this.handle(this.lastNavigationData.params);
+            },
+
+
         }
         );
 
