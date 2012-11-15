@@ -50,6 +50,11 @@
                 });
             },
 
+            sessionReset: function () {
+                //TODO: Handle the different behaviours when user is authenticated or not
+                DR.Store.Services.securityService.resetUserData();
+            },
+
             /**
              * Shows the shopper (profile) page
              */

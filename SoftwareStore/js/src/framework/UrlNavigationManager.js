@@ -52,6 +52,7 @@
                 if (err == SECURITY_EXCEPTION) {
                     console.log("Unauthorize access to " + uri + ", asking the user to authenticate");
                     this.dispatcher.handle(DR.Store.Notifications.LOGIN, uri);
+                    
                 } else {
                     throw err;
                 }
@@ -62,6 +63,24 @@
              */
             getCurrentUrl: function () {
                 return this.getLastMappedUrl();
+            },
+
+            /**
+             *
+             */
+            refreshPage: function () {
+                try{
+                    var uri = this.lastNavigationData.params.location;
+                    var mapping = this.getMapping(uri);
+                    if (mapping && mapping.secured) this.applySecurity();
+                    this._super();
+                } catch (err) {
+                    if (uri === DR.Store.URL.CHECKOUT_PAGE) {
+                        uri = DR.Store.URL.HOME_PAGE;
+                    }
+                    this.handleSecurityException(err, uri);
+                }
+               
             },
 
             /**

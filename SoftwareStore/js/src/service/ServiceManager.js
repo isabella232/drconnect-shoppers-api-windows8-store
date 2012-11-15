@@ -60,9 +60,9 @@
                 // If status = 401, special handling is required
                 if(status == 401) {
                     manager.sessionExpiredErrorHandler(response);
-                } else {
+                }/* else {
                     manager.genericErrorHandler(status, code, description);
-                }
+                }*/
             },
             /**
              * Handles session expired errors
@@ -70,16 +70,14 @@
             sessionExpiredErrorHandler: function(response) {
                 console.info("Session Expired, reconnecting...");
                 var that = this;
-                if(!this.reconnectingFlag){
+                if(!this.reconnectingFlag || response.details.error.code === "refresh_token_invalid"){
         	        this.reconnectingFlag = true;
 	                this.initialize().then(function() {
 	                    console.info("Reconnected to DR!");
 	                    that.reconnectingFlag = false;
+	                    DR.Store.App.dispatcher.handle(DR.Store.Notifications.SESSION_RESET);
 	                    DR.Store.App.navigationManager.refreshPage();
-	                    //dispatcher.handle(dr.acme.runtime.NOTIFICATION.UNBLOCK_APP);
-	                    //dispatcher.handle(dr.acme.runtime.NOTIFICATION.SESSION_RESET, {"error": response, "requestedUrl": dispatcher.getCurrentUrl()});
-	                    //dispatcher.refreshPage();
-	                }).fail(function(){
+	                },function(){
 	        	        that.reconnectingFlag = false;
 	                });
                 } 
@@ -87,7 +85,7 @@
             /**
              * Handles any error but session expiration 
              */
-            genericErrorHandler: function(status, code, description) {
+           /* genericErrorHandler: function(status, code, description) {
                 // Show an error notification
                 var error = "There was a problem with the connection, please try again later";
                 if(description && description != "") error = description;
@@ -101,7 +99,7 @@
                 }else{
         	        dr.acme.util.DialogManager.showError(error, "A problem ocurred");
                 }        
-            }
+            }*/
 
         }
     );

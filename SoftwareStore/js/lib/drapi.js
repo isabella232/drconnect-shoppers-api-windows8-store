@@ -428,12 +428,15 @@ define('AsyncRequester',['Class'], function(Class) {
          * Filter the errors to handle 401 properly (it is currently returned with status = 0)
          */
         invalidTokenHandler: function(response) {
+           // The browser does not recognize the 401 status and shows 0 status.
+           // We also ask for 401 status for other apps like W8
            if(response.status == 0 || response.status == 401) {
-              response.status = 401;
-              response.error = {};
-              response.error.errors = {};
-              response.error.errors.error = {code: "Unauthorized", description:"Invalid token"};
-              
+           	  if(response.status == 0){ 
+	              response.status = 401;
+	              response.error = {};
+	              response.error.errors = {};
+	              response.error.errors.error = {code: "Unauthorized", description:"Invalid token"};
+	          }
               // Remove all session data (token, auth flag)
               this.session.disconnect();
            }
