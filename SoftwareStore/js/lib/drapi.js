@@ -2747,6 +2747,18 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
             });
     };
     
+     /**
+      * Sets the session info (usefull when an application activates after suspention)
+      * Sets the token and other session variables 
+      */
+    Session.prototype.setSessionInfo = function(sessionInfo){
+        this.connected = sessionInfo.connected;
+		this.authenticated = sessionInfo.authenticated;
+		this.token = sessionInfo.token;
+		this.refreshToken = sessionInfo.refreshToken;
+		this.tokenExpirationTime = sessionInfo.tokenExpirationTime;
+    };
+    
     /**
      * Forces to refresh token even if the access_token isn't expired 
      */
@@ -3217,7 +3229,15 @@ function(Config, Q, Util, Session, CartService, CategoryService, ProductService,
                 refreshToken: this.session.refreshToken,
                 tokenExpirationTime : this.session.tokenExpirationTime
             };
-        }    
+        },
+        
+        /**
+         * Sets the session info (usefull when an application activates after suspention)
+         * Sets the token and other session variables
+         */ 
+         setSessionInfo: function(sessionInfo){
+         	this.session.setSessionInfo(sessionInfo);
+         }   
         
     });
     return Client;
