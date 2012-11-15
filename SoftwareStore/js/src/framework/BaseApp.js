@@ -65,7 +65,8 @@
                     this._initDispatcher();
                     return WinJS.Promise.as(true);
                 } else {
-                    return this.serviceManager.initialize().then(
+                    var sessionInfo = WinJS.Application.sessionState.sessionInfo;
+                    return this.serviceManager.initialize(sessionInfo).then(
                         function () {
                             this._initDispatcher();
                         }.bind(this),

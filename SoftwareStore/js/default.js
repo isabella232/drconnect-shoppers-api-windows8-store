@@ -30,7 +30,12 @@
         // that needs to persist across suspensions here. If you need to 
         // complete an asynchronous operation before your application is 
         // suspended, call args.setPromise().
+        var sessionInfo = DR.Store.Services.securityService.getSessionInfo();
+        var serviceManager = DR.Store.App.serviceManager;
         app.sessionState.history = nav.history;
+        app.sessionState.sessionInfo = sessionInfo;
+        //app.sessionState.serviceManager = serviceManager;
+        
     };
 
     app.start();
