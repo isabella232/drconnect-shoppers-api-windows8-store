@@ -59,6 +59,10 @@
                             authHelper.setError(response.error, response.error_description);
                         }
                     );
+            },
+
+            checkConnection: function () {
+                return this._client.checkConnection();
             }
         }
     );

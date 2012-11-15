@@ -31,7 +31,7 @@
                         }
                     }
                 }, function (error) {
-                    console.log("SubCategoriesPaginatedDataAdapter: Error retrieving subcategories: " + error.details.code + " - " + error.details.description);
+                    console.log("SubCategoriesPaginatedDataAdapter: Error retrieving subcategories: " + error[0].details.error.code + " - " + error[0].details.error.description);
                     return {
                         count: 0,
                         items: []

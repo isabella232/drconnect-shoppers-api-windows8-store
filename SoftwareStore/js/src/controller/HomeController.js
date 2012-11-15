@@ -34,7 +34,7 @@
 
                    return fillItemsList(promises, list);
                }, function (error) {
-                   console.log("HomeController: Error Retrieving Root Categories: " + error.details.code + " - " + error.details.description);
+                   console.log("HomeController: Error Retrieving Root Categories: " + error[0].details.error.code + " - " + error[0].details.error.description);
                });
             },
 
@@ -98,7 +98,7 @@
                         childType: "product"
                     }
                 }, function (error) {
-                    console.log("HomeController: Error Retrieving Child Products: " + error.details.code + " - " + error.details.description);
+                    console.log("HomeController: Error Retrieving Child Products: " + error[0].details.error.code + " - " + error[0].details.error.description);
                 });
         }
     }

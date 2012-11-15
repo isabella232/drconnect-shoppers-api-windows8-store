@@ -25,7 +25,7 @@
                             items: data.product
                         }
                     }, function (error) {
-                        console.log("Error in Search: " + error.details.error.code + ": " + error.details.error.description);
+                        console.log("Error in Search: " + error[0].details.error.code + ": " + error[0].details.error.description);
                     });
             }
         }

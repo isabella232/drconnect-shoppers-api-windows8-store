@@ -64,7 +64,7 @@
                     console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
                     return data;
                 }, function (error) {
-                    console.log("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
+                    console.log("Error when adding a product: " + error[0].details.error.code + ": " + error[0].details.error.description);
                 });
             },
 
@@ -81,7 +81,7 @@
                     console.log("LineItem '" + lineItem.product.displayName + "' (qty:" + qty + ") modified on cart");
                     return data;
                 }, function (error) {
-                    console.log("Error when trying to modify lineItem: " + error.details.error.code + ": " + error.details.error.description);
+                    console.log("Error when trying to modify lineItem: " + error[0].details.error.code + ": " + error[0].details.error.description);
                 });
             },
 
@@ -123,9 +123,7 @@
                         self._cart = data;
                         console.info("Billing and Shipping Addresses applied to Cart");
                         return data;
-                    }, function (error) {
-                        console.log("Error when applying shopper to cart: " + error.details.error.code + ": " + error.details.error.description);
-                });
+                    });
             },
 
             /**
