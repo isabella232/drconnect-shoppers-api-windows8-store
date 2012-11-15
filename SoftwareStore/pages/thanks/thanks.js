@@ -10,7 +10,7 @@
         ready: function (element, options) {
             // Get the continue shopping button
             var continueButton = this.element.querySelector("#continueShopping");
-            continueButton.onclick = this._onContinueClicked.bind(this);
+           // continueButton.onclick = this._onContinueClicked.bind(this);
         },
 
         _cart: null,

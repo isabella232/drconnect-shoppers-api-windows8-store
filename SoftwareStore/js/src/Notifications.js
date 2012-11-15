@@ -12,6 +12,7 @@
         ADD_PRODUCTS_TO_CART: "addProductsToCart",
         REMOVE_FROM_CART: "removeFromCart",
         CART_CHANGED: "cartChanged",
-        LOGIN: "login"
+        LOGIN: "login",
+        SESSION_RESET: "sessionReset"
     });
 })();

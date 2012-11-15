@@ -24,6 +24,8 @@
                 var self = this;
                 DR.Store.Services.cartService.getItemsCount().then(function (count) {
                     self._view.animatePageHeaderCartIcon(count);
+                }, function (error) {
+                    console.log("MainApplicationController: Error retrieving cart item count: " + error.details.code + " - " + error.details.description);
                 });
                 
             },
