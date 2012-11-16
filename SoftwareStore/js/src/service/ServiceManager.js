@@ -80,7 +80,7 @@
 	                },function(){
 	        	        that.reconnectingFlag = false;
 	                });
-                } 
+                }
             },
             /**
              * Handles any error but session expiration 

@@ -23,7 +23,7 @@
                         items: data.product
                     }
                 }, function (error) {
-                    console.log("ProductByCategoryPaginatedDataAdapter: Error retrieving products by category: " + error[0].details.error.code + " - " + error[0].details.error.description);
+                    console.log("ProductByCategoryPaginatedDataAdapter: Error retrieving products by category: " + error.details.error.code + " - " + error.details.error.description);
                     return {
                         count: 0,
                         items: []

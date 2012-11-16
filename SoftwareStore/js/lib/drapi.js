@@ -2752,7 +2752,7 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
                 errorResponse.error = {};
                 errorResponse.error.errors = {};
                 errorResponse.error.errors.error = error;
-                
+
                 throw errorResponse;
             });
     };
