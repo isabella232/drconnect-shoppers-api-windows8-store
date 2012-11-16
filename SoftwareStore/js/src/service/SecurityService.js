@@ -24,6 +24,13 @@
             },
 
             /**
+             * Sets the authenticated flag
+             */
+            setAuthenticated: function(authenticated){
+                this.authenticated = authenticated;
+            },
+
+            /**
              * Clears all User (Shopper) related data
              */
             resetUserData: function () {
@@ -63,6 +70,10 @@
 
             checkConnection: function () {
                 return this._client.checkConnection();
+            },
+
+            getSessionInfo: function () {
+                return this._client.getSessionInfo();
             }
         }
     );

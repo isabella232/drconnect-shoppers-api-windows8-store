@@ -34,11 +34,22 @@
             /**
              * Connects to DR Api using the provided Key
              */
-            initialize: function () {
-                return this._client.connect();
+            initialize: function (sessionInfo) {
+                if (sessionInfo) {
+                    this.restartFromSuspension(sessionInfo);
+                    return WinJS.Promise.as(true);
+                } else
+                    return this._client.connect();
             },
+
             getSessionInfo: function () {
                 return this._client.getSessionInfo();
+            },
+
+            restartFromSuspension: function(sessionInfo){
+                this._client.setSessionInfo(sessionInfo);
+                this.securityService.setAuthenticated(sessionInfo.authenticated);
+
             },
 
              /**
