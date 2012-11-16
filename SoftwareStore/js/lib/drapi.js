@@ -432,10 +432,20 @@ define('AsyncRequester',['Class'], function(Class) {
            // We also ask for 401 status for other apps like W8
            if(response.status == 0 || response.status == 401) {
            	  if(response.status == 0){ 
-	              response.status = 401;
-	              response.error = {};
-	              response.error.errors = {};
-	              response.error.errors.error = {code: "Unauthorized", description:"Invalid token"};
+				response.status = 401;
+				response.error = {};
+				response.error.errors = {};
+				response.error.errors.error = {code: "Unauthorized", description:"Invalid token"};
+	          }else{ // error.status == 401
+	          	var error; 
+	          	if(response.error.errors.error[0]){
+	          		error = response.error.errors.error[0];
+	          	}else{
+	          		error = response.error.errors.error;	
+	          	}
+	          	response.error = {};
+				response.error.errors = {};
+				response.error.errors.error = {code: error.code, description: error.description};
 	          }
               // Remove all session data (token, auth flag)
               this.session.disconnect();
@@ -2747,6 +2757,18 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
             });
     };
     
+     /**
+      * Sets the session info (usefull when an application activates after suspention)
+      * Sets the token and other session variables 
+      */
+    Session.prototype.setSessionInfo = function(sessionInfo){
+        this.connected = sessionInfo.connected;
+		this.authenticated = sessionInfo.authenticated;
+		this.token = sessionInfo.token;
+		this.refreshToken = sessionInfo.refreshToken;
+		this.tokenExpirationTime = sessionInfo.tokenExpirationTime;
+    };
+    
     /**
      * Forces to refresh token even if the access_token isn't expired 
      */
@@ -3217,7 +3239,15 @@ function(Config, Q, Util, Session, CartService, CategoryService, ProductService,
                 refreshToken: this.session.refreshToken,
                 tokenExpirationTime : this.session.tokenExpirationTime
             };
-        }    
+        },
+        
+        /**
+         * Sets the session info (usefull when an application activates after suspention)
+         * Sets the token and other session variables
+         */ 
+         setSessionInfo: function(sessionInfo){
+         	this.session.setSessionInfo(sessionInfo);
+         }   
         
     });
     return Client;

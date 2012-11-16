@@ -123,9 +123,7 @@
                         self._cart = data;
                         console.info("Billing and Shipping Addresses applied to Cart");
                         return data;
-                    }, function (error) {
-                        console.log("Error when applying shopper to cart: " + error.details.error.code + ": " + error.details.error.description);
-                });
+                    });
             },
 
             /**

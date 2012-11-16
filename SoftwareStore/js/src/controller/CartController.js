@@ -27,7 +27,7 @@
                 return DR.Store.Services.cartService.get().then(function (cart) {
                     self.page.setCart(cart);
                 }, function (error) {
-                    console.log("CartController: Error Retrieving cart: " + error.details.code + " - " + error.details.description);
+                    console.log("CartController: Error Retrieving cart: " + error.details.error.code + " - " + error.details.error.description);
                 });
             },
 
@@ -44,7 +44,7 @@
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                    // self.goToPage(DR.Store.URL.CART_PAGE);
                 }, function (error) {
-                    console.log("CartController: Error Adding product to the cart: " + error.details.code + " - " + error.details.description);
+                    console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
                 });
             },
 
@@ -84,7 +84,7 @@
                             self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                         }
                     }, function (error) {
-                        console.log("CartController: Error Adding product to the cart: " + error.details.code + " - " + error.details.description);
+                        console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
                     });
                 }
             },
@@ -105,7 +105,8 @@
                     console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                 }, function (error) {
-                    console.log("CartController: Error Removing a line item from the cart: " + error.details.code + " - " + error.details.description);
+                    var errorItem = error[0];
+                    console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
                 });
             },
 
@@ -129,7 +130,7 @@
                     console.log("Sending cart changed notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
                 }, function (error) {
-                    console.log("CartController: Error editing a line item from the cart: " + error.details.code + " - " + error.details.description);
+                    console.log("CartController: Error editing a line item from the cart: " + error.details.error.code + " - " + error.details.error.description);
                 });
 
             },

@@ -26,7 +26,7 @@
                 this.currentProductPromise.then(function (product) {
                     page.setProduct(product);
                 }, function (error) {
-                    console.log("ProductController: Error getting product detail: " + error.details.code + " - " + error.details.description);
+                    console.log("ProductController: Error getting product detail: " + error.details.error.code + " - " + error.details.error.description);
                 });
                 page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 page.addEventListener(page.events.ADD_TO_CART, this._onAddToCartClicked.bind(this), false);

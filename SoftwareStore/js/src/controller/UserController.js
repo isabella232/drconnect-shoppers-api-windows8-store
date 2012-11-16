@@ -28,25 +28,29 @@
 
                 var self = this;
 
-                // Calls the user service to login
-                DR.Store.Services.securityService.login()
-                .then(function () {
-                    // Success, go to the originally requested page
-                    console.log("User logged in!");
+                // Call a getCart First to check that the token has not expired.. if not, the token would be refreshed so next time 
+                // you the login page will appear correctly
+                DR.Store.Services.cartService.get().then(function () {
+                    // Calls the user service to login
+                    DR.Store.Services.securityService.login()
+                    .then(function () {
+                        // Success, go to the originally requested page
+                        console.log("User logged in!");
 
-                    if (self.requestedUrl) {
-                        self.goToPage(self.requestedUrl);
-                    }
-                    
-                    self.requestedUrl = null;
-                })
-                .fail(function (resp) {
-                    // Error or user cancelled
-                    if (resp.details.error != DR.MVC.AuthenticationHelper.USER_CANCELLED) {
-                        // TODO SHOW ERROR
-                        console.log("Error while logging in: " + resp.details.error + " (" + resp.details.error_description + ")");
-                    }
-                    self.requestedUrl = null;
+                        if (self.requestedUrl) {
+                            self.goToPage(self.requestedUrl);
+                        }
+
+                        self.requestedUrl = null;
+                    })
+                    .fail(function (resp) {
+                        // Error or user cancelled
+                        if (resp.details.error != DR.MVC.AuthenticationHelper.USER_CANCELLED) {
+                            // TODO SHOW ERROR
+                            console.log("Error while logging in: " + resp.details.error + " (" + resp.details.error_description + ")");
+                        }
+                        self.requestedUrl = null;
+                    });
                 });
             },
 
