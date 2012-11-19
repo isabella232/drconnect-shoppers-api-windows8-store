@@ -95,6 +95,51 @@
                 this.dispatchEvent(this.events.PROFILE_CLICKED);
             },
 
+            showMessage: function(message){
+                // Get an anchor for the flyout
+                var flyoutAnchor = document.getElementById("flyoutAnchor"); 
+
+                var message = document.getElementById("informationFlyout").winControl;
+                document.getElementById("notificationText").textContent = message;
+                message.sticky = true;
+
+                // Show flyout at anchor
+                this.message = message;
+                message.show(flyoutAnchor); 
+
+            },
+
+            hideMessage: function(message){
+                this.message.hide();
+            },
+
+            blockAppBar: function () {
+                this.topAppBar.disable();
+                this.bottomAppBar.disable();
+            },
+            
+            unBlockAppBar: function () {
+                this.topAppBar.enable();
+                this.bottomAppBar.enable();
+            },
+ 
+
+            showBlockingMessage: function(Message){
+                // Create the message dialog and set its content
+                var msg = new Windows.UI.Popups.MessageDialog("New updates have been found for this program. Would you like to install the new updates?", "Updates available");
+
+                var cmd = new Windows.UI.Popups.UICommand("Don't install");
+                cmd.visible = false;
+                msg.commands.append(cmd);
+
+                msg.showAsync();
+                //var flyoutAnchor = document.getElementById("flyoutAnchor"); 
+
+                //var message = document.getElementById("informationFlyout").winControl;
+                //WinJS.UI.Animation.showPopup(flyoutAnchor, null);
+
+            },
+
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
              */

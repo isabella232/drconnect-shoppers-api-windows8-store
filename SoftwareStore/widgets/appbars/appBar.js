@@ -178,6 +178,14 @@
                 }
             },
 
+            disable: function () {
+                this.appBar.disabled = true;
+            },
+
+            enable: function () {
+                this.appBar.disabled = false;
+            }
+
         });
     }
    

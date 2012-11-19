@@ -38,13 +38,16 @@
              */
             addToCart: function (args) {
                 var self = this;
+                self.notify(DR.Store.Notifications.BLOCK_APP, "Adding Product to the Cart");
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
                     console.log("Sending add product finished notification");
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                    // self.goToPage(DR.Store.URL.CART_PAGE);
                 }, function (error) {
                     console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 

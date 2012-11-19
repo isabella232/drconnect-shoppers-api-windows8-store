@@ -46,7 +46,21 @@
 
             _onProfileButtonClicked: function (e) {
                 this.goToPage(DR.Store.URL.SHOPPER_PAGE);
-            }
+            },
+
+            blockApp: function () {
+                this._view.showMessage();
+                this._view.blockAppBar();
+              
+
+            },
+
+            unBlockApp: function () {
+                this._view.hideMessage();
+                this._view.unBlockAppBar();
+             }
+
+
 
         });
     // EXPOSING THE CLASS
