@@ -39,7 +39,7 @@
             addToCart: function (args) {
                 var self = this;
                 // Send notification to block the application
-                self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.addProduct"));
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.addProduct").value);
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
                     console.log("Sending add product finished notification");
@@ -81,7 +81,7 @@
                     // If it is the first product that will be added send the block app notification
                     if (!this.addingFlag) {
                         // Send notification to block the application
-                        self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.addProduct"));
+                        self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.addProduct").value);
                     }
                     DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri).then(function (data) {
                         if (productsList.length > 0) {
@@ -111,7 +111,7 @@
                 var timeStamp = lineItems.timeStamp;
                 if (lineItems.length > 0) {
                     // Send notification to block the application
-                    self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.removeProduct"));
+                    self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.removeProduct").value);
                 }
                 lineItems.forEach(function (lineItem) {
                     promises.push(DR.Store.Services.cartService.removeLineItemFromCart(lineItem));
@@ -139,16 +139,18 @@
              */
             _onEditQuantity: function (e) {
                 var self = this;
-                self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.removeProduct"));
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.editQuantity").value);
                 // Call the service to edit the line Item quantity
                 this._cartChangeTimeStamp = new Date().getTime();
                 DR.Store.Services.cartService.editLineItem(e.item.data, e.quantity).then(function (data) {
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     // Once the item has been edited it gets the shopping cart again because a the cart Totals has been changed and the editLineItem only returns
                     // the lineItem
                     console.log("Sending cart changed notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
                 }, function (error) {
                     console.log("CartController: Error editing a line item from the cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
             },
