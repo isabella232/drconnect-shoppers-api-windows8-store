@@ -38,7 +38,8 @@
              */
             addToCart: function (args) {
                 var self = this;
-                self.notify(DR.Store.Notifications.BLOCK_APP, "Adding Product to the Cart");
+                // Send notification to block the application
+                self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.addProduct"));
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
                     console.log("Sending add product finished notification");
@@ -77,6 +78,11 @@
                 var productToAdd;
                 if (productsList.length > 0) {
                     productToAdd = productsList.splice(0, 1)[0];
+                    // If it is the first product that will be added send the block app notification
+                    if (!this.addingFlag) {
+                        // Send notification to block the application
+                        self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.addProduct"));
+                    }
                     DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri).then(function (data) {
                         if (productsList.length > 0) {
                             self.addProductsToCart(productsList);
@@ -84,10 +90,12 @@
                             var timeStamp = productsList.timeStamp;
                             // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
                             console.log("Sending add product finished notification");
+                            self.notify(DR.Store.Notifications.UNBLOCK_APP);
                             self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                         }
                     }, function (error) {
                         console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 }
             },
@@ -101,15 +109,21 @@
                 var self = this;
                 var promises = [];
                 var timeStamp = lineItems.timeStamp;
+                if (lineItems.length > 0) {
+                    // Send notification to block the application
+                    self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.removeProduct"));
+                }
                 lineItems.forEach(function (lineItem) {
                     promises.push(DR.Store.Services.cartService.removeLineItemFromCart(lineItem));
                 });
                 WinJS.Promise.join(promises).then(function (data) {
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                 }, function (error) {
                     var errorItem = error[0];
                     console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -125,6 +139,7 @@
              */
             _onEditQuantity: function (e) {
                 var self = this;
+                self.notify(DR.Store.Notifications.BLOCK_APP, WINJS.Resources.getString("general.notifications.removeProduct"));
                 // Call the service to edit the line Item quantity
                 this._cartChangeTimeStamp = new Date().getTime();
                 DR.Store.Services.cartService.editLineItem(e.item.data, e.quantity).then(function (data) {

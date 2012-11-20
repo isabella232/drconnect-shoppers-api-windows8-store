@@ -95,12 +95,12 @@
                 this.dispatchEvent(this.events.PROFILE_CLICKED);
             },
 
-            showMessage: function(message){
+            showMessage: function(messageText){
                 // Get an anchor for the flyout
                 var flyoutAnchor = document.getElementById("flyoutAnchor"); 
 
                 var message = document.getElementById("informationFlyout").winControl;
-                document.getElementById("notificationText").textContent = message;
+                document.getElementById("notificationText").textContent = messageText;
                 message.sticky = true;
 
                 // Show flyout at anchor

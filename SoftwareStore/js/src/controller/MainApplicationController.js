@@ -48,8 +48,8 @@
                 this.goToPage(DR.Store.URL.SHOPPER_PAGE);
             },
 
-            blockApp: function () {
-                this._view.showMessage();
+            blockApp: function (message) {
+                this._view.showMessage(message);
                 this._view.blockAppBar();
               
 
