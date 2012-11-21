@@ -49,15 +49,22 @@
             },
 
             blockApp: function (message) {
-                this._view.showMessage(message);
+                // Shows a Message on the UI
+                if(message) this._view.showMessage(message);
+                // Blocks the UI
                 this._view.blockAppBar();
+                DR.Store.App.navigationManager.getCurrentPageController().blockUI();
               
 
             },
 
             unBlockApp: function () {
+                // Hides the message on the UI
                 this._view.hideMessage();
+
+                // Unblocks the UI
                 this._view.unBlockAppBar();
+                DR.Store.App.navigationManager.getCurrentPageController().unBlockUI();
              }
 
 

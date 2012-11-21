@@ -28,6 +28,11 @@
             pageHeaderBar: null,
 
             /**
+             * Flyout used to show notification over the application
+             */
+            notificationFlyout: null,
+
+            /**
              * Initializes the view adding default buttons to the application bars, and pageHeaderBar and click handlers
              */
             initialize: function () {
@@ -104,42 +109,44 @@
                 message.sticky = true;
 
                 // Show flyout at anchor
-                this.message = message;
-                message.show(flyoutAnchor); 
+                this.notificationFlyout = message;
+                this.notificationFlyout.show(flyoutAnchor);
 
             },
 
-            hideMessage: function(message){
-                this.message.hide();
+            hideMessage: function () {
+                if (this.notificationFlyout) {
+                    this.notificationFlyout.hide();
+                    this.notificationFlyout = null;
+                }
             },
 
             blockAppBar: function () {
+                // Block the application bars
                 this.topAppBar.disable();
                 this.bottomAppBar.disable();
+
+                //Block the pageheader buttons
+                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = true;
+                if (document.querySelector(".win-backbutton")) {
+                    document.querySelector(".win-backbutton").disabled = true;
+                }
+
+
             },
             
             unBlockAppBar: function () {
+                // UnBlock the application bars
                 this.topAppBar.enable();
                 this.bottomAppBar.enable();
+
+                //Unblock the pageheader buttons
+                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = false;
+                if (document.querySelector(".win-backbutton")) {
+                    document.querySelector(".win-backbutton").disabled = false;
+                }
             },
  
-
-            showBlockingMessage: function(Message){
-                // Create the message dialog and set its content
-                var msg = new Windows.UI.Popups.MessageDialog("New updates have been found for this program. Would you like to install the new updates?", "Updates available");
-
-                var cmd = new Windows.UI.Popups.UICommand("Don't install");
-                cmd.visible = false;
-                msg.commands.append(cmd);
-
-                msg.showAsync();
-                //var flyoutAnchor = document.getElementById("flyoutAnchor"); 
-
-                //var message = document.getElementById("informationFlyout").winControl;
-                //WinJS.UI.Animation.showPopup(flyoutAnchor, null);
-
-            },
-
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
              */

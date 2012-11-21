@@ -40,12 +40,15 @@
             _onSubmit: function (e) {
                 var self = this;
                 var params = e.detail;
+                // Send notification to block the application. Don't show any message because after applying the cart, the submit message would be shown
+                self.notify(DR.Store.Notifications.BLOCK_APP);
                 // If a any address or payment has been modified applies the shopper first
                 if (params.shippingAddressId || params.billingAddressId || params.paymentOptionId) {
                     return DR.Store.Services.cartService.applyShopper(null, params.billingAddressId, params.paymentOptionId).then(function (cart) {
                         self._doSubmit(params.cart);
                     }, function (error) {
                         console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 } else {
                     return self._doSubmit(params.cart);
@@ -58,10 +61,14 @@
             _onShippingAddressChanged: function (e) {
                 var self = this;
                 var params = e.detail;
+                // Send notification to block the application
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.applyShippingAddress").value);
                 DR.Store.Services.cartService.applyShopper(params.shippingAddressId, params.billingAddressId, params.paymentOptionId).then(function (cart) {
                     self.page.setCart(cart);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -71,10 +78,14 @@
             _onShippingOptionChanged: function (e) {
                 var self = this;
                 var optionId = e.detail;
+                // Send notification to block the application
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.applyShippingOption").value);
                 DR.Store.Services.cartService.applyShippingOption(optionId).then(function (cart) {
                     self.page.setCart(cart);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shipping option to cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -83,8 +94,14 @@
              */
             _doSubmit: function (cart) {
                 var self = this;
+                // Send notification to block the application
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.submitCart").value);
                 return DR.Store.Services.cartService.submit().then(function (data) {
                     self.goToPage(DR.Store.URL.THANKS_PAGE, cart);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                }, function (error) {
+                    console.log("CheckoutController: Error submiting the cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             }
 

@@ -26,8 +26,10 @@
                 var self = this;
                 return DR.Store.Services.cartService.get().then(function (cart) {
                     self.page.setCart(cart);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CartController: Error Retrieving cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -45,7 +47,6 @@
                     console.log("Sending add product finished notification");
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     self.notify(DR.Store.Notifications.CART_CHANGED);
-                   // self.goToPage(DR.Store.URL.CART_PAGE);
                 }, function (error) {
                     console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
@@ -117,9 +118,14 @@
                     promises.push(DR.Store.Services.cartService.removeLineItemFromCart(lineItem));
                 });
                 WinJS.Promise.join(promises).then(function (data) {
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     console.log("Sending add product finished notification");
+                    // Since remove from cart is called from this controller Unblocks the application with the cartChanged
                     self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
+                    // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
+                    if (this._cartChangeTimeStamp != timeStamp) {
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    }
+
                 }, function (error) {
                     var errorItem = error[0];
                     console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
@@ -143,10 +149,10 @@
                 // Call the service to edit the line Item quantity
                 this._cartChangeTimeStamp = new Date().getTime();
                 DR.Store.Services.cartService.editLineItem(e.item.data, e.quantity).then(function (data) {
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     // Once the item has been edited it gets the shopping cart again because a the cart Totals has been changed and the editLineItem only returns
                     // the lineItem
                     console.log("Sending cart changed notification");
+                    // Since editQuantity cart is called from this controller Unblocks the application with the cartChanged
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
                 }, function (error) {
                     console.log("CartController: Error editing a line item from the cart: " + error.details.error.code + " - " + error.details.error.description);
@@ -180,7 +186,7 @@
                 if (timeStamp && timeStamp === this._cartChangeTimeStamp) {
                     this.page.clearSelection();
                     // Refreshes the cart
-                    this._getCart();
+                    this._getCart()
                     this._cartChangeTimeStamp = null;
                 }
             }
