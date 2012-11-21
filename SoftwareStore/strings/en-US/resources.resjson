@@ -28,6 +28,14 @@
     "general.button.contshop.label"     		: "Continue Shopping",
     "general.specialOffers"             		: "Special Offers",
 
+    "general.notifications.addProduct"          : "Adding Product/s to the Cart",
+    "general.notifications.removeProduct"       : "Removing Product/s from the Cart",
+    "general.notifications.editQuantity"        : "Editing Product quantity",
+    "general.notifications.applyShippingAddress": "Applying Shipping Address",
+    "general.notifications.applyShippingOption" : "Applying Shipping Option",
+    "general.notifications.submitCart"          : "Submitting Cart",
+
+
     "cart.shoppingCartTitle"            		: "Shopping Cart",
     "cart.cartEmpty"                    		: "The cart is empty",
     "cart.detail.item"                  		: "Item",

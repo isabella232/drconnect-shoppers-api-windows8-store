@@ -13,6 +13,8 @@
         REMOVE_FROM_CART: "removeFromCart",
         CART_CHANGED: "cartChanged",
         LOGIN: "login",
-        SESSION_RESET: "sessionReset"
+        SESSION_RESET: "sessionReset",
+        BLOCK_APP: "blockApp",
+        UNBLOCK_APP: "unBlockApp"
     });
 })();

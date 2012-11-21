@@ -28,6 +28,11 @@
             pageHeaderBar: null,
 
             /**
+             * Flyout used to show notification over the application
+             */
+            notificationFlyout: null,
+
+            /**
              * Initializes the view adding default buttons to the application bars, and pageHeaderBar and click handlers
              */
             initialize: function () {
@@ -95,6 +100,53 @@
                 this.dispatchEvent(this.events.PROFILE_CLICKED);
             },
 
+            showMessage: function(messageText){
+                // Get an anchor for the flyout
+                var flyoutAnchor = document.getElementById("flyoutAnchor"); 
+
+                var message = document.getElementById("informationFlyout").winControl;
+                document.getElementById("notificationText").textContent = messageText;
+                message.sticky = true;
+
+                // Show flyout at anchor
+                this.notificationFlyout = message;
+                this.notificationFlyout.show(flyoutAnchor);
+
+            },
+
+            hideMessage: function () {
+                if (this.notificationFlyout) {
+                    this.notificationFlyout.hide();
+                    this.notificationFlyout = null;
+                }
+            },
+
+            blockAppBar: function () {
+                // Block the application bars
+                this.topAppBar.disable();
+                this.bottomAppBar.disable();
+
+                //Block the pageheader buttons
+                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = true;
+                if (document.querySelector(".win-backbutton")) {
+                    document.querySelector(".win-backbutton").disabled = true;
+                }
+
+
+            },
+            
+            unBlockAppBar: function () {
+                // UnBlock the application bars
+                this.topAppBar.enable();
+                this.bottomAppBar.enable();
+
+                //Unblock the pageheader buttons
+                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = false;
+                if (document.querySelector(".win-backbutton")) {
+                    document.querySelector(".win-backbutton").disabled = false;
+                }
+            },
+ 
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
              */

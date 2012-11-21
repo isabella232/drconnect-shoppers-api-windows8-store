@@ -65,6 +65,13 @@
                 this.handle(this.lastNavigationData.params);
             },
 
+            /**
+             * Returns the the controller that is currently managing the view
+             */
+            getCurrentPageController: function () {
+                return this.urlMappings[this.getLastMappedUrl()].controller;
+            }
+
 
         }
         );

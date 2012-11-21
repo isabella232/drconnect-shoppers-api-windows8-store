@@ -75,12 +75,21 @@
     <!--Sets the Page Header Bar (contains the client image and the cart button-->
     <div id="pageHeaderBar" data-win-control="DR.Store.Widget.Html.PageHeaderBar"></div>
 
+     <!-- an anchor for the flyout, where it should be displayed -->
+    <div id="flyoutAnchor"></div>
+
     <div id="contenthost" data-win-control="DR.Store.Core.PageControlNavigator" data-win-options="{home: '/pages/home/home.html'}">
     </div>
 
     <!-- Top and Bottom App Bars -->
     <div id="topAppBar" data-win-control="DR.Store.Widget.AppBar.TopAppBar"></div>
     <div id="bottomAppBar" data-win-control="DR.Store.Widget.AppBar.BottomAppBar"></div>
+
+    <!-- Flyout Message Notifications -->
+    <div id="informationFlyout" data-win-control="WinJS.UI.Flyout">
+         <!--Add Progress Here-->
+        <p id="notificationText"></p>
+    </div>
 
 
 </body>

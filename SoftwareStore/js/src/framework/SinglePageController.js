@@ -42,7 +42,24 @@
              * Template method that should be overriden to init the recently loaded page
              * If an array of promises is returned, the page's dataLoaded() method will be called when all the promises are resolved
              */
-            initPage: function (page, state) { }
+            initPage: function (page, state) { },
+
+            /**
+             * Blocks the UI disabling the page it is controlling
+             */
+            blockUI: function () {
+                this.page.element.disabled = true;
+            },
+
+            /**
+             * Blocks the UI enabling the page it is controlling
+             */
+            unBlockUI: function () {
+                this.page.element.disabled = false;
+            }
+
+
+            
         }
         );
 
