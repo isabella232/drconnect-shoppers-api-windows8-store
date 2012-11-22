@@ -10,6 +10,7 @@
         {
             initPage: function (page, state) {
                 // Adds a listener for the submit cart button
+                page.addEventListener(page.events.ITEM_SELECTED, this._onCartItemSelected.bind(this), false);
                 page.addEventListener(page.events.SUBMIT_CLICKED, this._onSubmit.bind(this), false);
                 page.addEventListener(page.events.SHIPPING_ADDRESS_CHANGED, this._onShippingAddressChanged.bind(this), false);
                 page.addEventListener(page.events.SHIPPING_OPTION_CHANGED, this._onShippingOptionChanged.bind(this), false);
@@ -32,6 +33,13 @@
                     console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
                 });
 
+            },
+
+            /**
+             * Default Behaviour when a product is clicked on the cart page
+             */
+            _onCartItemSelected: function (e) {
+                this.goToPage(DR.Store.URL.PRODUCT_PAGE, e.detail);
             },
 
             /**

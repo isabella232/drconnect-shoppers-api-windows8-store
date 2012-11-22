@@ -5,6 +5,7 @@
 
     WinJS.UI.Pages.define("/pages/checkout/checkout.html", {
         events: {
+            ITEM_SELECTED: "itemSelected",
             SUBMIT_CLICKED: "submitClicked",
             SHIPPING_ADDRESS_CHANGED: "shippingAddressChanged",
             SHIPPING_OPTION_CHANGED: "shippingOptionChanged"
@@ -14,6 +15,7 @@
             this.itemsList = this.element.querySelector("#cartlist").winControl;
             this.itemsList.itemTemplate = element.querySelector('#cartTemplate');
             this.itemsList.layout = new WinJS.UI.ListLayout();
+            this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
 
             // Set the widgets
             this._billingAddressWidget = this.element.querySelector("#billingAddress").winControl;
@@ -188,6 +190,18 @@
           
             var shippingOptionId = this._shippingMethodWidget.getSelectedItem().id;
             this.dispatchEvent(this.events.SHIPPING_OPTION_CHANGED, shippingOptionId);
+        },
+
+        /**
+        * Default behaviour when a cart item is clicked
+        */
+        _onCartItemClicked: function (e) {
+            var self = this;
+            e.detail.itemPromise.then(function (item) {
+                if (item.data.product) {
+                    self.dispatchEvent(self.events.ITEM_SELECTED, { item: item.data.product });
+                }
+            });
         },
 
         unload: function () {
