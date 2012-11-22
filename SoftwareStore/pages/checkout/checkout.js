@@ -188,6 +188,18 @@
           
             var shippingOptionId = this._shippingMethodWidget.getSelectedItem().id;
             this.dispatchEvent(this.events.SHIPPING_OPTION_CHANGED, shippingOptionId);
+        },
+
+        unload: function () {
+            // When unloading change the setCart, setAddresses and setPaymentOptions function in order to avoid failing if the callback returns
+            this.setCart = function (cart) {
+            };
+
+            this.setAddresses = function (addresses) {
+            };
+
+            this.setPaymentOptions= function (paymentOptions) {
+            }
         }
 
     });

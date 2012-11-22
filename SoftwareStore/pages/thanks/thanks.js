@@ -27,6 +27,12 @@
         _onContinueClicked: function (e) {
 
             this.dispatchEvent(this.events.CONTINUE_CLICKED);
+        },
+
+        unload: function () {
+            // When unloading change the setCart function in order to avoid failing if the callback returns
+            this.setCart = function (cart) {
+            };
         }
 
     });

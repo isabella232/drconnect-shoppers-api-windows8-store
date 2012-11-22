@@ -119,12 +119,12 @@
                 });
                 WinJS.Promise.join(promises).then(function (data) {
                     console.log("Sending add product finished notification");
-                    // Since remove from cart is called from this controller Unblocks the application with the cartChanged
-                    self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                     // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
-                    if (this._cartChangeTimeStamp != timeStamp) {
+                    if (self._cartChangeTimeStamp != timeStamp) {
                         self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     }
+                    // Since remove from cart is called from this controller Unblocks the application with the cartChanged
+                    self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
 
                 }, function (error) {
                     var errorItem = error[0];

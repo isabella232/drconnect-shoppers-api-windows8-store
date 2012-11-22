@@ -87,6 +87,14 @@
                 WinJS.Utilities.addClass(progress, "hidden");
             }
         },
+
+        unload: function () {
+            // When unloading set the setProduct function in order to avoid failing if the callback returns
+            this.setProduct = function (product) {
+            };
+
+        },
+
         // is called when the view is changed (rotated, snapped, etc.)
         updateLayout: function (element, viewState, lastViewState) {
             // Check to see if the application is in snapped view.

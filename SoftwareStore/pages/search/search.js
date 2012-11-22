@@ -60,6 +60,11 @@
             
         },
 
+        unload: function () {
+            // When unloading nulls the listDataSource to avoid failure if a callback returns after the view has been unloaded
+            this.list.itemDataSource = null
+        }
+
 
         // TODO: Implement this code when the app bar is implemented
       /*  _itemSelected: function (item) {

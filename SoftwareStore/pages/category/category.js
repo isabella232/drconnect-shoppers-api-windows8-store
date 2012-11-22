@@ -142,6 +142,13 @@
                     self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
                 }
             });
+        },
+
+        unload: function () {
+            // TODO: Respond to navigations away from this page.
+            this.list.itemDataSource = null;
+            // Set the group datasource (will include subcategories and products)
+            this.list.groupDataSource =null;
         }
 
     });

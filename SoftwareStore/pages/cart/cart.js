@@ -231,7 +231,14 @@
          */
         clearSelection: function () {
             this.itemsList.selection.clear();
+        },
+
+        unload: function () {
+            // When unloading change the setCart function in order to avoid failing if the callback returns
+            this.setCart = function (cart) {
+            };
         }
+
 
     });
 

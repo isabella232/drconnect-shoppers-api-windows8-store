@@ -119,6 +119,12 @@
                     self.dispatchEvent(self.events.ADD_PRODUCTS_TO_CART, selectedItems);
                 }
             });
+        },
+
+        unload: function () {
+            // Sets the datasources = null to avoid errror when navigating if a callback with items returns
+            this.itemsList.itemDataSource = null;
+            this.itemsList.groupDataSource = null;
         }
     });
 
