@@ -63,6 +63,12 @@
                             }
                             self._totalCount = offset;
 
+                            self._dataAdapters.forEach(function (dataAdapter) {
+                                if (dataAdapter.dataAdapter.errorStatus) {
+                                    self.errorStatus = dataAdapter.dataAdapter.errorStatus;
+                                }
+                            });
+
                             // Updates the grouping information
                             self._updateGroupDataSource();
 
@@ -214,6 +220,10 @@
         }, {
             getGroupDataSource: function () {
                 return this._dataAdapter.getGroupDataSource();
+            },
+
+            getErrorStatus: function () {
+                return this._dataAdapter.errorStatus;
             }
         })
     });

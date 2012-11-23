@@ -26,7 +26,8 @@
                     console.log("ProductByCategoryPaginatedDataAdapter: Error retrieving products by category: " + error.details.error.code + " - " + error.details.error.description);
                     return {
                         count: 0,
-                        items: []
+                        items: [],
+                        errorStatus: true
                     }
                 });
             }

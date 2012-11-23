@@ -71,7 +71,7 @@
         _showMessageIfEmpty: function () {
             var self = this;
             this.list.itemDataSource.getCount().then(function (count) {
-                if (count == 0) {
+                if (count == 0 && !self.list.itemDataSource.getErrorStatus()) {
                     WinJS.Utilities.removeClass(self.element.querySelector("#emptyMessage"), "hidden");
                 }
             });

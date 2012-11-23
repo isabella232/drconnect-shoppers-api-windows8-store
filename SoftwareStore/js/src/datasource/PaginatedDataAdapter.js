@@ -55,6 +55,8 @@
                         } else {
                             self._count = 0;
                         }
+                        if (response.errorStatus)
+                            self.errorStatus = response.errorStatus;
                         return self._count;
                     }, processErrorResponse);
                 } else {

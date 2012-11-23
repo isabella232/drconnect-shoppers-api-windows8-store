@@ -117,7 +117,7 @@
                 lineItems.forEach(function (lineItem) {
                     promises.push(DR.Store.Services.cartService.removeLineItemFromCart(lineItem));
                 });
-                WinJS.Promise.join(promises).then(function (data) {
+                WinJS.Promise.join(promises).then(function () {
                     console.log("Sending add product finished notification");
                     // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
                     if (self._cartChangeTimeStamp != timeStamp) {

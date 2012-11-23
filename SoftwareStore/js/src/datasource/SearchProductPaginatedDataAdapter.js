@@ -26,6 +26,11 @@
                         }
                     }, function (error) {
                         console.log("Error in Search: " + error.details.error.code + ": " + error.details.error.description);
+                        return {
+                            count: 0,
+                            items: [],
+                            errorStatus: true
+                        }
                     });
             }
         }
