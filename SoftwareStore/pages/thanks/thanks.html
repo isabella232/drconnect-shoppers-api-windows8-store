@@ -13,6 +13,12 @@
     <script src="thanks.js"></script>
 </head>
 <body>
+
+       <!-- Cart Line Item Template -->
+    <div data-win-control="DR.Store.Widget.CheckoutLineItemTemplate"></div>
+    <!--AddressDetailTemplate-->
+    <div data-win-control="DR.Store.Widget.AddressDetailTemplate"></div>
+
     <div class="thanks fragment">
         <header aria-label="Header content" role="banner">
             <button class="dr-homebutton" aria-label="Back" type="button"></button>
@@ -36,34 +42,35 @@
                         <span data-win-res="{textContent: 'thanks.orderTotalLabel'}"></span>
                         <span id="orderTotal"></span>
                     </p>
-                    <p class="text" data-win-res="{textContent: 'thanks.orderDetailsText'}">
-                        You will recieve an email with details on your order at the address provided.
-                    </p>
-					<p class="text">
-						The charge(s) will appear on your credit card as "DRI*swstore".
-					</p>
+                    
+					<p class="text" data-win-res="{textContent: 'thanks.orderDetailsChargeText'}"></p>
+
+                    <p class="text" data-win-res="{textContent: 'thanks.orderDetailsText'}"></p>
                 </div>
             </div>
 
             <div class="order-item-list" data-win-control="WinJS.UI.ListView"></div>
-            s
+
             <div class="order-summary">
-                <p class="row-1"><span class="order-fees col-1" data-win-res="{textContent: 'cart.summary.subtotal'}">Subtotal:</span><span id="order-fees" class="col-2"></span></p>
-                <p class="row-2"><span class="order-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}">Tax:</span><span id="cart-tax" class="col-2"></span></p>
-                <p class="row-3"><span class="order-shipping col-1" data-win-res="{textContent: 'cart.summary.discount'}">Discount:</span><span id="cart-discount" class="col-2"></span></p>
-                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="cart-total" class="cart-total col-2"></span></p>
+                <p class="row-1"><span class="order-fees col-1" data-win-res="{textContent: 'thanks.fees'}"></span><span id="order-fees" class="col-2"></span></p>
+                <p class="row-2"><span class="order-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span><span id="order-tax" class="col-2"></span></p>
+                <p class="row-3"><span class="order-shipping col-1" data-win-res="{textContent: 'cart.summary.shippingAndHandling'}"></span><span id="order-shipping" class="col-2"></span></p>
+                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="order-total" class="cart-total col-2"></span></p>
 
             </div>
 
             <div class="col-2">
-				<h2>Shipping Address</h2>
-
-				<h2>Order Information</h2>
-                <div id="orderInformation_content"></div>
+				<h2 data-win-res="{textContent: 'checkout.shippingAddress'}"></h2>
+                    <br />
+                    <div class="shipping-address-tile"></div> 
+                    <br />
+   
+				<h2 data-win-res="{textContent: 'thanks.orderInfoHeader'}"></h2>
+                <div id="orderInformation_content" data-win-res="{textContent: 'thanks.orderInfoProblemsText'}"></div>
             </div>
 
             <div class="col-3">
-				<h2>Message Area</h2>
+				<h2 data-win-res="{textContent: 'thanks.messageArea'}">Message Area</h2>
                 <div id="message_content"></div>
             </div>
         </section>

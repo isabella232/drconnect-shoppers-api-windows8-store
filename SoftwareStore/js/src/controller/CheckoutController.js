@@ -105,8 +105,8 @@
                 // Send notification to block the application
                 self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.submitCart").value);
                 return DR.Store.Services.cartService.submit().then(function (data) {
-                    self.goToPage(DR.Store.URL.THANKS_PAGE, cart);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    self.goToPage(DR.Store.URL.THANKS_PAGE, cart);
                 }, function (error) {
                     console.log("CheckoutController: Error submiting the cart: " + error.details.error.code + " - " + error.details.error.description);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
