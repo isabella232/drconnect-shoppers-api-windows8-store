@@ -12,7 +12,9 @@ body {
     }
 
 progress {
-    margin: -250px auto 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
     display: block;
 }
 
@@ -156,6 +158,38 @@ footer p {
     font-weight: normal;
     content: "\E10F";
     vertical-align: 50%;
+}
+
+#flyoutAnchor {
+	top: 50%;
+	position: absolute;
+	left: 50%;
+}
+
+#informationFlyout {
+	border: 2px solid #5F84CF;
+	background-color: rgba(23, 31, 48, 0.8);
+}
+
+.processing-flyout {
+	display: -ms-grid;
+	-ms-grid-columns: 40px auto;
+	-ms-grid-rows: 1fr;
+}
+
+
+
+.processing-flyout progress {
+	-ms-grid-column: 1;
+	-ms-grid-row: 1;
+	color: #FBFBFB !important;
+}
+
+
+.processing-flyout .processing-message {
+	-ms-grid-column: 2;
+	margin: 0px;
+	color: #FBFBFB;
 }
 .dr-homebutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
     content: "\E10F";
