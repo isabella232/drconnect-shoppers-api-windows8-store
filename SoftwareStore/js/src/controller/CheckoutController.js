@@ -14,23 +14,38 @@
                 page.addEventListener(page.events.SUBMIT_CLICKED, this._onSubmit.bind(this), false);
                 page.addEventListener(page.events.SHIPPING_ADDRESS_CHANGED, this._onShippingAddressChanged.bind(this), false);
                 page.addEventListener(page.events.SHIPPING_OPTION_CHANGED, this._onShippingOptionChanged.bind(this), false);
+                var promises = [];
+                var self = this;
 
-                DR.Store.Services.userService.getAddresses().then(function (addresses) {
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.getCheckoutInfo").value);
+
+                promises.push(DR.Store.Services.userService.getAddresses().then(function (addresses) {
                     page.setAddresses(addresses);
                 }, function (error) {
                     console.log("CheckoutController: Error getting shopper's addresses: " + error.details.error.code + " - " + error.details.error.description);
-                });
+                }));
 
-                DR.Store.Services.userService.getPaymentOptions().then(function (paymentOptions) {
+                promises.push(DR.Store.Services.userService.getPaymentOptions().then(function (paymentOptions) {
                     page.setPaymentOptions(paymentOptions);
                 }, function (error) {
                     console.log("CheckoutController: Error getting shopper's payment options: " + error.details.error.code + " - " + error.details.error.description);
-                });
+                }));
 
-                return DR.Store.Services.cartService.applyShopper().then(function (cart) {
+                promises.push(DR.Store.Services.cartService.applyShopper().then(function (cart) {
                     page.setCart(cart);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
+                }));
+
+                /**
+                 * Join all promises in order to unblock the application only when all responses are retrieved
+                 */
+                WinJS.Promise.join(promises).then(function (responses) {
+                    console.debug("Unblocking Application");
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                }, function (error) {
+                    console.log("There was an error on almost one of the service calls");
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
             },
@@ -104,9 +119,9 @@
                 var self = this;
                 // Send notification to block the application
                 self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.submitCart").value);
-                return DR.Store.Services.cartService.submit().then(function (data) {
+                return DR.Store.Services.cartService.submit().then(function (order) {
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
-                    self.goToPage(DR.Store.URL.THANKS_PAGE, cart);
+                    self.goToPage(DR.Store.URL.THANKS_PAGE, { "order": order, "cart": cart });
                 }, function (error) {
                     console.log("CheckoutController: Error submiting the cart: " + error.details.error.code + " - " + error.details.error.description);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);

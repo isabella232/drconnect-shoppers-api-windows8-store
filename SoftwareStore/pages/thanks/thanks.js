@@ -19,9 +19,6 @@
             this._orderItems = new WinJS.Binding.List();
             this.itemsList.itemDataSource = this._orderItems.dataSource;
 
-            //this.itemsList.oniteminvoked = this._onCartItemClicked.bind(this);
-            //this.itemsList.addEventListener("selectionchanged", this._itemSelected.bind(this));
-
             // Get the continue shopping button
             var homeButton = this.element.querySelector(".dr-homebutton");
             homeButton.onclick = this._onHomeClicked.bind(this);
@@ -31,27 +28,60 @@
 
         /**
          * Sets the order to show on the view
+         * @order the result of submitting the order
+         * @cart  the submitted cart
          */
-        setOrder: function (order) {
+        setOrder: function (order, cart) {
             this._order = order;
-            this.element.querySelector("#orderDate").textContent = order.submissionDate;
-            this.element.querySelector("#orderNumber").textContent = order.id;
-            this.element.querySelector("#orderTotal").textContent = order.pricing.formattedTotal;
+            this.element.querySelector("#orderNumber").textContent = order.order.id;
+            this.element.querySelector("#orderTotal").textContent = order.pricing.formattedOrderTotal;
 
-            this._setOrderItems(order.lineItems.lineItem);
+            this._setOrderItems(this._mergeItems(order.lineItems.lineItem, cart.lineItems.lineItem));
 
-            this.element.querySelector("#order-fees").textContent = order.pricing.formattedIncentive + "?";
+            this.element.querySelector("#order-fees").textContent = "$0.00";
             this.element.querySelector("#order-tax").textContent = order.pricing.formattedTax;
-            if (order.pricing.formattedShipping) {
-                this.element.querySelector("#order-shipping").textContent = order.pricing.formattedShipping;
+            if (order.pricing.formattedShippingAndHandling) {
+                this.element.querySelector("#order-shipping").textContent = order.pricing.formattedShippingAndHandling;
             } else {
                 this.element.querySelector("#order-shipping").textContent = "$0.00";
             }
-            this.element.querySelector("#order-total").textContent = order.pricing.formattedTotal;
+            this.element.querySelector("#order-total").textContent = order.pricing.formattedOrderTotal;
 
-            this._renderShippingAddress(order.shippingAddress);
+            this._renderShippingAddress(cart.shippingAddress);
             
         },
+
+        /**
+         * Merge the order and the cart LineItems in order to get a complete information
+         */
+        _mergeItems: function (orderLineItems, cartLineItems) {
+            var self = this;
+            var lineItems = [];
+            var lineItem;
+            var cartLineItem
+            orderLineItems.forEach(function (orderLineItem) {
+                lineItem = orderLineItem;
+                cartLineItem = self._getLineItemById(cartLineItems, lineItem.id);
+                lineItem.product = cartLineItem.product;
+                lineItems.push(lineItem);
+            });
+            return lineItems;
+        },
+
+        /**
+         * Gets the lineItem from the lineItemsList that matches with the id
+         */
+        _getLineItemById: function (lineItems, id) {
+            var lineItem = null;
+            for(var i=0; i < lineItems.length; i++){
+                lineItem = lineItems[i];
+                if (lineItem.id === id) {
+                    break;
+                }
+            };
+            return lineItem;
+        },
+
 
         /**
         * Sets the order items
@@ -68,16 +98,6 @@
             var detailElement = this.element.querySelector(".shipping-address-tile");
             detailTemplate.render(shippingAddress, detailElement);
         },
-
-        blockHomeButton: function(){
-            this.element.querySelector(".dr-homebutton").disabled=true;
-        },
-
-        unBlockHomeButton: function(){
-            this.element.querySelector(".dr-homebutton").disabled=false;
-        },
-
-
 
         /**
         * Behaviour when continue button is clicked

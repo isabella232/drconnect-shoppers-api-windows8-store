@@ -150,7 +150,7 @@
              */
             submit: function (params) {
                 console.debug("Calling DR submitCart service");
-                return this._client.cart.submit({ "cartId": "active", "includeTestOrders": "true" }).then(function (data) {
+                return this._client.cart.submit({ "expand": "lineItems.lineItem.product", "cartId": "active", "includeTestOrders": "true" }).then(function (data) {
                     // Invalidate cached cart after submitting it
                     //that.invalidateCache();
                     console.info("Cart Submitted Successfully");

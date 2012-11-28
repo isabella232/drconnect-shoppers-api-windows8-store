@@ -3,21 +3,22 @@
 .thanks section {
 	display: -ms-grid;
 	-ms-grid-columns: 506px 390px 390px 1fr;
+    -ms-grid-rows: auto 1fr 125px;
 }
 
-.thanks .col-1 {
+.thanks .first-col {
 	-ms-grid-row: 1;
 	-ms-grid-column-span: 1;
 	margin-left: 120px;
 }
 
-.thanks .col-2 {
+.thanks .middle-col {
 	-ms-grid-column: 2;
 	margin-left: 80px;
 	-ms-grid-row-span: 2;
 }
 
-.thanks .col-3 {
+.thanks .right-col {
 	-ms-grid-column: 3;
 	margin-left: 80px;
 	-ms-grid-row-span: 2;
@@ -99,4 +100,8 @@
 .thanks p.text {
 	margin-top: 3px;
 	margin-bottom: 11px;
+}
+
+.thanks .order-total {
+    font-size: 16pt;
 }

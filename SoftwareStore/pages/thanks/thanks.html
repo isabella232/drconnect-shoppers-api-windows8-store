@@ -26,14 +26,10 @@
                 <span class="pagetitle" data-win-res="{textContent: 'thanks.title'}">Thank You For Buying</span>
             </h1>
         </header>
-        <section aria-label="Main content" role="main" style="-ms-grid-rows: auto 1fr 125px;">
-            <div class="col-1">
+        <section aria-label="Main content" role="main">
+            <div class="first-col">
                 <div class="order-information">
                     <h2 data-win-res="{textContent: 'thanks.orderInfoHeader'}"></h2>
-                    <p>
-                        <span data-win-res="{textContent: 'thanks.orderDateLabel'}"></span>
-                        <span id="orderDate"></span>
-                    </p>
                     <p>
                         <span data-win-res="{textContent: 'thanks.orderNumberLabel'}"></span>
                         <span id="orderNumber"></span>
@@ -55,11 +51,10 @@
                 <p class="row-1"><span class="order-fees col-1" data-win-res="{textContent: 'thanks.fees'}"></span><span id="order-fees" class="col-2"></span></p>
                 <p class="row-2"><span class="order-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span><span id="order-tax" class="col-2"></span></p>
                 <p class="row-3"><span class="order-shipping col-1" data-win-res="{textContent: 'cart.summary.shippingAndHandling'}"></span><span id="order-shipping" class="col-2"></span></p>
-                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="order-total" class="cart-total col-2"></span></p>
-
+                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="order-total" class="order-total col-2"></span></p>
             </div>
 
-            <div class="col-2">
+            <div class="middle-col">
 				<h2 data-win-res="{textContent: 'checkout.shippingAddress'}"></h2>
                     <br />
                     <div class="shipping-address-tile"></div> 
@@ -69,13 +64,13 @@
                 <div id="orderInformation_content" data-win-res="{textContent: 'thanks.orderInfoProblemsText'}"></div>
             </div>
 
-            <div class="col-3">
-				<h2 data-win-res="{textContent: 'thanks.messageArea'}">Message Area</h2>
+            <div class="right-col">
+				<h2 data-win-res="{textContent: 'thanks.messageArea'}"></h2>
                 <div id="message_content"></div>
             </div>
         </section>
 
-        <footer data-win-control="DR.Store.Widget.Html.Footer" style="margin: 3px -1px -3px 1px;"></footer>
+        <footer data-win-control="DR.Store.Widget.Html.Footer"></footer>
     </div>
 </body>
 </html>

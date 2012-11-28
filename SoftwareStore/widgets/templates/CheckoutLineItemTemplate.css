@@ -1,4 +1,4 @@
-﻿.checkoutpage .item-container {
+﻿.checkoutpage .item-container, .thanks .item-container {
     -ms-grid-columns: 40px 70px 1fr;
     display: -ms-grid;
     width: 100%;
@@ -9,7 +9,11 @@
     margin: 5px 24px 5px 2px;
 }
 
-.checkoutpage .quantity {
+.thanks .win-listview .win-container {
+    margin: 5px 24px 5px 2px;
+}
+
+.checkoutpage .quantity, .thanks .quantity {
 	padding-right: 5px;
 }
 

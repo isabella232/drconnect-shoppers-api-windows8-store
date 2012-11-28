@@ -158,7 +158,7 @@
     <Content Include="widgets\templates\PaymentOptionDetailTemplate.html" />
     <Content Include="widgets\templates\AddressDetailTemplate.css" />
     <Content Include="widgets\templates\AddressDetailTemplate.html" />
-    <Content Include="widgets\templates\CheckoutLineItemTemplate .css" />
+    <Content Include="widgets\templates\CheckoutLineItemTemplate.css" />
     <Content Include="widgets\templates\CheckoutLineItemTemplate.html" />
     <Content Include="widgets\templates\CartLineItemTemplate.css" />
     <Content Include="widgets\templates\CartLineItemTemplate.html" />
