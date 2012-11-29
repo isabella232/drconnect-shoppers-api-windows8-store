@@ -71,9 +71,9 @@
     "thanks.orderNumberLabel"                   : "Order Number:",
     "thanks.orderTotalLabel"                    : "Order Total:",
     "thanks.fees"                               : "Fees:",
-    "thanks.orderDetailsText"                   : "You will recieve an email with details on your order at the address provided.",
+    "thanks.orderDetailsText"                   : "You will be sent an email with your order details at the address provided.",
     "thanks.orderDetailsChargeText"             : "The charge(s) will appear on your credit card as DRI*swstore.",
-    "thanks.orderInfoProblemsText"              : "If you have problemns with your order or have any additional questions or comments, please refer to the order confirmation email or contact Customer Service for assistance. Thank you again for your order!",
+    "thanks.orderInfoProblemsText"              : "If you have problems with your order or have any additional questions or comments, please refer to the order confirmation email or contact Customer Service for assistance. Thank you again for your order!",
     "thanks.messageArea"                        : "Message Area"
 
 

@@ -136,6 +136,7 @@
                         self.showCommands([command.id]);
                     }
                 });
+                this.setVisible(true);
             },
 
             /**
@@ -178,13 +179,31 @@
                 }
             },
 
+            /**
+             * Disables the application bar
+             */
             disable: function () {
                 this.appBar.disabled = true;
             },
 
+            /**
+             * Enables the application bar
+             */
             enable: function () {
                 this.appBar.disabled = false;
-            }
+            },
+
+            /**
+             * Set the appbar visible or not depending on the parameter
+             * If false the appbar will no be shown on the current view until a clear or a setVisible(true) is called
+             */
+            setVisible: function (visible) {
+                if (visible) {
+                    WinJS.Utilities.removeClass(this.element, "hidden");
+                } else {
+                    WinJS.Utilities.addClass(this.element, "hidden");
+                }
+            },
 
         });
     }

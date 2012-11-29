@@ -183,7 +183,6 @@
          * Initializes the application bars
          */
         _initializeAppBars: function () {
-            var self = this;
 
             // Get the localized labels for the commands
             var removeButtonLabel = WinJS.Resources.getString('general.button.removeFromCart.label').value;
@@ -199,7 +198,6 @@
             this.bottomAppBar.addCommand({ id: 'cmdViewItem', label: viewItemButtonLabel, icon: '', section: 'selection', tooltip: viewItemButtonTooltip, clickHandler: this._onViewItem.bind(this) });
             this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
             this.bottomAppBar.hideCommands(["cmdRemove", "cmdViewItem","gotoCart"]);
-            this.bottomAppBar.hideCommands(["cmdViewItem"]);
             
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
 

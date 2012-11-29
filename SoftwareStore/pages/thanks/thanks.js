@@ -22,6 +22,8 @@
             // Get the continue shopping button
             var homeButton = this.element.querySelector(".dr-homebutton");
             homeButton.onclick = this._onHomeClicked.bind(this);
+
+            this._initializeAppBars();
         },
 
         _order: null,
@@ -97,6 +99,25 @@
             var detailTemplate = this.element.querySelector("#addressDetailTemplate").winControl;
             var detailElement = this.element.querySelector(".shipping-address-tile");
             detailTemplate.render(shippingAddress, detailElement);
+        },
+
+        /**
+       * Initializes the application bars
+       */
+        _initializeAppBars: function () {
+
+            // Initialize the Bottom AppBar
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+            this.bottomAppBar.hideCommands(["gotoCart"]);
+            this.bottomAppBar.setVisible(false);
+
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+
+            // Because this page is the cart page, hides the gotoCart button on the page header bar
+            var pageHeaderBar = DR.Store.App.PageHeaderBar.winControl;
+            pageHeaderBar.hideElement("#upper-cart");
+
+
         },
 
         /**
