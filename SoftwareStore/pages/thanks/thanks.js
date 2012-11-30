@@ -40,14 +40,7 @@
 
             this._setOrderItems(this._mergeItems(order.lineItems.lineItem, cart.lineItems.lineItem));
 
-            this.element.querySelector("#order-fees").textContent = "$0.00";
-            this.element.querySelector("#order-tax").textContent = order.pricing.formattedTax;
-            if (order.pricing.formattedShippingAndHandling) {
-                this.element.querySelector("#order-shipping").textContent = order.pricing.formattedShippingAndHandling;
-            } else {
-                this.element.querySelector("#order-shipping").textContent = "$0.00";
-            }
-            this.element.querySelector("#order-total").textContent = order.pricing.formattedOrderTotal;
+            this.element.querySelector("#summary").winControl.renderPricing(this._adaptPricingModel(order.pricing));
 
             this._renderShippingAddress(cart.shippingAddress);
             
@@ -82,6 +75,17 @@
                 }
             };
             return lineItem;
+        },
+
+
+        /*
+         * Since order.pricing is different from cart.pricing, adapt the model for being used in the cartSummaryWidget then
+         */
+        _adaptPricingModel: function(pricing){
+            pricing.formattedOrderTotal = pricing.formattedTotal;
+            pricing.formattedShippingAndHandling = pricing.formattedShipping;
+            return pricing;
+
         },
 
 

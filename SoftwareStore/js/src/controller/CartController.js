@@ -16,6 +16,7 @@
                 page.addEventListener(page.events.LINE_ITEM_QUANTITY_CHANGED, this._onEditQuantity.bind(this), false);
                 page.addEventListener(page.events.REMOVE_ITEM_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
                 page.addEventListener(page.events.RESET_CART_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
+                page.addEventListener(page.events.ADD_OFFER_CLICKED, this._onAddOfferToCartClicked.bind(this), false);
                 return this._getCart();
             },
 
@@ -24,6 +25,11 @@
              */
             _getCart: function () {
                 var self = this;
+
+                DR.Store.Services.cartService.getCandyRackProducts().then(function (candyRack) {
+                    self.page.setCandyRack(candyRack.productOffer);
+                });
+
                 return DR.Store.Services.cartService.get().then(function (cart) {
                     self.page.setCart(cart);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
@@ -40,12 +46,16 @@
              */
             addToCart: function (args) {
                 var self = this;
+                var timeStamp = args.timeStamp;
                 // Send notification to block the application
                 self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.addProduct").value);
                 DR.Store.Services.cartService.addToCart(args.product, args.qty, args.addToCartUri)
                 .then(function (data) {
+                    // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
+                    if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    }
                     console.log("Sending add product finished notification");
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                 }, function (error) {
                     console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
@@ -77,6 +87,7 @@
                 var self = this;
                 var list = [];
                 var productToAdd;
+                var timeStamp = productsList.timeStamp;
                 if (productsList.length > 0) {
                     productToAdd = productsList.splice(0, 1)[0];
                     // If it is the first product that will be added send the block app notification
@@ -89,9 +100,12 @@
                             self.addProductsToCart(productsList);
                         } else {
                             var timeStamp = productsList.timeStamp;
+                            // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
+                            if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
+                                self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                            }
                             // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
                             console.log("Sending add product finished notification");
-                            self.notify(DR.Store.Notifications.UNBLOCK_APP);
                             self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
                         }
                     }, function (error) {
@@ -120,7 +134,7 @@
                 WinJS.Promise.join(promises).then(function () {
                     console.log("Sending add product finished notification");
                     // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
-                    if (self._cartChangeTimeStamp != timeStamp) {
+                    if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
                         self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     }
                     // Since remove from cart is called from this controller Unblocks the application with the cartChanged
@@ -168,6 +182,17 @@
                 this._cartChangeTimeStamp = new Date().getTime();
                 e.detail.timeStamp = this._cartChangeTimeStamp;
                 this.notify(DR.Store.Notifications.REMOVE_FROM_CART, e.detail);
+            },
+
+            /**
+             * Sends the notification for add the products selected for the cart
+             */
+            _onAddOfferToCartClicked: function (e) {
+                // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
+                this._cartChangeTimeStamp = new Date().getTime();
+                e.detail.timeStamp = this._cartChangeTimeStamp;
+
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
             },
 
 

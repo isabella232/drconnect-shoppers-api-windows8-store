@@ -10,6 +10,9 @@
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     <link href="../../css/default.css" rel="stylesheet" />
     <link href="thanks.css" rel="stylesheet" />
+    <script src="/widgets/html/cartSummary/CartSummaryWidget.js"></script>
+    <script src="/widgets/templates/Template.js"></script>
+    <script src="/widgets/html/HtmlControl.js"></script>
     <script src="thanks.js"></script>
 </head>
 <body>
@@ -47,12 +50,7 @@
 
             <div class="order-item-list" data-win-options="{ selectionMode: 'none',  tapBehavior: 'none', swipeBehavior: 'none'}" data-win-control="WinJS.UI.ListView"></div>
 
-            <div class="order-summary">
-                <p class="row-1"><span class="order-fees col-1" data-win-res="{textContent: 'thanks.fees'}"></span><span id="order-fees" class="col-2"></span></p>
-                <p class="row-2"><span class="order-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span><span id="order-tax" class="col-2"></span></p>
-                <p class="row-3"><span class="order-shipping col-1" data-win-res="{textContent: 'cart.summary.shippingAndHandling'}"></span><span id="order-shipping" class="col-2"></span></p>
-                <p class="row-4"><span class="order-total col-1" data-win-res="{textContent: 'cart.summary.total'}">Total:</span><span id="order-total" class="order-total col-2"></span></p>
-            </div>
+            <div id="summary" class="cart-summary" data-win-control="DR.Store.Widget.Html.CartSummaryWidget"></div>
 
             <div class="middle-col">
 				<h2 data-win-res="{textContent: 'checkout.shippingAddress'}"></h2>

@@ -56,11 +56,7 @@
         setCart: function (cart) {
             this._cart = cart;
 
-            this.element.querySelector("#cart-subtotal").textContent = cart.pricing.formattedSubtotal;
-            this.element.querySelector("#cart-tax").textContent = cart.pricing.formattedTax;
-            this.element.querySelector("#cart-shipping").textContent = cart.pricing.formattedShippingAndHandling;
-            this.element.querySelector("#cart-discount").textContent = cart.pricing.formattedDiscount;
-            this.element.querySelector("#cart-total").textContent = cart.pricing.formattedOrderTotal;
+            this.element.querySelector("#summary").winControl.renderPricing(cart.pricing);
 
             var cartlist = new WinJS.Binding.List();
             this.itemsList.itemDataSource = cartlist.dataSource;

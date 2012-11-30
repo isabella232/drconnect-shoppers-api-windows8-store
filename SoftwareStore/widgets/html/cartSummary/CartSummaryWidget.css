@@ -1,0 +1,27 @@
+﻿.cartSummaryWidget p {
+    margin-left: 120px;
+}
+
+.row-1 {
+	-ms-grid-row: 1;
+}
+
+.row-2 {
+	-ms-grid-row: 2;
+}
+
+.row-3 {
+	-ms-grid-row: 3;
+}
+
+.row-4 {
+	-ms-grid-row: 4;
+}
+
+.row-5 {
+	-ms-grid-row: 5;
+}
+
+.row-6 {
+	-ms-grid-row: 6;
+}

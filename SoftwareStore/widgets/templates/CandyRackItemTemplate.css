@@ -1,0 +1,92 @@
+﻿/* 
+    Product Template
+    Defines a 310 x 75 pixel template to display products. 
+    Use whenever a product is displayed in a list view control 
+*/
+.cartpage .productTemplate.item-container {
+	border: 2px solid #5F84CF;
+	margin: 0;
+	cursor: pointer;
+	background-color: rgba(34, 49, 78, 0.498);
+	display: -ms-grid;
+	overflow: hidden;
+	padding-top: 5px;
+	height: 66px;
+	-ms-grid-column-align: stretch;
+	-ms-grid-row-align: stretch;
+	-ms-grid-columns: 70px 1fr;
+	-ms-grid-rows: 40px 30px;
+	width: calc(100% - 4px);
+}
+.win-selected .productTemplate.item-container {
+	border-color: #5F84CF;
+}
+.productTemplate.item-container .image-wrapper {
+    width: 56px;
+	height: 56px;
+    float: left;
+    background: white;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+    padding: 2px;
+    overflow: hidden;
+    -ms-grid-column: 1;
+    -ms-grid-row-span: 1;
+}
+
+.productTemplate .item-image {
+	max-width: 54px;
+	max-height: 56px;
+	color: #ccc;
+}
+
+.productTemplate .text-wrapper {
+    vertical-align: middle;
+    -ms-grid-column: 2;
+}
+
+.productTemplate.item-container p {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	padding-right: 5px;
+}
+
+.productTemplate .item-title {
+	font-weight: 600;
+	line-height: 16px;
+	max-height: 40px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	-ms-grid-row: 1;
+	-ms-grid-column: 2;
+}
+
+.productTemplate .item-pricing {
+	-ms-grid-row: 2;
+	-ms-grid-column: 2;
+	text-align: left;
+}
+
+.candyrack-list {
+	height: calc(100% - 45px);
+}
+
+.win-listview:not(.win-selectionstylefilled) .win-selectioncheckmarkbackground {
+	border-color: #5F84CF #5F84CF transparent transparent;
+}
+
+.win-listview:not(.win-selectionstylefilled) .win-container.win-selected:hover .win-selectioncheckmarkbackground {
+	border-color: #5F84CF #5F84CF transparent transparent;
+
+}
+
+@media screen and (-ms-view-state: snapped) {
+	.productTemplate.item-container {
+		width: calc(100% - 4px);
+	}
+	
+	footer{
+		display: none;
+	}
+}

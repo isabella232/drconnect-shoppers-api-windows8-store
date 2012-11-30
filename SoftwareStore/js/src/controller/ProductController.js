@@ -20,14 +20,19 @@
                 var self = this;
                 page.setProductName(state.item.displayName);
 
-                // Loads the product and saves the promise to use it later on sharing
-                this.currentProductPromise = loadFullProduct(state.item.id);
+                if (state.fullVersion) {
+                    page.setProduct(state.item);
+                    this.currentProductPromise = WinJS.Promise.wrap(state.item);
+                } else {
+                    // Loads the product and saves the promise to use it later on sharing
+                    this.currentProductPromise = loadFullProduct(state.item.id);
 
-                this.currentProductPromise.then(function (product) {
-                    page.setProduct(product);
-                }, function (error) {
-                    console.log("ProductController: Error getting product detail: " + error.details.error.code + " - " + error.details.error.description);
-                });
+                    this.currentProductPromise.then(function (product) {
+                        page.setProduct(product);
+                    }, function (error) {
+                        console.log("ProductController: Error getting product detail: " + error.details.error.code + " - " + error.details.error.description);
+                    });
+                }
                 page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 page.addEventListener(page.events.ADD_TO_CART, this._onAddToCartClicked.bind(this), false);
             },

@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>cartSummaryWidget</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="CartSummaryWidget.css" rel="stylesheet" />
+    <script src="CartSummaryWidget.js"></script>
+</head>
+<body>
+
+    <p class="row-1"><span class="cart-substotal col-1" data-win-res="{textContent: 'cart.summary.subtotal'}"></span> <span id="cart-subtotal" class="col-2"></span></p>
+    <p class="row-2"><span id="feesLabel" class="order-fees col-1" data-win-res="{textContent: 'thanks.fees'}"></span><span id="order-fees" class="col-2"></span></p>
+    <p class="row-3"><span class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.tax'}"></span> <span id="cart-tax" class="col-2"></span></p>
+    <p class="row-4"><span id="shippingLabel" class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.shippingAndHandling'}"></span> <span id="cart-shipping" class="col-2"></span></p>
+    <p class="row-5"><span id="discountLabel" class="cart-tax col-1" data-win-res="{textContent: 'cart.summary.discount'}"></span> <span id="cart-discount" class="col-2"></span></p>
+    <p class="row-6"><span class="cart-total col-1" data-win-res="{textContent: 'cart.summary.total'}"></span> <span id="cart-total" class="cart-total col-2"></span></p>
+
+</body>
+</html>

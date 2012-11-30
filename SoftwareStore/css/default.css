@@ -106,7 +106,7 @@ span.win-label {
 .hidden {
 	margin-bottom: 5px;
 	background-color: transparent;
-	display: none;
+	display: none !important;
 }
 
 .win-listview > .win-horizontal .win-container{

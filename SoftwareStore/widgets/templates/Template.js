@@ -21,6 +21,7 @@
         CartLineItemTemplate: _buildWidget("CartLineItemTemplate"),
         CheckoutLineItemTemplate: _buildWidget("CheckoutLineItemTemplate"),
         AddressDetailTemplate: _buildWidget("AddressDetailTemplate"),
-        PaymentOptionDetailTemplate: _buildWidget("PaymentOptionDetailTemplate")
+        PaymentOptionDetailTemplate: _buildWidget("PaymentOptionDetailTemplate"),
+        CandyRackItemTemplate: _buildWidget("CandyRackItemTemplate")
     });
 })();

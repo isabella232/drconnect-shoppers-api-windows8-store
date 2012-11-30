@@ -15,6 +15,10 @@
     "general.button.removeFromCart.tooltip"  	: "Remove Selected Item from Cart",
     "general.button.viewItem.label"            	: "View Item",
     "general.button.viewItem.tooltip"  	        : "View Selected Item",
+    "general.button.addOffer.label"            	: "Add Offer",
+    "general.button.addOffer.tooltip"  	        : "Add the Selected offer to the Cart",
+    "general.button.viewOffer.label"          	: "View Offer",
+    "general.button.viewOffer.tooltip"  	        : "View Selected Offer",
     "general.button.resetCart.label"            : "Reset Cart",
     "general.button.resetCart.tooltip"  	    : "Removes all Items from Cart",
     "general.button.cart.label"         		: "View Cart",
@@ -39,6 +43,7 @@
 
 
     "cart.shoppingCartTitle"            		: "Shopping Cart",
+    "cart.candyRackTitle"                       : "People Also Bought",
     "cart.cartEmpty"                    		: "The cart is empty",
     "cart.detail.item"                  		: "Item",
     "cart.detail.quantity"              		: "Quantity",

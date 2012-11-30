@@ -143,7 +143,7 @@
     padding-top: 10px;
     display: -ms-grid;
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 1fr 1fr auto;
+    -ms-grid-rows: auto;
 }
 
     .checkoutpage .checkout-summary p {

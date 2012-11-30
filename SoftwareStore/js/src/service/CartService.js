@@ -156,6 +156,29 @@
                     console.info("Cart Submitted Successfully");
                     return(data);
                 });
+            },
+
+            /**
+	         * Gets the CandyRack Products for the cart
+	         * @returns candyRackProducts
+	         */
+            getCandyRackProducts: function (params) {
+                var popName = "AppCart"
+                    //dr.acme.application.config.candyRack.pop;
+
+                var self = this;
+                console.debug("Calling DR getOffersForCart");
+
+                return this._client.cart.getOffers(popName, { "expand": "all" }).then(function (data) {
+                    if (typeof data.offer != 'undefined') {
+                        var offerId = data.offer[0].id;
+                        return self._client.productOffers.list(popName, offerId, { "expand": "all" }).then(function (productOffers) {
+                            return productOffers;
+                        });
+                    } else {
+                        return data;
+                    }
+                });
             }
 
         }

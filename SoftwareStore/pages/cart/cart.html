@@ -13,12 +13,14 @@
     <link href="/pages/cart/cart.css" rel="stylesheet" />
     <script src="/widgets/templates/Template.js"></script>
     <script src="/widgets/html/HtmlControl.js"></script>
+    <script src="/widgets/html/cartSummary/CartSummaryWidget.js"></script>
     <script src="/pages/cart/cart.js"></script>
 </head>
 <body>
 
     <!-- Cart Line Item Template -->
     <div data-win-control="DR.Store.Widget.CartLineItemTemplate"></div>
+    <div data-win-control="DR.Store.Widget.CandyRackItemTemplate"></div>
 
     <!-- The content that will be loaded and displayed. -->
     <div class="fragment cartpage">
@@ -30,7 +32,7 @@
         </header>
 
         <section aria-label="Cart content" role="main">
-            <div class="cart-empty"><span  data-win-res="{textContent: 'cart.cartEmpty'}">The cart is empty</span></div>
+            <div class="cart-empty"><span data-win-res="{textContent: 'cart.cartEmpty'}">The cart is empty</span></div>
             <div class="cart-list-container">
                 <div class="cart-list-header item-container">
                     <div class="col-2">
@@ -48,25 +50,28 @@
                 </div>
 
                 <div class="cartlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist"
-                     data-win-options="{ selectionMode: 'single',  tapBehavior: 'invoke', swipeBehavior: 'select'}">
+                    data-win-options="{ selectionMode: 'single',  tapBehavior: 'invoke', swipeBehavior: 'select'}">
                 </div>
 
-                <div class="cart-summary">
-                    <p><span class="cart-subtotal" data-win-res="{textContent: 'cart.summary.subtotal'}">Sutotal:</span> <span id="cart-subtotal"></span></p>
-                    <p><span class="cart-tax" data-win-res="{textContent: 'cart.summary.tax'}">Tax: </span> <span id="cart-tax"></span></p>
-                    <p><span class="cart-tax" data-win-res="{textContent: 'cart.summary.discount'}">Discount: </span> <span id="cart-discount"></span></p>
-                    <p><span class="cart-total" data-win-res="{textContent: 'cart.summary.total'}">Total: </span> <span id="cart-total"></span></p>
+                <div id="summary" class="cart-summary" data-win-control="DR.Store.Widget.Html.CartSummaryWidget"></div>
 
-                    <!--Checkout buttons-->
+                <!--Checkout buttons-->
+                <div class="checkout-button">
                     <p>
                         <button id="checkoutButton" class="hidden"><span data-win-res="{textContent: 'general.button.checkout.label'}"></span></button>
                     </p>
                 </div>
-                <!-- TODO Add a Proceed to Checkout button -->
+
+                <div class="candyrack-container">
+                    <h2 class="candyrack-header" data-win-res="{textContent: 'cart.candyRackTitle'}"></h2>
+                    <div class="candyrack-list" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="candyRack"
+                        data-win-options="{ selectionMode: 'single',  tapBehavior: 'invoke', swipeBehavior: 'select'}">
+                    </div>
+                </div>
             </div>
         </section>
 
-        <footer data-win-control="DR.Store.Widget.Html.Footer"/>
+        <footer data-win-control="DR.Store.Widget.Html.Footer"></footer>
     </div>
 </body>
 </html>

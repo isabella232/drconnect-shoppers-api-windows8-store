@@ -1,6 +1,6 @@
 ﻿.cart-list-container {
     display: -ms-grid;
-    -ms-grid-columns: 1fr 400px;
+    -ms-grid-columns: 1fr 348px 40px;
     -ms-grid-rows: 40px 1fr 150px;
     color: white;
     height: 100%;
@@ -51,6 +51,11 @@
 
 .cartpage .win-listview > .win-vertical .win-item {
 }
+
+.cartpage .candyrack-area {
+	height: 100%;
+}
+
 
 
 /* Over rides default.css */
@@ -123,18 +128,44 @@
     -ms-grid-row: 3;
     margin-right: 24px;
     padding-top: 10px;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: auto;
 }
-
     .cart-summary p {
-        text-align: right;
         margin-top: 0px;
         margin-bottom: 5px;
+        display: -ms-grid;
+        -ms-grid-columns: 1fr 100px;
     }
 
+    .cart-summary .col-1 {
+        margin-left: 0px;
+	    text-align: right;
+    }
+	
+	.cart-summary .col-2 {
+		text-align: right;
+		}
+        .cart-summary p span {
+            display: inline-block;
+        }
+
     .cart-summary .cart-total {
-        font-size: 20pt;
-        -ms-grid-row: 2;
-        -ms-grid-column: 1;
+        font-size: 14pt;
+    }
+
+    .checkout-button {
+    	-ms-grid-column: 2;
+    	-ms-grid-row: 3;
+    	margin-left: 20px;
+    }
+
+    .candyrack-container {
+    	-ms-grid-column: 2;
+    	-ms-grid-row-span: 2;
+    	margin-left: 20px;
+    	margin-top: 14px;
     }
 	
 	.cart-empty {

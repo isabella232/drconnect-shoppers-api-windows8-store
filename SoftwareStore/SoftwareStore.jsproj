@@ -138,6 +138,9 @@
     <Content Include="widgets\appbars\AppBar.html" />
     <Content Include="widgets\appbars\TopAppBar.css" />
     <Content Include="widgets\appbars\TopAppBar.html" />
+    <Content Include="widgets\html\cartSummary\CartSummaryWidget.css" />
+    <Content Include="widgets\html\cartSummary\CartSummaryWidget.html" />
+    <Content Include="widgets\html\cartSummary\CartSummaryWidget.js" />
     <Content Include="widgets\html\comboList\ShippingMethodListWidget.css" />
     <Content Include="widgets\html\comboList\ShippingMethodListWidget.html" />
     <Content Include="widgets\html\comboList\ShippingMethodListWidget.js" />
@@ -164,6 +167,8 @@
     <Content Include="widgets\templates\CartLineItemTemplate.html" />
     <Content Include="widgets\templates\CategoryTemplate.css" />
     <Content Include="widgets\templates\CategoryTemplate.html" />
+    <Content Include="widgets\templates\CandyRackItemTemplate.css" />
+    <Content Include="widgets\templates\CandyRackItemTemplate.html" />
     <Content Include="widgets\templates\ProductTemplate.css" />
     <Content Include="widgets\templates\ProductTemplate.html" />
     <Content Include="widgets\templates\Template.js" />
