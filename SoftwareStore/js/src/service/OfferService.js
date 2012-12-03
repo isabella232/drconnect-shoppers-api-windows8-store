@@ -15,8 +15,7 @@
             /**
              * return an specific offer using a POPName
              */
-            getOffersByPop: function (params) {
-                var popName = "SiteMerchandising_HomePageStoreSpecials"
+            getOffersByPop: function (popName, params) {
 
                 var self = this;
                 console.debug("Calling DR getOffersForProduct");

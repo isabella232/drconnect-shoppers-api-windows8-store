@@ -26,16 +26,24 @@
              * Load the items in the list
              */
             _loadItems: function (list) {
-                DR.Store.Services.offerService.getOffersByPop().then(function (offers) {
-                    var a = offers;
-                });
+                //DR.Store.Services.offerService.getOffersByPop("SiteMerchandising_HomePageStoreSpecials").then(function (offers) {
+                //    var a = offers;
+                //});
 
+                var spotPromises = [];
+                spotPromises.push(DR.Store.Services.offerService.getOffersByPop("AppMP-230wX470h"));
+                spotPromises.push(DR.Store.Services.offerService.getOffersByPop("AppMP-230wX230"));
+                var promises = [];
 
+                promises.push(WinJS.Promise.join(spotPromises).then(processSpotLight));
 
                 return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
-                   var promises = categories.map(function (category, index) {
-                       return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
+                   //var promises = categories.map(function (category, index) {
+                   //    return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
+                   //});
+                   categories.forEach(function (category, index) {
+                        promises.push(DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData));
                    });
 
                    return fillItemsList(promises, list);
@@ -107,6 +115,27 @@
                     console.log("HomeController: Error Retrieving Child Products: " + error.details.error.code + " - " + error.details.error.description);
                 });
         }
+    }
+
+    function processSpotLight(offers) {
+        var children = [];
+        var childType = "mainSpot";
+        offers.forEach(function (offer) {
+            offer.offer.forEach(function (spotLight) {
+                spotLight.childType = childType;
+                children.push(spotLight);
+            });
+
+            childType = "secondSpot"
+        });
+
+        return {
+            id: "spotLight",
+            displayName: "SpotLight",
+            children: children,
+            childType: "spotLight"
+        }
+
     }
 
     function fillItemsList(promises, list) {
