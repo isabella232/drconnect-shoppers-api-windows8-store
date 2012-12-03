@@ -7,7 +7,6 @@
 	border: 2px solid #5F84CF;
 	margin: 0;
 	cursor: pointer;
-	width: 298px;
 	background-color: rgba(34, 49, 78, 0.498);
 	display: -ms-grid;
 	overflow: hidden;
@@ -17,6 +16,7 @@
 	-ms-grid-row-align: stretch;
 	-ms-grid-columns: 70px 1fr;
 	-ms-grid-rows: 40px 30px;
+	width: 302px;
 }
 
 .productTemplate.item-container .image-wrapper {
