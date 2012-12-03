@@ -23,6 +23,7 @@
             this.userService = new DR.Store.Service.UserService(this._client, this.redirectUri);
             this.securityService = new DR.Store.Service.SecurityService(this._client, this.redirectUri);
             this.orderService = new DR.Store.Service.OrderService(this._client);
+            this.offerService = new DR.Store.Service.OfferService(this._client);
         },
         {
             _client: null,

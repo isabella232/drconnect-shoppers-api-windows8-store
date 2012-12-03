@@ -26,6 +26,12 @@
              * Load the items in the list
              */
             _loadItems: function (list) {
+                DR.Store.Services.offerService.getOffersByPop().then(function (offers) {
+                    var a = offers;
+                });
+
+
+
                 return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
                    var promises = categories.map(function (category, index) {

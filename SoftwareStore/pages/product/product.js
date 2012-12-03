@@ -117,7 +117,7 @@
             });
 
             // Hides special offers section if there are not special offers
-            if (_self._offersItems.length > 0) {
+            if (self._offersItems.length > 0) {
                 WinJS.Utilities.removeClass(this.offersContent, "hidden");
             } else {
                 WinJS.Utilities.addClass(this.offersContent, "hidden");
