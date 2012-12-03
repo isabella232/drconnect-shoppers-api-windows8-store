@@ -700,6 +700,7 @@ define('Config',['Util'], function(Util) {
         PRODUCTS_BY_CATEGORY: 'shoppers/me/categories/{categoryId}/products',
         OFFERS: 'shoppers/me/point-of-promotions/{popName}/offers',
         PRODUCT_OFFERS: 'shoppers/me/point-of-promotions/{popName}/offers/{offerId}/product-offers',
+        OFFERS_FOR_PRODUCT: 'shoppers/me/products/{productId}/point-of-promotions/{popName}/offers',
         PRODUCTS_SEARCH: '/shoppers/me/product-search',
         CART: 'shoppers/me/carts/active',
         CART_LINE_ITEMS: 'shoppers/me/carts/active/line-items',
@@ -707,6 +708,7 @@ define('Config',['Util'], function(Util) {
         CART_APPLY_SHOPPER: 'shoppers/me/carts/active/apply-shopper',
         CART_SHIPPING_OPTIONS: 'shoppers/me/carts/active/shipping-options',
         CART_APPLY_SHIPPING_OPTION: 'shoppers/me/carts/active/apply-shipping-option',
+        CART_SUBMIT: 'shoppers/me/carts/active/submit-cart',
         SHOPPER:'shoppers/me',
         SHOPPER_PAYMENT_OPTION:'shoppers/me/payment-options',
         SHOPPER_ACCOUNT: 'shoppers/me/account',
@@ -3050,7 +3052,17 @@ define('service/ProductService',['service/BaseService', 'Config'], function(Base
          */
         getProductsByIds: function(parameters, callbacks){
             return this.makeRequest(this.session.retrieve(this.uri, parameters), callbacks);
-        }
+        },
+        
+                
+        /**
+         * Returns the offers for a product
+         */
+         getOffersForProduct: function(productId, popName, parameters, callbacks){
+			var uri = this.replaceTemplate(Config.service.URI.OFFERS_FOR_PRODUCT, {'productId':productId ,'popName':popName});
+			
+			return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
+         }
     });
 });
 define('service/OfferService',['service/BaseService', 'Config'], function(BaseService, Config) {
@@ -3078,6 +3090,7 @@ define('service/OfferService',['service/BaseService', 'Config'], function(BaseSe
     
             return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
         }
+
     });
 });
 define('service/ProductOfferService',['service/BaseService', 'Config'], function(BaseService, Config) {
