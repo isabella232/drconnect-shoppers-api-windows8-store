@@ -44,7 +44,7 @@
             this.candyRackList.addEventListener("selectionchanged", this._candyRackItemSelected.bind(this));
             
             this.cartContent = this.element.querySelector(".cart-list-container");
-            this.candyRackContent = this.element.querySelector(".cart-list-container");
+            this.candyRackContent = this.element.querySelector(".candyrack-container");
             this.emptyMessage = this.element.querySelector(".cart-empty");
 
             WinJS.Utilities.addClass(this.cartContent, "hidden");
@@ -70,7 +70,6 @@
                 WinJS.Utilities.removeClass(this.emptyMessage, "hidden");
                 this.clear();
                 WinJS.Utilities.addClass(this.cartContent, "hidden");
-                WinJS.Utilities.addClass(this.candyRackContent, "hidden");
                 this._setCartItems([]);
                 this._hideCheckoutButton();
                 return;
@@ -80,7 +79,6 @@
             this._setCartItems(items);
 
             WinJS.Utilities.removeClass(this.cartContent, "hidden");
-            WinJS.Utilities.removeClass(this.candyRackContent, "hidden");
             this._showCheckoutButton();
 
         },
@@ -122,13 +120,19 @@
             // We don't recrate the list calling a new WinJS.Binding.List because there is a bug on the 
             // when trying to re-render the items
             this._candyRackItems.splice(0, this._candyRackItems.length);
-            productOffers.forEach(function (productOffer) {
-                // Try to show the offerImage, if it doesn't exists show the producImage
-                if (!productOffer.image) {
-                    productOffer.image = productOffer.product.productImage;
-                }
-                self._candyRackItems.push(productOffer);
-            });
+            if (productOffers) {
+                WinJS.Utilities.removeClass(this.candyRackContent, "hidden");
+                productOffers.forEach(function (productOffer) {
+                    // Try to show the offerImage, if it doesn't exists show the producImage
+                    if (!productOffer.image) {
+                        productOffer.image = productOffer.product.productImage;
+                    }
+                    self._candyRackItems.push(productOffer);
+                });
+            } else {
+                // If there are no offers hides the candyRack
+                WinJS.Utilities.addClass(this.candyRackContent, "hidden");
+            }
         },
 
         /**
@@ -321,8 +325,8 @@
         },
 
         /**
-       * Behaviour the an item is selected from the list
-       */
+         * Behaviour the an item is selected from the list
+         */
         _candyRackItemSelected: function (item, e) {
             if (!this._selectingItemFlag && this.itemsList.selection.count() > 0) {
                 this._selectingItemFlag = true;

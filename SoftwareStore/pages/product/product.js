@@ -7,12 +7,18 @@
     WinJS.UI.Pages.define("/pages/product/product.html", {
         events: {
             CART_BUTTON_CLICKED: "cartButtonClicked",
-            ADD_TO_CART: "AddToCart"
+            ADD_TO_CART: "AddToCart",
+            ITEM_SELECTED: "itemSelected",
+            ADD_OFFER_CLICKED: "addOfferClicked"
           
         },
         images: new WinJS.Binding.List(),
         product: null,
         tabControl: null,
+        // Special offers variables
+        offersList: null,
+        offersContent: null,
+        _offersItems: null,
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
@@ -25,8 +31,21 @@
 
             element.querySelector("#btnAddToCart").onclick = oSelf._onAddToCart.bind(oSelf);
 
+            // Set the special Offers items
+            this.offersList = this.element.querySelector("#specialOffers").winControl;
+            this.offersList.itemTemplate = renderOffers.bind(this);
+            this.offersList.layout = new WinJS.UI.ListLayout();
+            this._offersItems = new WinJS.Binding.List();
+            this.offersList.itemDataSource = this._offersItems.dataSource;
+
+            this.offersList.oniteminvoked = this._onOfferItemClicked.bind(this);
+            this.offersList.addEventListener("selectionchanged", this._offerItemSelected.bind(this));
+
+            this.offersContent = this.element.querySelector(".offers-container");
+
             // Initializes the tabs
             this._initializeTabs();
+            this._initializeAppBars();
             
         },
         clear: function() {
@@ -78,6 +97,133 @@
             this.showLoader(false);
         },
 
+        /**
+         * Sets the special Offers
+         */
+        setSpecialOffers: function (offers) {
+            var self = this;
+            // Empty the list and populates it with the new items
+            // We don't recrate the list calling a new WinJS.Binding.List because there is a bug on the 
+            // when trying to re-render the items
+            this._offersItems.splice(0, this._offersItems.length);
+            offers.offer.forEach(function (offer) {
+                offer.productOffers.productOffer.forEach(function (productOffer) {
+                    // Try to show the offerImage, if it doesn't exists show the producImage
+                    if (!productOffer.image) {
+                        productOffer.image = productOffer.product.productImage;
+                    }
+                    self._offersItems.push(productOffer);
+                });
+            });
+
+            // Hides special offers section if there are not special offers
+            if (_self._offersItems.length > 0) {
+                WinJS.Utilities.removeClass(this.offersContent, "hidden");
+            } else {
+                WinJS.Utilities.addClass(this.offersContent, "hidden");
+            }
+
+        },
+
+        /**
+         * Default behaviour when offer is clicked
+         */
+        _onOfferItemClicked: function (e) {
+            var self = this;
+            e.detail.itemPromise.then(function (item) {
+                item.data.product.pricing = item.data.pricing;
+                item.data.product.addProductToCart = item.data.addProductToCart
+                self._doItemSelected(item, true);
+            });
+        },
+
+        /**
+         * Behaviour when view offer button is clicked
+         */
+        _onViewOffer: function (e) {
+            var self = this;
+
+            this.offersList.selection.getItems().then(function (items) {
+                items[0].data.product.pricing = items[0].data.pricing;
+                items[0].data.product.addProductToCart = items[0].data.addProductToCart;
+                self._doItemSelected(items[0], true);
+            });
+        },
+
+        /**
+         * Dispathches the event when an offer item is selected
+         * @item the Item selected
+         * @fullVersion defines if the item selected has all the data on it, or only the id, so if you need to show other product info you'll need to call the product service to get it
+         */
+        _doItemSelected: function (item, fullVersion) {
+            if (item.data.product) {
+                this.dispatchEvent(this.events.ITEM_SELECTED, { item: item.data.product, "fullVersion": fullVersion });
+            }
+        },
+
+        /**
+         * Default behaviour when add products to cart is called.
+         */
+        _onAddOfferToCart: function () {
+            var self = this;
+            var selectedItems = [];
+
+            // Builds a list with the items currently selected
+            this.offersList.selection.getItems().then(function (items) {
+                items.forEach(function (item) {
+                    selectedItems.push({ product: item.data.product, qty: 1, addToCartUri: item.data.addProductToCart.uri });
+                });
+                if (selectedItems.length > 0) {
+                    self.dispatchEvent(self.events.ADD_OFFER_CLICKED, selectedItems);
+                }
+            });
+        },
+
+        /**
+         * Behaviour the an item is selected from the list
+         */
+        _offerItemSelected: function (item, e) {
+            var count = this.offersList.selection.count();
+            if (count > 0) {
+                this.bottomAppBar.showCommands(["cmdAddOffer", "cmdViewOffer"]);
+                this.topAppBar.show();
+                this.bottomAppBar.show();
+            } else {
+                this.topAppBar.hide();
+                this.bottomAppBar.hide();
+                this.bottomAppBar.hideCommands(["cmdAddOffer", "cmdViewOffer"]);
+            }
+        },
+
+
+        /**
+        * Clears the current selected items from the list
+        */
+        clearSelection: function () {
+            this.offersList.selection.clear();
+        },
+        
+        /**
+         * Initializes the application bars
+         */
+        _initializeAppBars: function () {
+
+            // Get the localized labels for the commands
+            var addOfferButtonLabel = WinJS.Resources.getString('general.button.addOffer.label').value;
+            var addOfferButtonTooltip = WinJS.Resources.getString('general.button.addOffer.tooltip').value;
+            var viewOfferButtonLabel = WinJS.Resources.getString('general.button.viewOffer.label').value;
+            var viewOfferButtonTooltip = WinJS.Resources.getString('general.button.viewOffer.tooltip').value;
+
+            // Initialize the Bottom AppBar
+            this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
+            this.bottomAppBar.addCommand({ id: 'cmdAddOffer', label: addOfferButtonLabel, icon: 'add', section: 'selection', tooltip: addOfferButtonTooltip, clickHandler: this._onAddOfferToCart.bind(this) });
+            this.bottomAppBar.addCommand({ id: 'cmdViewOffer', label: viewOfferButtonLabel, icon: '', section: 'selection', tooltip: viewOfferButtonTooltip, clickHandler: this._onViewOffer.bind(this) });
+            this.bottomAppBar.hideCommands(["cmdAddOffer", "cmdViewOffer"]);
+
+            this.topAppBar = DR.Store.App.AppTopBar.winControl;
+        },
+
+
         showLoader: function (show) {
             var progress = this.element.querySelector("progress");
             if (!progress) return;
@@ -106,4 +252,15 @@
             }
         }
     });
+
+    /**
+     * Renders the special Offers
+     */
+    function renderOffers(itemPromise) {
+        var self = this;
+        var template = this.element.querySelector('.candyRackItemtemplate').winControl;
+        return itemPromise.then(function (currentItem) {
+            return template.render(currentItem.data);
+        });
+    }
 })();

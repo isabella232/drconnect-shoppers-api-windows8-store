@@ -12,11 +12,16 @@
         },
         {
             currentProductPromise: null,
+            productId: null,
 
             /**
              * Called when the product page is shown
              */
             initPage: function (page, state) {
+                page.addEventListener(page.events.ITEM_SELECTED, this._onOfferItemSelected.bind(this), false);
+                page.addEventListener(page.events.ADD_OFFER_CLICKED, this._onAddOfferToCartClicked.bind(this), false);
+
+                this.productId = state.item.id;
                 var self = this;
                 page.setProductName(state.item.displayName);
 
@@ -33,6 +38,10 @@
                         console.log("ProductController: Error getting product detail: " + error.details.error.code + " - " + error.details.error.description);
                     });
                 }
+
+                this.getSpecialOffers(state.item.id);
+
+                
                 page.addEventListener(page.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 page.addEventListener(page.events.ADD_TO_CART, this._onAddToCartClicked.bind(this), false);
             },
@@ -60,10 +69,26 @@
                 }
             },
 
+            /**
+             * Calls a service to get Special Offers for the Product
+             */ 
+            getSpecialOffers: function (productId) {
+                var self = this;
+                DR.Store.Services.productService.getOffersForProduct(productId).then(function (offers) {
+                    console.debug("Offers For Product Retrieved Successfully");
+                    self.page.setSpecialOffers(offers);
+                }, function (error) {
+                    console.log("ProductController: Error retrieving special Offers: " + error.details.error.code + " - " + error.details.error.description);
+                });
+            },
+
             _onCartButtonClicked: function (e) {
                 this.goToPage(DR.Store.URL.CART_PAGE);
             },
 
+            /**
+             * Behaviour when adding a product to the cart
+             */
             _onAddToCartClicked: function (e) {
                 var unsnapped = true;
                 var oSelf = this;
@@ -77,7 +102,39 @@
                         oSelf.notify(DR.Store.Notifications.ADD_TO_CART, e.detail);
                     }, 0);
                 }
+            },
+
+            /**
+             * Default Behaviour when a product is clicked on the offers list
+             */
+            _onOfferItemSelected: function (e) {
+                this.goToPage(DR.Store.URL.PRODUCT_PAGE, e.detail);
+            },
+
+
+            /**
+             * Sends the notification for add the products selected on the offers list to the cart
+             */
+            _onAddOfferToCartClicked: function (e) {
+                // Sets the timeStamp to verify if this controller has called addToCart when _onProductsAdded is called
+                this._addToCartTimeStamp = new Date().getTime();
+                e.detail.timeStamp = this._addToCartTimeStamp;
+
+                this.notify(DR.Store.Notifications.ADD_PRODUCTS_TO_CART, e.detail);
+            },
+
+            /**
+            * Called when a product has been successfully added to the cart
+            */
+            _onCartChanged: function (timeStamp) {
+                // Compares the timeStamp of the event to determine if the addToCart event was sent by this controller. If so updates the views
+                if (timeStamp && timeStamp === this._addToCartTimeStamp) {
+                    this.page.clearSelection();
+                    this._addToCartTimeStamp = null;
+                    this.getSpecialOffers(this.productId);
+                }
             }
+
         }
     );
 

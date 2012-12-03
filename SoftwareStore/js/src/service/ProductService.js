@@ -62,6 +62,23 @@
                     return self._productsByCategory[catId + "p" + pageSize];
                 });
             },
+
+            /**
+             * Gets the offers for cart
+             */
+            getOffersForProduct: function (productId, params) {
+                var popName = "AppPD"
+
+                var self = this;
+                console.debug("Calling DR getOffersForProduct");
+
+                return this._client.products.getOffersForProduct(productId, popName, { "expand": "all" }).then(function (offers) {
+                    return offers;
+                });
+            },
+
+
+
             _retrieveProductsByCategory: function (catId, params) {
                 return this._client.products.listProductsByCategory(catId, params)
                     .then(function (data) {
