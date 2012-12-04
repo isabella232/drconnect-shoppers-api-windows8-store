@@ -3008,7 +3008,7 @@ define('service/CartService',['service/BaseService', 'Config'], function(BaseSer
          * Submits a cart
          */
         submit: function(parameters, callbacks) {
-            var uri = Config.service.URI.ORDERS;
+            var uri = Config.service.URI.CART_SUBMIT;
             
             return this.makeRequest(this.session.create(uri, parameters), callbacks);
         }
