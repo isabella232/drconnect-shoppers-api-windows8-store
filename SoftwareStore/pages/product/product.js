@@ -89,7 +89,7 @@
             this.images.push(product);
 
             this.element.querySelector(".titlearea .pagetitle").textContent = product.displayName;
-            this.element.querySelector("#product-price").textContent = window.toStaticHTML(product.pricing.formattedListPrice);
+            this.element.querySelector("#product-price").textContent = window.toStaticHTML(product.pricing.formattedSalePriceWithQuantity);
             this.element.querySelector(".content .short-description").innerHTML = window.toStaticHTML(product.shortDescription || "");
             this.element.querySelector("#snapped_description").innerHTML = window.toStaticHTML(product.shortDescription || "");
             this.element.querySelector(".content .long-description").innerHTML = window.toStaticHTML(product.longDescription || "");
@@ -117,7 +117,7 @@
             });
 
             // Hides special offers section if there are not special offers
-            if (_self._offersItems.length > 0) {
+            if (self._offersItems.length > 0) {
                 WinJS.Utilities.removeClass(this.offersContent, "hidden");
             } else {
                 WinJS.Utilities.addClass(this.offersContent, "hidden");

@@ -107,6 +107,7 @@
             // when trying to re-render the items
             this._cartItems.splice(0, this._cartItems.length);
             items.forEach(function (item) {
+                item.pricing.unitPrice = "$" + (item.pricing.salePriceWithQuantity.value / item.quantity).toFixed(2);
                 self._cartItems.push(item);
             });
         },
