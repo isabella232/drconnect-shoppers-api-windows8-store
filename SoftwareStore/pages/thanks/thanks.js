@@ -135,6 +135,7 @@
             // When unloading change the setCart function in order to avoid failing if the callback returns
             this.setOrder = function (order) {
             };
+
         }
 
     });
