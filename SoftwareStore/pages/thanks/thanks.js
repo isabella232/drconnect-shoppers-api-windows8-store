@@ -42,7 +42,7 @@
 
             this._setOrderItems(this._mergeItems(order.lineItems.lineItem, cart.lineItems.lineItem));
 
-            this.element.querySelector("#summary").winControl.renderPricing(this._adaptPricingModel(order.pricing));
+            this.element.querySelector("#summary").winControl.renderPricing(order.pricing);
 
             this._renderShippingAddress(cart.shippingAddress);
             
@@ -77,17 +77,6 @@
                 }
             };
             return lineItem;
-        },
-
-
-        /*
-         * Since order.pricing is different from cart.pricing, adapt the model for being used in the cartSummaryWidget then
-         */
-        _adaptPricingModel: function(pricing){
-            pricing.formattedOrderTotal = pricing.formattedTotal;
-            pricing.formattedShippingAndHandling = pricing.formattedShipping;
-            return pricing;
-
         },
 
 
