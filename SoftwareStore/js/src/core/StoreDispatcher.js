@@ -21,6 +21,7 @@
                 this.addUrlMapping(u.THANKS_PAGE, c.thanksController, true);
                 this.addUrlMapping(u.SEARCH_PAGE, c.searchController);
                 this.addUrlMapping(u.SHOPPER_PAGE, c.userController, true);
+                this.addUrlMapping(u.OFFER_PAGE, c.offerController);
             },
 
             /**
@@ -64,7 +65,8 @@
                     thanksController: new c.ThanksController(),
                     categoryController: new c.CategoryController(),
                     searchController: new c.SearchController(),
-                    userController: new c.UserController()
+                    userController: new c.UserController(),
+                    offerController: new c.OfferController()
                 }
             }
         }

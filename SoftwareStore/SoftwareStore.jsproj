@@ -75,6 +75,7 @@
     <Content Include="js\src\controller\ProductController.js" />
     <Content Include="js\src\controller\HomeController.js" />
     <Content Include="js\src\controller\SearchController.js" />
+    <Content Include="js\src\controller\OfferController.js" />
     <Content Include="js\src\controller\UserController.js" />
     <Content Include="js\src\core\StoreDispatcher.js" />
     <Content Include="js\src\datasource\InMemoryGroupDataSource.js" />
@@ -122,6 +123,9 @@
     <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
     <Content Include="pages\mainView\mainView.js" />
+    <Content Include="pages\offer\offer.css" />
+    <Content Include="pages\offer\offer.html" />
+    <Content Include="pages\offer\offer.js" />
     <Content Include="pages\product\product.css" />
     <Content Include="pages\product\product.html" />
     <Content Include="pages\product\product.js" />
@@ -158,6 +162,8 @@
     <Content Include="widgets\html\Footer.html" />
     <Content Include="widgets\html\HtmlControl.js" />
     <Content Include="widgets\tabs\TabControlManager.js" />
+    <Content Include="widgets\templates\SecondSpotlightTemplate.css" />
+    <Content Include="widgets\templates\SecondSpotlightTemplate.html" />
     <Content Include="widgets\templates\PaymentOptionDetailTemplate.css" />
     <Content Include="widgets\templates\PaymentOptionDetailTemplate.html" />
     <Content Include="widgets\templates\AddressDetailTemplate.css" />
@@ -170,6 +176,8 @@
     <Content Include="widgets\templates\CategoryTemplate.html" />
     <Content Include="widgets\templates\CandyRackItemTemplate.css" />
     <Content Include="widgets\templates\CandyRackItemTemplate.html" />
+    <Content Include="widgets\templates\MainSpotlightTemplate.css" />
+    <Content Include="widgets\templates\MainSpotlightTemplate.html" />
     <Content Include="widgets\templates\ProductTemplate.css" />
     <Content Include="widgets\templates\ProductTemplate.html" />
     <Content Include="widgets\templates\Template.js" />

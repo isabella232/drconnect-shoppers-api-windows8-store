@@ -11,6 +11,8 @@
         topAppBar: null,
         _itemTemplate: null,
         _categoryTemplate: null,
+        _mainSpotLightTemplate: null,
+        _secondSpotLightTemplate: null,
 
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
@@ -27,6 +29,8 @@
             // Set the template variables
             this._itemTemplate = element.querySelector(".itemtemplate").winControl;
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
+            this._mainSpotLightTemplate = element.querySelector(".mainSpotlightTemplate").winControl;
+            this._secondSpotLightTemplate = element.querySelector(".secondSpotlightTemplate").winControl;
 
             // Initialize the Application Bars
             this._initializeAppBars();
@@ -135,7 +139,7 @@
         // Checks if the item type is a category. In that case blocks the event to avoid the selection of a subcategory
         event.detail.newSelection.getItems().then(function (items) {
             items.forEach(function (e, i) {
-                if (e.data.type == "category") {
+                if (e.data.type == DR.Store.Datasource.ItemType.CATEGORY || e.data.type == DR.Store.Datasource.ItemType.SPOTLIGHT) {
                     event.preventDefault();
                     return;
                 }
@@ -165,6 +169,15 @@
                 case DR.Store.Datasource.ItemType.CATEGORY:
                     template = oSelf._categoryTemplate;
                     if (!currentItem.data.thumbnailImage) currentItem.data.thumbnailImage = "images/folder.jpg";
+                    break;
+
+                // Renders the SpotLight
+                case DR.Store.Datasource.ItemType.SPOTLIGHT:
+                    if (currentItem.data.childType === DR.Store.Datasource.ItemType.MAIN_SPOTLIGHT) {
+                        template = oSelf._mainSpotLightTemplate;
+                    } else {
+                        template = oSelf._secondSpotLightTemplate;
+                    }
                     break;
 
                 default:

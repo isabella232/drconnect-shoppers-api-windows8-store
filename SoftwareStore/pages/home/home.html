@@ -20,7 +20,7 @@
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
         <button id="categoryButton" class="group-header win-type-x-large win-type-interactive root-category" data-win-bind="groupKey: id; groupName: displayName"
-            onclick="WinJS.Navigation.navigate(DR.Store.URL.CATEGORY_PAGE, {item: {id: event.srcElement.groupKey, displayName: event.srcElement.groupName}});" role="link" tabindex="-1" type="button">
+            onclick="if(event.srcElement.groupKey != -1) WinJS.Navigation.navigate(DR.Store.URL.CATEGORY_PAGE, {item: {id: event.srcElement.groupKey, displayName: event.srcElement.groupName}});" role="link" tabindex="-1" type="button">
             <span class="group-title win-type-ellipsis" data-win-bind="textContent: displayName"></span>
             <span class="group-chevron"></span>
         </button>
@@ -29,6 +29,8 @@
     <!-- Products and Categories Template -->
     <div data-win-control="DR.Store.Widget.ProductTemplate"></div>
     <div data-win-control="DR.Store.Widget.CategoryTemplate"></div>
+    <div data-win-control="DR.Store.Widget.MainSpotlightTemplate"></div>
+    <div data-win-control="DR.Store.Widget.SecondSpotlightTemplate"></div>
 
     <!-- The content that will be loaded and displayed. -->
     <div class="fragment homepage">
