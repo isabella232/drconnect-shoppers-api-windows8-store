@@ -13,6 +13,8 @@
 
         ready: function (element, options) {
 
+            WinJS.Navigation.addEventListener("beforenavigate", onbeforeNavigate);
+
             this.itemsList = this.element.querySelector(".order-item-list").winControl;
             this.itemsList.itemTemplate = element.querySelector('#cartTemplate');
             this.itemsList.layout = new WinJS.UI.ListLayout();
@@ -135,7 +137,22 @@
             // When unloading change the setCart function in order to avoid failing if the callback returns
             this.setOrder = function (order) {
             };
+
+            // Remove the navigation listener
+            WinJS.Navigation.removeEventListener("beforenavigate", onbeforeNavigate);
         }
 
     });
+
+    /**
+     * This method is to prevent back navigation when we are on the thanks page
+     */
+    function onbeforeNavigate(eventObject) {
+        //cancel the navigation
+        // The navigation should be canceled if the user wants bo go back to the previous page (checkout page) because the cart has already been submitted
+        if (eventObject.detail.location === DR.Store.URL.CHECKOUT_PAGE) {
+            eventObject.detail.setPromise(WinJS.Promise.wrap(true));
+        }
+    }
+
 })();

@@ -239,6 +239,9 @@
             this.setProduct = function (product) {
             };
 
+            this.setSpecialOffers = function (offers) {
+            };
+
         },
 
         // is called when the view is changed (rotated, snapped, etc.)
