@@ -4,9 +4,9 @@
 
 .homepage .itemslist {
     height: 100%;
-    position: relative;
     width: 100%;
     z-index: 0;
+    -ms-grid-row-align: center;
 }
 
     /* This selector is used to prevent ui-dark/light.css from overwriting changes

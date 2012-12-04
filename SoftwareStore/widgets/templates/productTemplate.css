@@ -5,14 +5,13 @@
 */
 .productTemplate.item-container {
 	border: 2px solid #5F84CF;
-	margin: 0;
 	cursor: pointer;
-	width: 298px;
+	width: 305px;
 	background-color: rgba(34, 49, 78, 0.498);
 	display: -ms-grid;
 	overflow: hidden;
 	padding-top: 5px;
-	height: 66px;
+	height: 65px;
 	-ms-grid-column-align: stretch;
 	-ms-grid-row-align: stretch;
 	-ms-grid-columns: 70px 1fr;
