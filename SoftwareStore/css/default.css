@@ -171,6 +171,11 @@ footer p {
 	background-color: rgba(23, 31, 48, 0.8);
 }
 
+#errorFlyout {
+	border: 2px solid #5F84CF;
+	background-color: rgba(255, 0, 0, 0.8);
+}
+
 .processing-flyout {
 	display: -ms-grid;
 	-ms-grid-columns: 40px auto;

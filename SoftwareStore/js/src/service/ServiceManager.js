@@ -72,9 +72,9 @@
                 // If status = 401, special handling is required
                 if(status == 401) {
                     manager.sessionExpiredErrorHandler(response);
-                }/* else {
-                    manager.genericErrorHandler(status, code, description);
-                }*/
+                } else {
+                    manager.genericErrorHandler(response);
+                }
             },
             /**
              * Handles session expired errors
@@ -98,21 +98,20 @@
             /**
              * Handles any error but session expiration 
              */
-           /* genericErrorHandler: function(status, code, description) {
+            genericErrorHandler: function(error) {
                 // Show an error notification
-                var error = "There was a problem with the connection, please try again later";
-                if(description && description != "") error = description;
+                //var error = "There was a problem with the connection, please try again later";
+                //if(description && description != "") error = description;
         
-                var dispatcher = dr.acme.application.getDispatcher();
-                dispatcher.handle(dr.acme.runtime.NOTIFICATION.UNBLOCK_APP);
-                // If the status code is 500 it redirects to an error page
-                if(status == 500){
-        	        var serverError = {"status": status, "code": code, "description": description}
-        	        dispatcher.handle(dr.acme.runtime.NOTIFICATION.SERVER_ERROR, serverError);
-                }else{
-        	        dr.acme.util.DialogManager.showError(error, "A problem ocurred");
-                }        
-            }*/
+                DR.Store.App.dispatcher.handle(DR.Store.Notifications.SHOW_ERROR, error);
+                //// If the status code is 500 it redirects to an error page
+                //if(status == 500){
+        	    //    var serverError = {"status": status, "code": code, "description": description}
+        	    //    dispatcher.handle(dr.acme.runtime.NOTIFICATION.SERVER_ERROR, serverError);
+                //}else{
+        	    //    dr.acme.util.DialogManager.showError(error, "A problem ocurred");
+                //}        
+            }
 
         }
     );
