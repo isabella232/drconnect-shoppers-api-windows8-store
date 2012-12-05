@@ -7,8 +7,8 @@
 	display: -ms-grid;
 	-ms-grid-rows: auto 30px;
 	overflow: hidden;
-	height: 155px;
-	width: 145px;
+	height: 150px;
+	width: 150px;
 }
 
 .categoryTemplate .image-wrapper {

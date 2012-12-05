@@ -6,12 +6,11 @@
 .productTemplate.item-container {
 	border: 2px solid #5F84CF;
 	cursor: pointer;
-	width: 305px;
+	width: 306px;
 	background-color: rgba(34, 49, 78, 0.498);
 	display: -ms-grid;
 	overflow: hidden;
-	padding-top: 5px;
-	height: 65px;
+	height: 66px;
 	-ms-grid-column-align: stretch;
 	-ms-grid-row-align: stretch;
 	-ms-grid-columns: 70px 1fr;
@@ -25,7 +24,7 @@
     background: white;
     text-align: center;
     vertical-align: middle;
-    margin: 0px 0px 0px 5px;
+    margin: 3px 0px 0px 5px;
     padding: 2px;
     overflow: hidden;
     -ms-grid-column: 1;
@@ -33,14 +32,9 @@
 }
 
 .productTemplate .item-image {
-	max-width: 54px;
-	max-height: 56px;
+	max-width: 56px;
+	max-height: 54px;
 	color: #ccc;
-}
-
-.productTemplate .text-wrapper {
-    vertical-align: middle;
-    -ms-grid-column: 2;
 }
 
 .productTemplate.item-container p {

@@ -49,7 +49,7 @@
 
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
-            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
+            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70} });
         },
 
         /**
@@ -184,7 +184,6 @@
                     template = oSelf._itemTemplate;
                     break;
             }
-
             return template.render(currentItem.data);
         });
     }
