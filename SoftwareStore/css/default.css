@@ -110,9 +110,8 @@ span.win-label {
 }
 
 .win-listview > .win-horizontal .win-container{
-	margin-bottom: 5px;
 	background-color: transparent;
-	display: -ms-grid;
+	margin-bottom: 5px;
 }
 
 /*

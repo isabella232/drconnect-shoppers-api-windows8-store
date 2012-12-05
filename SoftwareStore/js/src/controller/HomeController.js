@@ -26,10 +26,24 @@
              * Load the items in the list
              */
             _loadItems: function (list) {
+                //DR.Store.Services.offerService.getOffersByPop("SiteMerchandising_HomePageStoreSpecials").then(function (offers) {
+                //    var a = offers;
+                //});
+
+                var spotPromises = [];
+                spotPromises.push(DR.Store.Services.offerService.getOffersByPop("AppMP-230wX470h"));
+                spotPromises.push(DR.Store.Services.offerService.getOffersByPop("AppMP-230wX230"));
+                var promises = [];
+
+                promises.push(WinJS.Promise.join(spotPromises).then(processSpotLight));
+
                 return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
-                   var promises = categories.map(function (category, index) {
-                       return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
+                   //var promises = categories.map(function (category, index) {
+                   //    return DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData);
+                   //});
+                   categories.forEach(function (category, index) {
+                        promises.push(DR.Store.Services.categoryService.getCategoryById(category.id).then(loadCategoryData));
                    });
 
                    return fillItemsList(promises, list);
@@ -44,7 +58,21 @@
             _onItemSelected: function (e) {
                 var item = e.detail.item;
                 console.log("[Home] " + item.displayName + " (" + item.type + ") selected");
-                var url = (item.type == "product")?DR.Store.URL.PRODUCT_PAGE:DR.Store.URL.CATEGORY_PAGE;
+                var url;
+                switch (item.type) {
+                    case DR.Store.Datasource.ItemType.PRODUCT:
+                        url = DR.Store.URL.PRODUCT_PAGE;
+                        break;
+                    case DR.Store.Datasource.ItemType.CATEGORY:
+                        url = DR.Store.URL.CATEGORY_PAGE;
+                        break;
+                    case DR.Store.Datasource.ItemType.SPOTLIGHT:
+                        url = DR.Store.URL.OFFER_PAGE;
+                        break;
+                    default:
+                        url = DR.Store.URL.PRODUCT_PAGE;
+                        break;
+                }
                 this.goToPage(url, { item: item });
             },
             
@@ -80,7 +108,7 @@
                 id: cat.id,
                 displayName: cat.displayName,
                 children: cat.categories.category,
-                childType: "category"
+                childType: DR.Store.Datasource.ItemType.CATEGORY
             }
         } else {
             return DR.Store.Services.productService.listSampleProductsForCategory(cat.id, PAGE_SIZE)
@@ -95,12 +123,33 @@
                         id: cat.id,
                         displayName: cat.displayName,
                         children: product,
-                        childType: "product"
+                        childType: DR.Store.Datasource.ItemType.PRODUCT
                     }
                 }, function (error) {
                     console.log("HomeController: Error Retrieving Child Products: " + error.details.error.code + " - " + error.details.error.description);
                 });
         }
+    }
+
+    function processSpotLight(offers) {
+        var children = [];
+        var childType = DR.Store.Datasource.ItemType.MAIN_SPOTLIGHT;
+        offers.forEach(function (offer) {
+            offer.offer.forEach(function (spotLight) {
+                spotLight.childType = childType;
+                children.push(spotLight);
+            });
+
+            childType = DR.Store.Datasource.ItemType.SECOND_SPOTLIGHT
+        });
+
+        return {
+            id: -1,
+            displayName: "SpotLight",
+            children: children,
+            childType: DR.Store.Datasource.ItemType.SPOTLIGHT
+        }
+
     }
 
     function fillItemsList(promises, list) {

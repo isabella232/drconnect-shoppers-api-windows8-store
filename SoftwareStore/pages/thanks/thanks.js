@@ -129,6 +129,7 @@
 
             // Remove the navigation listener
             WinJS.Navigation.removeEventListener("beforenavigate", onbeforeNavigate);
+
         }
 
     });

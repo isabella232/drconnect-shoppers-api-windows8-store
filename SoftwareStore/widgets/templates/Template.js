@@ -22,6 +22,8 @@
         CheckoutLineItemTemplate: _buildWidget("CheckoutLineItemTemplate"),
         AddressDetailTemplate: _buildWidget("AddressDetailTemplate"),
         PaymentOptionDetailTemplate: _buildWidget("PaymentOptionDetailTemplate"),
-        CandyRackItemTemplate: _buildWidget("CandyRackItemTemplate")
+        CandyRackItemTemplate: _buildWidget("CandyRackItemTemplate"),
+        MainSpotlightTemplate: _buildWidget("MainSpotlightTemplate"),
+        SecondSpotlightTemplate: _buildWidget("SecondSpotlightTemplate")
     });
 })();

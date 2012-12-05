@@ -12,6 +12,8 @@
         CHECKOUT_PAGE: "/pages/checkout/checkout.html",
         THANKS_PAGE: "/pages/thanks/thanks.html",
         SEARCH_PAGE: "/pages/search/search.html",
-        SHOPPER_PAGE: "/pages/shopper/shopper.html"
+        SHOPPER_PAGE: "/pages/shopper/shopper.html",
+        OFFER_PAGE: "/pages/offer/offer.html"
+
     });
 })();
