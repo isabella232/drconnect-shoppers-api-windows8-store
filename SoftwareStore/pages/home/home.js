@@ -82,8 +82,7 @@
 
             // Initialize the Bottom AppBar
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
-            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this)});
-            this.bottomAppBar.hideCommands(["cmdAdd"]);
+            this.bottomAppBar.addCommand({ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, hidden:true, clickHandler: this._onAddToCart.bind(this)});
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
             this.topAppBar.hideCommands(["home"]);

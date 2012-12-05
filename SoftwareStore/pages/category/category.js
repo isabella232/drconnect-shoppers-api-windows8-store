@@ -102,11 +102,10 @@
             this.bottomAppBar = DR.Store.App.AppBottomBar.winControl;
             this.bottomAppBar.addCommands(
                   // TODO: Implement addHandler
-                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, clickHandler: this._onAddToCart.bind(this) } ,
+                [{ id: 'cmdAdd', label: addButtonLabel, icon: 'add', section: 'selection', tooltip: addButtonTooltip, hidden: true, clickHandler: this._onAddToCart.bind(this) },
                     //TODO: Implement SortHandler
                  { id: 'cmdSort', label: sortButtonLabel, icon: '', section: 'global', tooltip: sortButtonTooltip },
                  { id: 'appBarSeparator', type: 'separator', section: 'global' } ]);
-            this.bottomAppBar.hideCommands(["cmdAdd"]);
 
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
 
