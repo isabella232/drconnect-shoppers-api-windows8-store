@@ -136,6 +136,7 @@
                         self.showCommands([command.id]);
                     }
                 });
+                this.hide();
                 this.setVisible(true);
             },
 
