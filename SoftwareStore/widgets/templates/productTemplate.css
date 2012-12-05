@@ -52,6 +52,7 @@
 	overflow-x: hidden;
 	-ms-grid-row: 1;
 	-ms-grid-column: 2;
+	margin-top: 5px;
 }
 
 .productTemplate .item-pricing {

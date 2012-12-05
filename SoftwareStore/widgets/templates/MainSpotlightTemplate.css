@@ -1,5 +1,7 @@
 ﻿.mainSpotLight.item-container {
-	height: 485px;
+	height: 470px;
+	overflow: hidden;
+	width: 230px;
 }
 
 .mainSpotLight .item-image {
