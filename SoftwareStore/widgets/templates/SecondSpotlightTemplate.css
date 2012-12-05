@@ -1,12 +1,13 @@
 ﻿.secondSpotLight.item-container {
-}
-
-.secondSpotLight .image-wrapper {
-	width: 210px;
+	margin: 0px;
+	width: 230px;
 	height: 230px;
 }
 
+.secondSpotLight .image-wrapper {
+}
+
 .secondSpotLight image {
-	width: 210px;
+	width: 230px;
 	height: 230px;
 	}

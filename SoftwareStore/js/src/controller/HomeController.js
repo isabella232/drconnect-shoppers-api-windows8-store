@@ -37,6 +37,7 @@
 
                 promises.push(WinJS.Promise.join(spotPromises).then(processSpotLight, processSpotLightError));
 
+
                 return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
                    //var promises = categories.map(function (category, index) {

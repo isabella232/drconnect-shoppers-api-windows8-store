@@ -20,7 +20,7 @@
             //this.list.addEventListener("selectionchanged", this._itemSelected.bind(this));
             this.list.oniteminvoked = this._onItemInvoked.bind(this);
 
-            this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 150, cellHeight: 75 } });
+            this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70 } });
 
         },
 
