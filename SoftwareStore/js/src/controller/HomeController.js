@@ -35,7 +35,7 @@
                 spotPromises.push(DR.Store.Services.offerService.getOffersByPop("AppMP-230wX230"));
                 var promises = [];
 
-                promises.push(WinJS.Promise.join(spotPromises).then(processSpotLight));
+                promises.push(WinJS.Promise.join(spotPromises).then(processSpotLight, processSpotLightError));
 
                 return DR.Store.Services.categoryService.getRootCategories()
                .then(function (categories) {
@@ -152,14 +152,25 @@
 
     }
 
+    function processSpotLightError(errors) {
+        errors.forEach(function (error) {
+            if (error.details) {
+                console.log("HomeController: Error Retrieving Spotlight offers: " + error.details.error.code + " - " + error.details.error.description);
+            }
+        });
+        
+    }
+
     function fillItemsList(promises, list) {
         return WinJS.Promise.join(promises).then(function (categories) {
             categories.forEach(function (category, index) {
-                category.children.forEach(function (item, index) {
-                    item.category = { id: category.id, displayName: category.displayName };
-                    item.type = category.childType;
-                    list.push(item);
-                });
+                if (category) {
+                    category.children.forEach(function (item, index) {
+                        item.category = { id: category.id, displayName: category.displayName };
+                        item.type = category.childType;
+                        list.push(item);
+                    });
+                }
             });
         });
     }
