@@ -13,6 +13,7 @@
         {
             page: null,
             localized: true,
+            _disabledButtons: [],
             /**
              *  Handles the request by showing the appropriate page.
              */
@@ -48,7 +49,16 @@
              * Blocks the UI disabling the page it is controlling
              */
             blockUI: function () {
+                var self = this;
                 this.page.element.disabled = true;
+                var buttons = this.page.element.querySelectorAll("button");
+                for (var i = 0; i < buttons.length; i++) {
+                    var button = buttons[i];
+                    if(!button.disabled){
+                        self._disabledButtons.push(button);
+                        button.disabled = true;
+                    }
+                }
             },
 
             /**
@@ -56,6 +66,10 @@
              */
             unBlockUI: function () {
                 this.page.element.disabled = false;
+                this._disabledButtons.forEach(function (button) {
+                    button.disabled = false;
+                });
+                this._disabledButtons = [];
             }
 
 

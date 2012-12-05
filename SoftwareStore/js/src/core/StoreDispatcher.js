@@ -48,6 +48,7 @@
                 this.addMapping(n.SESSION_RESET, c.userController, "sessionReset");
                 this.addMapping(n.BLOCK_APP, c.mainApplicationController, "blockApp");
                 this.addMapping(n.UNBLOCK_APP, c.mainApplicationController, "unBlockApp");
+                this.addMapping(n.SHOW_ERROR, c.mainApplicationController, "showError");
                 this.addSearchMapping(c.searchController, "searchRequested");
             },
 

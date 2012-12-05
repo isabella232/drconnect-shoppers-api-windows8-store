@@ -33,6 +33,12 @@
             notificationFlyout: null,
 
             /**
+             * Flyout used to show notification over the application
+             */
+            errorFlyout: null,
+
+
+            /**
              * Initializes the view adding default buttons to the application bars, and pageHeaderBar and click handlers
              */
             initialize: function () {
@@ -119,6 +125,21 @@
                     this.notificationFlyout.hide();
                     this.notificationFlyout = null;
                 }
+            },
+
+            showError: function (error) {
+                this.topAppBar.enable();
+                this.topAppBar.show();
+
+                // Get an anchor for the flyout
+                var flyoutAnchor = document.getElementById("flyoutAnchor"); 
+
+                var message = document.getElementById("errorFlyout").winControl;
+                document.getElementById("errorTitle").textContent = error.details.error.code;
+                document.getElementById("errorText").textContent = error.details.error.description;
+                message.sticky = true;
+
+                message.show(flyoutAnchor);
             },
 
             blockAppBar: function () {

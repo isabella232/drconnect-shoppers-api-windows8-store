@@ -54,7 +54,6 @@
                 // Blocks the UI
                 this._view.blockAppBar();
                 DR.Store.App.navigationManager.getCurrentPageController().blockUI();
-              
 
             },
 
@@ -65,8 +64,12 @@
                 // Unblocks the UI
                 this._view.unBlockAppBar();
                 DR.Store.App.navigationManager.getCurrentPageController().unBlockUI();
-             }
+            },
 
+            showError: function (error) {
+                DR.Store.App.navigationManager.getCurrentPageController().blockUI();
+                this._view.showError(error);
+            }
 
 
         });
