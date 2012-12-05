@@ -28,6 +28,9 @@
 
                 DR.Store.Services.cartService.getCandyRackProducts().then(function (candyRack) {
                     self.page.setCandyRack(candyRack.productOffer);
+                }, function (error) {
+                    console.log("CartController: Error Retrieving candy rack: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
                 return DR.Store.Services.cartService.get().then(function (cart) {
