@@ -13,7 +13,7 @@
         {
             page: null,
             localized: true,
-            _disabledButtons: [],
+            _disabledElements: [],
             /**
              *  Handles the request by showing the appropriate page.
              */
@@ -55,10 +55,22 @@
                 for (var i = 0; i < buttons.length; i++) {
                     var button = buttons[i];
                     if(!button.disabled){
-                        self._disabledButtons.push(button);
+                        self._disabledElements.push(button);
                         button.disabled = true;
                     }
                 }
+
+                var listViews = this.page.element.querySelectorAll(".win-listview");
+                for (var j = 0; j < listViews.length; j++) {
+                    var listView = listViews[j];
+                    if (!listView.disabled) {
+                        self._disabledElements.push(listView);
+                        listView.disabled = true;
+                    }
+
+                }
+
+
             },
 
             /**
@@ -66,10 +78,10 @@
              */
             unBlockUI: function () {
                 this.page.element.disabled = false;
-                this._disabledButtons.forEach(function (button) {
+                this._disabledElements.forEach(function (button) {
                     button.disabled = false;
                 });
-                this._disabledButtons = [];
+                this._disabledElements = [];
             }
 
 

@@ -130,6 +130,9 @@
             showError: function (error) {
                 this.topAppBar.enable();
                 this.topAppBar.show();
+                this.bottomAppBar.setVisible(false);
+                //Block the pageheader buttons
+                this._blockPageHeaderBarButtons(true);
 
                 // Get an anchor for the flyout
                 var flyoutAnchor = document.getElementById("flyoutAnchor"); 
@@ -148,11 +151,7 @@
                 this.bottomAppBar.disable();
 
                 //Block the pageheader buttons
-                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = true;
-                if (document.querySelector(".win-backbutton")) {
-                    document.querySelector(".win-backbutton").disabled = true;
-                }
-
+                this._blockPageHeaderBarButtons(true);
 
             },
             
@@ -160,13 +159,21 @@
                 // UnBlock the application bars
                 this.topAppBar.enable();
                 this.bottomAppBar.enable();
-
+                
                 //Unblock the pageheader buttons
-                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = false;
+                this._blockPageHeaderBarButtons(false);
+            },
+
+            /*
+             * Block/Unblock the pageHeader bar button depending on the parameter
+             */
+            _blockPageHeaderBarButtons: function(blocked){
+                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = blocked;
                 if (document.querySelector(".win-backbutton")) {
-                    document.querySelector(".win-backbutton").disabled = false;
+                    document.querySelector(".win-backbutton").disabled = blocked;
                 }
             },
+    
  
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
