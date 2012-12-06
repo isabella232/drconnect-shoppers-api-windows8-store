@@ -80,20 +80,26 @@
             /**
              * Handles session expired errors
              */
-            sessionExpiredErrorHandler: function(response) {
-                console.info("Session Expired, reconnecting...");
-                var that = this;
-                if(!this.reconnectingFlag || response.details.error.code === "refresh_token_invalid"){
-        	        this.reconnectingFlag = true;
-	                this.initialize().then(function() {
-	                    console.info("Reconnected to DR!");
-	                    that.reconnectingFlag = false;
-	                    DR.Store.App.dispatcher.handle(DR.Store.Notifications.SESSION_RESET);
-	                    DR.Store.App.navigationManager.refreshPage();
-	                },function(){
-	        	        that.reconnectingFlag = false;
-	                });
-                } 
+            sessionExpiredErrorHandler: function (response) {
+                if (this.checkInternetConnection()) {
+                    console.info("Session Expired, reconnecting...");
+                    this._client.disconnect();
+                    var that = this;
+                    if (!this.reconnectingFlag || response.details.error.code === "refresh_token_invalid") {
+                        this.reconnectingFlag = true;
+                        this.initialize().then(function () {
+                            console.info("Reconnected to DR!");
+                            that.reconnectingFlag = false;
+                            DR.Store.App.dispatcher.handle(DR.Store.Notifications.SESSION_RESET);
+                            DR.Store.App.navigationManager.refreshPage();
+                        }, function () {
+                            that.reconnectingFlag = false;
+                        });
+                    }
+                } else {
+                    console.debug("No Internet Connection!");
+                }
+                
             },
 
             /**
@@ -112,6 +118,28 @@
                 //}else{
         	    //    dr.acme.util.DialogManager.showError(error, "A problem ocurred");
                 //}        
+            },
+
+            /*
+             * Calls a WinJs Utility to check if the device is connected to the internet
+             */
+            checkInternetConnection: function () {
+                var networkInfo = Windows.Networking.Connectivity.NetworkInformation;
+                var networkConnectivityInfo = Windows.Networking.Connectivity.NetworkConnectivityLevel;
+               
+                var connectionProfile = networkInfo.getInternetConnectionProfile();
+                if (connectionProfile == null) {
+                    return false;
+                }
+
+                var networkConnectivityLevel = connectionProfile.getNetworkConnectivityLevel();
+                if (networkConnectivityLevel == networkConnectivityInfo.none
+                    || networkConnectivityLevel == networkConnectivityInfo.localAccess
+                    || networkConnectivityLevel == networkConnectivityInfo.constrainedInternetAccess) {
+                    return false;
+                }
+
+                return true;
             }
 
         }
