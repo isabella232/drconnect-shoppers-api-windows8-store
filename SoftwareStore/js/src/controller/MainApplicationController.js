@@ -15,6 +15,7 @@
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.CART_BUTTON_CLICKED, this._onCartButtonClicked.bind(this), false);
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.HOME_BUTTON_CLICKED, this._onHomeButtonClicked.bind(this), false);
                 WinJS.Utilities.eventMixin.addEventListener(this._view.events.PROFILE_CLICKED, this._onProfileButtonClicked.bind(this), false);
+                WinJS.Utilities.eventMixin.addEventListener(this._view.events.TRY_AGAIN_CLICKED, this._onTryAgainClicked.bind(this), false);
             },
 
             /**
@@ -48,6 +49,10 @@
                 this.goToPage(DR.Store.URL.SHOPPER_PAGE);
             },
 
+            _onTryAgainClicked: function (e) {
+                DR.Store.App.navigationManager.refreshPage();
+            },
+
             blockApp: function (message) {
                 // Shows a Message on the UI
                 if(message) this._view.showMessage(message);
@@ -66,9 +71,14 @@
                 DR.Store.App.navigationManager.getCurrentPageController().unBlockUI();
             },
 
-            showError: function (error) {
+            handleError: function (error) {
                 DR.Store.App.navigationManager.getCurrentPageController().blockUI();
                 this._view.showError(error);
+            },
+
+            handleConnectionError: function (error) {
+                DR.Store.App.navigationManager.getCurrentPageController().blockUI();
+                this._view.showConnectionErrorDialog(error);
             }
 
 

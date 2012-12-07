@@ -13,16 +13,34 @@
             },
 
             /**
-             * Hides and element inside the html control
+             * Hides an element inside the html control
              */
             hideElement: function (controlId) {
                 WinJS.Utilities.addClass(this.element.querySelector(controlId), "hidden");
             },
 
+            /**
+             * Shows an element inside the html control
+             */
             showElement: function (controlId) {
                 WinJS.Utilities.removeClass(this.element.querySelector(controlId), "hidden");
-            }
+            },
 
+            /**
+             * Blocks an element inside the html control
+             */
+            blockElement: function (controlId) {
+                if(this.element.querySelector(controlId))
+                    this.element.querySelector(controlId).disabled = true;
+            },
+
+            /**
+            * Unblocks an element inside the html control
+            */
+            unBlockElement: function (controlId) {
+                if (this.element.querySelector(controlId))
+                    this.element.querySelector(controlId).disabled = false;
+            }
 
         });
         return Class;

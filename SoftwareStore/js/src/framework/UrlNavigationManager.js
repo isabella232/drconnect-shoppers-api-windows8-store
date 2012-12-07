@@ -69,17 +69,21 @@
              *
              */
             refreshPage: function () {
-                try{
-                    var uri = this.lastNavigationData.params.location;
-                    var mapping = this.getMapping(uri);
-                    if (mapping && mapping.secured) this.applySecurity();
-                    this._super();
-                } catch (err) {
-                    if (uri === DR.Store.URL.CHECKOUT_PAGE) {
-                        uri = DR.Store.URL.HOME_PAGE;
+                //var sessionInfo = DR.Store.Services.securityService.getSessionInfo();
+                //// Refreshes the page only if we are connected to the api
+                //if (sessionInfo.connected) {
+                    try {
+                        var uri = this.lastNavigationData.params.location;
+                        var mapping = this.getMapping(uri);
+                        if (mapping && mapping.secured) this.applySecurity();
+                        this._super();
+                    } catch (err) {
+                        if (uri === DR.Store.URL.CHECKOUT_PAGE) {
+                            uri = DR.Store.URL.HOME_PAGE;
+                        }
+                        this.handleSecurityException(err, uri);
                     }
-                    this.handleSecurityException(err, uri);
-                }
+                //}
                
             },
 

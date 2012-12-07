@@ -16,6 +16,7 @@
         SESSION_RESET: "sessionReset",
         BLOCK_APP: "blockApp",
         UNBLOCK_APP: "unBlockApp",
-        SHOW_ERROR: "showError"
+        SHOW_ERROR: "showError",
+        CONNECTION_ERROR: "showConnectionError"
     });
 })();

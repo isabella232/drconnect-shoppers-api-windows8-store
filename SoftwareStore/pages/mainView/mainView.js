@@ -11,7 +11,8 @@
             events: {
                 CART_BUTTON_CLICKED: "cartButtonClicked",
                 HOME_BUTTON_CLICKED: "homeButtonClicked",
-                PROFILE_CLICKED: "profileClicked"
+                PROFILE_CLICKED: "profileClicked",
+                TRY_AGAIN_CLICKED: "tryAgainClicked"
             },
 
             /**
@@ -36,6 +37,11 @@
              * Flyout used to show notification over the application
              */
             errorFlyout: null,
+
+            /**
+             *
+             */
+            errorMessageDialog: null,
 
 
             /**
@@ -106,6 +112,16 @@
                 this.dispatchEvent(this.events.PROFILE_CLICKED);
             },
 
+            _onTryAgainButtonClicked: function (e) {
+                var self = this;
+                this.errorMessageDialog = null;
+                setTimeout(function () {
+                    self.dispatchEvent(self.events.TRY_AGAIN_CLICKED);
+                }, 500);
+                console.log("TRY AGAIN CLICKED");
+            },
+
+
             showMessage: function(messageText){
                 // Get an anchor for the flyout
                 var flyoutAnchor = document.getElementById("flyoutAnchor"); 
@@ -167,11 +183,45 @@
             /*
              * Block/Unblock the pageHeader bar button depending on the parameter
              */
-            _blockPageHeaderBarButtons: function(blocked){
-                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = blocked;
-                if (document.querySelector(".win-backbutton")) {
-                    document.querySelector(".win-backbutton").disabled = blocked;
+            _blockPageHeaderBarButtons: function (blocked) {
+                if (blocked) {
+                    this.pageHeaderBar.blockElement("#upper-cart");
+                    this.pageHeaderBar.blockElement(".win-backbutton");
+                } else {
+                    this.pageHeaderBar.unBlockElement("#upper-cart");
+                    this.pageHeaderBar.unBlockElement(".win-backbutton");
                 }
+            },
+
+            showConnectionErrorDialog: function (error) {
+                var self = this;
+                if (!this.errorMessageDialog) {
+                    this.topAppBar.setVisible(false);
+                    this.bottomAppBar.setVisible(false);
+                    //Block the pageheader buttons
+                    this._blockPageHeaderBarButtons(true);
+                    // Create the message dialog and set its content
+                    var msg = new Windows.UI.Popups.MessageDialog(WinJS.Resources.getString('/errors/connectionLost.text').value, WinJS.Resources.getString('/errors/connectionLost.title').value);
+
+                    // Add commands and set their command handlers
+                    msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.tryAgainButton').value, this._onTryAgainButtonClicked.bind(this)));
+
+                    msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.cancelButton').value, function (command) {
+                        console.log("Cancel clicked");
+                    }));
+
+                    // Set the command that will be invoked by default
+                    msg.defaultCommandIndex = 1;
+
+                    // Set the command to be invoked when escape is pressed
+                    msg.cancelCommandIndex = 2;
+
+                    this.errorMessageDialog = msg;
+
+                    // Show the message dialog
+                    msg.showAsync();
+                }
+
             },
     
  

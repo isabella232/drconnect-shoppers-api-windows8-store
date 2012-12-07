@@ -63,7 +63,11 @@
                 bottomAppBar.clear();
                 
                 // Shows the cart button on the pageHeaderBar
-                DR.Store.App.PageHeaderBar.winControl.showElement("#upper-cart");
+                var pageHeaderBar = DR.Store.App.PageHeaderBar.winControl;
+                pageHeaderBar.showElement("#upper-cart");
+
+                pageHeaderBar.unBlockElement("#upper-cart");
+                pageHeaderBar.unBlockElement(".win-backbutton");
             }
 
         }

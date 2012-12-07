@@ -30,7 +30,8 @@
                     this.currentProductPromise = WinJS.Promise.wrap(state.item);
                 } else {
                     // Loads the product and saves the promise to use it later on sharing
-                    this.currentProductPromise = loadFullProduct(/*state.item.id*/11111);
+                    if (state.item.id === 250615900) state.item.id = 111111;
+                    this.currentProductPromise = loadFullProduct(state.item.id);
 
                     this.currentProductPromise.then(function (product) {
                         page.setProduct(product);

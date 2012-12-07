@@ -1,5 +1,9 @@
 ﻿// For details on localizing a Windows app, see: http://go.microsoft.com/fwlink/?LinkId=212836
 
 {
-    "sharing.errorMessage": "There was an error while sharing"
+    "sharing.errorMessage"          : "There was an error while sharing",
+    "connectionLost.title"          : "Connection Error",
+    "connectionLost.text"           : "Your internet connection has been lost. Please check your settings and try again",
+    "connectionLost.tryAgainButton" : "Try Again",
+    "connectionLost.cancelButton"   : "Cancel"
 }

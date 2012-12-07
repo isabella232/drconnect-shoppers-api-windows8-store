@@ -30,7 +30,6 @@
                     self.page.setCandyRack(candyRack.productOffer);
                 }, function (error) {
                     console.log("CartController: Error Retrieving candy rack: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
                 return DR.Store.Services.cartService.get().then(function (cart) {
@@ -38,7 +37,6 @@
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CartController: Error Retrieving cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -62,7 +60,6 @@
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                 }, function (error) {
                     console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -113,7 +110,6 @@
                         }
                     }, function (error) {
                         console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
-                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 }
             },
@@ -146,7 +142,6 @@
                 }, function (error) {
                     var errorItem = error[0];
                     console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -173,7 +168,6 @@
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
                 }, function (error) {
                     console.log("CartController: Error editing a line item from the cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
             },
