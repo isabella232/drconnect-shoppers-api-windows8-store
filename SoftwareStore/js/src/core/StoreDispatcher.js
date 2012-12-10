@@ -43,6 +43,7 @@
                 this.addMapping(n.CART_CHANGED, c.categoryController, "_onCartChanged");
                 this.addMapping(n.CART_CHANGED, c.cartController, "_onCartChanged");
                 this.addMapping(n.CART_CHANGED, c.productController, "_onCartChanged");
+                this.addMapping(n.CART_CHANGED, c.offerController, "_onCartChanged");
                 this.addMapping(n.APPLICATION_STARTED, c.mainApplicationController, "handle");
                 this.addMapping(n.LOGIN, c.userController, "login");
                 this.addMapping(n.SESSION_RESET, c.userController, "sessionReset");

@@ -147,8 +147,8 @@
         },
 
         /**
-        * Default behaviour when a candy rack offer is clicked
-        */
+         * Default behaviour when a candy rack offer is clicked
+         */
         _onOfferItemClicked: function (e) {
             var self = this;
             e.detail.itemPromise.then(function (item) {
@@ -170,8 +170,8 @@
         },
 
         /**
-        * Behaviour when view offer button is clicked
-        */
+         * Behaviour when view offer button is clicked
+         */
         _onViewOffer: function (e) {
             var self = this;
 
@@ -230,8 +230,8 @@
         },
 
         /**
-       * Default behaviour when remove from cart button is clicked
-       */
+         * Default behaviour when remove from cart button is clicked
+         */
         _onResetCart: function (e) {
             var self = this;
             var items = [];
