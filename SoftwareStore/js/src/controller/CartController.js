@@ -87,7 +87,7 @@
              * TODO: Change this logic to add all products simultaneously, the API has a bug when calling addToCart concurrently, this is because 
              * the requests are called sequentially
              */
-            addProductsToCart: function (productsList) {
+         /*   addProductsToCart: function (productsList) {
                 var self = this;
                 var list = [];
                 var productToAdd;
@@ -117,7 +117,40 @@
                         self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 }
+            },*/
+
+
+            /**
+             * Receive a list and adds multiple products sequentially (waits for the response before calling add for the next product)
+             * Once all requests are completed sends a CART_CHANGED notification so other controllers can update the corresponding views
+             * @productsList list of products to add
+             * TODO: Change this logic to add all products simultaneously, the API has a bug when calling addToCart concurrently, this is because 
+             * the requests are called sequentially
+             */
+            addProductsToCart: function (productsList) {
+                var self = this;
+                var list = [];
+                var timeStamp = productsList.timeStamp;
+                if (productsList.length > 0) {
+                    DR.Store.Services.cartService.addMultipleProductsToCart(productsList).then(function (data) {
+                        // If the add to cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
+                        if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
+                            self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                        }
+                        // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
+                        console.log("Sending add product finished notification");
+                        self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
+                    }, function (error) {
+                        console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    });
+                }
             },
+
+
+
+
+
 
             /**
               * Handles remove from cart notifications

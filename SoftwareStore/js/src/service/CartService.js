@@ -68,6 +68,39 @@
                 });
             },
 
+
+
+            /**
+           * Adds a Product to the Cart
+           * @param product product to be added
+           * @param qty quantity of product to be added
+           * @param addToCartUri Uri to call the service and add the product to the cart. If not null, the service uses this
+           * parameter to add the product, otherwise it uses @product
+           * @returns 
+           */
+            addMultipleProductsToCart: function (productsList) {
+                console.log("Calling DR addMultipleLineItems service");
+                return this._client.cart.addMultipleLineItems({}, productsList)
+                .then(function (data) {
+                    var a = data;
+                   // console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
+                   // return data;
+                }, function (error) {
+                    console.log("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+
+
+
+
+
+
+
+
+
+
+
             /**
             * Edits the Quantity of a line Item
             * @param lineItem lineItem to edit
