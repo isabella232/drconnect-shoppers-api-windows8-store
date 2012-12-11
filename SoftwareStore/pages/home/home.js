@@ -164,6 +164,7 @@
             switch (currentItem.data.type) {
                 case DR.Store.Datasource.ItemType.PRODUCT:
                     template = oSelf._itemTemplate;
+                    setProductPricing(currentItem.data);
                     break;
                 case DR.Store.Datasource.ItemType.CATEGORY:
                     template = oSelf._categoryTemplate;
@@ -186,4 +187,16 @@
             return template.render(currentItem.data);
         });
     }
+
+    /**
+     * Sets the product oldPrice in order to define show it or not
+     */
+    function setProductPricing(product) {
+        if (product.pricing.formattedListPrice != product.pricing.formattedSalePriceWithQuantity) {
+            product.pricing.oldPrice = product.pricing.formattedListPrice;
+        } else {
+            product.pricing.oldPrice = null;
+        }
+    }
+
 })();
