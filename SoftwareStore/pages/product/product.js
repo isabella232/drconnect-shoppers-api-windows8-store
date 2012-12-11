@@ -292,7 +292,19 @@
         var self = this;
         var template = this.element.querySelector('.candyRackItemtemplate').winControl;
         return itemPromise.then(function (currentItem) {
+            setofferPricing(currentItem.data);
             return template.render(currentItem.data);
         });
+    }
+
+    /**
+    * Sets the offer oldPrice in order to define show it or not
+    */
+    function setofferPricing(offer) {
+        if (offer.pricing.formattedListPrice != offer.pricing.formattedSalePriceWithQuantity) {
+            offer.pricing.oldPrice = offer.pricing.formattedListPrice;
+        } else {
+            offer.pricing.oldPrice = null;
+        }
     }
 })();

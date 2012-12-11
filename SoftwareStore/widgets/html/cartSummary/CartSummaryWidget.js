@@ -17,7 +17,6 @@
          * Renders the values on the widget
          */
         renderPricing: function (pricing) {
-            this.element.querySelector("#cart-subtotal").textContent = pricing.formattedSubtotal;
             this.element.querySelector("#cart-tax").textContent = pricing.formattedTax;
             this.element.querySelector("#cart-total").textContent = pricing.formattedOrderTotal;
 
@@ -46,10 +45,17 @@
             if (pricing.formattedDiscount && pricing.formattedDiscount != "$0.00") {
                 WinJS.Utilities.removeClass(this.element.querySelector("#discountLabel"), "hidden");
                 WinJS.Utilities.removeClass(this.element.querySelector("#cart-discount"), "hidden");
+                WinJS.Utilities.removeClass(this.element.querySelector("#oldPriceLabel"), "hidden");
+                WinJS.Utilities.removeClass(this.element.querySelector("#oldPrice"), "hidden");
                 this.element.querySelector("#cart-discount").textContent = pricing.formattedDiscount;
+                this.element.querySelector("#oldPrice").textContent = pricing.formattedSubtotal;
+                this.element.querySelector("#cart-subtotal").textContent ="$" +  (pricing.subtotal.value - pricing.discount.value).toFixed(2);
             } else {
+                this.element.querySelector("#cart-subtotal").textContent = pricing.formattedSubtotal;
                 WinJS.Utilities.addClass(this.element.querySelector("#discountLabel"), "hidden");
                 WinJS.Utilities.addClass(this.element.querySelector("#cart-discount"), "hidden");
+                WinJS.Utilities.addClass(this.element.querySelector("#oldPriceLabel"), "hidden");
+                WinJS.Utilities.addClass(this.element.querySelector("#oldPrice"), "hidden");
             }
         },
         

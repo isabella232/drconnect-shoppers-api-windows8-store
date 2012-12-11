@@ -22,7 +22,8 @@
                 <p data-win-bind="textContent: product.displayName"></p>
             </div>
             <div class="item-pricing" >
-                <p data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></p>
+                <span data-win-bind="textContent: pricing.oldPrice" data-win-option="{showNull: false}"></span>
+                <span data-win-bind="textContent: pricing.formattedSalePriceWithQuantity"></span>
             </div>
         </div>
     </div>

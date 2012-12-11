@@ -85,8 +85,20 @@
     function categoryItemTemplate(itemPromise) {
         var oSelf = this;
         return itemPromise.then(function (currentItem) {
+            setProductPricing(currentItem.data);
             var template = oSelf._productTemplate;
             return template.render(currentItem.data);
         });
+    }
+
+    /**
+    * Sets the product oldPrice in order to define show it or not
+    */
+    function setProductPricing(product) {
+        if (product.pricing.formattedListPrice != product.pricing.formattedSalePriceWithQuantity) {
+            product.pricing.oldPrice = product.pricing.formattedListPrice;
+        } else {
+            product.pricing.oldPrice = null;
+        }
     }
 })();
