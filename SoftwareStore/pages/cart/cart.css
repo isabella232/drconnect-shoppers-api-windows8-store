@@ -161,6 +161,12 @@
     	margin-left: 20px;
     }
 
+    .promocode-button {
+    	-ms-grid-column: 1;
+    	-ms-grid-row: 3;
+    	margin-left: 10px;
+    }
+
     .candyrack-container {
     	-ms-grid-column: 2;
     	-ms-grid-row-span: 2;

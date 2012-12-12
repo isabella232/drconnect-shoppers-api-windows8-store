@@ -145,6 +145,24 @@
             },
 
             /**
+             * Applies a promo code to the shopping cart
+             */
+            applyPromoCode: function (promoCode) {
+                console.debug("Calling DR updateCart service");
+                var params = {}
+
+                params.expand = "all";
+                params.promoCode = promoCode;
+                var self = this;
+                return this._client.cart.updateCart(params).then(function (data) {
+                    self._cart = data;
+                    console.info("PromoCode applied to Cart");
+                    return data;
+                });
+
+            },
+
+            /**
              * Submits the Cart
              * @returns Cart
              */

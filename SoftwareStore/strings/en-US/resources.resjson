@@ -37,7 +37,8 @@
     "general.notifications.editQuantity"        : "Editing Product quantity",
     "general.notifications.applyShippingAddress": "Applying Shipping Address",
     "general.notifications.applyShippingOption" : "Applying Shipping Option",
-    "general.notifications.getCheckoutInfo"         : "Getting Checkout Information",
+    "general.notifications.applyPromoCode"      : "Applying Promo Code",
+    "general.notifications.getCheckoutInfo"     : "Getting Checkout Information",
     "general.notifications.submitCart"          : "Submitting Cart",
     "general.notifications.processingOrder"     : "Wait while your order is being processed...",
 
