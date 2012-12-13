@@ -24,6 +24,7 @@
                         self.page = control;
                         if (self.page) {
                             console.log("Page loaded, initializing...");
+                            self.showPageContent(true);
                             var p = self.initPage(self.page, detail.state);
                             if (p) {
                                 if (!Array.isArray(p)) {
@@ -54,7 +55,7 @@
                 var buttons = this.page.element.querySelectorAll("button");
                 for (var i = 0; i < buttons.length; i++) {
                     var button = buttons[i];
-                    if(!button.disabled){
+                    if(!button.disabled && !button.classList.contains("win-backbutton")){
                         self._disabledElements.push(button);
                         button.disabled = true;
                     }
@@ -70,7 +71,6 @@
 
                 }
 
-
             },
 
             /**
@@ -82,9 +82,19 @@
                     button.disabled = false;
                 });
                 this._disabledElements = [];
+            },
+
+            /**
+            * Shows or hides the page content
+            * @Overrides base method
+            */
+            showPageContent: function (show) {
+                if(show) {
+                    WinJS.Utilities.removeClass(this.page.element.querySelector(".main-content"), "hidden");
+                } else {
+                    WinJS.Utilities.addClass(this.page.element.querySelector(".main-content"), "hidden");
+                }
             }
-
-
             
         }
         );

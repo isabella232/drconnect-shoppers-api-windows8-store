@@ -200,10 +200,6 @@
             });
         },
 
-        blockUI: function(){
-
-        },
-
         unload: function () {
             // When unloading change the setCart, setAddresses and setPaymentOptions function in order to avoid failing if the callback returns
             this.setCart = function (cart) {

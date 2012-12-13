@@ -73,6 +73,7 @@
 
             handleError: function (error) {
                 DR.Store.App.navigationManager.getCurrentPageController().blockUI();
+                DR.Store.App.navigationManager.getCurrentPageController().showPageContent(false);
                 this._view.showError(error);
             },
 

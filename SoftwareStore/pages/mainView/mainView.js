@@ -118,7 +118,12 @@
                 setTimeout(function () {
                     self.dispatchEvent(self.events.TRY_AGAIN_CLICKED);
                 }, 500);
-                console.log("TRY AGAIN CLICKED");
+                console.log("Try Again Button Clicked");
+            },
+
+            _onCancelButtonClicked: function(e){
+                this.errorMessageDialog = null;
+                console.log("Cancel Button Clicked");
             },
 
 
@@ -144,21 +149,21 @@
             },
 
             showError: function (error) {
-                this.topAppBar.enable();
-                this.topAppBar.show();
-                this.bottomAppBar.setVisible(false);
-                //Block the pageheader buttons
-                this._blockPageHeaderBarButtons(true);
+                var self = this;
+                if (!this.errorMessageDialog) {
+                    this.bottomAppBar.setVisible(false);
 
-                // Get an anchor for the flyout
-                var flyoutAnchor = document.getElementById("flyoutAnchor"); 
+                    var errorTitle = "Error: " + error.details.error.code;
+                    var errorText = error.details.error.description;
 
-                var message = document.getElementById("errorFlyout").winControl;
-                document.getElementById("errorTitle").textContent = error.details.error.code;
-                document.getElementById("errorText").textContent = error.details.error.description;
-                message.sticky = true;
+                    var msg = this._createErrorModalDialog(errorTitle, errorText);
 
-                message.show(flyoutAnchor);
+                    this.errorMessageDialog = msg;
+
+                    // Show the message dialog
+                    msg.showAsync();
+                }
+
             },
 
             blockAppBar: function () {
@@ -201,20 +206,7 @@
                     //Block the pageheader buttons
                     this._blockPageHeaderBarButtons(true);
                     // Create the message dialog and set its content
-                    var msg = new Windows.UI.Popups.MessageDialog(WinJS.Resources.getString('/errors/connectionLost.text').value, WinJS.Resources.getString('/errors/connectionLost.title').value);
-
-                    // Add commands and set their command handlers
-                    msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.tryAgainButton').value, this._onTryAgainButtonClicked.bind(this)));
-
-                    msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.cancelButton').value, function (command) {
-                        console.log("Cancel clicked");
-                    }));
-
-                    // Set the command that will be invoked by default
-                    msg.defaultCommandIndex = 1;
-
-                    // Set the command to be invoked when escape is pressed
-                    msg.cancelCommandIndex = 2;
+                    var msg = this._createErrorModalDialog(WinJS.Resources.getString('/errors/connectionLost.title').value, WinJS.Resources.getString('/errors/connectionLost.text').value);
 
                     this.errorMessageDialog = msg;
 
@@ -223,6 +215,28 @@
                 }
 
             },
+
+            /**
+             * creates a Modal Error Dialog and returns it
+             */
+            _createErrorModalDialog: function(title, text) {
+                // Create the message dialog and set its content
+                var msg = new Windows.UI.Popups.MessageDialog(text, title);
+
+                // Add commands and set their command handlers
+                msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.tryAgainButton').value, this._onTryAgainButtonClicked.bind(this)));
+
+                msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.cancelButton').value, this._onCancelButtonClicked.bind(this)));
+
+                // Set the command that will be invoked by default
+                msg.defaultCommandIndex = 1;
+
+                // Set the command to be invoked when escape is pressed
+                msg.cancelCommandIndex = 2;
+
+                return msg;
+            },
+
     
  
             /**
@@ -267,6 +281,7 @@
             }
 
         });
+
 
     /**
      * Finds the top left point of an element
