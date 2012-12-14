@@ -191,10 +191,12 @@
             _blockPageHeaderBarButtons: function (blocked) {
                 if (blocked) {
                     this.pageHeaderBar.blockElement("#upper-cart");
-                    this.pageHeaderBar.blockElement(".win-backbutton");
                 } else {
                     this.pageHeaderBar.unBlockElement("#upper-cart");
                     this.pageHeaderBar.unBlockElement(".win-backbutton");
+                }
+                if (document.querySelector(".win-backbutton")) {
+                    document.querySelector(".win-backbutton").disabled = blocked;
                 }
             },
 
