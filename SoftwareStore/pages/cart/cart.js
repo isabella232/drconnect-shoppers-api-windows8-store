@@ -5,6 +5,7 @@
             REMOVE_ITEM_CLICKED: "removeItemClicked",
             RESET_CART_CLICKED: "resetCartClicked",
             CHECKOUT_CLICKED: "checkoutClicked",
+            APPLY_PROMO_CODE_CLICKED: "applyPromoCodeClicked",
             LINE_ITEM_QUANTITY_CHANGED: "lineItemQuantityChanged",
             ADD_OFFER_CLICKED: "addOfferClicked"
         },
@@ -14,6 +15,8 @@
         candyRackContent: null,
         emptyMessage: null,
         _checkoutButton: null,
+        _promoCodeButton: null,
+        _promoCodeField: null,
         // Items list used to reset the cart if requested
         _cartItems: null,
         _candyRackItems: null,
@@ -53,6 +56,11 @@
             // Gets the checkout button
             this._checkoutButton = this.element.querySelector("#checkoutButton");
             this._checkoutButton.onclick = this._onCheckoutClicked.bind(this);
+
+            // Gets the promo code fields
+            this._promoCodeButton = this.element.querySelector("#promoCodeButton");
+            this._promoCodeButton.onclick = this._onApplyPromoCodeClicked.bind(this);
+            this._promoCodeField = this.element.querySelector("#promoCode");
 
             this._initializeAppBars();
         },
@@ -252,6 +260,17 @@
          */
         _onCheckoutClicked: function (e) {
             this.dispatchEvent(this.events.CHECKOUT_CLICKED);
+        },
+
+        /**
+         * Behaviout when the user clicks to apply promo button
+         */
+        _onApplyPromoCodeClicked: function (e) {
+            var promoCode = this._promoCodeField.value;
+            if (promoCode && promoCode != "") {
+                this.dispatchEvent(this.events.APPLY_PROMO_CODE_CLICKED, { "promoCode": promoCode } );
+            }
+
         },
 
         /**
