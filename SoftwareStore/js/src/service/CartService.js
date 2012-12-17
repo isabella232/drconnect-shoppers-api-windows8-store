@@ -16,6 +16,10 @@
              * Gets the cart
              */
             get: function () {
+               /* if (this._cart) {
+                    return this._cart;
+                }*/
+
                 var self = this;
                 console.log("Retrieving cart");
 
@@ -68,8 +72,6 @@
                 });
             },
 
-
-
             /**
            * Adds a Product to the Cart
            * @param product product to be added
@@ -80,25 +82,39 @@
            */
             addMultipleProductsToCart: function (productsList) {
                 console.log("Calling DR addMultipleLineItems service");
-                return this._client.cart.addMultipleLineItems({}, productsList)
+                var list = buildItemsToAdd(productsList);
+                return this._client.cart.addMultipleLineItems({}, { "lineItems": list })
                 .then(function (data) {
-                    var a = data;
-                   // console.log("Product '" + product.displayName + "' (qty:" + qty + ") added to cart");
-                   // return data;
+                   console.log("Product/s successfully added to the cart");
+                   return data;
                 }, function (error) {
-                    console.log("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
+                    console.log("Error when adding multiple products: " + error.details.error.code + ": " + error.details.error.description);
                 });
             },
 
 
-
-
-
-
-
-
-
-
+            /**
+             * Adds a Product to the Cart
+             * @param product product to be added
+             * @param qty quantity of product to be added
+             * @param addToCartUri Uri to call the service and add the product to the cart. If not null, the service uses this
+             * parameter to add the product, otherwise it uses @product
+             * @returns 
+             */
+            removeMultipleLineItemsFromCart: function (productsList) {
+                console.log("Calling DR addMultipleLineItems service to remove lineItems");
+                productsList.forEach(function (item) {
+                    item.qty = 0;
+                });
+                var list = buildItemsToAdd(productsList);
+                return this._client.cart.addMultipleLineItems({}, { "lineItems": list })
+                .then(function (data) {
+                    console.log("Product/s successfully removed from the cart");
+                    return data;
+                }, function (error) {
+                    console.log("Error when removing multiple products: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
 
 
             /**
@@ -234,6 +250,27 @@
 
         }
     );
+
+    function buildItemsToAdd(productsList) {
+
+        var lineItems = {};
+        var lineItemList = []
+
+        productsList.forEach(function (item) {
+            var lineItem = {};
+            lineItem.product = {};
+            lineItem.product.id = item.product.id;
+            if (item.product.offer) {
+                lineItem.product.offer = item.product.offer.id;
+            }
+            lineItem.quantity = item.qty;
+            lineItemList.push(lineItem);
+        });
+        lineItems.lineItem = lineItemList;
+        return lineItems;
+
+    }
+
 
     WinJS.Namespace.define("DR.Store.Service", {
         CartService: Class

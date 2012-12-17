@@ -304,7 +304,7 @@
             this.bottomAppBar.addCommand({ id: 'cmdAddOffer', label: addOfferButtonLabel, icon: 'add', section: 'selection', tooltip: addOfferButtonTooltip, hidden: true, clickHandler: this._onAddOfferToCart.bind(this) });
             this.bottomAppBar.addCommand({ id: 'cmdViewOffer', label: viewOfferButtonLabel, icon: '', section: 'selection', tooltip: viewOfferButtonTooltip, hidden: true, clickHandler: this._onViewOffer.bind(this) });
             //TODO: Remove the reset cart because the API doesn't work well removing multiple items. Add it when the API is fixed
-            //this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
+            this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
             this.bottomAppBar.hideCommands(["gotoCart"]);
             
             this.topAppBar = DR.Store.App.AppTopBar.winControl;

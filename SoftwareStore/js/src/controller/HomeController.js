@@ -136,10 +136,12 @@
         var children = [];
         var childType = DR.Store.Datasource.ItemType.MAIN_SPOTLIGHT;
         offers.forEach(function (offer) {
-            offer.offer.forEach(function (spotLight) {
-                spotLight.childType = childType;
-                children.push(spotLight);
-            });
+            if (offer.offer) {
+                offer.offer.forEach(function (spotLight) {
+                    spotLight.childType = childType;
+                    children.push(spotLight);
+                });
+            }
 
             childType = DR.Store.Datasource.ItemType.SECOND_SPOTLIGHT
         });

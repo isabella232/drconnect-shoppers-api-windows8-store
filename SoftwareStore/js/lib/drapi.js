@@ -2604,11 +2604,13 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
         var headerParams = {};
         headerParams['Authorization'] = 'bearer ' + this.token;
         
+        var formattedBody = body;
         if(body){
 			headerParams["Content-Type"] = "application/json";
+			formattedBody = JSON.stringify(body);
         }
         
-        var promise = this.connection.create(uri, urlParams, headerParams, body)
+        var promise = this.connection.create(uri, urlParams, headerParams, formattedBody)
                        .then(function(data) {
                            for(var name in data) {
                                if(name) {
