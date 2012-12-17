@@ -2604,11 +2604,13 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
         var headerParams = {};
         headerParams['Authorization'] = 'bearer ' + this.token;
         
+        var formattedBody = body;
         if(body){
 			headerParams["Content-Type"] = "application/json";
+			formattedBody = JSON.stringify(body);
         }
         
-        var promise = this.connection.create(uri, urlParams, headerParams, body)
+        var promise = this.connection.create(uri, urlParams, headerParams, formattedBody)
                        .then(function(data) {
                            for(var name in data) {
                                if(name) {
@@ -2957,6 +2959,15 @@ define('service/CartService',['service/BaseService', 'Config'], function(BaseSer
          */
         get: function(parameters, callbacks) {
             return this.makeRequest(this.session.retrieve(this.uri, parameters), callbacks);
+        },
+        
+         /**
+         * Updates the cart with the parameters specified. It sends a POST to the API
+         * @param parameters
+         * @param callback service response (cart)
+         */
+        updateCart: function(parameters, callbacks) {
+            return this.makeRequest(this.session.create(this.uri, parameters), callbacks);
         },
         
         /**

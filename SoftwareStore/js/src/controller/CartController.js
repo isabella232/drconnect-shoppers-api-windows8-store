@@ -66,58 +66,6 @@
                 });
             },
 
-            /*addProductsToCart: function (args) {
-                var self = this;
-                var promises = [];
-                args.forEach(function (productToAdd) {
-                    promises.push(DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri));
-                });
-                console.log(args.length);
-
-                WinJS.Promise.join(promises).then(function (data) {
-                    self.goToPage(DR.Store.URL.CART_PAGE);
-                });
-            },*/
-
-            /**
-             * Receive a list and adds multiple products sequentially (waits for the response before calling add for the next product)
-             * Once all requests are completed sends a CART_CHANGED notification so other controllers can update the corresponding views
-             * @productsList list of products to add
-             * TODO: Change this logic to add all products simultaneously, the API has a bug when calling addToCart concurrently, this is because 
-             * the requests are called sequentially
-             */
-         /*   addProductsToCart: function (productsList) {
-                var self = this;
-                var list = [];
-                var productToAdd;
-                var timeStamp = productsList.timeStamp;
-                if (productsList.length > 0) {
-                    productToAdd = productsList.splice(0, 1)[0];
-                    // If it is the first product that will be added send the block app notification
-                    if (!this.addingFlag) {
-                        // Send notification to block the application
-                        self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.addProduct").value);
-                    }
-                    DR.Store.Services.cartService.addToCart(productToAdd.product, 1, productToAdd.addToCartUri).then(function (data) {
-                        if (productsList.length > 0) {
-                            self.addProductsToCart(productsList);
-                        } else {
-                            var timeStamp = productsList.timeStamp;
-                            // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
-                            if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
-                                self.notify(DR.Store.Notifications.UNBLOCK_APP);
-                            }
-                            // Sends the timeStamp on the notification so the each controller can recognize if the AddToCart notification was send by self
-                            console.log("Sending add product finished notification");
-                            self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
-                        }
-                    }, function (error) {
-                        console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
-                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
-                    });
-                }
-            },*/
-
 
             /**
              * Receive a list and adds multiple products sequentially (waits for the response before calling add for the next product)
@@ -146,7 +94,34 @@
                 }
             },
 
+            /**
+            * Handles remove from cart notifications
+            * @args the item to be removed
+            * Once all requests are completed sends a CART_CHANGED notification so other controllers can update the corresponding views
+            */
+            removeFromCart: function (lineItems) {
+                var self = this;
+                var promises = [];
+                var timeStamp = lineItems.timeStamp;
+                if (lineItems.length > 0) {
+                    // Send notification to block the application
+                    self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.removeProduct").value);
+                }
+                DR.Store.Services.cartService.removeMultipleLineItemsFromCart(lineItems).then(function () {
+                    console.log("Sending remove products finished notification");
+                    // I the remove from cart was not fired by this controller it unblocks the app, otherwise CART_CHANGED notification will do it later
+                    if (!self._cartChangeTimeStamp || self._cartChangeTimeStamp != timeStamp) {
+                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    }
+                    // Since remove from cart is called from this controller Unblocks the application with the cartChanged
+                    self.notify(DR.Store.Notifications.CART_CHANGED, timeStamp);
 
+                }, function (error) {
+                    var errorItem = error[0];
+                    console.log("CartController: Error Removing lineitems from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                });
+            },
 
 
 
@@ -156,7 +131,7 @@
               * @args the item to be removed
               * Once all requests are completed sends a CART_CHANGED notification so other controllers can update the corresponding views
               */
-            removeFromCart: function (lineItems) {
+            /*removeFromCart: function (lineItems) {
                 var self = this;
                 var promises = [];
                 var timeStamp = lineItems.timeStamp;
@@ -181,7 +156,7 @@
                     console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
-            },
+            },*/
 
             /**
              * Default Behaviour when a product is clicked on the cart page
