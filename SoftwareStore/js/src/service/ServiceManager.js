@@ -121,8 +121,10 @@
             /**
              * Handles any error but session expiration 
              */
-            genericErrorHandler: function(error) {
-                DR.Store.App.dispatcher.handle(DR.Store.Notifications.SHOW_ERROR, error);
+            genericErrorHandler: function (error) {
+                // If the error has been already handled by the service.. no default action is fired
+                if(!error.handled)
+                    DR.Store.App.dispatcher.handle(DR.Store.Notifications.SHOW_ERROR, error);
             },
 
             /*
