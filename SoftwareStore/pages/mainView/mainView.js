@@ -11,7 +11,8 @@
             events: {
                 CART_BUTTON_CLICKED: "cartButtonClicked",
                 HOME_BUTTON_CLICKED: "homeButtonClicked",
-                PROFILE_CLICKED: "profileClicked"
+                PROFILE_CLICKED: "profileClicked",
+                TRY_AGAIN_CLICKED: "tryAgainClicked"
             },
 
             /**
@@ -31,6 +32,17 @@
              * Flyout used to show notification over the application
              */
             notificationFlyout: null,
+
+            /**
+             * Flyout used to show notification over the application
+             */
+            errorFlyout: null,
+
+            /**
+             *
+             */
+            errorMessageDialog: null,
+
 
             /**
              * Initializes the view adding default buttons to the application bars, and pageHeaderBar and click handlers
@@ -100,6 +112,21 @@
                 this.dispatchEvent(this.events.PROFILE_CLICKED);
             },
 
+            _onTryAgainButtonClicked: function (e) {
+                var self = this;
+                this.errorMessageDialog = null;
+                setTimeout(function () {
+                    self.dispatchEvent(self.events.TRY_AGAIN_CLICKED);
+                }, 500);
+                console.log("Try Again Button Clicked");
+            },
+
+            _onCancelButtonClicked: function(e){
+                this.errorMessageDialog = null;
+                console.log("Cancel Button Clicked");
+            },
+
+
             showMessage: function(messageText){
                 // Get an anchor for the flyout
                 var flyoutAnchor = document.getElementById("flyoutAnchor"); 
@@ -121,17 +148,31 @@
                 }
             },
 
+            showError: function (error) {
+                var self = this;
+                if (!this.errorMessageDialog) {
+                    this.bottomAppBar.setVisible(false);
+
+                    var errorTitle = "Error: " + error.details.error.code;
+                    var errorText = error.details.error.description;
+
+                    var msg = this._createErrorModalDialog(errorTitle, errorText);
+
+                    this.errorMessageDialog = msg;
+
+                    // Show the message dialog
+                    msg.showAsync();
+                }
+
+            },
+
             blockAppBar: function () {
                 // Block the application bars
                 this.topAppBar.disable();
                 this.bottomAppBar.disable();
 
                 //Block the pageheader buttons
-                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = true;
-                if (document.querySelector(".win-backbutton")) {
-                    document.querySelector(".win-backbutton").disabled = true;
-                }
-
+                this._blockPageHeaderBarButtons(true);
 
             },
             
@@ -139,13 +180,66 @@
                 // UnBlock the application bars
                 this.topAppBar.enable();
                 this.bottomAppBar.enable();
-
+                
                 //Unblock the pageheader buttons
-                this.pageHeaderBar.element.querySelector("#upper-cart").disabled = false;
+                this._blockPageHeaderBarButtons(false);
+            },
+
+            /*
+             * Block/Unblock the pageHeader bar button depending on the parameter
+             */
+            _blockPageHeaderBarButtons: function (blocked) {
+                if (blocked) {
+                    this.pageHeaderBar.blockElement("#upper-cart");
+                } else {
+                    this.pageHeaderBar.unBlockElement("#upper-cart");
+                    this.pageHeaderBar.unBlockElement(".win-backbutton");
+                }
                 if (document.querySelector(".win-backbutton")) {
-                    document.querySelector(".win-backbutton").disabled = false;
+                    document.querySelector(".win-backbutton").disabled = blocked;
                 }
             },
+
+            showConnectionErrorDialog: function (error) {
+                var self = this;
+                if (!this.errorMessageDialog) {
+                    this.topAppBar.setVisible(false);
+                    this.bottomAppBar.setVisible(false);
+                    //Block the pageheader buttons
+                    this._blockPageHeaderBarButtons(true);
+                    // Create the message dialog and set its content
+                    var msg = this._createErrorModalDialog(WinJS.Resources.getString('/errors/connectionLost.title').value, WinJS.Resources.getString('/errors/connectionLost.text').value);
+
+                    this.errorMessageDialog = msg;
+
+                    // Show the message dialog
+                    msg.showAsync();
+                }
+
+            },
+
+            /**
+             * creates a Modal Error Dialog and returns it
+             */
+            _createErrorModalDialog: function(title, text) {
+                // Create the message dialog and set its content
+                var msg = new Windows.UI.Popups.MessageDialog(text, title);
+
+                // Add commands and set their command handlers
+                msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.tryAgainButton').value, this._onTryAgainButtonClicked.bind(this)));
+
+                msg.commands.append(new Windows.UI.Popups.UICommand(WinJS.Resources.getString('/errors/connectionLost.cancelButton').value, this._onCancelButtonClicked.bind(this)));
+
+                // Set the command that will be invoked by default
+                msg.defaultCommandIndex = 1;
+
+                // Set the command to be invoked when escape is pressed
+                msg.cancelCommandIndex = 2;
+
+                return msg;
+            },
+
+    
  
             /**
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
@@ -189,6 +283,7 @@
             }
 
         });
+
 
     /**
      * Finds the top left point of an element

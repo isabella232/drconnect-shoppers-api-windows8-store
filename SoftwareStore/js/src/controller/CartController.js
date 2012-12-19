@@ -17,6 +17,7 @@
                 page.addEventListener(page.events.REMOVE_ITEM_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
                 page.addEventListener(page.events.RESET_CART_CLICKED, this._onRemoveFromCartClicked.bind(this), false);
                 page.addEventListener(page.events.ADD_OFFER_CLICKED, this._onAddOfferToCartClicked.bind(this), false);
+                page.addEventListener(page.events.APPLY_PROMO_CODE_CLICKED, this._onApplyPromoCode.bind(this), false);
                 return this._getCart();
             },
 
@@ -30,7 +31,6 @@
                     self.page.setCandyRack(candyRack.productOffer);
                 }, function (error) {
                     console.log("CartController: Error Retrieving candy rack: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
                 return DR.Store.Services.cartService.get().then(function (cart) {
@@ -38,7 +38,6 @@
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CartController: Error Retrieving cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -62,7 +61,6 @@
                     self.notify(DR.Store.Notifications.CART_CHANGED);
                 }, function (error) {
                     console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -113,7 +111,6 @@
                         }
                     }, function (error) {
                         console.log("CartController: Error Adding product to the cart: " + error.details.error.code + " - " + error.details.error.description);
-                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 }
             },
@@ -146,7 +143,6 @@
                 }, function (error) {
                     var errorItem = error[0];
                     console.log("CartController: Error Removing a line item from the cart: " + errorItem.details.error.code + " - " + errorItem.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -173,7 +169,6 @@
                     self.notify(DR.Store.Notifications.CART_CHANGED, self._cartChangeTimeStamp);
                 }, function (error) {
                     console.log("CartController: Error editing a line item from the cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
             },
@@ -200,6 +195,22 @@
 
 
             /**
+             * Calls the service when a promo code needs to be applied
+             */
+            _onApplyPromoCode: function (e) {
+                var self = this;
+                self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.applyPromoCode").value);
+                DR.Store.Services.cartService.applyPromoCode(e.promoCode).then(function (cart) {
+                    self.page.setCart(cart);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                }, function (error) {
+                    console.log("CartController: Error applying promo code to the cart: " + error.details.error.code + " - " + error.details.error.description);
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                });
+            },
+
+
+            /**
              * Default Behaviour when a checkout button is clicked on the cart page
              */
             _onCheckout: function (e) {
@@ -214,7 +225,7 @@
                 if (timeStamp && timeStamp === this._cartChangeTimeStamp) {
                     this.page.clearSelection();
                     // Refreshes the cart
-                    this._getCart()
+                    this._getCart();
                     this._cartChangeTimeStamp = null;
                 }
             }

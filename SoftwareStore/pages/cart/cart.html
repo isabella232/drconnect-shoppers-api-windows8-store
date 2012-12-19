@@ -31,7 +31,7 @@
             </h1>
         </header>
 
-        <section aria-label="Cart content" role="main">
+        <section class="main-content" aria-label="Cart content" role="main">
             <div class="cart-empty"><span data-win-res="{textContent: 'cart.cartEmpty'}">The cart is empty</span></div>
             <div class="cart-list-container">
                 <div class="cart-list-header item-container">
@@ -51,6 +51,14 @@
 
                 <div class="cartlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist"
                     data-win-options="{ selectionMode: 'single',  tapBehavior: 'invoke', swipeBehavior: 'select'}">
+                </div>
+
+                <div class="promocode-button">
+                    <p>
+                        <span>Promo Code: </span>
+                        <input type="text" id="promoCode" />
+                        <button id="promoCodeButton" ><span >Apply</span></button>
+                    </p>
                 </div>
 
                 <div id="summary" class="cart-summary" data-win-control="DR.Store.Widget.Html.CartSummaryWidget"></div>
