@@ -1,3 +1,8 @@
-﻿.offer p {
-    margin-left: 120px;
+﻿.offer .win-surface {
+	margin-left: 115px;
+}
+
+.offer .win-listview {
+    overflow: hidden;
+    height: 100%;
 }

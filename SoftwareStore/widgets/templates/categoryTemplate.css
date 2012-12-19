@@ -17,7 +17,7 @@
 	display: block;
 	text-align: center;
 	height: 124px;
-	width: 145px;
+	width: 150px;
 }
 
 .categoryTemplate .image-wrapper img {
@@ -29,7 +29,7 @@
 	-ms-grid-row: 2;
 	-ms-grid-row-align: center;
 	background-color: rgba(21, 31, 50, 0.898);
-	height: 30px;
+	height: 40px;
 	overflow: hidden;
 	display: inline-block;
 	margin-bottom: 0px;
