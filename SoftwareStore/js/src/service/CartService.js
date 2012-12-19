@@ -260,8 +260,12 @@
             var lineItem = {};
             lineItem.product = {};
             lineItem.product.id = item.product.id;
-            if (item.product.offer) {
-                lineItem.product.offer = item.product.offer.id;
+            if (item.addToCartUri) {
+                var offerId = extractOfferIdFromURL(item.addToCartUri);
+                if(offerId){
+                    lineItem.offer = {};
+                    lineItem.offer.id = offerId;
+                }
             }
             lineItem.quantity = item.qty;
             lineItemList.push(lineItem);
@@ -269,6 +273,27 @@
         lineItems.lineItem = lineItemList;
         return lineItems;
 
+    }
+
+    /**
+     * Extracts the offerId from the addToCartURL
+     */
+    function extractOfferIdFromURL(addToCartURL) {
+        if(!addToCartURL)
+            return null;
+        var u = Windows.Foundation.Uri(addToCartURL);
+        var decoder = new Windows.Foundation.WwwFormUrlDecoder(u.query);
+
+        var offerId = null;
+
+        try {
+            offerId = decoder.getFirstValueByName("offerId");
+        } catch (e) {
+            offerId = null;
+        }
+
+        return offerId;
+        
     }
 
 
