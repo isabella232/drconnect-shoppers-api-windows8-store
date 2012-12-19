@@ -23,18 +23,21 @@
                     page.setAddresses(addresses);
                 }, function (error) {
                     console.log("CheckoutController: Error getting shopper's addresses: " + error.details.error.code + " - " + error.details.error.description);
+                    throw error;
                 }));
 
                 promises.push(DR.Store.Services.userService.getPaymentOptions().then(function (paymentOptions) {
                     page.setPaymentOptions(paymentOptions);
                 }, function (error) {
                     console.log("CheckoutController: Error getting shopper's payment options: " + error.details.error.code + " - " + error.details.error.description);
+                    throw error;
                 }));
 
                 promises.push(DR.Store.Services.cartService.applyShopper().then(function (cart) {
                     page.setCart(cart);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
+                    throw error;
                 }));
 
                 /**
@@ -45,7 +48,6 @@
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("There was an error on almost one of the service calls");
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
 
             },
@@ -71,7 +73,6 @@
                         self._doSubmit(params.cart);
                     }, function (error) {
                         console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
-                        self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     });
                 } else {
                     return self._doSubmit(params.cart);
@@ -91,7 +92,6 @@
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shopper to cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -108,7 +108,6 @@
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
                     console.log("CheckoutController: Error applying shipping option to cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             },
 
@@ -124,7 +123,6 @@
                     self.goToPage(DR.Store.URL.THANKS_PAGE, { "order": order, "cart": cart });
                 }, function (error) {
                     console.log("CheckoutController: Error submiting the cart: " + error.details.error.code + " - " + error.details.error.description);
-                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 });
             }
 

@@ -12,7 +12,7 @@
             var options = {
                 authMode: dr.api.authModes.MANUAL,
                 authRedirectUrl: this.redirectUri,
-                error: this.errorHandler, 
+                error: this.errorHandler.bind(this), 
             };
 
             this._client = new dr.api.Client(key, options);
@@ -37,11 +37,17 @@
              * Connects to DR Api using the provided Key
              */
             initialize: function (sessionInfo) {
+                var self = this;
                 if (sessionInfo) {
                     this.restartFromSuspension(sessionInfo);
                     return WinJS.Promise.as(true);
                 } else
-                    return this._client.connect();
+                    return this._client.connect().then(null, function (error) {
+                        console.log("Error Connection Session");
+                        // If an connection error occurs, wrap a successfull response in order to initialize all other application objects
+                        // If the problem is solved in the next calls the application will connect
+                        return WinJS.Promise.wrap(true);
+                    });
             },
 
             getSessionInfo: function () {
@@ -69,51 +75,77 @@
                 console.log("DR API Library Error: (status " + status + ") " + code + " - " + description);
 
                 var manager = DR.Store.App.serviceManager;
+
+                // If the status code is 401 or 500 it checks the internet connection in order to define if there is an internet issue
+                // or if it is an api issue
+                if (status === 401 || status === 500) {
+                    if (!this.checkInternetConnection()) {
+                        DR.Store.App.dispatcher.handle(DR.Store.Notifications.CONNECTION_ERROR, response);
+                        return;
+                    } else {
+                        // The device is connected to the internet there is a api connection issue, so it sets the status to 401 in order to make
+                        // the error be handled by sessionExpiredErrorHandler who will try to connect/reconnect to the API
+                        status = 401;
+                    }
+                }
         
                 // If status = 401, special handling is required
                 if(status == 401) {
                     manager.sessionExpiredErrorHandler(response);
-                }/* else {
-                    manager.genericErrorHandler(status, code, description);
-                }*/
+                } else {
+                    manager.genericErrorHandler(response);
+                }
             },
             /**
              * Handles session expired errors
              */
-            sessionExpiredErrorHandler: function(response) {
+            sessionExpiredErrorHandler: function (response) {
+               
                 console.info("Session Expired, reconnecting...");
+                this._client.disconnect();
                 var that = this;
-                if(!this.reconnectingFlag || response.details.error.code === "refresh_token_invalid"){
-        	        this.reconnectingFlag = true;
-	                this.initialize().then(function() {
-	                    console.info("Reconnected to DR!");
-	                    that.reconnectingFlag = false;
-	                    DR.Store.App.dispatcher.handle(DR.Store.Notifications.SESSION_RESET);
-	                    DR.Store.App.navigationManager.refreshPage();
-	                },function(){
-	        	        that.reconnectingFlag = false;
-	                });
-                } 
+                if (!this.reconnectingFlag || response.details.error.code === "refresh_token_invalid") {
+                    this.reconnectingFlag = true;
+                    this.initialize().then(function () {
+                        console.info("Reconnected to DR!");
+                        that.reconnectingFlag = false;
+                        DR.Store.App.dispatcher.handle(DR.Store.Notifications.SESSION_RESET);
+                        DR.Store.App.navigationManager.refreshPage();
+                    }, function () {
+                        that.reconnectingFlag = false;
+                    });
+                }
+               
             },
 
             /**
              * Handles any error but session expiration 
              */
-           /* genericErrorHandler: function(status, code, description) {
-                // Show an error notification
-                var error = "There was a problem with the connection, please try again later";
-                if(description && description != "") error = description;
-        
-                var dispatcher = dr.acme.application.getDispatcher();
-                dispatcher.handle(dr.acme.runtime.NOTIFICATION.UNBLOCK_APP);
-                // If the status code is 500 it redirects to an error page
-                if(status == 500){
-        	        var serverError = {"status": status, "code": code, "description": description}
-        	        dispatcher.handle(dr.acme.runtime.NOTIFICATION.SERVER_ERROR, serverError);
-                }else{
-        	        dr.acme.util.DialogManager.showError(error, "A problem ocurred");
-                }        
-            }*/
+            genericErrorHandler: function(error) {
+                DR.Store.App.dispatcher.handle(DR.Store.Notifications.SHOW_ERROR, error);
+            },
+
+            /*
+             * Calls a WinJs Utility to check if the device is connected to the internet
+             */
+            checkInternetConnection: function () {
+                var networkInfo = Windows.Networking.Connectivity.NetworkInformation;
+                var networkConnectivityInfo = Windows.Networking.Connectivity.NetworkConnectivityLevel;
+               
+                var connectionProfile = networkInfo.getInternetConnectionProfile();
+                if (connectionProfile == null) {
+                    return false;
+                }
+
+                var networkConnectivityLevel = connectionProfile.getNetworkConnectivityLevel();
+                if (networkConnectivityLevel == networkConnectivityInfo.none
+                    || networkConnectivityLevel == networkConnectivityInfo.localAccess
+                    || networkConnectivityLevel == networkConnectivityInfo.constrainedInternetAccess) {
+                    return false;
+                }
+
+                return true;
+            }
 
         }
     );

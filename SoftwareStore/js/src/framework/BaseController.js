@@ -14,6 +14,7 @@
             pageNavigator: null,
             showPage: function (detail, localized) {
                 console.log("Showing page with URI " + detail.location);
+                var self = this;
                 this.clearAppBars();
                 var p = this.pageNavigator.goToPage(detail.location, detail.state).then(function (page) {
                     if (page.clear) {
@@ -22,7 +23,7 @@
                     if (localized) {
                         WinJS.Resources.processAll(page.element);
                     }
-                    
+
                     return page;
                 });
                 if (p) {
@@ -63,7 +64,11 @@
                 bottomAppBar.clear();
                 
                 // Shows the cart button on the pageHeaderBar
-                DR.Store.App.PageHeaderBar.winControl.showElement("#upper-cart");
+                var pageHeaderBar = DR.Store.App.PageHeaderBar.winControl;
+                pageHeaderBar.showElement("#upper-cart");
+
+                pageHeaderBar.unBlockElement("#upper-cart");
+                pageHeaderBar.unBlockElement(".win-backbutton");
             }
 
         }
