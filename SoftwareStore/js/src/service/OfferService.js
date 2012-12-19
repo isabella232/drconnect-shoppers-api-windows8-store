@@ -20,8 +20,12 @@
                 var self = this;
                 console.debug("Calling DR getOffersForProduct");
 
-                return this._client.offers.list(popName, { "expand": "all" }).then(function (offers) {
+                return this._client.offers.list(popName, { "expand": "all" }, null, true).then(function (offers) {
                     return offers;
+                }, function (error) {
+                    if (error.details.error.code === "OFFERS_UNAVAILABLE") {
+                        console.log("No offers for this POP");
+                    }
                 });
             },
 

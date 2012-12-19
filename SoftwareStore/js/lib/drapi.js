@@ -408,12 +408,20 @@ define('AsyncRequester',['Class'], function(Class) {
     var AsyncRequester = Class.extend({
         init: function(session) {
           this.session = session;  
-        },
-        makeRequest: function(promise, callbacks) {
+        }, 
+        
+        /**
+         * Sends a request and handles the responses
+         * If no callbacks are defined, it calls this.options.error which is the default error handler.
+         * The errorResponde containing a variable (handled) which can be used by the default error handler
+         * to do special actions, for example if that error is handled by the then(null, errorFunction) of the 
+         * service (which is the one who calls this function) for doing that you must put errorHandled parameter = true
+         */
+        makeRequest: function(promise, callbacks, errorHandled) {
             var self = this;
             var p = promise
                     .fail(function(response) { return self.invalidTokenHandler(response); })
-                    .fail(function(response) { return self.adaptError(response); } ); 
+                    .fail(function(response) { return self.adaptError(response, errorHandled); } ); 
             if(callbacks) {
                 var cb = this.getCallbacks(callbacks);
                 p.then(cb.success, cb.error).end();
@@ -469,11 +477,11 @@ define('AsyncRequester',['Class'], function(Class) {
                 return this.failRequest("The resource does not provide a URI", callbacks);
             }
         },
-        adaptError: function(response) {
+        adaptError: function(response, handled) {
             if(response.error && response.error.errors && response.error.errors.error) {
                 response.error = response.error.errors.error;
             }
-            throw {status: response.status, details: response};        
+            throw {status: response.status, details: response, "handled": handled};        
         },
         getCallbacks: function(callbacks){
             var that = this;
@@ -2604,11 +2612,13 @@ define('connection/Session',['Config', 'connection/Connection', 'auth/AuthManage
         var headerParams = {};
         headerParams['Authorization'] = 'bearer ' + this.token;
         
+        var formattedBody = body;
         if(body){
 			headerParams["Content-Type"] = "application/json";
+			formattedBody = JSON.stringify(body);
         }
         
-        var promise = this.connection.create(uri, urlParams, headerParams, body)
+        var promise = this.connection.create(uri, urlParams, headerParams, formattedBody)
                        .then(function(data) {
                            for(var name in data) {
                                if(name) {
@@ -3103,10 +3113,10 @@ define('service/OfferService',['service/BaseService', 'Config'], function(BaseSe
         /**
          * Gets the offers for a POP 
          */
-        list: function(popName, parameters, callbacks) {
+        list: function(popName, parameters, callbacks, errorHandled) {
             var uri = this.replaceTemplate(this.uri, {'popName':popName});
     
-            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
+            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks, errorHandled);
         },
         
         /**
