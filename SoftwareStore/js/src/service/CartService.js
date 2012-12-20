@@ -201,14 +201,19 @@
                 var params = {}
 
                 params.expand = "all";
-                params.promoCode = promoCode;
+                // If the user enters invalid character they will be cleared
+                params.promoCode = clearPromocode(promoCode);
                 var self = this;
-                return this._client.cart.updateCart(params).then(function (data) {
-                    self._cart = data;
-                    console.info("PromoCode applied to Cart");
-                    return data;
-                });
-
+                // if the after clearing the promocode the field is not empty it tries to call the service to apply it, otherwise the response is the same cart
+                if (params.promoCode) {
+                    return this._client.cart.updateCart(params).then(function (data) {
+                        self._cart = data;
+                        console.info("PromoCode applied to Cart");
+                        return data;
+                    });
+                } else {
+                    return this.get();
+                }
             },
 
             /**
@@ -295,6 +300,24 @@
         return offerId;
         
     }
+
+    /**
+     * Clears the promocode looking for invalid characters (those ones that the API doesn't support) removing them
+     * Unsupported characters are !\"#$%&'()*+-/:<=>?@[]^`{|}~
+     */
+    function clearPromocode(promoCode) {
+        var result = promoCode;
+        var invalidCharacters = "!\"#$%&'()*+-/:<=>?@[]^`{|}~";
+        var array = invalidCharacters.split("");
+        array.forEach(function (char) {
+            while (result.indexOf(char) != -1) {
+                result = result.replace(char, "");
+            }
+        });
+
+        return result;
+    }
+
 
 
     WinJS.Namespace.define("DR.Store.Service", {

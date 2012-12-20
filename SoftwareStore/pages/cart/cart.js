@@ -384,6 +384,10 @@
             this.candyRackList.selection.clear();
         },
 
+        clearPromoCodeField: function () {
+            this._promoCodeField.value = "";
+        },
+
         unload: function () {
             // When unloading change the setCart function in order to avoid failing if the callback returns
             this.setCart = function (cart) {

@@ -209,6 +209,7 @@
                 var self = this;
                 self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.applyPromoCode").value);
                 DR.Store.Services.cartService.applyPromoCode(e.promoCode).then(function (cart) {
+                    self.page.clearPromoCodeField();
                     self.page.setCart(cart);
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
