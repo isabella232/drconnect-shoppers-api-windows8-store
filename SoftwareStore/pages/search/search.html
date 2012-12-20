@@ -31,13 +31,16 @@
         </header>
         <section class="main-content" aria-label="Main content" role="main">
             <div class="resultsmessage win-type-x-large hidden" data-win-res="{textContent: 'search.emptyMessage'}">No results match your search.</div>
-            <div class="filterarea">
+            <!-- <div class="filterarea">
                 <ul class="filterbar"></ul>
                 <select class="filterselect"></select>
-            </div>
+            </div>-->
             <div id="list" class="resultslist win-selectionstylefilled" aria-label="Search results" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'single',  tapBehavior: 'invoke', swipeBehavior: 'select' }"></div>
 
         </section>
+
+        <footer data-win-control="DR.Store.Widget.Html.Footer"/>
+
     </div>
 </body>
 </html>

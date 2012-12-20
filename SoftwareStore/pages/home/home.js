@@ -49,7 +49,7 @@
 
             this.itemsList.itemDataSource = groupedItems.dataSource;
             this.itemsList.groupDataSource = groupedItems.groups.dataSource;
-            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 6, groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70 } });
+            this.itemsList.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 8, groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70} });
         },
 
         /**

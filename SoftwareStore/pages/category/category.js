@@ -31,7 +31,7 @@
             this._categoryTemplate = element.querySelector(".categorytemplate").winControl;
             this.list.itemTemplate = categoryItemTemplate.bind(this);
             this.list.groupHeaderTemplate = document.getElementById("groupTemplate");
-            this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70 } });
+            this.list.layout = new WinJS.UI.GridLayout({ groupHeaderPosition: "top", maxRows: 8, groupInfo: { enableCellSpanning: true, cellWidth: 70, cellHeight: 70 } });
 
             // Initialize the Application Bars
             this._initializeAppBars();

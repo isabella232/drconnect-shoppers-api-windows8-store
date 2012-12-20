@@ -16,10 +16,7 @@
 .searchResults section[role=main] {
     /* Define a grid with rows for the filters and results */
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 180px 1fr;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 2;
-    display: -ms-grid;
+    -ms-grid-row: 2;
 }
 
     .searchResults section[role=main] .resultsmessage {
@@ -66,16 +63,7 @@
     }
 
         .searchResults section[role=main] .resultslist .win-horizontal.win-viewport .win-surface {
-            margin-bottom: 60px;
-            margin-left: 90px;
-            margin-right: 90px;
-            margin-top: 198px;
-        }
-
-        .searchResults section[role=main] .resultslist .win-container {
-            margin-bottom: 10px;
-            margin-left: 23px;
-            margin-right: 23px;
+            margin-left: 115px;
         }
 
         .searchResults section[role=main] .resultslist .item {
