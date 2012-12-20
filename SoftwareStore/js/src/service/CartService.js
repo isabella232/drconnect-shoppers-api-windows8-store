@@ -24,7 +24,7 @@
                 console.log("Retrieving cart");
 
                 // Used to get the product Id in the line-item so we can link back to the product page
-                var params = { expand: "lineItems.lineItem.product.id"};
+                var params = { expand: "all"};
 
                 return this._client.cart.get(params).then(function (data) {
                     self._cart = data;

@@ -117,7 +117,13 @@
          */
         setPricing: function (pricing) {
             if (pricing.listPrice.value != pricing.salePriceWithQuantity.value) {
-                var savedAmount = "$" + (pricing.listPrice.value - pricing.salePriceWithQuantity.value).toFixed(2) + " " +  WinJS.Resources.getString('productDetail.saved').value;
+                var savedAmount;
+                // This if statement is applied because there is a bug on the offers api that retrieves the discount in null besides it should be a value different than 0
+                if (pricing.totalDiscountWithQuantity) {
+                    savedAmount = "$" + pricing.totalDiscountWithQuantity.value + " " + WinJS.Resources.getString('productDetail.saved').value;
+                } else {
+                    savedAmount = "$" + (pricing.listPrice.value - pricing.salePriceWithQuantity.value).toFixed(2) + " " + WinJS.Resources.getString('productDetail.saved').value;
+                }
                 this.element.querySelector("#listPrice").textContent = pricing.formattedListPrice + " " + WinJS.Resources.getString('productDetail.MSRP').value;
                 this.element.querySelector("#savedAmount").textContent = savedAmount;
                 WinJS.Utilities.removeClass(this.element.querySelector("#listPriceLabel"), "hidden");

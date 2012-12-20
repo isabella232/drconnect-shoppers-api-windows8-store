@@ -19,7 +19,8 @@
              */
             getProduct: function (id) {
                 var self = this;
-                return this._client.products.get(id)
+                var params = { expand: "all" }
+                return this._client.products.get(id, params)
                 .then(function (product) {
                     self._products[id] = product;
                     return product;
