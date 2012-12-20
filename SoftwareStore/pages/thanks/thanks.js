@@ -42,7 +42,7 @@
 
             this._setOrderItems(this._mergeItems(order.lineItems.lineItem, cart.lineItems.lineItem));
 
-            this.element.querySelector("#summary").winControl.renderPricing(order.pricing);
+            this.element.querySelector("#summary").winControl.renderPricing(order.pricing, true);
 
             this._renderShippingAddress(cart.shippingAddress);
             

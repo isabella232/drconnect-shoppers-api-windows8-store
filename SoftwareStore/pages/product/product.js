@@ -52,10 +52,22 @@
             this.product = null;
             this.images.splice(0, this.images.length);
             this.element.querySelector(".titlearea .pagetitle").textContent = "";
-            this.element.querySelector("#product-price").textContent = "";
             this.element.querySelector(".short-description").innerHTML = "";
             this.element.querySelector("#snapped_description").innerHTML = "";
             this.element.querySelector(".long-description").innerHTML = "";
+            this._clearPrices();
+        },
+
+        /**
+         * Clears the prices content on the page
+         */
+        _clearPrices: function(){
+            this.element.querySelector("#salePrice").textContent = "";
+            WinJS.Utilities.addClass(this.element.querySelector("#listPriceLabel"), "hidden");
+            WinJS.Utilities.addClass(this.element.querySelector("#savedAmountLabel"), "hidden");
+            this.element.querySelector("#listPrice").textContent = "";
+            this.element.querySelector("#savedAmount").textContent = "";
+
         },
 
         /**
@@ -89,12 +101,30 @@
             this.images.push(product);
 
             this.element.querySelector(".titlearea .pagetitle").textContent = product.displayName;
-            this.element.querySelector("#product-price").textContent = window.toStaticHTML(product.pricing.formattedSalePriceWithQuantity);
+            this.element.querySelector("#salePrice").textContent = product.pricing.formattedSalePriceWithQuantity;
             this.element.querySelector(".content .short-description").innerHTML = window.toStaticHTML(product.shortDescription || "");
             this.element.querySelector("#snapped_description").innerHTML = window.toStaticHTML(product.shortDescription || "");
             this.element.querySelector(".content .long-description").innerHTML = window.toStaticHTML(product.longDescription || "");
 
+            this.setPricing(product.pricing);
+
             this.showLoader(false);
+        },
+
+        /**
+         * Sets the pricing on the page
+         * Hide/show some fields depending on if there is a discount or not
+         */
+        setPricing: function (pricing) {
+            if (pricing.listPrice.value != pricing.salePriceWithQuantity.value) {
+                var savedAmount = "$" + (pricing.listPrice.value - pricing.salePriceWithQuantity.value).toFixed(2) + " Saved";
+                this.element.querySelector("#listPrice").textContent = pricing.formattedListPrice + " MSRP";
+                this.element.querySelector("#savedAmount").textContent = savedAmount;
+                WinJS.Utilities.removeClass(this.element.querySelector("#listPriceLabel"), "hidden");
+                WinJS.Utilities.removeClass(this.element.querySelector("#savedAmountLabel"), "hidden");
+            }
+
+            this.element.querySelector("#salePrice").textContent = pricing.formattedSalePriceWithQuantity;
         },
 
         /**
@@ -262,7 +292,19 @@
         var self = this;
         var template = this.element.querySelector('.candyRackItemtemplate').winControl;
         return itemPromise.then(function (currentItem) {
+            setofferPricing(currentItem.data);
             return template.render(currentItem.data);
         });
+    }
+
+    /**
+    * Sets the offer oldPrice in order to define show it or not
+    */
+    function setofferPricing(offer) {
+        if (offer.pricing.formattedListPrice != offer.pricing.formattedSalePriceWithQuantity) {
+            offer.pricing.oldPrice = offer.pricing.formattedListPrice;
+        } else {
+            offer.pricing.oldPrice = null;
+        }
     }
 })();
