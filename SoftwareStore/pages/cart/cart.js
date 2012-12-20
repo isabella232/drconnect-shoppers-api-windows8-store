@@ -304,7 +304,7 @@
             this.bottomAppBar.addCommand({ id: 'cmdAddOffer', label: addOfferButtonLabel, icon: 'add', section: 'selection', tooltip: addOfferButtonTooltip, hidden: true, clickHandler: this._onAddOfferToCart.bind(this) });
             this.bottomAppBar.addCommand({ id: 'cmdViewOffer', label: viewOfferButtonLabel, icon: '', section: 'selection', tooltip: viewOfferButtonTooltip, hidden: true, clickHandler: this._onViewOffer.bind(this) });
             //TODO: Remove the reset cart because the API doesn't work well removing multiple items. Add it when the API is fixed
-            //this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
+            this.bottomAppBar.addCommand({ id: 'cmdResetCart', label: resetCartButtonLabel, icon: '', section: 'global', tooltip: resetCartButtonTooltip, clickHandler: this._onResetCart.bind(this) });
             this.bottomAppBar.hideCommands(["gotoCart"]);
             
             this.topAppBar = DR.Store.App.AppTopBar.winControl;
@@ -355,7 +355,12 @@
             }
             var count = this.candyRackList.selection.count();
             if (count > 0) {
-                this.bottomAppBar.showCommands(["cmdAddOffer", "cmdViewOffer"]);
+                this.bottomAppBar.showCommands(["cmdAddOffer"]);
+                if (count == 1) {
+                    this.bottomAppBar.showCommands(["cmdViewOffer"]);
+                } else {
+                    this.bottomAppBar.hideCommands(["cmdViewOffer"]);
+                }
                 // If an item is being selected i do nothing with the appbar, since it will be shown or hidden by the function that is selecting the item
                 if (!this._selectingItemFlag) {
                     this.topAppBar.show();

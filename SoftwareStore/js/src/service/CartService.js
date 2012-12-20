@@ -16,6 +16,10 @@
              * Gets the cart
              */
             get: function () {
+               /* if (this._cart) {
+                    return this._cart;
+                }*/
+
                 var self = this;
                 console.log("Retrieving cart");
 
@@ -67,6 +71,51 @@
                     console.log("Error when adding a product: " + error.details.error.code + ": " + error.details.error.description);
                 });
             },
+
+            /**
+           * Adds a Product to the Cart
+           * @param product product to be added
+           * @param qty quantity of product to be added
+           * @param addToCartUri Uri to call the service and add the product to the cart. If not null, the service uses this
+           * parameter to add the product, otherwise it uses @product
+           * @returns 
+           */
+            addMultipleProductsToCart: function (productsList) {
+                console.log("Calling DR addMultipleLineItems service");
+                var list = buildItemsToAdd(productsList);
+                return this._client.cart.addMultipleLineItems({}, { "lineItems": list })
+                .then(function (data) {
+                   console.log("Product/s successfully added to the cart");
+                   return data;
+                }, function (error) {
+                    console.log("Error when adding multiple products: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
+
+            /**
+             * Adds a Product to the Cart
+             * @param product product to be added
+             * @param qty quantity of product to be added
+             * @param addToCartUri Uri to call the service and add the product to the cart. If not null, the service uses this
+             * parameter to add the product, otherwise it uses @product
+             * @returns 
+             */
+            removeMultipleLineItemsFromCart: function (productsList) {
+                console.log("Calling DR addMultipleLineItems service to remove lineItems");
+                productsList.forEach(function (item) {
+                    item.qty = 0;
+                });
+                var list = buildItemsToAdd(productsList);
+                return this._client.cart.addMultipleLineItems({}, { "lineItems": list })
+                .then(function (data) {
+                    console.log("Product/s successfully removed from the cart");
+                    return data;
+                }, function (error) {
+                    console.log("Error when removing multiple products: " + error.details.error.code + ": " + error.details.error.description);
+                });
+            },
+
 
             /**
             * Edits the Quantity of a line Item
@@ -201,6 +250,52 @@
 
         }
     );
+
+    function buildItemsToAdd(productsList) {
+
+        var lineItems = {};
+        var lineItemList = []
+
+        productsList.forEach(function (item) {
+            var lineItem = {};
+            lineItem.product = {};
+            lineItem.product.id = item.product.id;
+            if (item.addToCartUri) {
+                var offerId = extractOfferIdFromURL(item.addToCartUri);
+                if(offerId){
+                    lineItem.offer = {};
+                    lineItem.offer.id = offerId;
+                }
+            }
+            lineItem.quantity = item.qty;
+            lineItemList.push(lineItem);
+        });
+        lineItems.lineItem = lineItemList;
+        return lineItems;
+
+    }
+
+    /**
+     * Extracts the offerId from the addToCartURL
+     */
+    function extractOfferIdFromURL(addToCartURL) {
+        if(!addToCartURL)
+            return null;
+        var u = Windows.Foundation.Uri(addToCartURL);
+        var decoder = new Windows.Foundation.WwwFormUrlDecoder(u.query);
+
+        var offerId = null;
+
+        try {
+            offerId = decoder.getFirstValueByName("offerId");
+        } catch (e) {
+            offerId = null;
+        }
+
+        return offerId;
+        
+    }
+
 
     WinJS.Namespace.define("DR.Store.Service", {
         CartService: Class
