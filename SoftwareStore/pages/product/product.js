@@ -124,7 +124,7 @@
                 } else {
                     savedAmount = "$" + (pricing.listPrice.value - pricing.salePriceWithQuantity.value).toFixed(2) + " " + WinJS.Resources.getString('productDetail.saved').value;
                 }
-                this.element.querySelector("#listPrice").textContent = pricing.formattedListPrice + " " + WinJS.Resources.getString('productDetail.MSRP').value;
+                this.element.querySelector("#listPrice").textContent = pricing.formattedListPrice;
                 this.element.querySelector("#savedAmount").textContent = savedAmount;
                 WinJS.Utilities.removeClass(this.element.querySelector("#listPriceLabel"), "hidden");
                 WinJS.Utilities.removeClass(this.element.querySelector("#savedAmountLabel"), "hidden");
