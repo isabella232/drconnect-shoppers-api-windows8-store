@@ -203,13 +203,12 @@
             showConnectionErrorDialog: function (error) {
                 var self = this;
                 if (!this.errorMessageDialog) {
-                    this.topAppBar.setVisible(false);
                     this.bottomAppBar.setVisible(false);
                     //Block the pageheader buttons
-                    this._blockPageHeaderBarButtons(true);
+                    //this._blockPageHeaderBarButtons(true);
                     // Create the message dialog and set its content
                     var msg = this._createErrorModalDialog(WinJS.Resources.getString('/errors/connectionLost.title').value, WinJS.Resources.getString('/errors/connectionLost.text').value);
-
+                    
                     this.errorMessageDialog = msg;
 
                     // Show the message dialog
