@@ -45,11 +45,8 @@
             if (pricing.formattedDiscount && pricing.formattedDiscount != "$0.00" && !hideDiscount) {
                 WinJS.Utilities.removeClass(this.element.querySelector("#discountLabel"), "hidden");
                 WinJS.Utilities.removeClass(this.element.querySelector("#cart-discount"), "hidden");
-                WinJS.Utilities.removeClass(this.element.querySelector("#oldPriceLabel"), "hidden");
-                WinJS.Utilities.removeClass(this.element.querySelector("#oldPrice"), "hidden");
-                this.element.querySelector("#cart-discount").textContent = pricing.formattedDiscount;
-                this.element.querySelector("#oldPrice").textContent = pricing.formattedSubtotal;
-                this.element.querySelector("#cart-subtotal").textContent ="$" +  (pricing.subtotal.value - pricing.discount.value).toFixed(2);
+                this.element.querySelector("#cart-discount").textContent = "-" + pricing.formattedDiscount;
+                this.element.querySelector("#cart-subtotal").textContent = pricing.formattedSubtotal;
             } else {
                 var discount = 0;
                 if (pricing.discount.value) {
@@ -59,8 +56,6 @@
                 this.element.querySelector("#cart-subtotal").textContent = "$" + (pricing.subtotal.value - discount).toFixed(2);
                 WinJS.Utilities.addClass(this.element.querySelector("#discountLabel"), "hidden");
                 WinJS.Utilities.addClass(this.element.querySelector("#cart-discount"), "hidden");
-                WinJS.Utilities.addClass(this.element.querySelector("#oldPriceLabel"), "hidden");
-                WinJS.Utilities.addClass(this.element.querySelector("#oldPrice"), "hidden");
             }
         },
         
