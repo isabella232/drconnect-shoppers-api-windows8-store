@@ -134,7 +134,7 @@
 }
     .cart-summary p {
         margin-top: 0px;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
         display: -ms-grid;
         -ms-grid-columns: 1fr 100px;
     }

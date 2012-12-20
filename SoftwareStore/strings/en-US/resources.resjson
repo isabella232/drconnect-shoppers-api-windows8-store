@@ -61,7 +61,7 @@
 
     "productDetail.overviewTab"         		: "Overview",
     "productDetail.detailTab"           		: "Details",
-    "productDetail.MSRP"                        : "MSRP",
+    "productDetail.MSRP"                        : "List Price",
     "productDetail.saved"                       : "Saved",
 
     "search.emptyMessage"               		: "No results match your search.",
