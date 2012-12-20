@@ -177,3 +177,7 @@
 	.cart-empty {
 	margin-left: 120px;
 }
+
+.candyrack-list .item-pricing {
+	text-align: left;
+}

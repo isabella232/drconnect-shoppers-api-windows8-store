@@ -198,6 +198,11 @@ footer p {
     content: "\E10F";
 }
 
+.strike-through {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
 @media screen and (-ms-view-state: snapped) {
     .fragment {
         -ms-grid-rows: 80px 1fr 80px;
