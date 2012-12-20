@@ -355,7 +355,12 @@
             }
             var count = this.candyRackList.selection.count();
             if (count > 0) {
-                this.bottomAppBar.showCommands(["cmdAddOffer", "cmdViewOffer"]);
+                this.bottomAppBar.showCommands(["cmdAddOffer"]);
+                if (count == 1) {
+                    this.bottomAppBar.showCommands(["cmdViewOffer"]);
+                } else {
+                    this.bottomAppBar.hideCommands(["cmdViewOffer"]);
+                }
                 // If an item is being selected i do nothing with the appbar, since it will be shown or hidden by the function that is selecting the item
                 if (!this._selectingItemFlag) {
                     this.topAppBar.show();

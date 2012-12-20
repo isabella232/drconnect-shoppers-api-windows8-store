@@ -185,7 +185,12 @@
         _offerItemSelected: function (item, e) {
             var count = this.offersList.selection.count();
             if (count > 0) {
-                this.bottomAppBar.showCommands(["cmdAddOffer", "cmdViewOffer"]);
+                this.bottomAppBar.showCommands(["cmdAddOffer"]);
+                if (count == 1) {
+                    this.bottomAppBar.showCommands(["cmdViewOffer"]);
+                } else {
+                    this.bottomAppBar.hideCommands(["cmdViewOffer"]);
+                }
                 this.topAppBar.show();
                 this.bottomAppBar.show();
             } else {
