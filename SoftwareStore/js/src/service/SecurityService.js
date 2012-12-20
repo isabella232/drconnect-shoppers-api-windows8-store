@@ -57,10 +57,13 @@
                 DR.MVC.AuthenticationHelper.authenticate(authHelper.uri, this.redirectUri)
                 .then(
                         function (response) {
-                            // Set Authenticated flag, so the application allow access to secured pages
-                            self.authenticated = true;
+                            // If response is not defined it means that the user has cancelled the login operation
+                            if (response) {
+                                // Set Authenticated flag, so the application allow access to secured pages
+                                self.authenticated = true;
 
-                            authHelper.setResults(response.token, response.expirationTime);
+                                authHelper.setResults(response.token, response.expirationTime);
+                            }
                         },
                         function (response) {
                             authHelper.setError(response.error, response.error_description);

@@ -41,7 +41,8 @@
     function buildError(error, description) {
         return {
             error: error,
-            error_description: description
+            error_description: description,
+            handled: true
         }
     }
 
@@ -76,7 +77,7 @@
                             throw buildError("server_error", "There was a problem with the connection");
                         } else {
                             // User cancelled   
-                            throw buildError(USER_CANCELLED, "");
+                            //throw buildError(USER_CANCELLED, "");
                         }
                     },
                     function (err) {
