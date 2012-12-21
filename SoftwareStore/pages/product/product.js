@@ -120,7 +120,7 @@
                 var savedAmount;
                 // This if statement is applied because there is a bug on the offers api that retrieves the discount in null besides it should be a value different than 0
                 if (pricing.totalDiscountWithQuantity) {
-                    savedAmount = "$" + pricing.totalDiscountWithQuantity.value + " " + WinJS.Resources.getString('productDetail.saved').value;
+                    savedAmount = "$" + pricing.totalDiscountWithQuantity.value.toFixed(2) + " " + WinJS.Resources.getString('productDetail.saved').value;
                 } else {
                     savedAmount = "$" + (pricing.listPrice.value - pricing.salePriceWithQuantity.value).toFixed(2) + " " + WinJS.Resources.getString('productDetail.saved').value;
                 }
