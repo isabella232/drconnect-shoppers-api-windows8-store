@@ -161,7 +161,9 @@
                     this.errorMessageDialog = msg;
 
                     // Show the message dialog
-                    msg.showAsync();
+                    msg.showAsync().done(function (e) {
+                        self.errorMessageDialog = null;
+                    });;
                 }
 
             },
@@ -208,11 +210,13 @@
                     //this._blockPageHeaderBarButtons(true);
                     // Create the message dialog and set its content
                     var msg = this._createErrorModalDialog(WinJS.Resources.getString('/errors/connectionLost.title').value, WinJS.Resources.getString('/errors/connectionLost.text').value);
-                    
+
                     this.errorMessageDialog = msg;
 
                     // Show the message dialog
-                    msg.showAsync();
+                    msg.showAsync().done(function (e) {
+                        self.errorMessageDialog = null;
+                    });
                 }
 
             },
