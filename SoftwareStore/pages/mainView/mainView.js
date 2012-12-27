@@ -252,11 +252,16 @@
              * Animates the cart button on pageHeaderBar to show the current number of items on the cart
              */
             animatePageHeaderCartIcon: function (cartQuantity) {
-
                 var button = this.pageHeaderBar.element.querySelector('#upper-cart');
                 // If the cart button on the page header bar is not visible there is no animation
                 if (button.currentStyle.display === "none") {
                     this._badgeCount.textContent = cartQuantity;
+
+                    if (cartQuantity < 1) {
+                        this._badge.style.display = 'none';
+                    } else {
+                        this._badge.style.display = 'block';
+                    }
                     return;
                 }
 
@@ -282,7 +287,12 @@
                         WinJS.Utilities.removeClass(animationIcon, 'start');
                         WinJS.Utilities.removeClass(animationIcon, 'end');
                         self._badgeCount.textContent = cartQuantity;
-                        self._badge.style.display = 'block';
+
+                        if (cartQuantity < 1) {
+                            self._badge.style.display = 'none';
+                        } else {
+                            self._badge.style.display = 'block';
+                        }
                     });
                 }, 500);
             }

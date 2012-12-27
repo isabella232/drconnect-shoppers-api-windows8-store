@@ -120,6 +120,7 @@
                 self.notify(DR.Store.Notifications.BLOCK_APP, WinJS.Resources.getString("general.notifications.submitCart").value);
                 return DR.Store.Services.cartService.submit().then(function (order) {
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
+                    self.notify(DR.Store.Notifications.CART_CHANGED);
                     self.goToPage(DR.Store.URL.THANKS_PAGE, { "order": order, "cart": cart });
                 }, function (error) {
                     console.log("CheckoutController: Error submiting the cart: " + error.details.error.code + " - " + error.details.error.description);
