@@ -36,7 +36,8 @@
         <section class="content main-content" aria-label="Checkout content" role="main">
             <div class="checkout-list-container">
                 <h2 class="checkout-list-header" data-win-res="{textContent: 'cart.shoppingCartTile'}"></h2>
-                <div class="checkoutlist win-selectionstylefilled" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist">
+                <div class="checkoutlist" aria-label="List of Items" data-win-control="WinJS.UI.ListView" id="cartlist"
+                     data-win-options="{ selectionMode: 'none',  tapBehavior: 'none' }">
                 </div>
 
                  <div id="summary" class="cart-summary" data-win-control="DR.Store.Widget.Html.CartSummaryWidget"></div>
