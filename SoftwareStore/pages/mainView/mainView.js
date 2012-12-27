@@ -73,6 +73,10 @@
                 var button = this.pageHeaderBar.element.querySelector("#upper-cart");
                 button.onclick = this._onCartButtonClick.bind(this);
 
+                this._badge = this.pageHeaderBar.element.querySelector("#cartIconBadge");
+                this._badgeCount = this._badge.querySelector('.badge-count');
+
+                // TODO if we have a 
             },
 
             /**
@@ -249,6 +253,7 @@
                 var button = this.pageHeaderBar.element.querySelector('#upper-cart');
                 // If the cart button on the page header bar is not visible there is no animation
                 if (button.currentStyle.display === "none") {
+                    this._badgeCount.textContent = cartQuantity;
                     return;
                 }
 
@@ -256,28 +261,25 @@
                 // Sets the animation
                 animationIcon.querySelector('#quantity').textContent = cartQuantity;
                 
-                var offset = _findTopLeft(button);
+                WinJS.Utilities.addClass(animationIcon, 'start');
+
                 var animation;
 
-                // show the icon
-                animationIcon.style.left = offset.left + "px";
-                animationIcon.style.top = offset.top + "px";
-                animationIcon.style.display = "block";
-
-                // set the animation
+                //// set the animation
                 animation = WinJS.UI.Animation.createRepositionAnimation(animationIcon);
 
-                // do the transformations.
+                //// do the transformations.
                 WinJS.Utilities.addClass(animationIcon, "end");
-                animationIcon.style.left = (offset.left + 10) + "px";
-                animationIcon.style.top = (offset.top + 10) + "px";
 
-                // trigger the animation.
+                var self = this;
+                //// trigger the animation.
                 setTimeout(function () {
                     animation.execute().done(function () {
                         // restore original values
-                        animationIcon.style.display = "none";
+                        WinJS.Utilities.removeClass(animationIcon, 'start');
                         WinJS.Utilities.removeClass(animationIcon, 'end');
+                        self._badgeCount.textContent = cartQuantity;
+                        self._badge.style.display = 'block';
                     });
                 }, 500);
             }
@@ -289,6 +291,7 @@
      * Finds the top left point of an element
      */
     function _findTopLeft(el) {
+        return { top: el.offsetTop, left: el.offsetLeft };
         var _x = 0;
         var _y = 0;
         while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {

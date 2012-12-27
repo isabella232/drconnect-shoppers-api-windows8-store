@@ -11,18 +11,22 @@
 
     <!--Contains the common controls of the pageHeaderBar-->
     <div class="page-header-bar">
-        <button class="win-command win-global win-hidefocus" id="upper-cart" role="menuitem" aria-label="Command" type="button" >
+        <button class="win-command win-global win-hidefocus" id="upper-cart" role="menuitem" aria-label="Command" type="button" style="position: relative;">
             <span tabindex="-1" class="win-commandicon win-commandring" aria-hidden="true">
                 <span tabindex="-1" class="win-commandimage" aria-hidden="true"></span>
             </span>
             <span tabindex="-1" class="win-label" aria-hidden="true" data-win-res="{textContent: 'general.button.cart'}"></span>
+            <span id="addToCartAnimation" class="add-to-cart">
+                <span id="quantity" class="add-to-cart-count"></span>
+            </span>
+            <span id="cartIconBadge">
+                <span id="badgeQuantity" class="badge-count">0</span>
+            </span>
         </button>
         <img class="store-logo" src="/images/softwarestore_logo2.png" />
     </div>
 
-   <div id="addToCartAnimation" class="add-to-cart start">
-        <span id="quantity" class="add-to-cart-count" style="display: inline-block;"></span>
-    </div>
+
 
 </body>
 </html>
