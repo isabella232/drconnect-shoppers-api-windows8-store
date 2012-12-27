@@ -68,13 +68,17 @@
                         url = DR.Store.URL.CATEGORY_PAGE;
                         break;
                     case DR.Store.Datasource.ItemType.SPOTLIGHT:
-                        url = DR.Store.URL.OFFER_PAGE;
+                        if (item.productOffers.productOffer) {
+                            url = DR.Store.URL.OFFER_PAGE;
+                        }
                         break;
                     default:
                         url = DR.Store.URL.PRODUCT_PAGE;
                         break;
                 }
-                this.goToPage(url, { item: item });
+                if (url) {
+                    this.goToPage(url, { item: item });
+                }
             },
             
             /**
