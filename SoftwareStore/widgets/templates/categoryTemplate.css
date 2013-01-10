@@ -21,8 +21,11 @@
 }
 
 .categoryTemplate .image-wrapper img {
-	max-width: 150px;
+	max-width: 154px;
 	max-height: 158px;
+	-ms-grid-row-align: center;
+	-ms-grid-column-align: center;
+	top: 10%;
 }
 
 .categoryTemplate .category-title {
@@ -38,7 +41,7 @@
 
 .categoryTemplate .category-title p{
 	margin-top: 0px;
-	font-size: 9pt;
+	font-size: 11pt;
 	font-weight: 500;
 	line-height: 10px;
 	padding-left: 10px;
@@ -47,4 +50,5 @@
 	overflow: hidden;
 	height: 25px;
 	color: white;
+	text-align: center;
 }

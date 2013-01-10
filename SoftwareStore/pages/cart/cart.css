@@ -2,7 +2,6 @@
     display: -ms-grid;
     -ms-grid-columns: 1fr 348px 40px;
     -ms-grid-rows: 40px 1fr 150px;
-    color: white;
     height: 100%;
     margin-left: 120px;
 }
@@ -15,7 +14,7 @@
 }
 
 .cart-list-header {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid black;
     margin-bottom: 0px;
     margin-right: 24px;
     padding-bottom: 5px;
@@ -60,7 +59,6 @@
 
 /* Over rides default.css */
 .item-container .item-title {
-    color: white;
 }
 
 .col-1 {
@@ -91,7 +89,7 @@
 /* Over-rides ui-dark.css */
 
 .cart-line-item {
-    background-color: rgba(23, 38, 66, 0.498);
+    background-color: #DDD;
 }
 
     .cart-line-item div {
@@ -136,7 +134,7 @@
         margin-top: 0px;
         margin-bottom: 2px;
         display: -ms-grid;
-        -ms-grid-columns: 1fr 100px;
+        -ms-grid-columns: 1fr 120px;
     }
 
     .cart-summary .col-1 {

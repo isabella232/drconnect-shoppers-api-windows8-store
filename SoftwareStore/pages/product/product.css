@@ -27,10 +27,13 @@
     margin-right: 30px;
 }
 
-    .productpage .header-button.selected {
-        font-weight: 500;
+    .productpage .header-button {
+		background-color: transparent;
+		
     }
-
+	.productpage .header-button.selected{
+		font-weight: 500;
+	}
 .productpage .display-pane {
     -ms-grid-column: 1;
     -ms-grid-row: 2;
@@ -47,7 +50,6 @@
 }
 
 .productpage button.buyNow {
-    background-color: #49bb04;
     margin-top: 10px;
 }
 
@@ -100,8 +102,7 @@
 
 .productpage .pricing-wrapper {
     padding: 10px 20px 20px;
-    background-color: rgba(33, 47, 76, 0.498);
-    border: 2px solid #5F84CF;
+    border: 2px solid black;
     width: 130px;
 }
 
@@ -126,6 +127,14 @@
 	-ms-grid-column: 1;
 	margin-top: -5px;
 	height: calc(100% - 48px);
+}
+
+.productpage h3 {
+	margin-bottom: 5px;
+}
+
+.productpage .sale-price {
+	color: #FF8500;
 }
 
  .productpage #snapped_description {

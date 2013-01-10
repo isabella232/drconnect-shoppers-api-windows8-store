@@ -197,8 +197,8 @@ footer p {
 }
 
 #informationFlyout {
-	border: 2px solid #5F84CF;
-	background-color: rgba(23, 31, 48, 0.8);
+	border: 2px solid black;
+	background-color: white;
 }
 
 #errorFlyout {
@@ -217,14 +217,12 @@ footer p {
 .processing-flyout progress {
 	-ms-grid-column: 1;
 	-ms-grid-row: 1;
-	color: #FBFBFB !important;
 }
 
 
 .processing-flyout .processing-message {
 	-ms-grid-column: 2;
 	margin: 0px;
-	color: #FBFBFB;
 }
 .dr-homebutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
     content: "\E10F";
@@ -233,6 +231,16 @@ footer p {
 .empty-message {
 	margin-left: 120px;
 	font-size: 20pt;
+}
+
+.call-to-action {
+	background-color: #1EDB11;
+	background-image: linear-gradient(#7BC721, #5A9A18);
+	color: white;
+}
+
+button.call-to-action{
+	border-color: #317900;
 }
 
 .strike-through {
