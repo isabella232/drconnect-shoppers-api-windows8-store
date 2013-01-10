@@ -4,11 +4,10 @@ html {
 }
 
 body {
-    background: #2e436d url('/images/SoftwareStoreBigBackgroundImage.png') no-repeat;
+	background-color: #F1F1F1;
 }
 
     body.loading {
-        background-image: none;
     }
 
 progress {
@@ -229,6 +228,11 @@ footer p {
 }
 .dr-homebutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
     content: "\E10F";
+}
+
+.empty-message {
+	margin-left: 120px;
+	font-size: 20pt;
 }
 
 .strike-through {

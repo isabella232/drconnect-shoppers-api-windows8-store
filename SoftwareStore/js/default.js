@@ -8,9 +8,11 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
-    //604df5ac990fbc67dab8fc098af271e6
-    //dbefd4f1739dded86c0a4967442935b3
-    var storeApp = new DR.Store.Core.Application({ key: "604df5ac990fbc67dab8fc098af271e6", extendedSplashImage: "/images/SoftwareStoreSplashScreen.png", landingPage: DR.Store.URL.HOME_PAGE });
+    //604df5ac990fbc67dab8fc098af271e6 : aqued
+    //dbefd4f1739dded86c0a4967442935b3 : swstore
+    //e799b336f0d87f01bc28646a44749535 : lenovods
+
+    var storeApp = new DR.Store.Core.Application({ key: "e799b336f0d87f01bc28646a44749535", extendedSplashImage: "/images/SoftwareStoreSplashScreen.png", landingPage: DR.Store.URL.HOME_PAGE });
 
     if (!console.debug) {
         console.debug = console.log;

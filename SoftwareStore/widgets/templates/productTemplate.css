@@ -4,10 +4,10 @@
     Use whenever a product is displayed in a list view control 
 */
 .productTemplate.item-container {
-	border: 2px solid #5F84CF;
+	border: 2px solid black;
 	cursor: pointer;
 	width: 306px;
-	background-color: rgba(34, 49, 78, 0.498);
+	background-color: white;
 	display: -ms-grid;
 	overflow: hidden;
 	height: 66px;
@@ -42,6 +42,7 @@
 	margin-top: 0px;
 	margin-bottom: 5px;
 	padding-right: 5px;
+	color: black;
 }
 
 .productTemplate .item-title {
@@ -53,11 +54,13 @@
 	-ms-grid-row: 1;
 	-ms-grid-column: 2;
 	margin-top: 5px;
+	color: black;
 }
 
 .productTemplate .item-pricing {
 	-ms-grid-row: 2;
 	-ms-grid-column: 2;
+	color: #EB6F00;
 } 
 
 .win-container.win-selected .win-selectionborder {

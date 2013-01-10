@@ -8,7 +8,7 @@
 	-ms-grid-rows: auto 30px;
 	overflow: hidden;
 	height: 150px;
-	width: 150px;
+	width: 310px;
 }
 
 .categoryTemplate .image-wrapper {
@@ -17,7 +17,7 @@
 	display: block;
 	text-align: center;
 	height: 124px;
-	width: 150px;
+	width: 310px;
 }
 
 .categoryTemplate .image-wrapper img {
@@ -28,12 +28,12 @@
 .categoryTemplate .category-title {
 	-ms-grid-row: 2;
 	-ms-grid-row-align: center;
-	background-color: rgba(21, 31, 50, 0.898);
+	background-color: #9A2D2C;
 	height: 40px;
 	overflow: hidden;
 	display: inline-block;
 	margin-bottom: 0px;
-	width: 150px;
+	width: 310px;
 }
 
 .categoryTemplate .category-title p{
@@ -46,4 +46,5 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	height: 25px;
+	color: white;
 }

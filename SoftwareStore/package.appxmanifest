@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="SoftwareStore" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="SoftwareStore" ForegroundText="light" BackgroundColor="#2e436d">
-        <DefaultTile ShowName="logoOnly" WideLogo="images\SoftwareStoreWideLogo.png" />
-        <SplashScreen Image="images\SoftwareStoreSplashScreen.png" />
+      <VisualElements DisplayName="Lenovo" Logo="images\Lenovo_150x150.png" SmallLogo="images\smalllogo.png" Description="SoftwareStore" ForegroundText="dark" BackgroundColor="#ffffff">
+        <DefaultTile ShowName="allLogos" WideLogo="images\Lenovo_wide_logo.png" ShortName="Lenovo Demo" />
+        <SplashScreen Image="images\Lenovo_splash_screen.png" BackgroundColor="#f1f1f1" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />
           <Rotation Preference="landscapeFlipped" />
