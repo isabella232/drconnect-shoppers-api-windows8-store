@@ -47,6 +47,7 @@
                     console.debug("Unblocking Application");
                     self.notify(DR.Store.Notifications.UNBLOCK_APP);
                 }, function (error) {
+                    self.notify(DR.Store.Notifications.UNBLOCK_APP);
                     console.log("There was an error on almost one of the service calls");
                 });
 
