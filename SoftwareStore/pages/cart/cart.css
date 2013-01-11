@@ -179,3 +179,15 @@
 .candyrack-list .item-pricing {
 	text-align: left;
 }
+
+@media screen and (-ms-view-state: filled) {
+	.cart-list-container {
+		display: -ms-grid;
+		-ms-grid-columns: 1fr 120px 40px;
+		-ms-grid-rows: 40px 1fr 150px;
+		height: 100%;
+		margin-left: 120px;
+	}
+
+	
+}
