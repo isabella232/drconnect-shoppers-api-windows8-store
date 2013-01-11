@@ -144,6 +144,10 @@
             }
         },
 
+        hideCandyRack: function(){
+            WinJS.Utilities.addClass(this.candyRackContent, "hidden");
+        },
+
         /**
          * Default behaviour when a cart item is clicked
          */

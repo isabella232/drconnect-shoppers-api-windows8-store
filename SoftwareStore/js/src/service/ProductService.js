@@ -73,7 +73,7 @@
                 var self = this;
                 console.debug("Calling DR getOffersForProduct");
 
-                return this._client.products.getOffersForProduct(productId, popName, { "expand": "all" }).then(function (offers) {
+                return this._client.products.getOffersForProduct(productId, popName, { "expand": "all" }, null, true).then(function (offers) {
                     return offers;
                 });
             },

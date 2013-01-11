@@ -3015,10 +3015,10 @@ define('service/CartService',['service/BaseService', 'Config'], function(BaseSer
          * @param parameters
          * @param callback service response
          */
-        getOffers: function(popName, parameters, callbacks){
+        getOffers: function(popName, parameters, callbacks, errorHandled){
             var uri = this.replaceTemplate(Config.service.URI.CART_OFFERS, {'popName':popName});
             
-            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
+            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks, errorHandled);
         },
         
         /**
@@ -3095,10 +3095,10 @@ define('service/ProductService',['service/BaseService', 'Config'], function(Base
         /**
          * Returns the offers for a product
          */
-         getOffersForProduct: function(productId, popName, parameters, callbacks){
+         getOffersForProduct: function(productId, popName, parameters, callbacks, errorHandled){
 			var uri = this.replaceTemplate(Config.service.URI.OFFERS_FOR_PRODUCT, {'productId':productId ,'popName':popName});
 			
-			return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
+			return this.makeRequest(this.session.retrieve(uri, parameters), callbacks, errorHandled);
          }
     });
 });
@@ -3141,10 +3141,10 @@ define('service/ProductOfferService',['service/BaseService', 'Config'], function
         /**
          * Gets a product offer list
          */
-        list: function(popName, offerId, parameters, callbacks) {
+        list: function(popName, offerId, parameters, callbacks, errorHandled) {
             var uri = this.replaceTemplate(this.uri, {'popName':popName, 'offerId':offerId});
     
-            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks);
+            return this.makeRequest(this.session.retrieve(uri, parameters), callbacks, errorHandled);
         },
         
         /**
