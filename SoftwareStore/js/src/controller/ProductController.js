@@ -78,7 +78,9 @@
                 DR.Store.Services.productService.getOffersForProduct(productId).then(function (offers) {
                     console.debug("Offers For Product Retrieved Successfully");
                     self.page.setSpecialOffers(offers);
+                    self.page.showOffers();
                 }, function (error) {
+                    self.page.hideOffers();
                     console.log("ProductController: Error retrieving special Offers: " + error.details.error.code + " - " + error.details.error.description);
                 });
             },

@@ -274,6 +274,10 @@
             }
         },
 
+        hideOffers: function(){
+            WinJS.Utilities.addClass(this.offersContent, "hidden");
+        },
+
         unload: function () {
             // When unloading set the setProduct function in order to avoid failing if the callback returns
             this.setProduct = function (product) {
