@@ -23,9 +23,13 @@
                 // If the login process was triggered by the user trying to access a secured page,
                 // store the page url to go there after authentication
                 if (requestedUrl) {
-                    this.requestedUrl = requestedUrl;
+                    if (requestedUrl != DR.Store.URL.SHOPPER_PAGE) {
+                        this.requestedUrl = requestedUrl;
+                    } else {
+                        this.requestedUrl = DR.Store.URL.HOME_PAGE;
+                    }
                 }
-
+                
                 var self = this;
 
                 // Call a getCart First to check that the token has not expired.. if not, the token would be refreshed so next time 
