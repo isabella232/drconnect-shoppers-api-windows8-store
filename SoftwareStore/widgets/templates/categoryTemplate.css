@@ -31,7 +31,7 @@
 .categoryTemplate .category-title {
 	-ms-grid-row: 2;
 	-ms-grid-row-align: center;
-	background-color: #9A2D2C;
+	background-color: rgba(143, 28, 27, 0.8);
 	height: 40px;
 	overflow: hidden;
 	display: inline-block;
